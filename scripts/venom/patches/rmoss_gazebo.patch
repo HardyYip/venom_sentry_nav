@@ -1,0 +1,63 @@
+diff --git a/rmoss_gz_plugins/plugins/light_bar_controller/LightBarController.cc b/rmoss_gz_plugins/plugins/light_bar_controller/LightBarController.cc
+index c26de1a..dd7ddf4 100644
+--- a/rmoss_gz_plugins/plugins/light_bar_controller/LightBarController.cc
++++ b/rmoss_gz_plugins/plugins/light_bar_controller/LightBarController.cc
+@@ -16,6 +16,7 @@
+ 
+ #include <ignition/gazebo/components/ParentEntity.hh>
+ #include <ignition/gazebo/components/Visual.hh>
++#include <ignition/gazebo/components/VisualCmd.hh>
+ #include <ignition/gazebo/components/Model.hh>
+ #include <ignition/gazebo/components/Name.hh>
+ #include <ignition/gazebo/components/Link.hh>
+@@ -85,7 +86,7 @@ class ignition::gazebo::systems::LightBarControllerPrivate
+ public:
+     void OnCmd(const ignition::msgs::Int32 &_msg);
+     void Init(ignition::gazebo::EntityComponentManager &_ecm);
+-    void UpdateVisualEnitiies();
++    void UpdateVisualEnitiies(ignition::gazebo::EntityComponentManager &_ecm);
+ 
+ public:
+     transport::Node node;
+@@ -181,7 +182,7 @@ void LightBarController::PreUpdate(const ignition::gazebo::UpdateInfo &_info,
+         }
+     }
+     if(!this->dataPtr->isDone){
+-        this->dataPtr->UpdateVisualEnitiies();
++        this->dataPtr->UpdateVisualEnitiies(_ecm);
+         // check
+         bool flag = true;
+         for(auto &info: this->dataPtr->visualEntityInfos){
+@@ -223,16 +224,17 @@ void LightBarControllerPrivate::Init(ignition::gazebo::EntityComponentManager &_
+     }
+ }
+ 
+-void LightBarControllerPrivate::UpdateVisualEnitiies(){
++void LightBarControllerPrivate::UpdateVisualEnitiies(
++    ignition::gazebo::EntityComponentManager &_ecm){
+     for(auto &info: this->visualEntityInfos){
+-        if(info.state == 0){
+-            this->creator->RequestRemoveEntity(info.entity);
+-        }else if(info.state == 1){
+-            info.entity = this->creator->CreateEntities(&(info.visualSdf));
+-            this->creator->SetParent(info.entity , info.parentEntity);
+-        }
+         if(info.state<2){
+-            info.state++;
++            // Fortress supports material commands without destroying the visual.
++            // Recreating the same named entity can race the sensor render thread.
++            ignition::msgs::Visual command;
++            *command.mutable_material() =
++                convert<ignition::msgs::Material>(*info.visualSdf.Material());
++            _ecm.SetComponentData<components::VisualCmd>(info.entity, command);
++            info.state = 2;
+         }  
+     }
+ }
+@@ -244,4 +246,4 @@ IGNITION_ADD_PLUGIN(LightBarController,
+                     LightBarController::ISystemPreUpdate
+                     )
+ 
+-IGNITION_ADD_PLUGIN_ALIAS(LightBarController, "ignition::gazebo::systems::LightBarController")
+\ No newline at end of file
++IGNITION_ADD_PLUGIN_ALIAS(LightBarController, "ignition::gazebo::systems::LightBarController")

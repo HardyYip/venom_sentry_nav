@@ -1,0 +1,5 @@
+{"event": "startup", "mode": "nav", "missing": ["clock", "converted_cloud", "ground_truth", "imu", "lidar", "lio", "map", "odometry", "terrain_map", "terrain_map_ext"], "frames_ready": false, "states": {}, "counts": {}}
+{"event": "ready", "mode": "nav", "map_xy": [0.004396571102766332, -0.011569029725450269], "sim_time": 74.422, "states": {"controller_server": 3, "planner_server": 3, "bt_navigator": 3, "velocity_smoother": 3}, "counts": {"clock": 2937, "imu": 601, "ground_truth": 2501, "map": 1, "converted_cloud": 15, "lio": 1965, "odometry": 9, "lidar": 3, "terrain_map_ext": 20, "terrain_map": 20}}
+{"event": "goal", "mode": "nav", "xy": [0.8043965711027664, -0.011569029725450269], "initial_ground_truth": [3.4000030366215777, 9.499999999878497]}
+{"event": "result", "mode": "nav", "status": 4, "ground_truth_moved": 1.0138411620778103, "goal_error": 0.1641996847885043, "nonzero_commands": 23, "counts": {"clock": 4159, "imu": 855, "ground_truth": 3541, "map": 1, "converted_cloud": 25, "lio": 3578, "odometry": 17, "lidar": 4, "terrain_map_ext": 34, "terrain_map": 34, "cmd_vel": 23}}
+{"event": "PASS", "mode": "nav"}
