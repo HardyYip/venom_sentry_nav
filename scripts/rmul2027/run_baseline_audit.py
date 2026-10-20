@@ -14,10 +14,10 @@ from pathlib import Path
 parser=argparse.ArgumentParser()
 parser.add_argument('--record-dir',type=Path,required=True)
 parser.add_argument('--navigation-log',type=Path)
-parser.add_argument('--route-set',choices=['baseline','central-marking'],default='baseline')
+parser.add_argument('--route-set',choices=['baseline','central-marking','manual-c014'],default='baseline')
 parser.add_argument('--last-case',choices=['ready','01-short','02-east-north','03-center','04-west-south','05-west-north','06-east-north-repeat','07-occupied','01-manual-first','02-manual-second','03-seam-approach','04-seam-positive-y','05-seam-negative-y'])
 args=parser.parse_args()
-args.last_case=args.last_case or ('05-seam-negative-y' if args.route_set=='central-marking' else '07-occupied')
+args.last_case=args.last_case or ('05-seam-negative-y' if args.route_set=='central-marking' else '02-manual-second' if args.route_set=='manual-c014' else '07-occupied')
 folder=Path(__file__).resolve().parent
 workspace=folder.parents[3]
 record=args.record_dir.resolve()
@@ -50,9 +50,13 @@ meta['navigation_configuration_changed']=active_params.read_bytes()!=(folder/'co
 meta['robot_configuration_changed']=(navlog.parent/'gz_world.yaml').read_bytes()!=(folder/'config/gz_world_rounded.yaml').read_bytes()
 config=record/'configuration'
 config.mkdir(exist_ok=True)
-for source in [active_params,navlog.parent/'gz_world.yaml',folder/'behavior_trees/navigate_field.xml',folder/'scene/conversion.json',navlog.parent/('flat-marking-contact-manifest.json' if (navlog.parent/'flat-marking-contact-manifest.json').exists() else 'navigation-contact-manifest.json'),workspace/'artifacts/rmul_2027_3v3/maps-cad/manifest.json']:
+contact_manifests=sorted(navlog.parent.glob('*contact-manifest.json'))
+if len(contact_manifests)!=1:raise SystemExit('Expected exactly one active contact manifest.')
+for source in [active_params,navlog.parent/'gz_world.yaml',folder/'behavior_trees/navigate_field.xml',folder/'scene/conversion.json',contact_manifests[0],workspace/'artifacts/rmul_2027_3v3/maps-cad/manifest.json']:
     target=config/source.name
     if not target.exists():shutil.copyfile(source,target)
+rendering_snapshot=navlog.parent/'rendering-runtime.json'
+if rendering_snapshot.exists():shutil.copyfile(rendering_snapshot,config/'rendering-runtime.json')
 tf2_snapshot=navlog.parent/'tf2-runtime.json'
 if tf2_snapshot.exists():shutil.copyfile(tf2_snapshot,config/'tf2-runtime.json')
 meta['verifier_sha256']=hashlib.sha256((folder/'verify_simulation.py').read_bytes()).hexdigest()
@@ -106,6 +110,8 @@ try:
     phases=[('ready',['--mode','ready','--stability-seconds','12']),('01-short',['--mode','nav']),('02-east-north',['--mode','nav','--goal-x','9.3','--goal-y','-0.2']),('03-center',['--mode','nav','--goal-x','4.8','--goal-y','-3.0']),('04-west-south',['--mode','nav','--goal-x','-0.03','--goal-y','-5.86']),('05-west-north',['--mode','nav','--goal-x','0.0','--goal-y','-0.2']),('06-east-north-repeat',['--mode','nav','--goal-x','9.3','--goal-y','-0.2']),('07-occupied',['--mode','nav','--scenario','invalid'])]
     if args.route_set=='central-marking':
         phases=[('ready',['--mode','ready','--stability-seconds','12']),('01-manual-first',['--mode','nav','--goal-x','4.20','--goal-y','-5.71']),('02-manual-second',['--mode','nav','--goal-x','9.50','--goal-y','-5.71']),('03-seam-approach',['--mode','nav','--goal-x','5.53','--goal-y','-4.85']),('04-seam-positive-y',['--mode','nav','--goal-x','5.53','--goal-y','-4.15']),('05-seam-negative-y',['--mode','nav','--goal-x','5.53','--goal-y','-4.85'])]
+    if args.route_set=='manual-c014':
+        phases=[('ready',['--mode','ready','--stability-seconds','12']),('01-manual-first',['--mode','nav','--goal-x','9.675','--goal-y','-5.375']),('02-manual-second',['--mode','nav','--goal-x','-0.075','--goal-y','-0.625'])]
     if args.last_case not in [v[0] for v in phases]:raise ValueError('Last case does not belong to selected route set')
     phases=phases[:next(i for i,value in enumerate(phases) if value[0]==args.last_case)+1]
     meta['requested_last_case']=args.last_case;save_meta()

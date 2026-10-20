@@ -13,11 +13,12 @@ parser=argparse.ArgumentParser()
 parser.add_argument('--record-dir',type=Path,required=True)
 parser.add_argument('--params-file',type=Path,required=True)
 parser.add_argument('--gz-world-path',type=Path)
-parser.add_argument('--field-contact',choices=['cad','cad-flat-marking','seam-ramps'],default='seam-ramps')
-parser.add_argument('--route-set',choices=['baseline','central-marking'],default='baseline')
+parser.add_argument('--render-mode',choices=['software','gpu','auto'],default='software')
+parser.add_argument('--field-contact',choices=['cad','cad-flat-marking','cad-flat-floor','seam-ramps'],default='seam-ramps')
+parser.add_argument('--route-set',choices=['baseline','central-marking','manual-c014'],default='baseline')
 parser.add_argument('--last-case',choices=['ready','01-short','02-east-north','03-center','07-occupied','01-manual-first','02-manual-second','03-seam-approach','04-seam-positive-y','05-seam-negative-y'])
 args=parser.parse_args()
-args.last_case=args.last_case or ('05-seam-negative-y' if args.route_set=='central-marking' else '03-center')
+args.last_case=args.last_case or ('05-seam-negative-y' if args.route_set=='central-marking' else '02-manual-second' if args.route_set=='manual-c014' else '03-center')
 folder=Path(__file__).resolve().parent
 workspace=folder.parents[3]
 record=args.record_dir.resolve()
@@ -30,6 +31,7 @@ metadata={'owner':'Codex timing experiment','started_at':datetime.datetime.now()
 (record/'session.json').write_text(json.dumps(metadata,indent=2)+'\n')
 metadata['route_set']=args.route_set
 metadata['field_contact']=args.field_contact
+metadata['render_mode']=args.render_mode
 metadata['gz_world_path']=str(gz_world) if gz_world else None
 metadata['params_sha256']=hashlib.sha256(params.read_bytes()).hexdigest()
 if gz_world is not None:metadata['gz_world_sha256']=hashlib.sha256(gz_world.read_bytes()).hexdigest()
@@ -66,7 +68,7 @@ try:
     topics.extend(['/red_standard_robot1/map','/red_standard_robot1/local_plan','/red_standard_robot1/global_costmap/costmap','/red_standard_robot1/global_costmap/costmap_updates','/red_standard_robot1/local_costmap/costmap','/red_standard_robot1/local_costmap/costmap_updates','/red_standard_robot1/navigate_to_pose/_action/status','/red_standard_robot1/navigate_to_pose/_action/feedback'])
     recorder=launch('recorder',['ros2','bag','record','--include-hidden-topics','-o',str(record/'inputs'),*topics])
     command=['bash',str(folder/'start_rmul2027.sh'),'nav','--params-file',str(params),'--tf2-library-dir',str(workspace/'artifacts/rmul_2027_3v3/runtime/tf2-0.25.24/lib')]
-    command.extend(['--field-contact',args.field_contact])
+    command.extend(['--field-contact',args.field_contact,'--render-mode',args.render_mode])
     if gz_world is not None:command.extend(['--gz-world-path',str(gz_world)])
     wrapper=launch('launcher',command)
     deadline=time.monotonic()+180
@@ -81,7 +83,7 @@ try:
         time.sleep(.2)
     if navlog is None:raise TimeoutError('Navigation startup exceeded180wallseconds')
     metadata['navigation_log']=str(navlog)
-    for name in ['robot-red_standard_robot1.sdf','resource-hashes.json','world.sdf','gz_world.yaml','nav2_params.yaml','tf2-runtime.json','run-options.json','flat-marking-contact-manifest.json']:
+    for name in ['robot-red_standard_robot1.sdf','resource-hashes.json','world.sdf','gz_world.yaml','nav2_params.yaml','tf2-runtime.json','run-options.json','flat-marking-contact-manifest.json','flat-floor-contact-manifest.json','rendering-runtime.json']:
         source=navlog.parent/name
         if source.is_file():
             import shutil

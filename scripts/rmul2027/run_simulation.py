@@ -13,9 +13,10 @@ from pathlib import Path
 
 parser = argparse.ArgumentParser()
 parser.add_argument('mode', choices=('scene', 'mapping', 'nav'), nargs='?', default='nav')
+parser.add_argument('--render-mode', choices=('software','gpu','auto'), default='software')
 parser.add_argument('--map-set',choices=('sensor','cad'),default='cad')
 parser.add_argument('--wheel-contact',choices=('original','rounded'),default='rounded')
-parser.add_argument('--field-contact',choices=('cad','cad-flat-marking','seam-ramps'),default='seam-ramps')
+parser.add_argument('--field-contact',choices=('cad','cad-flat-marking','cad-flat-floor','seam-ramps'),default='seam-ramps')
 parser.add_argument('--params-file', default=str(Path(__file__).resolve().parent/'config/nav2_params.yaml'))
 parser.add_argument('--gz-world-path')
 parser.add_argument('--tf2-library-dir', help='Optional TF2 core library directory for 2027 navigation only')
@@ -49,11 +50,11 @@ except BlockingIOError:
 stamp = datetime.datetime.now().strftime('%Y%m%d-%H%M%S')
 logs = workspace / 'logs' / f'{stamp}-rmul2027-{options.mode}'
 logs.mkdir(parents=True)
-world_names={'cad':'rmul_2027_3v3_world.sdf','cad-flat-marking':'rmul_2027_3v3_flat_marking_world.sdf','seam-ramps':'rmul_2027_3v3_navigation_world.sdf'}
+world_names={'cad-flat-floor':'rmul_2027_3v3_flat_floor_world.sdf','cad':'rmul_2027_3v3_world.sdf','cad-flat-marking':'rmul_2027_3v3_flat_marking_world.sdf','seam-ramps':'rmul_2027_3v3_navigation_world.sdf'}
 world_profile='cad' if options.mode=='scene' and options.field_contact=='seam-ramps' else options.field_contact
 world_sdf=folder/'scene/worlds'/world_names[world_profile]
 if not world_sdf.is_file():raise SystemExit('Missing selected world: '+str(world_sdf))
-selected_manifest=folder/'scene'/('flat-marking-contact-manifest.json' if options.field_contact=='cad-flat-marking' else 'navigation-contact-manifest.json')
+selected_manifest=folder/'scene'/({'cad-flat-marking':'flat-marking-contact-manifest.json','cad-flat-floor':'flat-floor-contact-manifest.json'}.get(options.field_contact,'navigation-contact-manifest.json'))
 if not selected_manifest.is_file():raise SystemExit('Missing contact manifest: '+str(selected_manifest))
 shutil.copyfile(world_sdf,logs/'world.sdf')
 shutil.copyfile(selected_manifest,logs/selected_manifest.name)
@@ -78,9 +79,36 @@ for path in resources:
     if not path.is_file():raise SystemExit('Missing selected resource: '+str(path))
 (logs/'resource-hashes.json').write_text(json.dumps({str(x.relative_to(workspace)) if x.is_relative_to(workspace) else str(x):hashlib.sha256(x.read_bytes()).hexdigest() for x in dict.fromkeys(resources)},indent=2)+'\n')
 
-environment = {**os.environ, 'ROS_LOG_DIR': str(logs / 'ros'),
-               'LIBGL_ALWAYS_SOFTWARE': '1', 'GALLIUM_DRIVER': 'llvmpipe',
-               'LP_NUM_THREADS': os.environ.get('LP_NUM_THREADS', '2')}
+environment = {**os.environ, 'ROS_LOG_DIR': str(logs / 'ros')}
+rendering = {'requested': options.render_mode, 'selected': 'software', 'probe': None}
+if options.render_mode != 'software':
+    environment.pop('LIBGL_ALWAYS_SOFTWARE', None)
+    environment.pop('GALLIUM_DRIVER', None)
+    if not shutil.which('glxinfo'):
+        if options.render_mode == 'gpu':
+            raise SystemExit('GPU mode requires mesa-utils (glxinfo) for verification.')
+    else:
+        def render_probe():
+            try:
+                value = subprocess.run(['glxinfo', '-B'], env=environment, capture_output=True, text=True, timeout=10)
+                return value.stdout + value.stderr
+            except subprocess.TimeoutExpired:
+                return 'OpenGL probe timed out'
+        probe = render_probe()
+        if 'Accelerated: yes' not in probe and Path('/dev/dxg').exists():
+            environment['GALLIUM_DRIVER'] = 'd3d12'
+            environment['MESA_D3D12_DEFAULT_ADAPTER_NAME'] = os.environ.get('MESA_D3D12_DEFAULT_ADAPTER_NAME', 'NVIDIA')
+            probe = render_probe()
+        rendering['probe'] = probe
+        if 'Accelerated: yes' in probe:
+            rendering['selected'] = 'gpu'
+        elif options.render_mode == 'gpu':
+            raise SystemExit('Hardware OpenGL probe failed; simulation not started.\n' + probe)
+if rendering['selected'] == 'software':
+    environment.update(LIBGL_ALWAYS_SOFTWARE='1', GALLIUM_DRIVER='llvmpipe', LP_NUM_THREADS=os.environ.get('LP_NUM_THREADS', '2'))
+rendering['environment'] = {key: environment.get(key) for key in ['LIBGL_ALWAYS_SOFTWARE', 'GALLIUM_DRIVER', 'MESA_D3D12_DEFAULT_ADAPTER_NAME', 'LP_NUM_THREADS']}
+(logs / 'rendering-runtime.json').write_text(json.dumps(rendering, indent=2) + '\n')
+print('Gazebo rendering selection: ' + rendering['selected'], flush=True)
 navigation_environment = environment.copy()
 if selected_tf2_dir:
     navigation_environment['LD_LIBRARY_PATH'] = os.pathsep.join(filter(None, (
