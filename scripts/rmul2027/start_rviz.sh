@@ -40,5 +40,10 @@ else
     printf 'glxinfo unavailable; using the system renderer without forcing software.\n' >&2
   fi
 fi
+if [ -d /mnt/wslg ] && command -v powershell.exe >/dev/null 2>&1 && [ "${RMUL2027_RESTORE_WINDOW:-1}" != 0 ]; then
+  powershell.exe -NoLogo -NoProfile -NonInteractive -WindowStyle Hidden -ExecutionPolicy Bypass \
+    -File "$(wslpath -w "$task_dir/restore_rviz_window.ps1")" \
+    -ConfigTitle "$task_dir/config/interactive-light.rviz" 8>&- &
+fi
 exec ros2 run rviz2 rviz2 -d "$task_dir/config/interactive-light.rviz" \
   --ros-args -r __ns:=/red_standard_robot1 -r /tf:=tf -r /tf_static:=tf_static -p use_sim_time:=true
