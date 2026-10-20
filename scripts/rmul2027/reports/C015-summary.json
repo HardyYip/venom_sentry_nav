@@ -1143,7 +1143,21 @@
     "reason": "Audit manifest filename assumption failed before any goal; fixed and rerun in a new directory.",
     "navigation_goals_sent": 0
   },
-  "independent_workspace_check": null,
+  "independent_workspace_check": {
+    "passed": true,
+    "default_scene": "cad-flat-floor",
+    "render_mode_requested": "auto",
+    "render_mode_selected": "gpu",
+    "cases_passed": 2,
+    "reused_C011_build": true,
+    "source_commit": "46f90d986bdd1400efedb7eed9d579cd13c3de60",
+    "no_original_build_or_install_overlay": true,
+    "truth_endpoint_error_m": 0.1104131772973183,
+    "estimated_endpoint_error_m": 0.0793681865757285,
+    "stopped_speed": 6.150643457216709e-05,
+    "workspace": "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/reproduction/clean-20261020-140200",
+    "second_physical_computer_test": false
+  },
   "remaining_limits": [
     "WSLg window transport not permanently fixed; one earlier RViz map shader link error observed",
     "Synthetic point-time contract unchanged",
