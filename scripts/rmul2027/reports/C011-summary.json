@@ -1,0 +1,434 @@
+{
+  "owner": "Codex C-011",
+  "finished_at": "2026-10-20T14:35:40.098358+08:00",
+  "record_dir": "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/diagnostics/release-20261020-140200",
+  "threshold_m": 0.35,
+  "tested_source_commit": "69d305c7a68a4eb3f2e9df069d302916fe97e1f6",
+  "navigation": {
+    "normal-01": {
+      "completed": true,
+      "cases_passed": 8,
+      "max_truth_endpoint_error": 0.185919190787836,
+      "max_estimated_endpoint_error": 0.16147819008421732,
+      "max_aligned_error": 0.07090615005494243,
+      "max_elapsed_wall_s": 51.71782105599959,
+      "backup_events": 0,
+      "empty_plan_events": 0,
+      "scene": "seam-ramps",
+      "cases": [
+        {
+          "name": "ready",
+          "passed": true,
+          "event": "localization_stability"
+        },
+        {
+          "name": "01-short",
+          "passed": true,
+          "event": "result",
+          "status": 4,
+          "ground_truth_moved": 0.6472131307792252,
+          "goal_error": 0.16147819008421732,
+          "ground_truth_goal_error": 0.185919190787836,
+          "stopped_speed": 6.75563561482072e-05,
+          "stopped_command": 0.0,
+          "elapsed_wall_s": 4.506383214999005,
+          "nonzero_commands": 14
+        },
+        {
+          "name": "02-east-north",
+          "passed": true,
+          "event": "result",
+          "status": 4,
+          "ground_truth_moved": 8.486725754347654,
+          "goal_error": 0.14547820195837127,
+          "ground_truth_goal_error": 0.17069973233919158,
+          "stopped_speed": 2.8852680188167398e-05,
+          "stopped_command": 0.0,
+          "elapsed_wall_s": 51.71782105599959,
+          "nonzero_commands": 324
+        },
+        {
+          "name": "03-center",
+          "passed": true,
+          "event": "result",
+          "status": 4,
+          "ground_truth_moved": 5.122005458749447,
+          "goal_error": 0.08547247782322741,
+          "ground_truth_goal_error": 0.07221599907350518,
+          "stopped_speed": 8.738435415568419e-05,
+          "stopped_command": 0.0,
+          "elapsed_wall_s": 20.816521491000458,
+          "nonzero_commands": 118
+        },
+        {
+          "name": "04-west-south",
+          "passed": true,
+          "event": "result",
+          "status": 4,
+          "ground_truth_moved": 5.558758720112107,
+          "goal_error": 0.13931404646225315,
+          "ground_truth_goal_error": 0.11513641557471761,
+          "stopped_speed": 1.1536655197230652e-05,
+          "stopped_command": 0.0,
+          "elapsed_wall_s": 20.572897486999864,
+          "nonzero_commands": 94
+        },
+        {
+          "name": "05-west-north",
+          "passed": true,
+          "event": "result",
+          "status": 4,
+          "ground_truth_moved": 5.507080564489603,
+          "goal_error": 0.15187514092751328,
+          "ground_truth_goal_error": 0.1428196364189602,
+          "stopped_speed": 3.0030741827084226e-05,
+          "stopped_command": 0.0,
+          "elapsed_wall_s": 17.848903415999303,
+          "nonzero_commands": 73
+        },
+        {
+          "name": "06-east-north-repeat",
+          "passed": true,
+          "event": "result",
+          "status": 4,
+          "ground_truth_moved": 9.176046764876256,
+          "goal_error": 0.1559277594598145,
+          "ground_truth_goal_error": 0.16854371530260562,
+          "stopped_speed": 3.7991330643233315e-05,
+          "stopped_command": 0.0,
+          "elapsed_wall_s": 49.920162231001086,
+          "nonzero_commands": 237
+        },
+        {
+          "name": "07-occupied",
+          "passed": true,
+          "event": "invalid_result",
+          "status": 6,
+          "ground_truth_moved": 6.5480905439019776e-06,
+          "elapsed_wall_s": 3.082411258999855,
+          "nonzero_commands": 0
+        }
+      ],
+      "world_sha256": "d6e108da0b15b1e9b64332144572431a9c34e49a497b236417d69c76dbb1fde3",
+      "params_sha256": "2a89af8d0d123c7dc5f2e908d7f6806bec1f0877d13e7411d2e6d696fd2ad8a9",
+      "bag_closed": true,
+      "timing_diagnostics": false
+    },
+    "normal-02": {
+      "completed": true,
+      "cases_passed": 8,
+      "max_truth_endpoint_error": 0.16318429080278135,
+      "max_estimated_endpoint_error": 0.1503053007228942,
+      "max_aligned_error": 0.13041452662512035,
+      "max_elapsed_wall_s": 51.982859929998085,
+      "backup_events": 0,
+      "empty_plan_events": 0,
+      "scene": "seam-ramps",
+      "cases": [
+        {
+          "name": "ready",
+          "passed": true,
+          "event": "localization_stability"
+        },
+        {
+          "name": "01-short",
+          "passed": true,
+          "event": "result",
+          "status": 4,
+          "ground_truth_moved": 0.6812064523009665,
+          "goal_error": 0.12832045535775155,
+          "ground_truth_goal_error": 0.15272220846135637,
+          "stopped_speed": 1.1542344424756015e-05,
+          "stopped_command": 0.0,
+          "elapsed_wall_s": 5.408052866998332,
+          "nonzero_commands": 22
+        },
+        {
+          "name": "02-east-north",
+          "passed": true,
+          "event": "result",
+          "status": 4,
+          "ground_truth_moved": 8.474252924725878,
+          "goal_error": 0.12917038715364496,
+          "ground_truth_goal_error": 0.15283202600180354,
+          "stopped_speed": 5.484154365241933e-05,
+          "stopped_command": 0.0,
+          "elapsed_wall_s": 50.114136653999594,
+          "nonzero_commands": 216
+        },
+        {
+          "name": "03-center",
+          "passed": true,
+          "event": "result",
+          "status": 4,
+          "ground_truth_moved": 5.0932494435220965,
+          "goal_error": 0.0925351341338962,
+          "ground_truth_goal_error": 0.07153144317219812,
+          "stopped_speed": 6.84737095894007e-05,
+          "stopped_command": 0.0,
+          "elapsed_wall_s": 19.23791700500078,
+          "nonzero_commands": 67
+        },
+        {
+          "name": "04-west-south",
+          "passed": true,
+          "event": "result",
+          "status": 4,
+          "ground_truth_moved": 5.605644571135282,
+          "goal_error": 0.09911827107134492,
+          "ground_truth_goal_error": 0.08475078673518589,
+          "stopped_speed": 0.00010514333706612103,
+          "stopped_command": 0.0,
+          "elapsed_wall_s": 19.976946298000257,
+          "nonzero_commands": 53
+        },
+        {
+          "name": "05-west-north",
+          "passed": true,
+          "event": "result",
+          "status": 4,
+          "ground_truth_moved": 5.548423970637663,
+          "goal_error": 0.1197505251472927,
+          "ground_truth_goal_error": 0.12812545766403396,
+          "stopped_speed": 7.553348834132266e-05,
+          "stopped_command": 0.0,
+          "elapsed_wall_s": 20.044205187001353,
+          "nonzero_commands": 68
+        },
+        {
+          "name": "06-east-north-repeat",
+          "passed": true,
+          "event": "result",
+          "status": 4,
+          "ground_truth_moved": 9.185527052847744,
+          "goal_error": 0.1503053007228942,
+          "ground_truth_goal_error": 0.16318429080278135,
+          "stopped_speed": 8.234735280321182e-05,
+          "stopped_command": 0.0,
+          "elapsed_wall_s": 51.982859929998085,
+          "nonzero_commands": 196
+        },
+        {
+          "name": "07-occupied",
+          "passed": true,
+          "event": "invalid_result",
+          "status": 6,
+          "ground_truth_moved": 1.9473519803641338e-05,
+          "elapsed_wall_s": 3.1922051990004547,
+          "nonzero_commands": 0
+        }
+      ],
+      "world_sha256": "d6e108da0b15b1e9b64332144572431a9c34e49a497b236417d69c76dbb1fde3",
+      "params_sha256": "2a89af8d0d123c7dc5f2e908d7f6806bec1f0877d13e7411d2e6d696fd2ad8a9",
+      "bag_closed": true,
+      "timing_diagnostics": false
+    },
+    "cad-01": {
+      "completed": true,
+      "cases_passed": 8,
+      "max_truth_endpoint_error": 0.19192804369775382,
+      "max_estimated_endpoint_error": 0.17454906341372362,
+      "max_aligned_error": 0.10747661348623476,
+      "max_elapsed_wall_s": 51.98003863399936,
+      "backup_events": 0,
+      "empty_plan_events": 0,
+      "scene": "cad",
+      "cases": [
+        {
+          "name": "ready",
+          "passed": true,
+          "event": "localization_stability"
+        },
+        {
+          "name": "01-short",
+          "passed": true,
+          "event": "result",
+          "status": 4,
+          "ground_truth_moved": 0.6577301131690089,
+          "goal_error": 0.11928389459155497,
+          "ground_truth_goal_error": 0.1585524565355153,
+          "stopped_speed": 7.702688645425975e-05,
+          "stopped_command": 0.0,
+          "elapsed_wall_s": 5.554406232000474,
+          "nonzero_commands": 25
+        },
+        {
+          "name": "02-east-north",
+          "passed": true,
+          "event": "result",
+          "status": 4,
+          "ground_truth_moved": 8.459978804948221,
+          "goal_error": 0.17454906341372362,
+          "ground_truth_goal_error": 0.19192804369775382,
+          "stopped_speed": 3.065892173992815e-06,
+          "stopped_command": 0.0,
+          "elapsed_wall_s": 51.98003863399936,
+          "nonzero_commands": 198
+        },
+        {
+          "name": "03-center",
+          "passed": true,
+          "event": "result",
+          "status": 4,
+          "ground_truth_moved": 5.135925125411523,
+          "goal_error": 0.010990253369875023,
+          "ground_truth_goal_error": 0.02357133029603685,
+          "stopped_speed": 5.438519952211292e-05,
+          "stopped_command": 0.0,
+          "elapsed_wall_s": 20.006503829001304,
+          "nonzero_commands": 65
+        },
+        {
+          "name": "04-west-south",
+          "passed": true,
+          "event": "result",
+          "status": 4,
+          "ground_truth_moved": 5.49372735334698,
+          "goal_error": 0.11308073336689672,
+          "ground_truth_goal_error": 0.10701439434262759,
+          "stopped_speed": 7.845987316929968e-05,
+          "stopped_command": 0.0,
+          "elapsed_wall_s": 20.126708464998956,
+          "nonzero_commands": 59
+        },
+        {
+          "name": "05-west-north",
+          "passed": true,
+          "event": "result",
+          "status": 4,
+          "ground_truth_moved": 5.504264819602307,
+          "goal_error": 0.14588812616276753,
+          "ground_truth_goal_error": 0.14757916726162512,
+          "stopped_speed": 7.672678370168021e-05,
+          "stopped_command": 0.0,
+          "elapsed_wall_s": 19.78612584700022,
+          "nonzero_commands": 65
+        },
+        {
+          "name": "06-east-north-repeat",
+          "passed": true,
+          "event": "result",
+          "status": 4,
+          "ground_truth_moved": 9.196036524882047,
+          "goal_error": 0.14726881712855638,
+          "ground_truth_goal_error": 0.16233991747578944,
+          "stopped_speed": 0.00011472416405153651,
+          "stopped_command": 0.0,
+          "elapsed_wall_s": 50.99828549299855,
+          "nonzero_commands": 178
+        },
+        {
+          "name": "07-occupied",
+          "passed": true,
+          "event": "invalid_result",
+          "status": 6,
+          "ground_truth_moved": 1.8777144160691885e-05,
+          "elapsed_wall_s": 3.2023602699991898,
+          "nonzero_commands": 0
+        }
+      ],
+      "world_sha256": "66f30b5d98f2d37235d983e7160366c617e9f845e6b06045357182cb76ef6756",
+      "params_sha256": "2a89af8d0d123c7dc5f2e908d7f6806bec1f0877d13e7411d2e6d696fd2ad8a9",
+      "bag_closed": true,
+      "timing_diagnostics": false
+    }
+  },
+  "legacy": {
+    "passed": true,
+    "events": [
+      {
+        "event": "result",
+        "mode": "nav",
+        "status": 4,
+        "ground_truth_moved": 1.218292669473664,
+        "goal_error": 0.28098138509297044,
+        "nonzero_commands": 25,
+        "counts": {
+          "map": 1,
+          "clock": 6795,
+          "ground_truth": 5857,
+          "imu": 1380,
+          "converted_cloud": 44,
+          "lidar": 8,
+          "lio": 1903,
+          "adapted_odometry": 2790,
+          "lio_cloud": 24,
+          "registered_scan": 27,
+          "odometry": 11,
+          "terrain_map": 28,
+          "terrain_map_ext": 28,
+          "cmd_vel": 25
+        }
+      },
+      {
+        "event": "PASS",
+        "mode": "nav"
+      }
+    ],
+    "scope": "original ready and near goal checker only"
+  },
+  "reproduction": {
+    "built": true,
+    "packages_built": 29,
+    "duration": "4min30s",
+    "main_commit": "69d305c7a68a4eb3f2e9df069d302916fe97e1f6",
+    "root_tracked_changes": [],
+    "ready_and_near_passed": true,
+    "default_scene": "cad",
+    "old_overlay_detected": false,
+    "source_method": "Git clone --no-hardlinks; fixed dependency objects read from local source cache; runtime resources restored from committed assets",
+    "initial_failure": "Anaconda Windows Protobuf selected by inherited PATH; resolved by process-local Linux PATH filtering",
+    "near_result": {
+      "event": "result",
+      "mode": "nav",
+      "status": 4,
+      "ground_truth_moved": 0.6719223206830434,
+      "goal_error": 0.1441549937757581,
+      "ground_truth_goal_error": 0.16241233462789786,
+      "ground_truth_map_xy": [
+        0.6718141159770363,
+        0.001598306405860228
+      ],
+      "estimated_map_xy": [
+        0.6900019765348132,
+        0.006510385419341019
+      ],
+      "ground_truth_z": 0.0,
+      "stopped_speed": 7.553465794136957e-05,
+      "stopped_command": 0.0,
+      "elapsed_wall_s": 5.509789658000955,
+      "nonzero_commands": 34,
+      "counts": {
+        "clock": 6638,
+        "lio": 734,
+        "lio_cloud": 75,
+        "terrain_map": 75,
+        "map": 1,
+        "local_costmap": 10,
+        "adapted_odometry": 1912,
+        "registered_scan": 74,
+        "odometry": 74,
+        "global_costmap": 1,
+        "ground_truth": 5670,
+        "imu": 1242,
+        "converted_cloud": 59,
+        "terrain_map_ext": 65,
+        "lidar": 44,
+        "global_plan": 12,
+        "local_plan": 85,
+        "cmd_vel": 60
+      }
+    }
+  },
+  "known_limitations": [
+    "Finite static routes only; no exhaustive field, elevated platform or real hardware acceptance",
+    "Synthetic point-time contract remains unchanged",
+    "TF2 override is local; system library remains old",
+    "Old2025 uses its original readiness/near-goal verifier, not full 2027 acceptance"
+  ],
+  "github": {
+    "repository": "HardyYip/venom_sentry_nav",
+    "branch": "sim/rmul2027-3v3",
+    "published": false
+  }
+}

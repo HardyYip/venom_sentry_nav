@@ -4,13 +4,13 @@
 
 ## 当前证据
 
-C-010诊断开启的原圆柱候选已通过两次完整路线。C-011正在验证诊断关闭、原CAD对照和独立检出；最终结果见TEST_RESULTS.zh-CN.md。运行成功不能直接写成未经修改的上游仓库原样通过。
+C-011已完成诊断关闭的近似场景两次完整路线、原CAD一次完整路线、旧2025就绪／近点及独立检出构建／就绪／近点，全部通过。具体数字和有限验收边界见TEST_RESULTS.zh-CN.md。运行成功不能直接写成未经修改的上游仓库原样通过。
 
 两种场景必须分开记录：cad保留官方CAD转换后的原碰撞网格；seam-ramps增加12段低接缝过渡斜面，是辅助导航近似。两者使用相同2027 CAD派生地图，高平台和孔洞保守视为障碍，不代表三维通行层或隧道通过能力。
 
 ## 获取与恢复
 
-需要Ubuntu22.04 amd64、ROS2 Humble、Gazebo Fortress，以及scripts/venom/environment.lock.tsv对应的已安装依赖。FreeCAD仅在重新转换STEP时需要，直接运行附带网格和地图不需要FreeCAD。
+需要Ubuntu22.04 amd64、ROS2 Humble、Gazebo Fortress，以及scripts/venom/environment.lock.tsv对应的已安装依赖。Python依赖包括xmacro==1.2.1、numpy、scipy、matplotlib、PyYAML和Pillow；已有环境无需重复安装。FreeCAD仅在重新转换STEP时需要，直接运行附带网格和地图不需要FreeCAD。
 
 在一个新的WSL工作区中克隆本分支到src/pb2025_sentry_nav，进入该仓库执行：
 
@@ -19,7 +19,7 @@ python3 scripts/rmul2027/prepare_rmul2027.py
 bash scripts/rmul2027/build_rmul2027.sh
 ```
 
-恢复工具按现有dependencies.lock.repos与子模块SHA获取源码，验证patches/manifest.json并应用三个依赖补丁。重复执行会识别已应用补丁；版本不符、部分补丁或资源冲突时停止，保留现场。已有工作区可用--source-cache提供固定Git对象缓存；缓存不会作为运行时overlay。--legacy-pcd可导入校验通过的原2025大点云，2027基础运行不需要它。
+构建入口会在自身进程中排除Windows盘上的PATH条目，避免Anaconda的Protobuf污染Linux Gazebo构建；不修改全局环境。恢复工具通过单次Git命令HTTP/1.1获取依赖，按现有dependencies.lock.repos与子模块SHA获取源码，验证patches/manifest.json并应用三个依赖补丁。重复执行会识别已应用补丁；版本不符、部分补丁或资源冲突时停止，保留现场。已有工作区可用--source-cache提供固定Git对象缓存；缓存不会作为运行时overlay。--legacy-pcd可导入校验通过的原2025大点云，2027基础运行不需要它。
 
 assets包含约2MB导航地图、必要高度缓存、STEP来源清单，以及97KB官方TF2 deb。prepare仅校验并解包TF2到工作区artifacts/rmul_2027_3v3/runtime/tf2-0.25.24，不执行系统安装；保留系统旧TF2。包来源、SHA和上游修复见assets/external-resources.json。原2025的121MB PCD需按其官方分享地址获取，不纳入Git。
 
@@ -37,7 +37,7 @@ bash scripts/rmul2027/start_rmul2027_test.sh
 bash scripts/rmul2027/start_rmul2027_test.sh seam-ramps
 ```
 
-两者固定原圆柱轮碰撞体、诊断关闭、IMU队列5和项目局部TF2库。相机640×360@5、IMU200Hz、原PI及时间单位保持当前验证配置。缺地图、修复库或构建产物会报错，不回退其他场景或旧库。底层start_rmul2027.sh仍保留旧默认和显式参数，用于历史对照；日常本轮验收使用带_test的入口。
+两者固定原圆柱轮碰撞体、诊断关闭、IMU队列5和项目局部TF2库。相机640×360@5、IMU200Hz，2027仿真显式使用P=(1000,1000)、I=(200,200)，时间单位保持当前验证配置；底盘插件的上游缺省P=(100,500)、I=0仍保留，不能把此候选描述为上游零改动。缺地图、修复库或构建产物会报错，不回退其他场景或旧库。底层start_rmul2027.sh仍保留旧默认和显式参数，用于历史对照；日常本轮验收使用带_test的入口。
 
 终端B，在本仓库运行轻量RViz：
 

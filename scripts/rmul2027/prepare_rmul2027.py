@@ -32,7 +32,7 @@ def ensure_repo(destination,url,revision):
     destination.parent.mkdir(parents=True,exist_ok=True)
     relative=destination.relative_to(workspace)
     source=cache/relative if cache else None
-    command=['git','clone','--no-hardlinks','--no-checkout',str(source) if source and (source/'.git').exists() else url,str(destination)]
+    command=['git','-c','http.version=HTTP/1.1','clone','--no-hardlinks','--no-checkout',str(source) if source and (source/'.git').exists() else url,str(destination)]
     subprocess.run(command,check=True,timeout=240)
     git(destination,'remote','set-url','origin',url)
     git(destination,'checkout','--detach',revision)
