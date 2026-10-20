@@ -429,6 +429,12 @@
   "github": {
     "repository": "HardyYip/venom_sentry_nav",
     "branch": "sim/rmul2027-3v3",
-    "published": false
+    "published": true,
+    "verified_results_commit": "32edafea8583189453aaf8086a6273341bb8753c",
+    "verified_at": "2026-10-20T14:41:20.881421+08:00",
+    "branch_url": "https://github.com/HardyYip/venom_sentry_nav/tree/sim/rmul2027-3v3",
+    "network_clone_and_restore_verified": true,
+    "dependency_source_cache_used": true,
+    "main_unchanged": true
   }
 }
