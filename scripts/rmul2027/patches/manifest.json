@@ -1,0 +1,22 @@
+{
+  "repositories": [
+    {
+      "path": "src/pb2025_sentry_nav/point_lio",
+      "base_commit": "e85e79558cf746f6699888a54285fe48b3b0ac71",
+      "patch": "point_lio.patch",
+      "sha256": "351acc4660ff884f1f052ec94bee8c4736b8f0c50ed58f5237b3bcd7c21fd4a7"
+    },
+    {
+      "path": "src/rmu_gazebo_simulator",
+      "base_commit": "b42d7832500e5a9ad31a09c2edc7bc4fe5b5ce03",
+      "patch": "rmu_gazebo_simulator.patch",
+      "sha256": "e08b5c44a7e16c2e7571e3274f090a4d6e3c996e09091ac6bf04228c01e09f12"
+    },
+    {
+      "path": "src/rmoss_gazebo",
+      "base_commit": "7443ff06c345752d0e23172c479d99b27207e2c7",
+      "patch": "rmoss_gazebo.patch",
+      "sha256": "666db38f6429d115cceaf37e9ada4a351c7aa45d4c86758bfdf6e4c78f6a3ff7"
+    }
+  ]
+}

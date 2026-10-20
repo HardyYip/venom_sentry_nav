@@ -1,0 +1,157 @@
+diff --git a/rmu_gazebo_simulator/launch/spawn_robots.launch.py b/rmu_gazebo_simulator/launch/spawn_robots.launch.py
+index d0caf69861ca2b5763f4cf976e13e55f55df827b..7bd70c23b48e08c854630345b6bcf66154282541 100644
+--- a/rmu_gazebo_simulator/launch/spawn_robots.launch.py
++++ b/rmu_gazebo_simulator/launch/spawn_robots.launch.py
+@@ -13,18 +13,23 @@
+ # limitations under the License.
+ 
+ import os
++import math
++import copy
++from pathlib import Path
++import xml.etree.ElementTree as ET
+ 
+ import yaml
+ from ament_index_python.packages import get_package_share_directory
+ from launch import LaunchDescription
+-from launch.actions import ExecuteProcess
++from launch.actions import DeclareLaunchArgument, ExecuteProcess, OpaqueFunction
++from launch.substitutions import LaunchConfiguration
+ from launch_ros.actions import Node
+ from nav2_common.launch import ReplaceString
+ from sdformat_tools.urdf_generator import UrdfGenerator
+ from xmacro.xmacro4sdf import XMLMacro4sdf
+ 
+ 
+-def generate_launch_description():
++def _spawn_robots(context):
+     # Map fully qualified names to relative ones so the node's namespace can be prepended.
+     # In case of the transforms (tf), currently, there doesn't seem to be a better alternative
+     # https://github.com/ros/geometry2/issues/32
+@@ -48,7 +53,7 @@ def generate_launch_description():
+     robot_config = os.path.join(pkg_simulator, "config", "base_params.yaml")
+ 
+     # Get spawn robot init pose
+-    gz_world_path = os.path.join(pkg_simulator, "config", "gz_world.yaml")
++    gz_world_path = LaunchConfiguration("gz_world_path").perform(context)
+     with open(gz_world_path) as file:
+         config = yaml.safe_load(file)
+         selected_world = config.get("world")
+@@ -69,6 +74,94 @@ def generate_launch_description():
+         urdf_generator.parse_from_sdf_string(robot_xml)
+         robot_urdf_xml = urdf_generator.to_string()
+ 
++        if robot.get("wheel_contact_profile") == "rounded":
++            sdf_root=ET.fromstring(robot_xml)
++            changed=0
++            for link in sdf_root.findall(".//link"):
++                if not link.get("name", "").endswith("_wheel"):
++                    continue
++                for collision in list(link.findall("collision")):
++                    geometry=collision.find("geometry")
++                    cylinder=geometry.find("cylinder") if geometry is not None else None
++                    if cylinder is None:
++                        continue
++                    radius=float(cylinder.findtext("radius"))
++                    roller_radius=float(cylinder.findtext("length"))/2.0
++                    ring_radius=radius-roller_radius
++                    pose=[float(v) for v in collision.findtext("pose","0 0 0 0 0 0").split()]
++                    if abs(pose[4])+abs(pose[5])>1e-6:
++                        raise RuntimeError("Unsupported wheel collision orientation")
++                    for index in range(32):
++                        angle=2.0*math.pi*index/32.0
++                        sphere_collision=copy.deepcopy(collision)
++                        sphere_collision.set("name",collision.get("name")+f"_roller_{index}")
++                        position=[pose[0]+ring_radius*math.cos(angle),pose[1]+ring_radius*math.sin(angle)*math.cos(pose[3]),pose[2]+ring_radius*math.sin(angle)*math.sin(pose[3])]
++                        sphere_collision.find("pose").text=" ".join(str(v) for v in position+[0.,0.,0.])
++                        sphere_geometry=sphere_collision.find("geometry")
++                        for shape in list(sphere_geometry):
++                            sphere_geometry.remove(shape)
++                        ET.SubElement(ET.SubElement(sphere_geometry,"sphere"),"radius").text=str(roller_radius)
++                        link.append(sphere_collision)
++                    link.remove(collision)
++                    changed+=1
++            if changed!=4:
++                raise RuntimeError(f"Expected four wheel collision cylinders, found {changed}")
++            robot_xml=ET.tostring(sdf_root,encoding="unicode")
++            print("2027 navigation contact profile: 32 spherical roller primitives per wheel; original radius, width, poses and inertias retained.",flush=True)
++
++        option_names=['linear_x_p_gain','linear_y_p_gain','linear_x_i_gain','linear_y_i_gain','linear_x_i_limit','linear_y_i_limit','linear_x_max_force','linear_y_max_force','navigation_camera']
++        if any(name in robot for name in option_names):
++            sdf_root=ET.fromstring(robot_xml)
++            for gain_name in ["linear_x_p_gain","linear_y_p_gain","linear_x_i_gain","linear_y_i_gain","linear_x_i_limit","linear_y_i_limit","linear_x_max_force","linear_y_max_force"]:
++                if gain_name in robot:
++                    for plugin in sdf_root.findall(".//plugin"):
++                        if plugin.get("filename")=="MecanumDrive2":
++                            ET.SubElement(plugin,gain_name).text=str(robot[gain_name])
++            camera_settings=robot.get("navigation_camera")
++            if camera_settings:
++                for sensor in sdf_root.findall(".//sensor"):
++                    camera=sensor.find("camera")
++                    if sensor.get("type")!="camera" or camera is None:
++                        continue
++                    image=camera.find("image")
++                    if image is None:
++                        continue
++                    image.find("width").text=str(camera_settings["width"])
++                    image.find("height").text=str(camera_settings["height"])
++                    rate=sensor.find("update_rate")
++                    if rate is None:
++                        rate=ET.SubElement(sensor,"update_rate")
++                    rate.text=str(camera_settings["rate"])
++            robot_xml=ET.tostring(sdf_root,encoding="unicode")
++
++        if "imu_update_rate" in robot:
++            imu_rate=float(robot["imu_update_rate"])
++            if not math.isfinite(imu_rate) or imu_rate<=0.0:
++                raise ValueError("imu_update_rate must be finite and positive")
++            sdf_root=ET.fromstring(robot_xml)
++            changed=0
++            for sensor in sdf_root.findall(".//sensor"):
++                if sensor.get("type")!="imu" or sensor.get("name")!=robot.get("imu_sensor_name", "front_mid360_imu"):
++                    continue
++                rate=sensor.find("update_rate")
++                if rate is None:
++                    rate=ET.SubElement(sensor,"update_rate")
++                rate.text=str(imu_rate)
++                changed+=1
++            if changed==0:
++                raise RuntimeError("imu_update_rate requested but robot has no IMU sensor")
++            robot_xml=ET.tostring(sdf_root,encoding="unicode")
++            if os.environ.get("ROS_LOG_DIR"):
++                audit_dir=Path(os.environ["ROS_LOG_DIR"]).parent
++                audit_dir.mkdir(parents=True,exist_ok=True)
++                (audit_dir/f"robot-{robot['name']}.sdf").write_text(robot_xml)
++            print(f"Explicit IMU update rate: {imu_rate} Hz on {changed} sensor(s)",flush=True)
++
++        if os.environ.get("ROS_LOG_DIR"):
++            audit_dir=Path(os.environ["ROS_LOG_DIR"]).parent
++            audit_dir.mkdir(parents=True,exist_ok=True)
++            (audit_dir/f"robot-{robot['name']}.sdf").write_text(robot_xml)
++
+         # replace the <robot_name> in the bridge config file
+         aft_replace_ros_bridge_params = ReplaceString(
+             source_file=bridge_config,
+@@ -149,4 +242,12 @@ def generate_launch_description():
+         ld.add_action(robot_ign_bridge)
+         ld.add_action(set_performer_service)
+ 
+-    return ld
++    return ld.entities
++
++
++def generate_launch_description():
++    simulator = get_package_share_directory("rmu_gazebo_simulator")
++    return LaunchDescription([
++        DeclareLaunchArgument("gz_world_path", default_value=os.path.join(simulator, "config", "gz_world.yaml")),
++        OpaqueFunction(function=_spawn_robots),
++    ])
+diff --git a/rmu_gazebo_simulator/scripts/referee_system/simple_competition_1v1.py b/rmu_gazebo_simulator/scripts/referee_system/simple_competition_1v1.py
+index 70d48a561387afa1647511b6ebc7a5d4e48e30c0..3803237fcbbe27a519210ffbcb3271f27a1c5ae5 100755
+--- a/rmu_gazebo_simulator/scripts/referee_system/simple_competition_1v1.py
++++ b/rmu_gazebo_simulator/scripts/referee_system/simple_competition_1v1.py
+@@ -1,3 +1,4 @@
++#!/usr/bin/env python3
+ # Copyright 2021 Zhenpeng Ge
+ #
+ # Licensed under the Apache License, Version 2.0 (the "License");

@@ -1,0 +1,289 @@
+diff --git a/src/laserMapping.cpp b/src/laserMapping.cpp
+index 2b654fa27b050a7d5186b64bc7b6b5bb976fc05e..c2045aca8b2b08206a1b557378ef83a3660a541a 100755
+--- a/src/laserMapping.cpp
++++ b/src/laserMapping.cpp
+@@ -1,3 +1,4 @@
++#include "timing_diagnostics.h"
+ // #include <so3_math.h>
+ #include <malloc.h>
+ #include <pcl/filters/voxel_grid.h>
+@@ -317,6 +318,12 @@ int main(int argc, char ** argv)
+   executor.add_node(nh);
+ 
+   readParameters(nh);
++  if (imu_queue_depth < 1) {
++    RCLCPP_ERROR(nh->get_logger(), "imu_queue_depth must be positive");
++    rclcpp::shutdown();
++    return 1;
++  }
++  timing_probe().configure(nh, timing_diagnostics, imu_time_inte);
+   std::cout << "lidar_type: " << lidar_type << '\n';
+   ivox_ = std::make_shared<IVoxType>(ivox_options_);
+ 
+@@ -378,7 +385,8 @@ int main(int argc, char ** argv)
+       [](const sensor_msgs::msg::PointCloud2::SharedPtr msg) { standard_pcl_cbk(msg); });
+   }
+   auto sub_imu =
+-    nh->create_subscription<sensor_msgs::msg::Imu>(imu_topic, rclcpp::SensorDataQoS(), imu_cbk);
++    nh->create_subscription<sensor_msgs::msg::Imu>(
++      imu_topic, rclcpp::SensorDataQoS().keep_last(imu_queue_depth), imu_cbk);
+   auto pub_laser_cloud_full_res =
+     nh->create_publisher<sensor_msgs::msg::PointCloud2>("cloud_registered", 20);
+   auto pub_laser_cloud_full_res_body =
+@@ -397,7 +405,9 @@ int main(int argc, char ** argv)
+   while (rclcpp::ok()) {
+     if (flg_exit) break;
+     executor.spin_some();
++    timing_probe().report(imu_deque.size(), lidar_buffer.size());
+     if (sync_packages(Measures)) {
++      TimingScanScope timing_scope(Measures.lidar_beg_time, lidar_end_time);
+       if (flg_reset) {
+         RCLCPP_WARN(LOGGER, "reset when rosbag play back");
+         p_imu->Reset();
+diff --git a/src/li_initialization.cpp b/src/li_initialization.cpp
+index 2e31e6fc311398725d03af23a1fb6d24d262f0dd..93f9086ebaa209ae6aadcce36a5b62f4d2102915 100755
+--- a/src/li_initialization.cpp
++++ b/src/li_initialization.cpp
+@@ -1,4 +1,5 @@
+ #include "li_initialization.h"
++#include "timing_diagnostics.h"
+ bool data_accum_finished = false, data_accum_start = false, online_calib_finish = false,
+      refine_print = false;
+ int frame_num_init = 0;
+@@ -55,6 +56,7 @@ void standard_pcl_cbk(const sensor_msgs::msg::PointCloud2::SharedPtr & msg)
+   } else {
+     PointCloudXYZI::Ptr ptr(new PointCloudXYZI(20000, 1));
+     p_pre->process(msg, ptr);
++    timing_probe().lidar(last_timestamp_lidar, *ptr, omp_get_wtime() - preprocess_start_time);
+     if (con_frame) {
+       if (frame_ct == 0) {
+         time_con = last_timestamp_lidar;  //msg->header.stamp.toSec();
+@@ -152,6 +154,7 @@ void livox_pcl_cbk(const livox_ros_driver2::msg::CustomMsg::SharedPtr & msg)
+ 
+ void imu_cbk(const sensor_msgs::msg::Imu::ConstSharedPtr & msg_in)
+ {
++  timing_probe().imu(get_time_sec(msg_in->header.stamp));
+   // mtx_buffer.lock();
+ 
+   sensor_msgs::msg::Imu::SharedPtr msg(new sensor_msgs::msg::Imu(*msg_in));
+diff --git a/src/parameters.cpp b/src/parameters.cpp
+index c16f147aab74f5c08960280ccbb8e98d468d6dce..a318e6df251e0da9fa263d093a3eedbcc687f64c 100755
+--- a/src/parameters.cpp
++++ b/src/parameters.cpp
+@@ -1,5 +1,7 @@
+ #include "parameters.h"
+ 
++bool timing_diagnostics = false;
++int imu_queue_depth = 5;
+ bool is_first_frame = true;
+ double lidar_end_time = 0.0, first_lidar_time = 0.0, time_con = 0.0;
+ double last_timestamp_lidar = -1.0, last_timestamp_imu = -1.0;
+@@ -54,6 +56,11 @@ void readParameters(std::shared_ptr<rclcpp::Node> & nh)
+   p_pre.reset(new Preprocess());
+   p_imu.reset(new ImuProcess());
+   try {
++    nh->declare_parameter<bool>("timing_diagnostics", false);
++    nh->get_parameter("timing_diagnostics", timing_diagnostics);
++    nh->declare_parameter<int>("imu_queue_depth", 5);
++    nh->get_parameter("imu_queue_depth", imu_queue_depth);
++
+     nh->declare_parameter<bool>("prop_at_freq_of_imu", true);
+     nh->get_parameter("prop_at_freq_of_imu", prop_at_freq_of_imu);
+ 
+diff --git a/src/parameters.h b/src/parameters.h
+index ded11bc0e9c2447d1b901d2b1d0bacdbcfcc357e..afa7c3b9c56dac3e8fe6d072b4e696f6ef65940a 100755
+--- a/src/parameters.h
++++ b/src/parameters.h
+@@ -34,6 +34,8 @@ using IVoxType = faster_lio::IVox<3, faster_lio::IVoxNodeType::PHC, PointType>;
+ using IVoxType = faster_lio::IVox<3, faster_lio::IVoxNodeType::DEFAULT, PointType>;
+ #endif
+ 
++extern bool timing_diagnostics;
++extern int imu_queue_depth;
+ extern bool is_first_frame;
+ extern double lidar_end_time, first_lidar_time, time_con;
+ extern double last_timestamp_lidar, last_timestamp_imu;
+diff --git a/src/timing_diagnostics.h b/src/timing_diagnostics.h
+new file mode 100644
+index 0000000000000000000000000000000000000000..a729ecfc421b7a9e975127f488fd6a8bdad411d0
+--- /dev/null
++++ b/src/timing_diagnostics.h
+@@ -0,0 +1,178 @@
++#pragma once
++
++#include <algorithm>
++#include <chrono>
++#include <cmath>
++#include <iomanip>
++#include <limits>
++#include <memory>
++#include <sstream>
++#include <utility>
++#include <vector>
++#include <rclcpp/rclcpp.hpp>
++
++class TimingDiagnostics
++{
++public:
++  void configure(const std::shared_ptr<rclcpp::Node> & node, bool enabled, double imu_period)
++  {
++    node_ = node;
++    enabled_ = enabled;
++    imu_period_ = imu_period;
++    report_time_ = Clock::now();
++  }
++
++  bool enabled() const { return enabled_; }
++
++  void imu(double stamp)
++  {
++    if (!enabled_) return;
++    ++imu_count_;
++    ++window_imu_count_;
++    if (last_imu_stamp_ >= 0.0) {
++      const double dt = stamp - last_imu_stamp_;
++      imu_max_gap_ = std::max(imu_max_gap_, dt);
++      window_imu_max_gap_ = std::max(window_imu_max_gap_, dt);
++      if (dt < 0.0) ++imu_backwards_;
++      if (imu_period_ > 0.0 && dt > imu_period_ * 1.5) {
++        ++imu_gap_count_;
++        imu_missing_estimate_ += std::max(0LL, std::llround(dt / imu_period_) - 1);
++        if (window_gaps_.size() < 200) window_gaps_.emplace_back(last_imu_stamp_, stamp);
++      }
++    }
++    last_imu_stamp_ = stamp;
++    if (auto node = node_.lock()) {
++      window_imu_max_age_ = std::max(window_imu_max_age_, node->now().seconds() - stamp);
++    }
++  }
++
++  template<typename Cloud>
++  void lidar(double stamp, const Cloud & cloud, double preprocessing_wall)
++  {
++    if (!enabled_) return;
++    ++lidar_count_;
++    ++window_lidar_count_;
++    if (last_lidar_stamp_ >= 0.0) {
++      window_lidar_max_gap_ = std::max(window_lidar_max_gap_, stamp - last_lidar_stamp_);
++    }
++    last_lidar_stamp_ = stamp;
++    point_count_ = cloud.points.size();
++    point_offset_min_ = std::numeric_limits<double>::infinity();
++    point_offset_max_ = 0.0;
++    for (const auto & point : cloud.points) {
++      point_offset_min_ = std::min(point_offset_min_, point.curvature / 1000.0);
++      point_offset_max_ = std::max(point_offset_max_, point.curvature / 1000.0);
++    }
++    if (cloud.points.empty()) point_offset_min_ = 0.0;
++    window_preprocess_max_ = std::max(window_preprocess_max_, preprocessing_wall);
++    if (auto node = node_.lock()) {
++      window_lidar_max_age_ = std::max(window_lidar_max_age_, node->now().seconds() - stamp);
++    }
++  }
++
++  void scan(double begin, double end, double elapsed)
++  {
++    if (!enabled_) return;
++    ++scan_count_;
++    scan_begin_ = begin;
++    scan_end_ = end;
++    window_scan_max_ = std::max(window_scan_max_, elapsed);
++  }
++
++  void report(size_t imu_buffer, size_t lidar_buffer, bool force = false)
++  {
++    if (!enabled_) return;
++    const auto now = Clock::now();
++    const double window = std::chrono::duration<double>(now - report_time_).count();
++    if (!force && window < 1.0) return;
++    auto node = node_.lock();
++    if (!node) return;
++    std::ostringstream output;
++    output << std::setprecision(15)
++      << "{\"event\":\"point_lio_timing\",\"sim_time\":" << node->now().seconds()
++      << ",\"window_wall_s\":" << window
++      << ",\"imu_count\":" << imu_count_
++      << ",\"window_imu_count\":" << window_imu_count_
++      << ",\"last_imu_stamp\":" << last_imu_stamp_
++      << ",\"imu_max_gap_s\":" << imu_max_gap_
++      << ",\"window_imu_max_gap_s\":" << window_imu_max_gap_
++      << ",\"imu_gap_count\":" << imu_gap_count_
++      << ",\"imu_missing_intervals_estimate\":" << imu_missing_estimate_
++      << ",\"imu_backwards\":" << imu_backwards_
++      << ",\"imu_max_age_s\":" << window_imu_max_age_
++      << ",\"lidar_count\":" << lidar_count_
++      << ",\"window_lidar_count\":" << window_lidar_count_
++      << ",\"last_lidar_stamp\":" << last_lidar_stamp_
++      << ",\"lidar_max_gap_s\":" << window_lidar_max_gap_
++      << ",\"lidar_max_age_s\":" << window_lidar_max_age_
++      << ",\"point_count\":" << point_count_
++      << ",\"point_offset_min_s\":" << point_offset_min_
++      << ",\"point_offset_max_s\":" << point_offset_max_
++      << ",\"preprocessing_wall_max_s\":" << window_preprocess_max_
++      << ",\"scan_count\":" << scan_count_
++      << ",\"scan_begin\":" << scan_begin_
++      << ",\"scan_end\":" << scan_end_
++      << ",\"scan_processing_wall_max_s\":" << window_scan_max_
++      << ",\"internal_imu_buffer\":" << imu_buffer
++      << ",\"internal_lidar_buffer\":" << lidar_buffer
++      << ",\"imu_gaps\":[";
++    for (size_t i = 0; i < window_gaps_.size(); ++i) {
++      if (i) output << ',';
++      output << '[' << window_gaps_[i].first << ',' << window_gaps_[i].second << ']';
++    }
++    output << "]}";
++    RCLCPP_INFO(node->get_logger(), "%s", output.str().c_str());
++    report_time_ = now;
++    window_imu_count_ = window_lidar_count_ = 0;
++    window_imu_max_gap_ = window_lidar_max_gap_ = 0.0;
++    window_imu_max_age_ = window_lidar_max_age_ = 0.0;
++    window_preprocess_max_ = window_scan_max_ = 0.0;
++    window_gaps_.clear();
++  }
++
++private:
++  using Clock = std::chrono::steady_clock;
++  bool enabled_ = false;
++  std::weak_ptr<rclcpp::Node> node_;
++  Clock::time_point report_time_;
++  double imu_period_ = 0.005;
++  double last_imu_stamp_ = -1.0, last_lidar_stamp_ = -1.0;
++  double imu_max_gap_ = 0.0, window_imu_max_gap_ = 0.0;
++  double window_lidar_max_gap_ = 0.0;
++  double window_imu_max_age_ = 0.0, window_lidar_max_age_ = 0.0;
++  double point_offset_min_ = 0.0, point_offset_max_ = 0.0;
++  double window_preprocess_max_ = 0.0, window_scan_max_ = 0.0;
++  double scan_begin_ = 0.0, scan_end_ = 0.0;
++  size_t imu_count_ = 0, lidar_count_ = 0, scan_count_ = 0, point_count_ = 0;
++  size_t window_imu_count_ = 0, window_lidar_count_ = 0;
++  size_t imu_gap_count_ = 0, imu_backwards_ = 0;
++  long long imu_missing_estimate_ = 0;
++  std::vector<std::pair<double, double>> window_gaps_;
++};
++
++inline TimingDiagnostics & timing_probe()
++{
++  static TimingDiagnostics value;
++  return value;
++}
++
++class TimingScanScope
++{
++public:
++  TimingScanScope(double begin, double end)
++  : enabled_(timing_probe().enabled()), begin_(begin), end_(end)
++  {
++    if (enabled_) started_ = std::chrono::steady_clock::now();
++  }
++  ~TimingScanScope()
++  {
++    if (enabled_) {
++      timing_probe().scan(begin_, end_,
++        std::chrono::duration<double>(std::chrono::steady_clock::now() - started_).count());
++    }
++  }
++private:
++  bool enabled_;
++  double begin_, end_;
++  std::chrono::steady_clock::time_point started_;
++};

@@ -1,0 +1,154 @@
+{
+  "purpose": "Optional navigation collision approximation, not exact official CAD contact geometry",
+  "original_world": "rmul_2027_3v3_world.sdf",
+  "navigation_world": "rmul_2027_3v3_navigation_world.sdf",
+  "official_mesh_modified": false,
+  "height_cache_resolution_m": 0.025,
+  "step_height_range_m": [
+    0.0015,
+    0.02
+  ],
+  "slope_run_m": 0.06,
+  "low_side_margin_m": 0.015,
+  "high_side_overlap_m": 0.025,
+  "top_margin_m": 0.0001,
+  "mesh_triangles": 192,
+  "closed_prisms": 12,
+  "all_prisms_watertight": true,
+  "support_validated_no_missing_floor": true,
+  "segments": [
+    {
+      "axis": "x",
+      "boundary_m": -3.5,
+      "high_direction": -1,
+      "tangent_range_m": [
+        2.9750000000001044,
+        3.0500000000001055
+      ],
+      "low_m": 0.0,
+      "high_m": 0.003
+    },
+    {
+      "axis": "x",
+      "boundary_m": -3.5,
+      "high_direction": -1,
+      "tangent_range_m": [
+        3.850000000000117,
+        3.925000000000118
+      ],
+      "low_m": 0.0,
+      "high_m": 0.003
+    },
+    {
+      "axis": "x",
+      "boundary_m": -3.5,
+      "high_direction": -1,
+      "tangent_range_m": [
+        3.0500000000001055,
+        3.850000000000117
+      ],
+      "low_m": 0.0005,
+      "high_m": 0.003
+    },
+    {
+      "axis": "x",
+      "boundary_m": -1.5,
+      "high_direction": 1,
+      "tangent_range_m": [
+        -1.499999999999959,
+        -0.9999999999999523
+      ],
+      "low_m": 0.0,
+      "high_m": 0.01
+    },
+    {
+      "axis": "x",
+      "boundary_m": 1.5,
+      "high_direction": -1,
+      "tangent_range_m": [
+        1.0000000000000766,
+        1.5000000000000833
+      ],
+      "low_m": 0.0,
+      "high_m": 0.01
+    },
+    {
+      "axis": "x",
+      "boundary_m": 3.5,
+      "high_direction": 1,
+      "tangent_range_m": [
+        -3.9249999999999936,
+        -3.8499999999999925
+      ],
+      "low_m": 0.0,
+      "high_m": 0.003
+    },
+    {
+      "axis": "x",
+      "boundary_m": 3.5,
+      "high_direction": 1,
+      "tangent_range_m": [
+        -3.049999999999981,
+        -2.97499999999998
+      ],
+      "low_m": 0.0,
+      "high_m": 0.003
+    },
+    {
+      "axis": "x",
+      "boundary_m": 3.5,
+      "high_direction": 1,
+      "tangent_range_m": [
+        -3.8499999999999925,
+        -3.049999999999981
+      ],
+      "low_m": 0.0005,
+      "high_m": 0.003
+    },
+    {
+      "axis": "y",
+      "boundary_m": -2.0,
+      "high_direction": -1,
+      "tangent_range_m": [
+        3.5000000000001403,
+        6.000000000000176
+      ],
+      "low_m": 0.0,
+      "high_m": 0.003
+    },
+    {
+      "axis": "y",
+      "boundary_m": -1.5,
+      "high_direction": 1,
+      "tangent_range_m": [
+        -1.4999999999999305,
+        1.5000000000001117
+      ],
+      "low_m": 0.0,
+      "high_m": 0.01
+    },
+    {
+      "axis": "y",
+      "boundary_m": 1.5,
+      "high_direction": -1,
+      "tangent_range_m": [
+        -1.4999999999999305,
+        1.5000000000001117
+      ],
+      "low_m": 0.0,
+      "high_m": 0.01
+    },
+    {
+      "axis": "y",
+      "boundary_m": 2.0,
+      "high_direction": 1,
+      "tangent_range_m": [
+        -5.999999999999995,
+        -3.499999999999959
+      ],
+      "low_m": 0.0,
+      "high_m": 0.003
+    }
+  ],
+  "limitations": "Retains floor height differences but bevels low vertical seams; no real mecanum step traversal claim"
+}

@@ -1,0 +1,84 @@
+{
+  "source": "Official CAD collision mesh surface sampling and conservative height rasterization; not a sensor SLAM map",
+  "source_sha256": "7d47c1b6a6a0253a732e46cb122bb84410b11d5134bcb5658104299db4a48ca4",
+  "map_resolution_m": 0.05,
+  "origin": [
+    -1.5499999999999998,
+    -7.35,
+    0.0
+  ],
+  "grid_shape": [
+    174,
+    254
+  ],
+  "free_cells": 31166,
+  "occupied_cells": 13030,
+  "unknown_cells": 0,
+  "walkable_surface_height_m": [
+    -0.02,
+    0.06
+  ],
+  "elevated_platforms_and_voids": "blocked; ramp/platform traversal not enabled",
+  "world_to_map_xyz": [
+    4.8,
+    -3.0,
+    0.0
+  ],
+  "pcd_points": 152326,
+  "pcd_encoding": "xyz float32 binary; existing loader applies the calibrated base-to-lidar transform once",
+  "calibration": {
+    "translation": [
+      0.16,
+      0.0,
+      0.256
+    ],
+    "rotation_xyzw": [
+      0.18301270189221938,
+      0.18301270189221933,
+      0.6830127018922195,
+      0.6830127018922192
+    ],
+    "stamp": 0.0
+  },
+  "traversable_components": 1,
+  "checkpoints": {
+    "spawn": {
+      "map_xy": [
+        0.0,
+        0.0
+      ],
+      "component": 1,
+      "free": true
+    },
+    "west_far": {
+      "map_xy": [
+        -0.03,
+        -5.86
+      ],
+      "component": 1,
+      "free": true
+    },
+    "east_far": {
+      "map_xy": [
+        9.6,
+        -5.8
+      ],
+      "component": 1,
+      "free": true
+    },
+    "east_north": {
+      "map_xy": [
+        9.6,
+        0.0
+      ],
+      "component": 1,
+      "free": true
+    }
+  },
+  "simulation_truth_as_localization_input": false,
+  "file_sha256": {
+    "rmul_2027_3v3.pcd": "e83045fc37ffddd922eb64e4cf5deea8ab5f3972d8149f6cf76c19e8e3ff44e0",
+    "rmul_2027_3v3.yaml": "eb39f2d66514e11e330410f798aaa8169cf183c0a1754de09295073e95b1acd0",
+    "rmul_2027_3v3.pgm": "6c45cc4ca2013f1c01b9c7f17c0c5d28da15ed60ef20e81bf743ac1dae8f5f94"
+  }
+}

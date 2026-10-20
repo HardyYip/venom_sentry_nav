@@ -1,0 +1,75 @@
+{
+  "source_filename": "RMUL2027_3V3_V1.0.0.stp",
+  "source_sha256": "7d47c1b6a6a0253a732e46cb122bb84410b11d5134bcb5658104299db4a48ca4",
+  "source_units": "mm",
+  "cad_to_world": [
+    [
+      0.001,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0.001,
+      0
+    ],
+    [
+      0,
+      -0.001,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      1
+    ]
+  ],
+  "bbox_m": [
+    -6.3,
+    -4.3,
+    -0.1,
+    6.3,
+    4.3,
+    0.42
+  ],
+  "ground_z_m": 0.0,
+  "interior_size_m": [
+    12,
+    8
+  ],
+  "parts": [
+    {
+      "name": "part_000",
+      "shape_type": "Solid",
+      "bbox_m": [
+        -6.3,
+        -4.3,
+        -0.1,
+        6.3,
+        4.3,
+        0.403
+      ],
+      "visual_triangles": 3656,
+      "collision_triangles": 3656
+    },
+    {
+      "name": "part_001",
+      "shape_type": "Shell",
+      "bbox_m": [
+        -6.3,
+        -4.3,
+        0.4,
+        6.3,
+        4.3,
+        0.42
+      ],
+      "visual_triangles": 155,
+      "collision_triangles": 155
+    }
+  ],
+  "collision_method": "static concave triangle mesh, 5mm tessellation; no convex hull"
+}

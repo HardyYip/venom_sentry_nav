@@ -44,7 +44,7 @@ for value in sys.argv[1:]:
         continue
     if b'ros2 launch' not in command:
         raise RuntimeError(f'Refusing unrelated root PID {pid}')
-    if b'headless_sim.launch.py' not in command and b'pb2025_nav_bringup' not in command:
+    if b'headless_sim.launch.py' not in command and b'headless_rmul2027.launch.py' not in command and b'pb2025_nav_bringup' not in command:
         raise RuntimeError(f'Refusing unknown launch PID {pid}')
     roots.append(pid)
     capture(pid)

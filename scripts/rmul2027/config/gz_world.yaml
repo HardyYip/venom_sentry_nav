@@ -1,0 +1,9 @@
+world: rmul_2027_3v3
+robots:
+  rmul_2027_3v3:
+  - name: red_standard_robot1
+    color: red
+    x_pose: '-4.8'
+    y_pose: '3.0'
+    z_pose: '0.15'
+    yaw: '0.0'

@@ -1,0 +1,121 @@
+diff --git a/rmoss_gz_plugins/plugins/light_bar_controller/LightBarController.cc b/rmoss_gz_plugins/plugins/light_bar_controller/LightBarController.cc
+index c26de1ad02344b50c133c3aa9a5a4a7e95265995..dd7ddf4123bf00ab24eff0fbfbf9b39845c2476d 100644
+--- a/rmoss_gz_plugins/plugins/light_bar_controller/LightBarController.cc
++++ b/rmoss_gz_plugins/plugins/light_bar_controller/LightBarController.cc
+@@ -16,6 +16,7 @@
+ 
+ #include <ignition/gazebo/components/ParentEntity.hh>
+ #include <ignition/gazebo/components/Visual.hh>
++#include <ignition/gazebo/components/VisualCmd.hh>
+ #include <ignition/gazebo/components/Model.hh>
+ #include <ignition/gazebo/components/Name.hh>
+ #include <ignition/gazebo/components/Link.hh>
+@@ -85,7 +86,7 @@ class ignition::gazebo::systems::LightBarControllerPrivate
+ public:
+     void OnCmd(const ignition::msgs::Int32 &_msg);
+     void Init(ignition::gazebo::EntityComponentManager &_ecm);
+-    void UpdateVisualEnitiies();
++    void UpdateVisualEnitiies(ignition::gazebo::EntityComponentManager &_ecm);
+ 
+ public:
+     transport::Node node;
+@@ -181,7 +182,7 @@ void LightBarController::PreUpdate(const ignition::gazebo::UpdateInfo &_info,
+         }
+     }
+     if(!this->dataPtr->isDone){
+-        this->dataPtr->UpdateVisualEnitiies();
++        this->dataPtr->UpdateVisualEnitiies(_ecm);
+         // check
+         bool flag = true;
+         for(auto &info: this->dataPtr->visualEntityInfos){
+@@ -223,16 +224,17 @@ void LightBarControllerPrivate::Init(ignition::gazebo::EntityComponentManager &_
+     }
+ }
+ 
+-void LightBarControllerPrivate::UpdateVisualEnitiies(){
++void LightBarControllerPrivate::UpdateVisualEnitiies(
++    ignition::gazebo::EntityComponentManager &_ecm){
+     for(auto &info: this->visualEntityInfos){
+-        if(info.state == 0){
+-            this->creator->RequestRemoveEntity(info.entity);
+-        }else if(info.state == 1){
+-            info.entity = this->creator->CreateEntities(&(info.visualSdf));
+-            this->creator->SetParent(info.entity , info.parentEntity);
+-        }
+         if(info.state<2){
+-            info.state++;
++            // Fortress supports material commands without destroying the visual.
++            // Recreating the same named entity can race the sensor render thread.
++            ignition::msgs::Visual command;
++            *command.mutable_material() =
++                convert<ignition::msgs::Material>(*info.visualSdf.Material());
++            _ecm.SetComponentData<components::VisualCmd>(info.entity, command);
++            info.state = 2;
+         }  
+     }
+ }
+@@ -244,4 +246,4 @@ IGNITION_ADD_PLUGIN(LightBarController,
+                     LightBarController::ISystemPreUpdate
+                     )
+ 
+-IGNITION_ADD_PLUGIN_ALIAS(LightBarController, "ignition::gazebo::systems::LightBarController")
+\ No newline at end of file
++IGNITION_ADD_PLUGIN_ALIAS(LightBarController, "ignition::gazebo::systems::LightBarController")
+diff --git a/rmoss_gz_plugins/plugins/mecanum_drive2/MecanumDrive2.cc b/rmoss_gz_plugins/plugins/mecanum_drive2/MecanumDrive2.cc
+index 27b003a1b19352b505964ab045fee6517d3a7f94..edfe6db9d62119b5ebb67f837c37381be51f5f96 100644
+--- a/rmoss_gz_plugins/plugins/mecanum_drive2/MecanumDrive2.cc
++++ b/rmoss_gz_plugins/plugins/mecanum_drive2/MecanumDrive2.cc
+@@ -13,6 +13,7 @@
+ // limitations under the License.
+ 
+ #include <mutex>
++#include <cmath>
+ #include <ignition/common/Util.hh>
+ #include <ignition/common/Profiler.hh>
+ #include <ignition/plugin/Register.hh>
+@@ -72,6 +73,7 @@ public:
+     ignition::math::PID xPid;
+     ignition::math::PID yPid;
+     ignition::math::PID wPid;
++    bool resetLinearIntegralOnStop{false};
+     //for Odometry
+     bool initFlag = false;
+     std::string odomFrameId;
+@@ -130,8 +132,21 @@ void MecanumDrive2::Configure(const Entity &_entity,
+     this->dataPtr->odomFrameId=this->dataPtr->model.Name(_ecm) + "/odom" ;
+     this->dataPtr->odomChildFrameId = this->dataPtr->model.Name(_ecm) + "/" + ignition::common::replaceAll(this->dataPtr->chassisLinkName, "::", "/");
+     //init PID
+-    this->dataPtr->xPid.Init(100, 0, 0, 0, 0, 100, -100, 0);
+-    this->dataPtr->yPid.Init(500, 0, 0, 0, 0, 200, -200, 0);
++    auto readValue = [&_sdf](const std::string & name, double fallback)
++    {
++        return _sdf->HasElement(name) ? _sdf->Get<double>(name) : fallback;
++    };
++    const double linearXP = readValue("linear_x_p_gain", 100.0);
++    const double linearYP = readValue("linear_y_p_gain", 500.0);
++    const double linearXI = readValue("linear_x_i_gain", 0.0);
++    const double linearYI = readValue("linear_y_i_gain", 0.0);
++    const double linearXForce = readValue("linear_x_max_force", 100.0);
++    const double linearYForce = readValue("linear_y_max_force", 200.0);
++    const double linearXImax = linearXI > 0.0 ? readValue("linear_x_i_limit", 100.0) : 0.0;
++    const double linearYImax = linearYI > 0.0 ? readValue("linear_y_i_limit", 200.0) : 0.0;
++    this->dataPtr->resetLinearIntegralOnStop = linearXI > 0.0 || linearYI > 0.0;
++    this->dataPtr->xPid.Init(linearXP, linearXI, 0, linearXImax, -linearXImax, linearXForce, -linearXForce, 0);
++    this->dataPtr->yPid.Init(linearYP, linearYI, 0, linearYImax, -linearYImax, linearYForce, -linearYForce, 0);
+     this->dataPtr->wPid.Init(200, 0, 0, 0, 0, 100, -100, 0);
+ }
+ 
+@@ -167,6 +182,13 @@ void MecanumDrive2::PreUpdate(const ignition::gazebo::UpdateInfo &_info,
+         this->dataPtr->initPose = chassisPose;
+         this->dataPtr->initFlag = true;
+     }
++    if (this->dataPtr->resetLinearIntegralOnStop)
++    {
++        if (std::abs(targetVel.linear().x()) < 1e-4)
++            this->dataPtr->xPid.Reset();
++        if (std::abs(targetVel.linear().y()) < 1e-4)
++            this->dataPtr->yPid.Reset();
++    }
+     //for linear velocity control
+     double xErr = linearVel.X() - targetVel.linear().x();
+     double xCmd = this->dataPtr->xPid.Update(xErr, _info.dt);

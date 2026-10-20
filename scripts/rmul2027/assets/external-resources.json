@@ -1,0 +1,16 @@
+{
+  "tf2": {
+    "package": "ros-humble-tf2_0.25.24-1jammy.20260915.203746_amd64.deb",
+    "version": "0.25.24-1jammy.20260915.203746",
+    "url": "https://mirrors.ustc.edu.cn/ros2/ubuntu/pool/main/r/ros-humble-tf2/ros-humble-tf2_0.25.24-1jammy.20260915.203746_amd64.deb",
+    "sha256": "f6b5d1d098a9ba9080e2c24cccf98a669f1f8bb878602b5b53bd55a4cfbd0cfc",
+    "library_sha256": "8fd2bf11cfa26711f2d03d1a5a897accb147c5b9f415b9c2c796573e1fac1ba7",
+    "upstream_fix": "https://github.com/ros2/geometry2/pull/990"
+  },
+  "legacy_pcd": {
+    "relative_path": "src/pb2025_sentry_nav/pb2025_nav_bringup/pcd/simulation/rmuc_2025.pcd",
+    "url": "https://flowus.cn/lihanchen/share/87f81771-fc0c-4e09-a768-db01f4c136f4?code=4PP1RS",
+    "bytes": 121206237,
+    "sha256": "5e1bda92eacc6bc338b278a7032dfa49cc1a8eb1d1fee83d09d1d726750d717d"
+  }
+}

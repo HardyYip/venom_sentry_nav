@@ -229,3 +229,7 @@ use_robot_state_pub:=True
 默认情况下，PS4 手柄控制已开启。键位映射关系详见 [nav2_params.yaml](./pb2025_nav_bringup/config/simulation/nav2_params.yaml) 中的 `teleop_twist_joy_node` 部分。
 
 ![teleop_twist_joy.gif](https://raw.githubusercontent.com/LihanChen2004/picx-images-hosting/master/teleop_twist_joy.5j4aav3v3p.gif)
+
+## RMUL 2027 3V3 compatibility experiment
+
+Reproducible scene resources, dependency patches, launch instructions and acceptance results are documented in [scripts/rmul2027/README.zh-CN.md](scripts/rmul2027/README.zh-CN.md). This is a simulation compatibility experiment, not Venom hardware support.

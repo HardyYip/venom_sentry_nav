@@ -1,0 +1,22 @@
+world: rmul_2027_3v3
+robots:
+  rmul_2027_3v3:
+  - name: red_standard_robot1
+    color: red
+    x_pose: '-4.8'
+    y_pose: '3.0'
+    z_pose: '0.15'
+    yaw: '0.0'
+    wheel_contact_profile: original
+    navigation_camera:
+      width: 640
+      height: 360
+      rate: 5
+    linear_x_p_gain: 1000.0
+    linear_y_p_gain: 1000.0
+    linear_x_i_gain: 200.0
+    linear_y_i_gain: 200.0
+    linear_x_i_limit: 100.0
+    linear_y_i_limit: 200.0
+    linear_x_max_force: 200.0
+    linear_y_max_force: 400.0
