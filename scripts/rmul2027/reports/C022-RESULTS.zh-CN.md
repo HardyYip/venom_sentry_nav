@@ -1,6 +1,6 @@
 # C022：结构性保护与静态障碍验收
 
-Codex，实施记录。干净检出构建、默认冒烟与RViz窗口自动恢复已补验（见“干净检出与交付”），GitHub发布状态以该节远端核验为准，不提前宣称已发布。
+Codex，实施记录。干净检出构建、默认冒烟与RViz窗口自动恢复已补验（见“干净检出与交付”），代码与证据提交已推送本人分支并反查远端一致；点时间候选仍未通过、未采用。
 
 - 原C021静态绕障两轮通过，终点误差0.113／0.072m、正式障碍接触0。
 - 最终实际运行节点测试61项通过：additive30、heading31。故障输入停车、冻结／未来stamp、同步丢失、空路径、异常值、自旋优先级、防重放和坐标变换。
@@ -16,7 +16,7 @@ Codex，实施记录。干净检出构建、默认冒烟与RViz窗口自动恢�
 - 干净检出构建：全新工作区按README克隆本分支后构建29包通过，耗时5分2秒、退出码0；prepare连续两次运行幂等，不覆盖用户修改，未改动依赖gitlink。
 - 干净默认冒烟：普通0.5m/s入口就绪＋近点2/2，真值终点误差0.161175m，实际停车；使用项目局部TF2与局部FastDDS配置，不替换系统ROS或全局DDS。
 - RViz窗口自动恢复：此前自动调用因`-WindowStyle Hidden`与stdio指向已关闭fd的组合返回`Invalid argument`／超时，曾据此移除；复测确认根因后恢复为修正版后台调用（不加Hidden、stdio重定向到普通文件、保留`8>&-`），实测4秒内`project_rviz_found=true`并恢复最小化窗口。仅解决显示层，30秒内未出现窗口仍需手动执行`restore_rviz_window.ps1`；WSLg传输本身未证明永久修复，也不靠反复重启导航掩盖画面问题。
-- GitHub交付：提交与远端核验见文末“交付核验”。
+- GitHub交付：代码与证据提交`3b7fd4b1de2e8f2c62aa268265c9f92a98cb17b4`已推送`HardyYip/venom_sentry_nav`的`sim/rmul2027-3v3`。2026-10-21以`git ls-remote`＋`fetch`反查远端SHA与本地一致，`start_rviz.sh`、`restore_rviz_window.ps1`、`render_structural_results.py`、C022报告与summary等关键文件blob亦一致。未推北极熊上游、未改main、未合并、未强推。本文件的交付说明为随后的小提交。
 
 ## 未通过：快照点时间
 
