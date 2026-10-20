@@ -4,7 +4,7 @@
       "path": "src/pb2025_sentry_nav/point_lio",
       "base_commit": "e85e79558cf746f6699888a54285fe48b3b0ac71",
       "patch": "point_lio.patch",
-      "sha256": "351acc4660ff884f1f052ec94bee8c4736b8f0c50ed58f5237b3bcd7c21fd4a7"
+      "sha256": "8c6fddbaa239da01bb6dd4581433ebd01badab790e94bb36038e37d7b6c5051f"
     },
     {
       "path": "src/rmu_gazebo_simulator",

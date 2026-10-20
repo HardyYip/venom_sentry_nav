@@ -13,11 +13,17 @@ parser=argparse.ArgumentParser()
 parser.add_argument('--record-dir',type=Path,required=True)
 parser.add_argument('--params-file',type=Path,required=True)
 parser.add_argument('--gz-world-path',type=Path)
+parser.add_argument('--dds-profile',type=Path)
 parser.add_argument('--render-mode',choices=['software','gpu','auto'],default='software')
 parser.add_argument('--field-contact',choices=['cad','cad-flat-marking','cad-flat-floor','seam-ramps'],default='seam-ramps')
 parser.add_argument('--route-set',choices=['baseline','central-marking','manual-c014'],default='baseline')
 parser.add_argument('--last-case',choices=['ready','01-short','02-east-north','03-center','07-occupied','01-manual-first','02-manual-second','03-seam-approach','04-seam-positive-y','05-seam-negative-y'])
 args=parser.parse_args()
+if args.dds_profile:
+    args.dds_profile=args.dds_profile.resolve()
+    if not args.dds_profile.is_file():raise SystemExit('Missing DDS profile: '+str(args.dds_profile))
+    os.environ['FASTRTPS_DEFAULT_PROFILES_FILE']=str(args.dds_profile)
+
 args.last_case=args.last_case or ('05-seam-negative-y' if args.route_set=='central-marking' else '02-manual-second' if args.route_set=='manual-c014' else '03-center')
 folder=Path(__file__).resolve().parent
 workspace=folder.parents[3]
@@ -35,6 +41,10 @@ metadata['render_mode']=args.render_mode
 metadata['gz_world_path']=str(gz_world) if gz_world else None
 metadata['params_sha256']=hashlib.sha256(params.read_bytes()).hexdigest()
 if gz_world is not None:metadata['gz_world_sha256']=hashlib.sha256(gz_world.read_bytes()).hexdigest()
+if args.dds_profile:
+    metadata['dds_profile']=str(args.dds_profile)
+    metadata['dds_profile_sha256']=hashlib.sha256(args.dds_profile.read_bytes()).hexdigest()
+    (record/'dds-profile.xml').write_bytes(args.dds_profile.read_bytes())
 streams=[]
 children={}
 
@@ -64,7 +74,7 @@ def interrupt(signum,frame):raise KeyboardInterrupt
 signal.signal(signal.SIGTERM,interrupt)
 try:
     observer=launch('observer',[sys.executable,str(folder/'g1_tf_observer.py'),'--record-dir',str(record/'observer'),'--duration','3600','--interval','.5'])
-    topics=['/clock','/red_standard_robot1/tf','/red_standard_robot1/tf_static','/red_standard_robot1/global_costmap/published_footprint','/red_standard_robot1/local_costmap/published_footprint','/red_standard_robot1/chassis_odometry_gt','/red_standard_robot1/livox/imu','/red_standard_robot1/velodyne_points','/red_standard_robot1/aft_mapped_to_init','/red_standard_robot1/odometry','/red_standard_robot1/plan','/red_standard_robot1/cmd_vel']
+    topics=['/clock','/red_standard_robot1/tf','/red_standard_robot1/tf_static','/red_standard_robot1/safety_status','/red_standard_robot1/global_costmap/published_footprint','/red_standard_robot1/local_costmap/published_footprint','/red_standard_robot1/chassis_odometry_gt','/red_standard_robot1/livox/imu','/red_standard_robot1/velodyne_points','/red_standard_robot1/aft_mapped_to_init','/red_standard_robot1/odometry','/red_standard_robot1/plan','/red_standard_robot1/cmd_vel']
     topics.extend(['/red_standard_robot1/map','/red_standard_robot1/local_plan','/red_standard_robot1/global_costmap/costmap','/red_standard_robot1/global_costmap/costmap_updates','/red_standard_robot1/local_costmap/costmap','/red_standard_robot1/local_costmap/costmap_updates','/red_standard_robot1/navigate_to_pose/_action/status','/red_standard_robot1/navigate_to_pose/_action/feedback'])
     recorder=launch('recorder',['ros2','bag','record','--include-hidden-topics','-o',str(record/'inputs'),*topics])
     command=['bash',str(folder/'start_rmul2027.sh'),'nav','--params-file',str(params),'--tf2-library-dir',str(workspace/'artifacts/rmul_2027_3v3/runtime/tf2-0.25.24/lib')]

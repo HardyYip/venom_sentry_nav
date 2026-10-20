@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='utf-8'?>
+<sdf version="1.7">
+  <model name="c020_opponent_cart">
+    <static>true</static>
+    <pose>15.2 23 0 0 0 0</pose>
+    <link name="cart">
+      <collision name="cart_collision">
+        <pose>0 0 0.27 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.14 14.0 0.50</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name="chassis">
+        <pose>0 0 0.27 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.14 14.0 0.50</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.05 0.1 0.8 1</ambient>
+          <diffuse>0.05 0.1 0.8 1</diffuse>
+        </material>
+      </visual>
+      <sensor name="cart_contact" type="contact">
+        <always_on>true</always_on>
+        <update_rate>50</update_rate>
+        <topic>/c020/cart_contacts</topic>
+        <contact>
+          <collision>cart_collision</collision>
+          <topic>/c020/cart_contacts</topic>
+        </contact>
+      </sensor>
+    </link>
+  </model>
+</sdf>

@@ -14,6 +14,8 @@
 
 #include "ign_sim_pointcloud_tool/point_cloud_converter.hpp"
 
+#include <stdexcept>
+
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
 #include <pcl_conversions/pcl_conversions.h>
@@ -24,6 +26,10 @@ PointCloudConverter::PointCloudConverter(const rclcpp::NodeOptions & options)
 : rclcpp::Node("point_cloud_converter", options)
 {
   this->declare_parameter<std::string>("pcd_topic", "livox/lidar");
+  point_time_mode_ = this->declare_parameter<std::string>("point_time_mode", "legacy_rolling");
+  if (point_time_mode_ != "legacy_rolling" && point_time_mode_ != "instantaneous") {
+    throw std::invalid_argument("point_time_mode must be legacy_rolling or instantaneous");
+  }
   this->declare_parameter<int>("n_scan", 32);
   this->declare_parameter<int>("horizon_scan", 1875);
   this->declare_parameter<float>("ang_bottom", 7.0);
@@ -71,7 +77,8 @@ void PointCloudConverter::lidarHandle(const sensor_msgs::msg::PointCloud2::Share
       continue;
     }
 
-    new_point.time = (point_id % horizon_scan_) * 0.1f / horizon_scan_;
+    new_point.time = point_time_mode_ == "instantaneous" ? 0.0f :
+      (point_id % horizon_scan_) * 0.1f / horizon_scan_;
 
     converted_pc->points.push_back(new_point);
   }

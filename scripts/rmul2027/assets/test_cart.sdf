@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<sdf version="1.7">
+  <model name="c020_opponent_cart">
+    <static>true</static>
+    <pose>15.2 23 0 0 0 0</pose>
+    <link name="cart">
+      <collision name="cart_collision">
+        <pose>0 0 0.27 0 0 0</pose>
+        <geometry><box><size>0.58 0.50 0.50</size></box></geometry>
+      </collision>
+      <visual name="chassis">
+        <pose>0 0 0.27 0 0 0</pose>
+        <geometry><box><size>0.58 0.50 0.50</size></box></geometry>
+        <material><ambient>0.05 0.1 0.8 1</ambient><diffuse>0.05 0.1 0.8 1</diffuse></material>
+      </visual>
+      <visual name="turret">
+        <pose>0 0 0.36 0 0 0</pose>
+        <geometry><box><size>0.30 0.30 0.22</size></box></geometry>
+        <material><ambient>0.05 0.05 0.1 1</ambient><diffuse>0.05 0.05 0.1 1</diffuse></material>
+      </visual>
+      <visual name="front_left_wheel">
+        <pose>0.18 0.22 0.08 1.57079632679 0 0</pose>
+        <geometry><cylinder><radius>0.08</radius><length>0.05</length></cylinder></geometry>
+      </visual>
+      <visual name="front_right_wheel">
+        <pose>0.18 -0.22 0.08 1.57079632679 0 0</pose>
+        <geometry><cylinder><radius>0.08</radius><length>0.05</length></cylinder></geometry>
+      </visual>
+      <visual name="rear_left_wheel">
+        <pose>-0.18 0.22 0.08 1.57079632679 0 0</pose>
+        <geometry><cylinder><radius>0.08</radius><length>0.05</length></cylinder></geometry>
+      </visual>
+      <visual name="rear_right_wheel">
+        <pose>-0.18 -0.22 0.08 1.57079632679 0 0</pose>
+        <geometry><cylinder><radius>0.08</radius><length>0.05</length></cylinder></geometry>
+      </visual>
+      <sensor name="cart_contact" type="contact">
+        <always_on>true</always_on>
+        <update_rate>50</update_rate>
+        <topic>/c020/cart_contacts</topic>
+        <contact><collision>cart_collision</collision><topic>/c020/cart_contacts</topic></contact>
+      </sensor>
+    </link>
+  </model>
+</sdf>

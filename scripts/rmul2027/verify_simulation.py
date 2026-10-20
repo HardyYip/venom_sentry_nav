@@ -28,7 +28,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--mode', choices=('nav', 'mapping', 'ready'), default='nav')
 parser.add_argument('--startup-timeout', type=float, default=180)
 parser.add_argument('--goal-timeout', type=float, default=180)
-parser.add_argument('--scenario', choices=('simple','blocked','invalid'), default='simple')
+parser.add_argument('--scenario', choices=('simple','blocked','invalid','blocked_route'), default='simple')
 parser.add_argument('--behavior-tree', type=str)
 parser.add_argument('--goal-x', type=float)
 parser.add_argument('--goal-y', type=float)
@@ -120,7 +120,7 @@ servers = ('controller_server', 'planner_server', 'bt_navigator', 'velocity_smoo
 clients = {server: node.create_client(GetState, f'{server}/get_state') for server in servers}
 goal_handle = None
 goal_done = False
-watchdog_active = options.mode == 'nav' and options.scenario == 'simple'
+watchdog_active = options.mode == 'nav' and options.scenario in ('simple','blocked_route')
 progress_checkpoint=None
 progress_clock=None
 stale_since=None
@@ -391,8 +391,14 @@ try:
             goal.pose.header.frame_id = 'map'
             goal.pose.header.stamp = node.get_clock().now().to_msg()
             goal.pose.pose.position.x, goal.pose.pose.position.y = goal_xy
+            heading_started = time.monotonic()
+            heading_deadline = heading_started + min(options.startup_timeout, 10.)
+            while not buffer.can_transform('map', 'gimbal_yaw_fake', rclpy.time.Time()):
+                assert time.monotonic() < heading_deadline, 'Goal heading TF is not ready'
+                rclpy.spin_once(node, timeout_sec=.1)
             goal.pose.pose.orientation = buffer.lookup_transform(
                 'map', 'gimbal_yaw_fake', rclpy.time.Time()).transform.rotation
+            emit('goal_heading_ready', waited_wall_s=time.monotonic()-heading_started)
             emit('goal', xy=goal_xy, initial_ground_truth=initial_truth)
             started = time.monotonic()
             goal_handle = wait_future(client.send_goal_async(goal), 15)
@@ -421,9 +427,13 @@ try:
                  ground_truth_z=truth.z, stopped_speed=stopped_speed,
                  stopped_command=stopped_command, elapsed_wall_s=time.monotonic()-started,
                  nonzero_commands=nonzero_commands, counts=counts)
-            assert result.status == 4, 'Navigation did not return SUCCEEDED'
-            assert movement > .2, 'Ground truth does not show movement'
-            assert error < .35 and truth_error < .35, 'Endpoint error exceeds .35m'
+            if options.scenario == 'blocked_route':
+                assert result.status == 6, 'Blocked route did not return ABORTED without test cancellation'
+                assert truth_error > .35, 'Blocked-route test unexpectedly reached target'
+            else:
+                assert result.status == 4, 'Navigation did not return SUCCEEDED'
+                assert movement > .2, 'Ground truth does not show movement'
+                assert error < .35 and truth_error < .35, 'Endpoint error exceeds .35m'
             physical = subprocess.run(['ign','model','-m','red_standard_robot1','-p'], capture_output=True, text=True, timeout=15)
             (options.record_dir/'gazebo-model-pose.txt').write_text(physical.stdout+physical.stderr)
             coordinates = re.findall(r'^\s*\[([-+0-9.eE ]+)\]\s*$',physical.stdout,re.M)
@@ -433,8 +443,9 @@ try:
             emit('physical_pose',xyz=model_xyz,rpy=model_rpy)
             assert .02 < model_xyz[2] < .15 and max(abs(v) for v in model_rpy[:2]) < .1, 'Robot dropped, floated or tipped on the flat test area'
             assert stopped_speed < .03 and stopped_command < .03, 'Robot did not stop'
-            assert nonzero_commands > 0
-            emit('PASS', scenario='simple')
+            if options.scenario == 'simple':
+                assert nonzero_commands > 0
+            emit('PASS', scenario=options.scenario)
 
 except Exception as error:
     try:

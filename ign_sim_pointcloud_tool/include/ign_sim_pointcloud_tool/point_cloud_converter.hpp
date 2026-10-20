@@ -58,6 +58,7 @@ private:
   float ang_bottom_;
   float ang_res_y_;
   std::string pcd_topic_;
+  std::string point_time_mode_;
 };
 }  // namespace ign_sim_pointcloud_tool
 

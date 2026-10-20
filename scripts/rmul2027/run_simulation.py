@@ -80,6 +80,15 @@ for path in resources:
 (logs/'resource-hashes.json').write_text(json.dumps({str(x.relative_to(workspace)) if x.is_relative_to(workspace) else str(x):hashlib.sha256(x.read_bytes()).hexdigest() for x in dict.fromkeys(resources)},indent=2)+'\n')
 
 environment = {**os.environ, 'ROS_LOG_DIR': str(logs / 'ros')}
+dds_profile = environment.get('FASTRTPS_DEFAULT_PROFILES_FILE')
+dds_runtime = {'rmw_implementation': environment.get('RMW_IMPLEMENTATION', 'default'), 'profile': dds_profile}
+if dds_profile:
+    dds_path = Path(dds_profile).resolve()
+    if not dds_path.is_file():raise SystemExit('Missing explicit DDS profile: '+str(dds_path))
+    dds_runtime['sha256'] = hashlib.sha256(dds_path.read_bytes()).hexdigest()
+    shutil.copy2(dds_path, logs/'dds-profile.xml')
+(logs/'dds-runtime.json').write_text(json.dumps(dds_runtime, indent=2)+'\n')
+
 rendering = {'requested': options.render_mode, 'selected': 'software', 'probe': None}
 if options.render_mode != 'software':
     environment.pop('LIBGL_ALWAYS_SOFTWARE', None)

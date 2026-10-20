@@ -67,7 +67,7 @@ index 2e31e6fc311398725d03af23a1fb6d24d262f0dd..93f9086ebaa209ae6aadcce36a5b62f4
  
    sensor_msgs::msg::Imu::SharedPtr msg(new sensor_msgs::msg::Imu(*msg_in));
 diff --git a/src/parameters.cpp b/src/parameters.cpp
-index c16f147aab74f5c08960280ccbb8e98d468d6dce..a318e6df251e0da9fa263d093a3eedbcc687f64c 100755
+index c16f147aab74f5c08960280ccbb8e98d468d6dce..9af0a1340bf51611d4399e95f5990f0ebf095d2e 100755
 --- a/src/parameters.cpp
 +++ b/src/parameters.cpp
 @@ -1,5 +1,7 @@
@@ -90,6 +90,16 @@ index c16f147aab74f5c08960280ccbb8e98d468d6dce..a318e6df251e0da9fa263d093a3eedbc
      nh->declare_parameter<bool>("prop_at_freq_of_imu", true);
      nh->get_parameter("prop_at_freq_of_imu", prop_at_freq_of_imu);
  
+@@ -180,6 +187,9 @@ void readParameters(std::shared_ptr<rclcpp::Node> & nh)
+     nh->declare_parameter<int>("preprocess.timestamp_unit", 1);
+     nh->get_parameter("preprocess.timestamp_unit", p_pre->time_unit);
+ 
++    nh->declare_parameter<bool>("preprocess.point_time_is_valid", false);
++    nh->get_parameter("preprocess.point_time_is_valid", p_pre->point_time_is_valid);
++
+     nh->declare_parameter<double>("mapping.match_s", 81);
+     nh->get_parameter("mapping.match_s", match_s);
+ 
 diff --git a/src/parameters.h b/src/parameters.h
 index ded11bc0e9c2447d1b901d2b1d0bacdbcfcc357e..afa7c3b9c56dac3e8fe6d072b4e696f6ef65940a 100755
 --- a/src/parameters.h
@@ -103,6 +113,68 @@ index ded11bc0e9c2447d1b901d2b1d0bacdbcfcc357e..afa7c3b9c56dac3e8fe6d072b4e696f6
  extern bool is_first_frame;
  extern double lidar_end_time, first_lidar_time, time_con;
  extern double last_timestamp_lidar, last_timestamp_imu;
+diff --git a/src/preprocess.cpp b/src/preprocess.cpp
+index 1335353b110d93131a461665bab3f583cb61d4ac..5dbc3d485c6c926da674ed46adf0437e0957862d 100755
+--- a/src/preprocess.cpp
++++ b/src/preprocess.cpp
+@@ -1,5 +1,8 @@
+ #include "preprocess.h"
+ 
++#include <algorithm>
++#include <stdexcept>
++
+ #define RETURN0 0x00
+ #define RETURN0AND1 0x10
+ 
+@@ -408,11 +411,27 @@ void Preprocess::velodyne_handler(const sensor_msgs::msg::PointCloud2::SharedPtr
+   pl_corn.clear();
+   pl_full.clear();
+ 
++  if (point_time_is_valid) {
++    const auto field = std::find_if(msg->fields.begin(), msg->fields.end(),
++      [](const auto & value) { return value.name == "time"; });
++    if (field == msg->fields.end() || field->datatype != sensor_msgs::msg::PointField::FLOAT32 ||
++      field->count != 1) {
++      throw std::invalid_argument("Provided VELO16 point time requires a FLOAT32 time field");
++    }
++  }
++
+   pcl::PointCloud<velodyne_ros::Point> pl_orig;
+   pcl::fromROSMsg(*msg, pl_orig);
+   int plsize = pl_orig.points.size();
+   if (plsize == 0) return;
+   pl_surf.reserve(plsize);
++  if (point_time_is_valid) {
++    for (const auto & point : pl_orig.points) {
++      if (!std::isfinite(point.time) || point.time < 0.0f) {
++        throw std::invalid_argument("Provided VELO16 point time must be finite nonnegative offsets");
++      }
++    }
++  }
+ 
+   /*** These variables only works when no point timestamps given ***/
+   double omega_l = 0.361 * SCAN_RATE;  // scan angular velocity
+@@ -422,7 +441,7 @@ void Preprocess::velodyne_handler(const sensor_msgs::msg::PointCloud2::SharedPtr
+   std::vector<float> time_last(N_SCANS, 0.0);  // last offset time
+   /*****************************************************************/
+ 
+-  if (pl_orig.points[plsize - 1].time > 0) {
++  if (point_time_is_valid || pl_orig.points[plsize - 1].time > 0) {
+     given_offset_time = true;
+   } else {
+     given_offset_time = false;
+diff --git a/src/preprocess.h b/src/preprocess.h
+index cd6862398b6284793bfd10858663cb7837a70904..59708c774715d27aab9b8deff3a31f41229b13fb 100755
+--- a/src/preprocess.h
++++ b/src/preprocess.h
+@@ -121,6 +121,7 @@ class Preprocess
+   int lidar_type, point_filter_num, N_SCANS, SCAN_RATE, time_unit;
+   double blind, det_range;
+   bool given_offset_time;
++  bool point_time_is_valid = false;
+ 
+   private:
+   void avia_handler(const livox_ros_driver2::msg::CustomMsg::SharedPtr &msg);
 diff --git a/src/timing_diagnostics.h b/src/timing_diagnostics.h
 new file mode 100644
 index 0000000000000000000000000000000000000000..a729ecfc421b7a9e975127f488fd6a8bdad411d0

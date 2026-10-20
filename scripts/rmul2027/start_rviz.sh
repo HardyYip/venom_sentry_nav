@@ -7,6 +7,9 @@ case "$task_render" in auto|gpu|software) ;; *) printf 'Usage: bash %s [auto|gpu
 if [ "$#" -gt 1 ]; then printf 'Expected at most one rendering argument\n' >&2; exit 2; fi
 source /opt/ros/humble/setup.bash
 source "$task_ws/install/setup.bash"
+source "$task_dir/configure_dds.sh"
+exec 8>"$task_ws/.rmul2027-rviz.lock"
+if ! flock -n 8; then printf 'A project RViz is already running. Close it before reopening.\n' >&2; exit 1; fi
 export QT_QPA_PLATFORM=xcb
 if [ "$task_render" = software ]; then
   export LIBGL_ALWAYS_SOFTWARE=1 GALLIUM_DRIVER=llvmpipe LP_NUM_THREADS=2
