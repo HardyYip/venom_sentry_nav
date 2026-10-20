@@ -1228,5 +1228,17 @@
   "github_target": {
     "repository": "HardyYip/venom_sentry_nav",
     "branch": "sim/rmul2027-3v3"
+  },
+  "independent_workspace_check": {
+    "passed": true,
+    "default_scene": "cad-flat-marking",
+    "cases_passed": 2,
+    "reused_C011_build": true,
+    "source_commit": "0519cfee2c5bb063ca2773aef0f3e095a9d8fc46",
+    "no_original_build_or_install_overlay": true,
+    "truth_endpoint_error_m": 0.17948016895796992,
+    "estimated_endpoint_error_m": 0.14443805697683632,
+    "stopped_speed": 4.522640556645962e-05,
+    "workspace": "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/reproduction/clean-20261020-140200"
   }
 }
