@@ -1,0 +1,1232 @@
+{
+  "owner": "Codex C-013",
+  "updated_at": "2026-10-20T16:03:05.155926+08:00",
+  "record_dir": "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/diagnostics/flat-marking-20261020-153927",
+  "candidate_profile": "cad-flat-marking",
+  "threshold_m": 0.35,
+  "official_layer_semantics_confirmed": false,
+  "geometry": {
+    "purpose": "User-approved central marking treated as visual-only; not official confirmation of physical construction",
+    "source_mesh": "scene/models/rmul_2027_3v3/meshes/collision/part_000.stl",
+    "source_sha256": "ad09dab6c06b66ed6d0286d9b359157bcb92ec41ce986ff533cb4772cd9a703f",
+    "collision_mesh": "scene/models/rmul_2027_3v3_flat_marking/meshes/collision/part_000.stl",
+    "collision_sha256": "d54dbd56a26776dcc0bca7cc90043f8ec33a4c5a5dbd067e5098484e319987af",
+    "source_triangles": 3656,
+    "removed_triangles": 60,
+    "retained_triangles": 3596,
+    "removed_triangle_indices": [
+      2028,
+      2029,
+      2030,
+      2031,
+      2032,
+      2033,
+      2034,
+      2035,
+      2036,
+      2037,
+      2038,
+      2039,
+      2040,
+      2041,
+      2042,
+      2043,
+      2044,
+      2045,
+      2046,
+      2047,
+      2048,
+      2049,
+      2050,
+      2051,
+      2052,
+      2053,
+      2054,
+      2055,
+      2056,
+      2057,
+      2058,
+      2059,
+      2060,
+      2061,
+      2062,
+      2063,
+      2064,
+      2065,
+      2066,
+      2067,
+      2068,
+      2069,
+      2070,
+      2071,
+      2072,
+      2073,
+      2074,
+      2075,
+      2076,
+      2077,
+      2186,
+      2187,
+      2198,
+      2199,
+      2200,
+      2201,
+      2202,
+      2203,
+      2486,
+      2487
+    ],
+    "selection_xy_m": [
+      -1.5,
+      -1.5,
+      1.5,
+      1.5
+    ],
+    "selection_z_m": [
+      0.007,
+      0.01
+    ],
+    "selection_tolerance_m": 1e-06,
+    "ground_z0_triangles_retained": 266,
+    "floor_samples_checked": 3600,
+    "floor_sample_spacing_m": 0.05,
+    "floor_missing_samples": 0,
+    "retained_triangle_records_byte_identical": true,
+    "visual_meshes_unchanged": true,
+    "other_collision_meshes_unchanged": true,
+    "navigation_maps_unchanged": true,
+    "world": "rmul_2027_3v3_flat_marking_world.sdf",
+    "original_world": "rmul_2027_3v3_world.sdf"
+  },
+  "input_comparison": {
+    "robot-red_standard_robot1.sdf": {
+      "same": true,
+      "sha256": "e24caa43c24f7a3434cd3e0cba5cae605aa74e8a51a99cdc1df96fc33f847dd0"
+    },
+    "gz_world.yaml": {
+      "same": true,
+      "sha256": "b7bacbfef607937de17be35f020f15342c535bb2c4ea1c58643866a4a5669623"
+    },
+    "nav2_params.yaml": {
+      "same": true,
+      "sha256": "2a89af8d0d123c7dc5f2e908d7f6806bec1f0877d13e7411d2e6d696fd2ad8a9"
+    },
+    "tf2-runtime.json": {
+      "same": true,
+      "sha256": "9c43c24567bb1df2e55c31fe087a11311bf634a247e552e5469cc0ec7c4a39bc"
+    }
+  },
+  "stages": {
+    "cad-control": {
+      "completed": false,
+      "passed": 2,
+      "total": 3,
+      "max_truth_endpoint_error_m": 0.19369932973739962,
+      "max_estimated_endpoint_error_m": 0.193815004811608,
+      "max_sampled_aligned_error_m": 0.06473226532267193,
+      "max_target_wall_s": 28.14555998599826,
+      "backup_events": 0,
+      "empty_plan_events": 0,
+      "bag_closed": true,
+      "cases": [
+        {
+          "name": "ready",
+          "passed": true,
+          "exit_code": 0,
+          "metrics": [
+            {
+              "event": "localization_stability",
+              "mode": "ready",
+              "max_xy_drift_m": 0.02084515055268885,
+              "ground_truth_error_m": 0.0360153869685181
+            }
+          ]
+        },
+        {
+          "name": "01-manual-first",
+          "passed": true,
+          "exit_code": 0,
+          "metrics": [
+            {
+              "event": "result",
+              "mode": "nav",
+              "status": 4,
+              "ground_truth_moved": 6.959863204016858,
+              "goal_error": 0.193815004811608,
+              "ground_truth_goal_error": 0.19369932973739962,
+              "ground_truth_map_xy": [
+                4.007369288172563,
+                -5.689681555138922
+              ],
+              "estimated_map_xy": [
+                4.00906215842443,
+                -5.676728439402605
+              ],
+              "ground_truth_z": 0.0,
+              "stopped_speed": 6.835375714064831e-05,
+              "stopped_command": 0.0,
+              "elapsed_wall_s": 28.14555998599826,
+              "nonzero_commands": 150,
+              "counts": {
+                "imu": 5056,
+                "ground_truth": 21608,
+                "clock": 22646,
+                "lio": 2062,
+                "terrain_map": 183,
+                "terrain_map_ext": 183,
+                "converted_cloud": 171,
+                "lio_cloud": 184,
+                "lidar": 181,
+                "map": 1,
+                "local_costmap": 75,
+                "global_costmap": 1,
+                "adapted_odometry": 4254,
+                "registered_scan": 165,
+                "odometry": 165,
+                "global_plan": 75,
+                "local_plan": 536,
+                "cmd_vel": 179
+              }
+            }
+          ]
+        },
+        {
+          "name": "02-manual-second",
+          "passed": false,
+          "exit_code": 1,
+          "metrics": [
+            {
+              "event": "FAIL",
+              "mode": "nav",
+              "error": "No physical progress for 8 simulation seconds despite nonzero commands",
+              "counts": {
+                "clock": 18525,
+                "ground_truth": 17855,
+                "imu": 4041,
+                "lidar": 56,
+                "map": 1,
+                "local_costmap": 21,
+                "global_costmap": 1,
+                "lio": 820,
+                "adapted_odometry": 2355,
+                "lio_cloud": 93,
+                "registered_scan": 93,
+                "odometry": 93,
+                "terrain_map": 93,
+                "terrain_map_ext": 93,
+                "converted_cloud": 74,
+                "global_plan": 69,
+                "cmd_vel": 83,
+                "local_plan": 495
+              }
+            }
+          ]
+        }
+      ],
+      "loaded_tf2_verified": false,
+      "scene": "cad",
+      "recorded_input_hashes": {
+        "src/pb2025_sentry_nav/scripts/rmul2027/scene/worlds/rmul_2027_3v3_world.sdf": "66f30b5d98f2d37235d983e7160366c617e9f845e6b06045357182cb76ef6756",
+        "src/pb2025_sentry_nav/scripts/rmul2027/config/gz_world_test.yaml": "b7bacbfef607937de17be35f020f15342c535bb2c4ea1c58643866a4a5669623",
+        "src/pb2025_sentry_nav/scripts/rmul2027/scene/navigation-contact-manifest.json": "85917d0230a1776e1f8128cd090659033d83cfc67c8b9a3bb4e4ff2e7d17a936",
+        "logs/20261020-154415-rmul2027-nav/nav2_params.yaml": "2a89af8d0d123c7dc5f2e908d7f6806bec1f0877d13e7411d2e6d696fd2ad8a9",
+        "artifacts/rmul_2027_3v3/maps-cad/rmul_2027_3v3.pcd": "e83045fc37ffddd922eb64e4cf5deea8ab5f3972d8149f6cf76c19e8e3ff44e0",
+        "artifacts/rmul_2027_3v3/maps-cad/rmul_2027_3v3.yaml": "eb39f2d66514e11e330410f798aaa8169cf183c0a1754de09295073e95b1acd0",
+        "artifacts/rmul_2027_3v3/maps-cad/rmul_2027_3v3.pgm": "6c45cc4ca2013f1c01b9c7f17c0c5d28da15ed60ef20e81bf743ac1dae8f5f94",
+        "src/pb2025_sentry_nav/scripts/rmul2027/scene/models/rmul_2027_3v3/model.sdf": "4ee6c3827cc4d7adb2f81765ad64eda6a0985421c5856109be1fbdde227833e8",
+        "src/pb2025_sentry_nav/scripts/rmul2027/scene/models/rmul_2027_3v3/meshes/visual/part_000.stl": "ad09dab6c06b66ed6d0286d9b359157bcb92ec41ce986ff533cb4772cd9a703f",
+        "src/pb2025_sentry_nav/scripts/rmul2027/scene/models/rmul_2027_3v3/meshes/collision/part_000.stl": "ad09dab6c06b66ed6d0286d9b359157bcb92ec41ce986ff533cb4772cd9a703f",
+        "src/pb2025_sentry_nav/scripts/rmul2027/scene/models/rmul_2027_3v3/meshes/visual/part_001.stl": "a9cbf9ab439660a45eef338a1cec35e4f4552334623214e758aff09320d1b65a",
+        "src/pb2025_sentry_nav/scripts/rmul2027/scene/models/rmul_2027_3v3/meshes/collision/part_001.stl": "a9cbf9ab439660a45eef338a1cec35e4f4552334623214e758aff09320d1b65a"
+      }
+    },
+    "candidate-regression": {
+      "completed": true,
+      "passed": 6,
+      "total": 6,
+      "max_truth_endpoint_error_m": 0.1879761731934898,
+      "max_estimated_endpoint_error_m": 0.17225582641345719,
+      "max_sampled_aligned_error_m": 0.08601243937778877,
+      "max_target_wall_s": 49.31232965600066,
+      "backup_events": 0,
+      "empty_plan_events": 0,
+      "bag_closed": true,
+      "cases": [
+        {
+          "name": "ready",
+          "passed": true,
+          "exit_code": 0,
+          "metrics": [
+            {
+              "event": "localization_stability",
+              "mode": "ready",
+              "max_xy_drift_m": 0.028542251640546197,
+              "ground_truth_error_m": 0.02663830226527841
+            }
+          ]
+        },
+        {
+          "name": "01-manual-first",
+          "passed": true,
+          "exit_code": 0,
+          "metrics": [
+            {
+              "event": "result",
+              "mode": "nav",
+              "status": 4,
+              "ground_truth_moved": 6.976075941167906,
+              "goal_error": 0.17225582641345719,
+              "ground_truth_goal_error": 0.1879761731934898,
+              "ground_truth_map_xy": [
+                4.012063001392614,
+                -5.706162521281316
+              ],
+              "estimated_map_xy": [
+                4.028507302596597,
+                -5.693803566112015
+              ],
+              "ground_truth_z": 0.0,
+              "stopped_speed": 4.942809012715242e-05,
+              "stopped_command": 0.0,
+              "elapsed_wall_s": 27.636908432999917,
+              "nonzero_commands": 126,
+              "counts": {
+                "imu": 4759,
+                "ground_truth": 22154,
+                "lidar": 134,
+                "map": 1,
+                "global_costmap": 1,
+                "local_costmap": 68,
+                "clock": 22296,
+                "converted_cloud": 113,
+                "adapted_odometry": 4099,
+                "lio": 1765,
+                "lio_cloud": 141,
+                "registered_scan": 141,
+                "odometry": 141,
+                "terrain_map": 141,
+                "terrain_map_ext": 141,
+                "global_plan": 75,
+                "local_plan": 528,
+                "cmd_vel": 152
+              }
+            }
+          ]
+        },
+        {
+          "name": "02-manual-second",
+          "passed": true,
+          "exit_code": 0,
+          "metrics": [
+            {
+              "event": "result",
+              "mode": "nav",
+              "status": 4,
+              "ground_truth_moved": 5.418342523348436,
+              "goal_error": 0.15382582790241808,
+              "ground_truth_goal_error": 0.13640039512888932,
+              "ground_truth_map_xy": [
+                9.429226005551637,
+                -5.593397643672436
+              ],
+              "estimated_map_xy": [
+                9.471363466904231,
+                -5.558863193423576
+              ],
+              "ground_truth_z": 0.0,
+              "stopped_speed": 8.264416845672238e-05,
+              "stopped_command": 0.0,
+              "elapsed_wall_s": 49.31232965600066,
+              "nonzero_commands": 142,
+              "counts": {
+                "terrain_map_ext": 163,
+                "converted_cloud": 141,
+                "map": 1,
+                "global_costmap": 1,
+                "local_costmap": 86,
+                "adapted_odometry": 4481,
+                "registered_scan": 158,
+                "odometry": 158,
+                "clock": 31034,
+                "terrain_map": 152,
+                "ground_truth": 29792,
+                "imu": 6956,
+                "lio": 1396,
+                "lio_cloud": 150,
+                "lidar": 156,
+                "global_plan": 135,
+                "local_plan": 956,
+                "cmd_vel": 174
+              }
+            }
+          ]
+        },
+        {
+          "name": "03-seam-approach",
+          "passed": true,
+          "exit_code": 0,
+          "metrics": [
+            {
+              "event": "result",
+              "mode": "nav",
+              "status": 4,
+              "ground_truth_moved": 4.032094660595617,
+              "goal_error": 0.07512196128252202,
+              "ground_truth_goal_error": 0.08063438572220656,
+              "ground_truth_map_xy": [
+                5.478381857862892,
+                -4.788052671057495
+              ],
+              "estimated_map_xy": [
+                5.518823168906723,
+                -4.775714149976963
+              ],
+              "ground_truth_z": 0.0,
+              "stopped_speed": 0.00013565814782862053,
+              "stopped_command": 0.0,
+              "elapsed_wall_s": 41.532149656999536,
+              "nonzero_commands": 122,
+              "counts": {
+                "imu": 6619,
+                "ground_truth": 29263,
+                "terrain_map_ext": 142,
+                "lidar": 132,
+                "converted_cloud": 120,
+                "clock": 29658,
+                "map": 1,
+                "global_costmap": 1,
+                "local_costmap": 78,
+                "lio_cloud": 141,
+                "lio": 1542,
+                "adapted_odometry": 3917,
+                "registered_scan": 138,
+                "odometry": 138,
+                "terrain_map": 135,
+                "global_plan": 113,
+                "local_plan": 803,
+                "cmd_vel": 152
+              }
+            }
+          ]
+        },
+        {
+          "name": "04-seam-positive-y",
+          "passed": true,
+          "exit_code": 0,
+          "metrics": [
+            {
+              "event": "result",
+              "mode": "nav",
+              "status": 4,
+              "ground_truth_moved": 0.4960298101225738,
+              "goal_error": 0.12413852568755011,
+              "ground_truth_goal_error": 0.14416282891835283,
+              "ground_truth_map_xy": [
+                5.520800266463743,
+                -4.2938689895168665
+              ],
+              "estimated_map_xy": [
+                5.560258416242311,
+                -4.270394359528948
+              ],
+              "ground_truth_z": 0.0,
+              "stopped_speed": 6.105313170296784e-05,
+              "stopped_command": 0.0,
+              "elapsed_wall_s": 5.850173972998164,
+              "nonzero_commands": 14,
+              "counts": {
+                "map": 1,
+                "adapted_odometry": 831,
+                "local_costmap": 8,
+                "registered_scan": 28,
+                "odometry": 28,
+                "terrain_map": 28,
+                "global_costmap": 1,
+                "clock": 6076,
+                "imu": 1266,
+                "ground_truth": 5859,
+                "converted_cloud": 20,
+                "lidar": 37,
+                "lio_cloud": 27,
+                "lio": 248,
+                "terrain_map_ext": 26,
+                "global_plan": 13,
+                "local_plan": 90,
+                "cmd_vel": 42
+              }
+            }
+          ]
+        },
+        {
+          "name": "05-seam-negative-y",
+          "passed": true,
+          "exit_code": 0,
+          "metrics": [
+            {
+              "event": "result",
+              "mode": "nav",
+              "status": 4,
+              "ground_truth_moved": 0.4528393630203563,
+              "goal_error": 0.11870134395457452,
+              "ground_truth_goal_error": 0.12638480809679473,
+              "ground_truth_map_xy": [
+                5.462792872498281,
+                -4.742965791773698
+              ],
+              "estimated_map_xy": [
+                5.494885363613508,
+                -4.7366114142955
+              ],
+              "ground_truth_z": 0.0,
+              "stopped_speed": 6.029557752004504e-05,
+              "stopped_command": 0.0,
+              "elapsed_wall_s": 6.113153068999964,
+              "nonzero_commands": 21,
+              "counts": {
+                "clock": 5997,
+                "imu": 1269,
+                "ground_truth": 5811,
+                "lidar": 18,
+                "lio_cloud": 35,
+                "lio": 368,
+                "adapted_odometry": 942,
+                "registered_scan": 31,
+                "odometry": 29,
+                "terrain_map": 33,
+                "terrain_map_ext": 33,
+                "map": 1,
+                "global_costmap": 1,
+                "local_costmap": 8,
+                "converted_cloud": 26,
+                "global_plan": 14,
+                "cmd_vel": 50,
+                "local_plan": 95
+              }
+            }
+          ]
+        }
+      ],
+      "loaded_tf2_verified": true,
+      "scene": "cad-flat-marking",
+      "recorded_input_hashes": {
+        "src/pb2025_sentry_nav/scripts/rmul2027/scene/worlds/rmul_2027_3v3_flat_marking_world.sdf": "6b94410e5072a1d05f1dc5492281171256ad3948dde8e4b7246b7d5c55bbbc14",
+        "src/pb2025_sentry_nav/scripts/rmul2027/config/gz_world_test.yaml": "b7bacbfef607937de17be35f020f15342c535bb2c4ea1c58643866a4a5669623",
+        "src/pb2025_sentry_nav/scripts/rmul2027/scene/flat-marking-contact-manifest.json": "dd85169dd317fe45e4952ef1045f0a3814e281ac59356354d9babcd53b88b445",
+        "logs/20261020-154712-rmul2027-nav/nav2_params.yaml": "2a89af8d0d123c7dc5f2e908d7f6806bec1f0877d13e7411d2e6d696fd2ad8a9",
+        "artifacts/rmul_2027_3v3/maps-cad/rmul_2027_3v3.pcd": "e83045fc37ffddd922eb64e4cf5deea8ab5f3972d8149f6cf76c19e8e3ff44e0",
+        "artifacts/rmul_2027_3v3/maps-cad/rmul_2027_3v3.yaml": "eb39f2d66514e11e330410f798aaa8169cf183c0a1754de09295073e95b1acd0",
+        "artifacts/rmul_2027_3v3/maps-cad/rmul_2027_3v3.pgm": "6c45cc4ca2013f1c01b9c7f17c0c5d28da15ed60ef20e81bf743ac1dae8f5f94",
+        "src/pb2025_sentry_nav/scripts/rmul2027/scene/models/rmul_2027_3v3_flat_marking/model.sdf": "212ea3597d0789ce74c2554b3084e446d17c0cd05669aeab2d2fc891359bbcd2",
+        "src/pb2025_sentry_nav/scripts/rmul2027/scene/models/rmul_2027_3v3/meshes/visual/part_000.stl": "ad09dab6c06b66ed6d0286d9b359157bcb92ec41ce986ff533cb4772cd9a703f",
+        "src/pb2025_sentry_nav/scripts/rmul2027/scene/models/rmul_2027_3v3_flat_marking/meshes/collision/part_000.stl": "d54dbd56a26776dcc0bca7cc90043f8ec33a4c5a5dbd067e5098484e319987af",
+        "src/pb2025_sentry_nav/scripts/rmul2027/scene/models/rmul_2027_3v3/meshes/visual/part_001.stl": "a9cbf9ab439660a45eef338a1cec35e4f4552334623214e758aff09320d1b65a",
+        "src/pb2025_sentry_nav/scripts/rmul2027/scene/models/rmul_2027_3v3/meshes/collision/part_001.stl": "a9cbf9ab439660a45eef338a1cec35e4f4552334623214e758aff09320d1b65a"
+      }
+    },
+    "candidate-full-01": {
+      "completed": true,
+      "passed": 8,
+      "total": 8,
+      "max_truth_endpoint_error_m": 0.17263142571129744,
+      "max_estimated_endpoint_error_m": 0.15120254990196644,
+      "max_sampled_aligned_error_m": 0.07693712854903557,
+      "max_target_wall_s": 55.626732986002025,
+      "backup_events": 0,
+      "empty_plan_events": 0,
+      "bag_closed": true,
+      "cases": [
+        {
+          "name": "ready",
+          "passed": true,
+          "exit_code": 0,
+          "metrics": [
+            {
+              "event": "localization_stability",
+              "mode": "ready",
+              "max_xy_drift_m": 0.017058541124756042,
+              "ground_truth_error_m": 0.02629260171965179
+            }
+          ]
+        },
+        {
+          "name": "01-short",
+          "passed": true,
+          "exit_code": 0,
+          "metrics": [
+            {
+              "event": "result",
+              "mode": "nav",
+              "status": 4,
+              "ground_truth_moved": 0.6620426548735707,
+              "goal_error": 0.13426297077402224,
+              "ground_truth_goal_error": 0.16072803913291728,
+              "ground_truth_map_xy": [
+                0.662046835754162,
+                0.0015038774626501272
+              ],
+              "estimated_map_xy": [
+                0.6883728569610645,
+                0.004379093714553269
+              ],
+              "ground_truth_z": 0.0,
+              "stopped_speed": 8.39418867551556e-05,
+              "stopped_command": 0.0,
+              "elapsed_wall_s": 4.997698387000128,
+              "nonzero_commands": 19,
+              "counts": {
+                "clock": 5855,
+                "converted_cloud": 24,
+                "terrain_map": 40,
+                "terrain_map_ext": 40,
+                "ground_truth": 5228,
+                "imu": 1136,
+                "lio_cloud": 40,
+                "map": 1,
+                "local_costmap": 10,
+                "global_costmap": 1,
+                "lidar": 29,
+                "lio": 471,
+                "adapted_odometry": 1323,
+                "registered_scan": 38,
+                "odometry": 38,
+                "global_plan": 11,
+                "local_plan": 74,
+                "cmd_vel": 46
+              }
+            }
+          ]
+        },
+        {
+          "name": "02-east-north",
+          "passed": true,
+          "exit_code": 0,
+          "metrics": [
+            {
+              "event": "result",
+              "mode": "nav",
+              "status": 4,
+              "ground_truth_moved": 8.467794418454442,
+              "goal_error": 0.15120254990196644,
+              "ground_truth_goal_error": 0.17263142571129744,
+              "ground_truth_map_xy": [
+                9.12738376435306,
+                -0.2022900511337835
+              ],
+              "estimated_map_xy": [
+                9.148894284431844,
+                -0.19458947142213565
+              ],
+              "ground_truth_z": 0.0,
+              "stopped_speed": 6.213528530470158e-05,
+              "stopped_command": 0.0,
+              "elapsed_wall_s": 55.626732986002025,
+              "nonzero_commands": 194,
+              "counts": {
+                "clock": 34775,
+                "ground_truth": 33162,
+                "imu": 7986,
+                "lio": 2363,
+                "lio_cloud": 223,
+                "lidar": 174,
+                "adapted_odometry": 5972,
+                "registered_scan": 216,
+                "odometry": 216,
+                "terrain_map_ext": 216,
+                "terrain_map": 216,
+                "map": 1,
+                "global_costmap": 1,
+                "local_costmap": 107,
+                "converted_cloud": 147,
+                "global_plan": 153,
+                "cmd_vel": 225,
+                "local_plan": 1083
+              }
+            }
+          ]
+        },
+        {
+          "name": "03-center",
+          "passed": true,
+          "exit_code": 0,
+          "metrics": [
+            {
+              "event": "result",
+              "mode": "nav",
+              "status": 4,
+              "ground_truth_moved": 5.091314506759686,
+              "goal_error": 0.1020309771865768,
+              "ground_truth_goal_error": 0.07741691732004706,
+              "ground_truth_map_xy": [
+                4.8267551582391715,
+                -2.9273533166969345
+              ],
+              "estimated_map_xy": [
+                4.856567976036143,
+                -2.9150860176836457
+              ],
+              "ground_truth_z": 0.0,
+              "stopped_speed": 4.214533775770736e-05,
+              "stopped_command": 0.0,
+              "elapsed_wall_s": 22.069529452997813,
+              "nonzero_commands": 72,
+              "counts": {
+                "clock": 15836,
+                "terrain_map_ext": 88,
+                "terrain_map": 88,
+                "map": 1,
+                "global_costmap": 1,
+                "local_costmap": 40,
+                "ground_truth": 14559,
+                "imu": 3375,
+                "lio_cloud": 87,
+                "lidar": 50,
+                "lio": 941,
+                "adapted_odometry": 2476,
+                "registered_scan": 83,
+                "odometry": 83,
+                "converted_cloud": 68,
+                "global_plan": 59,
+                "cmd_vel": 102,
+                "local_plan": 414
+              }
+            }
+          ]
+        },
+        {
+          "name": "04-west-south",
+          "passed": true,
+          "exit_code": 0,
+          "metrics": [
+            {
+              "event": "result",
+              "mode": "nav",
+              "status": 4,
+              "ground_truth_moved": 5.5876829019502985,
+              "goal_error": 0.12006066924122759,
+              "ground_truth_goal_error": 0.11880045406350324,
+              "ground_truth_map_xy": [
+                0.08610022999901545,
+                -5.885185005059961
+              ],
+              "estimated_map_xy": [
+                0.08861034683282996,
+                -5.878605104752386
+              ],
+              "ground_truth_z": 0.0,
+              "stopped_speed": 5.58955498119052e-05,
+              "stopped_command": 0.0,
+              "elapsed_wall_s": 26.581549882001127,
+              "nonzero_commands": 105,
+              "counts": {
+                "clock": 15451,
+                "imu": 3637,
+                "ground_truth": 14638,
+                "converted_cloud": 94,
+                "lidar": 72,
+                "lio": 1506,
+                "map": 1,
+                "global_costmap": 1,
+                "local_costmap": 52,
+                "adapted_odometry": 4046,
+                "lio_cloud": 117,
+                "registered_scan": 117,
+                "odometry": 117,
+                "terrain_map_ext": 117,
+                "terrain_map": 117,
+                "global_plan": 71,
+                "cmd_vel": 132,
+                "local_plan": 506
+              }
+            }
+          ]
+        },
+        {
+          "name": "05-west-north",
+          "passed": true,
+          "exit_code": 0,
+          "metrics": [
+            {
+              "event": "result",
+              "mode": "nav",
+              "status": 4,
+              "ground_truth_moved": 5.543687650572007,
+              "goal_error": 0.14248061086433647,
+              "ground_truth_goal_error": 0.14815657998434206,
+              "ground_truth_map_xy": [
+                -0.03907208580088284,
+                -0.34291166608722046
+              ],
+              "estimated_map_xy": [
+                -0.01911462412687036,
+                -0.34119261884660596
+              ],
+              "ground_truth_z": 0.0,
+              "stopped_speed": 6.810134696243132e-05,
+              "stopped_command": 0.0,
+              "elapsed_wall_s": 19.77966300600019,
+              "nonzero_commands": 79,
+              "counts": {
+                "ground_truth": 15431,
+                "imu": 3398,
+                "lidar": 75,
+                "clock": 15557,
+                "adapted_odometry": 3532,
+                "registered_scan": 97,
+                "odometry": 97,
+                "terrain_map_ext": 97,
+                "terrain_map": 97,
+                "lio": 1391,
+                "map": 1,
+                "lio_cloud": 97,
+                "local_costmap": 39,
+                "global_costmap": 1,
+                "converted_cloud": 53,
+                "global_plan": 52,
+                "cmd_vel": 107,
+                "local_plan": 369
+              }
+            }
+          ]
+        },
+        {
+          "name": "06-east-north-repeat",
+          "passed": true,
+          "exit_code": 0,
+          "metrics": [
+            {
+              "event": "result",
+              "mode": "nav",
+              "status": 4,
+              "ground_truth_moved": 9.187741508247532,
+              "goal_error": 0.13917716111623885,
+              "ground_truth_goal_error": 0.15845843227470952,
+              "ground_truth_map_xy": [
+                9.148169861432255,
+                -0.24535067564499702
+              ],
+              "estimated_map_xy": [
+                9.1664354538639,
+                -0.2391253650696416
+              ],
+              "ground_truth_z": 0.0,
+              "stopped_speed": 1.7135345546418665e-05,
+              "stopped_command": 0.0,
+              "elapsed_wall_s": 52.92844294400129,
+              "nonzero_commands": 212,
+              "counts": {
+                "imu": 8247,
+                "ground_truth": 36226,
+                "lio": 3087,
+                "lio_cloud": 232,
+                "terrain_map": 232,
+                "lidar": 157,
+                "clock": 37128,
+                "global_costmap": 1,
+                "local_costmap": 118,
+                "map": 1,
+                "adapted_odometry": 7354,
+                "registered_scan": 227,
+                "odometry": 226,
+                "terrain_map_ext": 227,
+                "converted_cloud": 151,
+                "global_plan": 144,
+                "cmd_vel": 240,
+                "local_plan": 1033
+              }
+            }
+          ]
+        },
+        {
+          "name": "07-occupied",
+          "passed": true,
+          "exit_code": 0,
+          "metrics": [
+            {
+              "event": "invalid_result",
+              "mode": "nav",
+              "status": 6,
+              "path_points": 0,
+              "ground_truth_moved": 3.106536424354671e-06,
+              "elapsed_wall_s": 3.14362755899856,
+              "nonzero_commands": 0
+            }
+          ]
+        }
+      ],
+      "loaded_tf2_verified": true,
+      "scene": "cad-flat-marking",
+      "recorded_input_hashes": {
+        "src/pb2025_sentry_nav/scripts/rmul2027/scene/worlds/rmul_2027_3v3_flat_marking_world.sdf": "6b94410e5072a1d05f1dc5492281171256ad3948dde8e4b7246b7d5c55bbbc14",
+        "src/pb2025_sentry_nav/scripts/rmul2027/config/gz_world_test.yaml": "b7bacbfef607937de17be35f020f15342c535bb2c4ea1c58643866a4a5669623",
+        "src/pb2025_sentry_nav/scripts/rmul2027/scene/flat-marking-contact-manifest.json": "dd85169dd317fe45e4952ef1045f0a3814e281ac59356354d9babcd53b88b445",
+        "logs/20261020-155058-rmul2027-nav/nav2_params.yaml": "2a89af8d0d123c7dc5f2e908d7f6806bec1f0877d13e7411d2e6d696fd2ad8a9",
+        "artifacts/rmul_2027_3v3/maps-cad/rmul_2027_3v3.pcd": "e83045fc37ffddd922eb64e4cf5deea8ab5f3972d8149f6cf76c19e8e3ff44e0",
+        "artifacts/rmul_2027_3v3/maps-cad/rmul_2027_3v3.yaml": "eb39f2d66514e11e330410f798aaa8169cf183c0a1754de09295073e95b1acd0",
+        "artifacts/rmul_2027_3v3/maps-cad/rmul_2027_3v3.pgm": "6c45cc4ca2013f1c01b9c7f17c0c5d28da15ed60ef20e81bf743ac1dae8f5f94",
+        "src/pb2025_sentry_nav/scripts/rmul2027/scene/models/rmul_2027_3v3_flat_marking/model.sdf": "212ea3597d0789ce74c2554b3084e446d17c0cd05669aeab2d2fc891359bbcd2",
+        "src/pb2025_sentry_nav/scripts/rmul2027/scene/models/rmul_2027_3v3/meshes/visual/part_000.stl": "ad09dab6c06b66ed6d0286d9b359157bcb92ec41ce986ff533cb4772cd9a703f",
+        "src/pb2025_sentry_nav/scripts/rmul2027/scene/models/rmul_2027_3v3_flat_marking/meshes/collision/part_000.stl": "d54dbd56a26776dcc0bca7cc90043f8ec33a4c5a5dbd067e5098484e319987af",
+        "src/pb2025_sentry_nav/scripts/rmul2027/scene/models/rmul_2027_3v3/meshes/visual/part_001.stl": "a9cbf9ab439660a45eef338a1cec35e4f4552334623214e758aff09320d1b65a",
+        "src/pb2025_sentry_nav/scripts/rmul2027/scene/models/rmul_2027_3v3/meshes/collision/part_001.stl": "a9cbf9ab439660a45eef338a1cec35e4f4552334623214e758aff09320d1b65a"
+      }
+    },
+    "candidate-full-02": {
+      "completed": true,
+      "passed": 8,
+      "total": 8,
+      "max_truth_endpoint_error_m": 0.16408038431905564,
+      "max_estimated_endpoint_error_m": 0.15136216525008572,
+      "max_sampled_aligned_error_m": 0.08695804766541118,
+      "max_target_wall_s": 52.635021250000136,
+      "backup_events": 0,
+      "empty_plan_events": 0,
+      "bag_closed": true,
+      "cases": [
+        {
+          "name": "ready",
+          "passed": true,
+          "exit_code": 0,
+          "metrics": [
+            {
+              "event": "localization_stability",
+              "mode": "ready",
+              "max_xy_drift_m": 0.017897514323158177,
+              "ground_truth_error_m": 0.016734139987669434
+            }
+          ]
+        },
+        {
+          "name": "01-short",
+          "passed": true,
+          "exit_code": 0,
+          "metrics": [
+            {
+              "event": "result",
+              "mode": "nav",
+              "status": 4,
+              "ground_truth_moved": 0.698342879122255,
+              "goal_error": 0.10360111850192745,
+              "ground_truth_goal_error": 0.12709834193892697,
+              "ground_truth_map_xy": [
+                0.6983223110251577,
+                0.001665036640803308
+              ],
+              "estimated_map_xy": [
+                0.7218336690662251,
+                0.0030755540931789657
+              ],
+              "ground_truth_z": 0.0,
+              "stopped_speed": 3.3476734160578924e-05,
+              "stopped_command": 0.0,
+              "elapsed_wall_s": 5.907251329001156,
+              "nonzero_commands": 15,
+              "counts": {
+                "ground_truth": 6818,
+                "clock": 6984,
+                "imu": 1436,
+                "lidar": 23,
+                "local_costmap": 9,
+                "map": 1,
+                "global_costmap": 1,
+                "lio": 496,
+                "adapted_odometry": 1184,
+                "lio_cloud": 35,
+                "registered_scan": 35,
+                "odometry": 35,
+                "terrain_map_ext": 35,
+                "terrain_map": 35,
+                "converted_cloud": 28,
+                "global_plan": 13,
+                "local_plan": 92,
+                "cmd_vel": 42
+              }
+            }
+          ]
+        },
+        {
+          "name": "02-east-north",
+          "passed": true,
+          "exit_code": 0,
+          "metrics": [
+            {
+              "event": "result",
+              "mode": "nav",
+              "status": 4,
+              "ground_truth_moved": 8.441010428186164,
+              "goal_error": 0.15136216525008572,
+              "ground_truth_goal_error": 0.16408038431905564,
+              "ground_truth_map_xy": [
+                9.13654049726541,
+                -0.21426055693334378
+              ],
+              "estimated_map_xy": [
+                9.150331892587808,
+                -0.22258235357190442
+              ],
+              "ground_truth_z": 0.0,
+              "stopped_speed": 7.958492257698427e-05,
+              "stopped_command": 0.0,
+              "elapsed_wall_s": 52.635021250000136,
+              "nonzero_commands": 201,
+              "counts": {
+                "clock": 39584,
+                "ground_truth": 37986,
+                "imu": 8578,
+                "lio": 2449,
+                "lio_cloud": 229,
+                "terrain_map_ext": 229,
+                "lidar": 165,
+                "map": 1,
+                "local_costmap": 122,
+                "global_costmap": 1,
+                "adapted_odometry": 6468,
+                "registered_scan": 215,
+                "odometry": 215,
+                "terrain_map": 215,
+                "converted_cloud": 144,
+                "global_plan": 143,
+                "cmd_vel": 231,
+                "local_plan": 1024
+              }
+            }
+          ]
+        },
+        {
+          "name": "03-center",
+          "passed": true,
+          "exit_code": 0,
+          "metrics": [
+            {
+              "event": "result",
+              "mode": "nav",
+              "status": 4,
+              "ground_truth_moved": 5.082236364261656,
+              "goal_error": 0.10386167960507839,
+              "ground_truth_goal_error": 0.08348355294684925,
+              "ground_truth_map_xy": [
+                4.837999683722002,
+                -2.9256661069924546
+              ],
+              "estimated_map_xy": [
+                4.864053218770009,
+                -2.918241614157389
+              ],
+              "ground_truth_z": 0.0,
+              "stopped_speed": 3.9066262527656605e-05,
+              "stopped_command": 0.0,
+              "elapsed_wall_s": 19.923486733001482,
+              "nonzero_commands": 86,
+              "counts": {
+                "clock": 17498,
+                "ground_truth": 16141,
+                "imu": 3505,
+                "lidar": 80,
+                "map": 1,
+                "local_costmap": 41,
+                "global_costmap": 1,
+                "lio": 1297,
+                "adapted_odometry": 3333,
+                "lio_cloud": 101,
+                "registered_scan": 101,
+                "odometry": 101,
+                "terrain_map": 101,
+                "terrain_map_ext": 101,
+                "converted_cloud": 45,
+                "global_plan": 53,
+                "local_plan": 373,
+                "cmd_vel": 113
+              }
+            }
+          ]
+        },
+        {
+          "name": "04-west-south",
+          "passed": true,
+          "exit_code": 0,
+          "metrics": [
+            {
+              "event": "result",
+              "mode": "nav",
+              "status": 4,
+              "ground_truth_moved": 5.560116491533157,
+              "goal_error": 0.1420348674105298,
+              "ground_truth_goal_error": 0.1306649922248469,
+              "ground_truth_map_xy": [
+                0.09745124982947839,
+                -5.831198626594845
+              ],
+              "estimated_map_xy": [
+                0.10936585665162529,
+                -5.8325944976312165
+              ],
+              "ground_truth_z": 0.0,
+              "stopped_speed": 7.608017078565277e-05,
+              "stopped_command": 0.0,
+              "elapsed_wall_s": 21.595289691002108,
+              "nonzero_commands": 100,
+              "counts": {
+                "clock": 18613,
+                "ground_truth": 17458,
+                "imu": 3765,
+                "lidar": 75,
+                "lio": 1800,
+                "lio_cloud": 120,
+                "terrain_map": 120,
+                "terrain_map_ext": 120,
+                "map": 1,
+                "local_costmap": 53,
+                "global_costmap": 1,
+                "converted_cloud": 55,
+                "adapted_odometry": 4647,
+                "registered_scan": 119,
+                "odometry": 119,
+                "global_plan": 57,
+                "cmd_vel": 129,
+                "local_plan": 406
+              }
+            }
+          ]
+        },
+        {
+          "name": "05-west-north",
+          "passed": true,
+          "exit_code": 0,
+          "metrics": [
+            {
+              "event": "result",
+              "mode": "nav",
+              "status": 4,
+              "ground_truth_moved": 5.4913731161506565,
+              "goal_error": 0.14747882042004185,
+              "ground_truth_goal_error": 0.14654935718360687,
+              "ground_truth_map_xy": [
+                -0.03816065110627154,
+                -0.34149374119753073
+              ],
+              "estimated_map_xy": [
+                -0.02016674669133227,
+                -0.3460934796641335
+              ],
+              "ground_truth_z": 0.0,
+              "stopped_speed": 3.213087597428274e-05,
+              "stopped_command": 0.0,
+              "elapsed_wall_s": 19.55949228299869,
+              "nonzero_commands": 81,
+              "counts": {
+                "imu": 3458,
+                "ground_truth": 15526,
+                "lidar": 58,
+                "lio": 1300,
+                "lio_cloud": 96,
+                "clock": 15708,
+                "converted_cloud": 79,
+                "map": 1,
+                "global_costmap": 1,
+                "local_costmap": 42,
+                "adapted_odometry": 3494,
+                "registered_scan": 97,
+                "odometry": 97,
+                "terrain_map": 97,
+                "terrain_map_ext": 94,
+                "global_plan": 52,
+                "cmd_vel": 108,
+                "local_plan": 364
+              }
+            }
+          ]
+        },
+        {
+          "name": "06-east-north-repeat",
+          "passed": true,
+          "exit_code": 0,
+          "metrics": [
+            {
+              "event": "result",
+              "mode": "nav",
+              "status": 4,
+              "ground_truth_moved": 9.191017199015706,
+              "goal_error": 0.14000527421831718,
+              "ground_truth_goal_error": 0.15401986843480292,
+              "ground_truth_map_xy": [
+                9.152305370740013,
+                -0.24368542503431545
+              ],
+              "estimated_map_xy": [
+                9.16523584302483,
+                -0.2379486337529773
+              ],
+              "ground_truth_z": 0.0,
+              "stopped_speed": 7.608700541376298e-05,
+              "stopped_command": 0.0,
+              "elapsed_wall_s": 50.99969773000339,
+              "nonzero_commands": 194,
+              "counts": {
+                "clock": 39059,
+                "ground_truth": 36545,
+                "imu": 8176,
+                "lidar": 161,
+                "map": 1,
+                "local_costmap": 107,
+                "global_costmap": 1,
+                "converted_cloud": 120,
+                "lio": 2773,
+                "adapted_odometry": 6917,
+                "lio_cloud": 216,
+                "registered_scan": 216,
+                "odometry": 215,
+                "terrain_map": 216,
+                "terrain_map_ext": 216,
+                "global_plan": 139,
+                "local_plan": 994,
+                "cmd_vel": 221
+              }
+            }
+          ]
+        },
+        {
+          "name": "07-occupied",
+          "passed": true,
+          "exit_code": 0,
+          "metrics": [
+            {
+              "event": "invalid_result",
+              "mode": "nav",
+              "status": 6,
+              "path_points": 0,
+              "ground_truth_moved": 5.7474725835198264e-06,
+              "elapsed_wall_s": 3.171901125002478,
+              "nonzero_commands": 0
+            }
+          ]
+        }
+      ],
+      "loaded_tf2_verified": true,
+      "scene": "cad-flat-marking",
+      "recorded_input_hashes": {
+        "src/pb2025_sentry_nav/scripts/rmul2027/scene/worlds/rmul_2027_3v3_flat_marking_world.sdf": "6b94410e5072a1d05f1dc5492281171256ad3948dde8e4b7246b7d5c55bbbc14",
+        "src/pb2025_sentry_nav/scripts/rmul2027/config/gz_world_test.yaml": "b7bacbfef607937de17be35f020f15342c535bb2c4ea1c58643866a4a5669623",
+        "src/pb2025_sentry_nav/scripts/rmul2027/scene/flat-marking-contact-manifest.json": "dd85169dd317fe45e4952ef1045f0a3814e281ac59356354d9babcd53b88b445",
+        "logs/20261020-155605-rmul2027-nav/nav2_params.yaml": "2a89af8d0d123c7dc5f2e908d7f6806bec1f0877d13e7411d2e6d696fd2ad8a9",
+        "artifacts/rmul_2027_3v3/maps-cad/rmul_2027_3v3.pcd": "e83045fc37ffddd922eb64e4cf5deea8ab5f3972d8149f6cf76c19e8e3ff44e0",
+        "artifacts/rmul_2027_3v3/maps-cad/rmul_2027_3v3.yaml": "eb39f2d66514e11e330410f798aaa8169cf183c0a1754de09295073e95b1acd0",
+        "artifacts/rmul_2027_3v3/maps-cad/rmul_2027_3v3.pgm": "6c45cc4ca2013f1c01b9c7f17c0c5d28da15ed60ef20e81bf743ac1dae8f5f94",
+        "src/pb2025_sentry_nav/scripts/rmul2027/scene/models/rmul_2027_3v3_flat_marking/model.sdf": "212ea3597d0789ce74c2554b3084e446d17c0cd05669aeab2d2fc891359bbcd2",
+        "src/pb2025_sentry_nav/scripts/rmul2027/scene/models/rmul_2027_3v3/meshes/visual/part_000.stl": "ad09dab6c06b66ed6d0286d9b359157bcb92ec41ce986ff533cb4772cd9a703f",
+        "src/pb2025_sentry_nav/scripts/rmul2027/scene/models/rmul_2027_3v3_flat_marking/meshes/collision/part_000.stl": "d54dbd56a26776dcc0bca7cc90043f8ec33a4c5a5dbd067e5098484e319987af",
+        "src/pb2025_sentry_nav/scripts/rmul2027/scene/models/rmul_2027_3v3/meshes/visual/part_001.stl": "a9cbf9ab439660a45eef338a1cec35e4f4552334623214e758aff09320d1b65a",
+        "src/pb2025_sentry_nav/scripts/rmul2027/scene/models/rmul_2027_3v3/meshes/collision/part_001.stl": "a9cbf9ab439660a45eef338a1cec35e4f4552334623214e758aff09320d1b65a"
+      }
+    }
+  },
+  "candidate_motion_targets_passed": 17,
+  "remaining_issues": [
+    "WSLg permanent display fix not completed",
+    "Synthetic point-time contract unchanged",
+    "Other low markings, corner stalls, all-field and 3D traversal unverified",
+    "Venom hardware and match tactics out of scope"
+  ],
+  "github_target": {
+    "repository": "HardyYip/venom_sentry_nav",
+    "branch": "sim/rmul2027-3v3"
+  }
+}

@@ -13,9 +13,11 @@ parser=argparse.ArgumentParser()
 parser.add_argument('--record-dir',type=Path,required=True)
 parser.add_argument('--params-file',type=Path,required=True)
 parser.add_argument('--gz-world-path',type=Path)
-parser.add_argument('--field-contact',choices=['cad','seam-ramps'],default='seam-ramps')
-parser.add_argument('--last-case',default='03-center',choices=['ready','01-short','02-east-north','03-center','07-occupied'])
+parser.add_argument('--field-contact',choices=['cad','cad-flat-marking','seam-ramps'],default='seam-ramps')
+parser.add_argument('--route-set',choices=['baseline','central-marking'],default='baseline')
+parser.add_argument('--last-case',choices=['ready','01-short','02-east-north','03-center','07-occupied','01-manual-first','02-manual-second','03-seam-approach','04-seam-positive-y','05-seam-negative-y'])
 args=parser.parse_args()
+args.last_case=args.last_case or ('05-seam-negative-y' if args.route_set=='central-marking' else '03-center')
 folder=Path(__file__).resolve().parent
 workspace=folder.parents[3]
 record=args.record_dir.resolve()
@@ -26,6 +28,7 @@ gz_world=args.gz_world_path.resolve() if args.gz_world_path else None
 if gz_world is not None and not gz_world.is_file():raise SystemExit('Missing spawn configuration: '+str(gz_world))
 metadata={'owner':'Codex timing experiment','started_at':datetime.datetime.now().astimezone().isoformat(),'record_dir':str(record),'params_file':str(params),'last_case':args.last_case,'processes':{},'status':'starting','finished':False}
 (record/'session.json').write_text(json.dumps(metadata,indent=2)+'\n')
+metadata['route_set']=args.route_set
 metadata['field_contact']=args.field_contact
 metadata['gz_world_path']=str(gz_world) if gz_world else None
 metadata['params_sha256']=hashlib.sha256(params.read_bytes()).hexdigest()
@@ -60,7 +63,8 @@ signal.signal(signal.SIGTERM,interrupt)
 try:
     observer=launch('observer',[sys.executable,str(folder/'g1_tf_observer.py'),'--record-dir',str(record/'observer'),'--duration','3600','--interval','.5'])
     topics=['/clock','/red_standard_robot1/tf','/red_standard_robot1/tf_static','/red_standard_robot1/global_costmap/published_footprint','/red_standard_robot1/local_costmap/published_footprint','/red_standard_robot1/chassis_odometry_gt','/red_standard_robot1/livox/imu','/red_standard_robot1/velodyne_points','/red_standard_robot1/aft_mapped_to_init','/red_standard_robot1/odometry','/red_standard_robot1/plan','/red_standard_robot1/cmd_vel']
-    recorder=launch('recorder',['ros2','bag','record','-o',str(record/'inputs'),*topics])
+    topics.extend(['/red_standard_robot1/map','/red_standard_robot1/local_plan','/red_standard_robot1/global_costmap/costmap','/red_standard_robot1/global_costmap/costmap_updates','/red_standard_robot1/local_costmap/costmap','/red_standard_robot1/local_costmap/costmap_updates','/red_standard_robot1/navigate_to_pose/_action/status','/red_standard_robot1/navigate_to_pose/_action/feedback'])
+    recorder=launch('recorder',['ros2','bag','record','--include-hidden-topics','-o',str(record/'inputs'),*topics])
     command=['bash',str(folder/'start_rmul2027.sh'),'nav','--params-file',str(params),'--tf2-library-dir',str(workspace/'artifacts/rmul_2027_3v3/runtime/tf2-0.25.24/lib')]
     command.extend(['--field-contact',args.field_contact])
     if gz_world is not None:command.extend(['--gz-world-path',str(gz_world)])
@@ -77,7 +81,7 @@ try:
         time.sleep(.2)
     if navlog is None:raise TimeoutError('Navigation startup exceeded180wallseconds')
     metadata['navigation_log']=str(navlog)
-    for name in ['robot-red_standard_robot1.sdf','resource-hashes.json','world.sdf','gz_world.yaml','nav2_params.yaml','tf2-runtime.json','run-options.json']:
+    for name in ['robot-red_standard_robot1.sdf','resource-hashes.json','world.sdf','gz_world.yaml','nav2_params.yaml','tf2-runtime.json','run-options.json','flat-marking-contact-manifest.json']:
         source=navlog.parent/name
         if source.is_file():
             import shutil
@@ -87,7 +91,7 @@ try:
     auditdir.mkdir()
     (auditdir/'observer').symlink_to('../observer',target_is_directory=True)
     save()
-    audit=launch('audit',[sys.executable,str(folder/'run_baseline_audit.py'),'--record-dir',str(auditdir),'--navigation-log',str(navlog),'--last-case',args.last_case])
+    audit=launch('audit',[sys.executable,str(folder/'run_baseline_audit.py'),'--record-dir',str(auditdir),'--navigation-log',str(navlog),'--last-case',args.last_case,'--route-set',args.route_set])
     deadline=time.monotonic()+(3000 if args.last_case=='07-occupied' else 1500)
     while audit.poll() is None:
         if wrapper.poll() is not None:raise RuntimeError('Simulation exited during audit')

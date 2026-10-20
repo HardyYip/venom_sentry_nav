@@ -8,13 +8,14 @@ import signal
 import shutil
 import subprocess
 import time
+import xml.etree.ElementTree as ET
 from pathlib import Path
 
 parser = argparse.ArgumentParser()
 parser.add_argument('mode', choices=('scene', 'mapping', 'nav'), nargs='?', default='nav')
 parser.add_argument('--map-set',choices=('sensor','cad'),default='cad')
 parser.add_argument('--wheel-contact',choices=('original','rounded'),default='rounded')
-parser.add_argument('--field-contact',choices=('cad','seam-ramps'),default='seam-ramps')
+parser.add_argument('--field-contact',choices=('cad','cad-flat-marking','seam-ramps'),default='seam-ramps')
 parser.add_argument('--params-file', default=str(Path(__file__).resolve().parent/'config/nav2_params.yaml'))
 parser.add_argument('--gz-world-path')
 parser.add_argument('--tf2-library-dir', help='Optional TF2 core library directory for 2027 navigation only')
@@ -48,9 +49,14 @@ except BlockingIOError:
 stamp = datetime.datetime.now().strftime('%Y%m%d-%H%M%S')
 logs = workspace / 'logs' / f'{stamp}-rmul2027-{options.mode}'
 logs.mkdir(parents=True)
-world_sdf=folder/'scene/worlds'/('rmul_2027_3v3_navigation_world.sdf' if options.mode!='scene' and options.field_contact=='seam-ramps' else 'rmul_2027_3v3_world.sdf')
+world_names={'cad':'rmul_2027_3v3_world.sdf','cad-flat-marking':'rmul_2027_3v3_flat_marking_world.sdf','seam-ramps':'rmul_2027_3v3_navigation_world.sdf'}
+world_profile='cad' if options.mode=='scene' and options.field_contact=='seam-ramps' else options.field_contact
+world_sdf=folder/'scene/worlds'/world_names[world_profile]
+if not world_sdf.is_file():raise SystemExit('Missing selected world: '+str(world_sdf))
+selected_manifest=folder/'scene'/('flat-marking-contact-manifest.json' if options.field_contact=='cad-flat-marking' else 'navigation-contact-manifest.json')
+if not selected_manifest.is_file():raise SystemExit('Missing contact manifest: '+str(selected_manifest))
 shutil.copyfile(world_sdf,logs/'world.sdf')
-shutil.copyfile(folder/'scene/navigation-contact-manifest.json',logs/'navigation-contact-manifest.json')
+shutil.copyfile(selected_manifest,logs/selected_manifest.name)
 source_params=selected_params.read_text()
 source_params=source_params.replace('/home/hardy/pb2025_nav_ws/src/pb2025_sentry_nav/scripts/rmul2027',str(folder))
 (logs/'nav2_params.yaml').write_text(source_params)
@@ -58,7 +64,19 @@ shutil.copyfile(selected_gz_world,logs/'gz_world.yaml')
 if (maps/'manifest.json').exists():
     shutil.copyfile(maps/'manifest.json',logs/'maps-manifest.json')
 (logs/'run-options.json').write_text(json.dumps(vars(options),indent=2)+'\n')
-(logs/'resource-hashes.json').write_text(json.dumps({str(x.relative_to(workspace)):hashlib.sha256(x.read_bytes()).hexdigest() for x in [world_sdf, selected_gz_world, logs/'nav2_params.yaml', maps/'rmul_2027_3v3.pcd', maps/'rmul_2027_3v3.yaml', maps/'rmul_2027_3v3.pgm'] if x.is_file()},indent=2)+'\n')
+resources=[world_sdf,selected_gz_world,selected_manifest,logs/'nav2_params.yaml',maps/'rmul_2027_3v3.pcd',maps/'rmul_2027_3v3.yaml',maps/'rmul_2027_3v3.pgm']
+models=[]
+for uri in ET.parse(world_sdf).findall('.//include/uri'):
+    if uri.text and uri.text.startswith('model://'):
+        model_path=folder/'scene/models'/uri.text[len('model://'):]/'model.sdf'
+        resources.append(model_path)
+        models.append(model_path)
+for xml_path in [world_sdf,*models]:
+    for uri in ET.parse(xml_path).findall('.//mesh/uri'):
+        if uri.text and uri.text.startswith('model://'):resources.append(folder/'scene/models'/uri.text[len('model://'):])
+for path in resources:
+    if not path.is_file():raise SystemExit('Missing selected resource: '+str(path))
+(logs/'resource-hashes.json').write_text(json.dumps({str(x.relative_to(workspace)) if x.is_relative_to(workspace) else str(x):hashlib.sha256(x.read_bytes()).hexdigest() for x in dict.fromkeys(resources)},indent=2)+'\n')
 
 environment = {**os.environ, 'ROS_LOG_DIR': str(logs / 'ros'),
                'LIBGL_ALWAYS_SOFTWARE': '1', 'GALLIUM_DRIVER': 'llvmpipe',

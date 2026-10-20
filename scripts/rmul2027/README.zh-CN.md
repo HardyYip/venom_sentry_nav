@@ -4,9 +4,9 @@
 
 ## 当前证据
 
-C-011已完成诊断关闭的近似场景两次完整路线、原CAD一次完整路线、旧2025就绪／近点及独立检出构建／就绪／近点，全部通过。具体数字和有限验收边界见TEST_RESULTS.zh-CN.md。运行成功不能直接写成未经修改的上游仓库原样通过。
+C-013按用户批准的非阻挡标识假设，仅移除中央薄层60个碰撞面，保留显示与原地面；专项6/6及两次全新完整路线各8/8通过，候选17个运动目标成功停车。原CAD相同第二目标复现无进展失败，原始失败保留。具体数字与边界见TEST_RESULTS.zh-CN.md；不宣称官方确认标识铺设，也不等于未经修改的上游原样通过。
 
-两种场景必须分开记录：cad保留官方CAD转换后的原碰撞网格；seam-ramps增加12段低接缝过渡斜面，是辅助导航近似。两者使用相同2027 CAD派生地图，高平台和孔洞保守视为障碍，不代表三维通行层或隧道通过能力。
+三种场景分别记录：cad-flat-marking是新入口默认，仅中央3×3米、z=7–10mm标识薄层不参与碰撞；cad保留全部原CAD碰撞，已记录该处卡住；seam-ramps是增加12段过渡斜面的历史辅助近似。三者使用相同2027 CAD派生地图和PCD，高平台及孔洞仍保守视为障碍，不代表三维通行或隧道能力。C-011有限路线历史结果保存在history和reports/C011-summary.json。
 
 ## 获取与恢复
 
@@ -23,21 +23,35 @@ bash scripts/rmul2027/build_rmul2027.sh
 
 assets包含约2MB导航地图、必要高度缓存、STEP来源清单，以及97KB官方TF2 deb。prepare仅校验并解包TF2到工作区artifacts/rmul_2027_3v3/runtime/tf2-0.25.24，不执行系统安装；保留系统旧TF2。包来源、SHA和上游修复见assets/external-resources.json。原2025的121MB PCD需按其官方分享地址获取，不纳入Git。
 
+候选场景资产已包含，无需接手者安装FreeCAD。需要重建本次中央碰撞处理时执行：
+
+```bash
+python3 scripts/rmul2027/build_flat_marking_scene.py
+```
+
+该工具只依赖Python标准库，锁定原mesh SHA且必须恰好匹配60面，否则在写输出前停止；保留其余3596面原始字节，中央3600个5cm地面采样点均有原z0支撑。不批量删除其他薄层，不添加斜面。
+
 ## 运行与观察
 
-终端A，在本仓库执行。默认cad，不自动发目标，不打开Gazebo图形窗口：
+终端A，在本仓库执行。默认cad-flat-marking，不自动发目标，不打开Gazebo图形窗口：
 
 ```bash
 bash scripts/rmul2027/start_rmul2027_test.sh
 ```
 
-辅助近似场景必须显式选择：
+原始CAD碰撞对照必须显式选择：
+
+```bash
+bash scripts/rmul2027/start_rmul2027_test.sh cad
+```
+
+历史辅助近似场景必须显式选择：
 
 ```bash
 bash scripts/rmul2027/start_rmul2027_test.sh seam-ramps
 ```
 
-两者固定原圆柱轮碰撞体、诊断关闭、IMU队列5和项目局部TF2库。相机640×360@5、IMU200Hz，2027仿真显式使用P=(1000,1000)、I=(200,200)，时间单位保持当前验证配置；底盘插件的上游缺省P=(100,500)、I=0仍保留，不能把此候选描述为上游零改动。缺地图、修复库或构建产物会报错，不回退其他场景或旧库。底层start_rmul2027.sh仍保留旧默认和显式参数，用于历史对照；日常本轮验收使用带_test的入口。
+这些选项固定原圆柱轮碰撞体、诊断关闭、IMU队列5和项目局部TF2库。相机640×360@5、IMU200Hz，2027仿真显式使用P=(1000,1000)、I=(200,200)，时间单位保持当前验证配置；底盘插件的上游缺省P=(100,500)、I=0仍保留，不能把此候选描述为上游零改动。缺地图、修复库或构建产物会报错，不回退其他场景或旧库。底层start_rmul2027.sh仍保留旧默认和显式参数，用于历史对照；日常本轮验收使用带_test的入口。
 
 终端B，在本仓库运行轻量RViz：
 
@@ -64,10 +78,12 @@ python3 scripts/rmul2027/run_timing_experiment.py \
   --record-dir /tmp/rmul2027-new-test \
   --params-file scripts/rmul2027/config/nav2_test.yaml \
   --gz-world-path scripts/rmul2027/config/gz_world_test.yaml \
-  --field-contact cad --last-case 07-occupied
+  --field-contact cad-flat-marking --last-case 07-occupied
 ```
 
 大型记录请将record-dir改到D盘WSL工作区的artifacts。seam-ramps对照只改变--field-contact。完整路线包括静止、近点、右上、中央、左下、左上、重复右上和占用目标拒绝。任一检查失败立即停止后续目标；suite-summary.json的completed与逐项passed决定结果，不能把前缀通过写成整套通过。
+
+中央标识专项使用同一命令，将--last-case 07-occupied替换为--route-set central-marking。默认专项依次为静止、(4.20,-5.71)、(9.50,-5.71)、(5.53,-4.85)、(5.53,-4.15)、(5.53,-4.85)。原CAD对照只改--field-contact cad，并可用--last-case 02-manual-second截断。录包现包含完整代价地图／updates及隐藏action状态／feedback。
 
 运动目标要求180墙钟秒内SUCCEEDED、真值发生位移、估计和真值终点误差<0.35m、底盘停车及实际Gazebo姿态合理。保留时间对齐误差保护、TF和双图足迹新鲜度、核心节点active且单实例。占用目标须ABORTED、无非零运动指令。真值仅用于验收，不输入定位。
 
@@ -76,6 +92,8 @@ python3 scripts/rmul2027/run_timing_experiment.py \
 ## 修改边界与已知限制
 
 TF2采用官方0.25.24核心库解决已在本机取证的双线程互锁，不修改系统包。Point-LIO仅增加默认关闭的接收诊断和默认5条的可配置队列。仿真生成入口支持已有机器人碰撞／相机／PI覆盖；底盘插件保留原缺省值，2027才显式选用PI配置。补丁还保留裁判shebang与LightBar兼容修正。具体可审查patches中的三个完整diff。
+
+WSLg的WARN:COPY MODE／无窗口问题只曾通过显示服务恢复，永久修复未做；不要为此重复启动仿真。其他拐角与全场任意目标未充分验证。
 
 合成点时间和timestamp_unit=2存在已知输入契约问题，本轮未修；诊断关闭时没有内部时序报告，不能将空报告视为无漏收。若再次定位跳变，保留失败结论，不继续叠加队列、滤波、速度或地形修改。
 

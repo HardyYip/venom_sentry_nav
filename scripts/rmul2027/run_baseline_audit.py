@@ -14,8 +14,10 @@ from pathlib import Path
 parser=argparse.ArgumentParser()
 parser.add_argument('--record-dir',type=Path,required=True)
 parser.add_argument('--navigation-log',type=Path)
-parser.add_argument('--last-case',choices=['ready','01-short','02-east-north','03-center','04-west-south','05-west-north','06-east-north-repeat','07-occupied'],default='07-occupied')
+parser.add_argument('--route-set',choices=['baseline','central-marking'],default='baseline')
+parser.add_argument('--last-case',choices=['ready','01-short','02-east-north','03-center','04-west-south','05-west-north','06-east-north-repeat','07-occupied','01-manual-first','02-manual-second','03-seam-approach','04-seam-positive-y','05-seam-negative-y'])
 args=parser.parse_args()
+args.last_case=args.last_case or ('05-seam-negative-y' if args.route_set=='central-marking' else '07-occupied')
 folder=Path(__file__).resolve().parent
 workspace=folder.parents[3]
 record=args.record_dir.resolve()
@@ -42,12 +44,13 @@ meta['runner_pid']=os.getpid()
 active_params=navlog.parent/'nav2_params.yaml'
 if not active_params.is_file():raise SystemExit('Missing active launch parameter snapshot.')
 meta['mode']='current-runtime-baseline'
+meta['route_set']=args.route_set
 meta['active_params_sha256']=hashlib.sha256(active_params.read_bytes()).hexdigest()
 meta['navigation_configuration_changed']=active_params.read_bytes()!=(folder/'config/nav2_params.yaml').read_bytes()
 meta['robot_configuration_changed']=(navlog.parent/'gz_world.yaml').read_bytes()!=(folder/'config/gz_world_rounded.yaml').read_bytes()
 config=record/'configuration'
 config.mkdir(exist_ok=True)
-for source in [active_params,navlog.parent/'gz_world.yaml',folder/'behavior_trees/navigate_field.xml',folder/'scene/conversion.json',folder/'scene/navigation-contact-manifest.json',workspace/'artifacts/rmul_2027_3v3/maps-cad/manifest.json']:
+for source in [active_params,navlog.parent/'gz_world.yaml',folder/'behavior_trees/navigate_field.xml',folder/'scene/conversion.json',navlog.parent/('flat-marking-contact-manifest.json' if (navlog.parent/'flat-marking-contact-manifest.json').exists() else 'navigation-contact-manifest.json'),workspace/'artifacts/rmul_2027_3v3/maps-cad/manifest.json']:
     target=config/source.name
     if not target.exists():shutil.copyfile(source,target)
 tf2_snapshot=navlog.parent/'tf2-runtime.json'
@@ -101,6 +104,9 @@ try:
         deadline=time.monotonic()+12
         while not status_path.exists() and time.monotonic()<deadline:time.sleep(.1)
     phases=[('ready',['--mode','ready','--stability-seconds','12']),('01-short',['--mode','nav']),('02-east-north',['--mode','nav','--goal-x','9.3','--goal-y','-0.2']),('03-center',['--mode','nav','--goal-x','4.8','--goal-y','-3.0']),('04-west-south',['--mode','nav','--goal-x','-0.03','--goal-y','-5.86']),('05-west-north',['--mode','nav','--goal-x','0.0','--goal-y','-0.2']),('06-east-north-repeat',['--mode','nav','--goal-x','9.3','--goal-y','-0.2']),('07-occupied',['--mode','nav','--scenario','invalid'])]
+    if args.route_set=='central-marking':
+        phases=[('ready',['--mode','ready','--stability-seconds','12']),('01-manual-first',['--mode','nav','--goal-x','4.20','--goal-y','-5.71']),('02-manual-second',['--mode','nav','--goal-x','9.50','--goal-y','-5.71']),('03-seam-approach',['--mode','nav','--goal-x','5.53','--goal-y','-4.85']),('04-seam-positive-y',['--mode','nav','--goal-x','5.53','--goal-y','-4.15']),('05-seam-negative-y',['--mode','nav','--goal-x','5.53','--goal-y','-4.85'])]
+    if args.last_case not in [v[0] for v in phases]:raise ValueError('Last case does not belong to selected route set')
     phases=phases[:next(i for i,value in enumerate(phases) if value[0]==args.last_case)+1]
     meta['requested_last_case']=args.last_case;save_meta()
     emit('suite_started',cases=[v[0] for v in phases])
@@ -161,7 +167,7 @@ finally:
     end_byte=navlog.stat().st_size
     with navlog.open('rb') as source:source.seek(meta['navigation_log_start_byte']);interval=source.read(end_byte-meta['navigation_log_start_byte']).decode(errors='replace')
     (record/'navigation-interval.log').write_text(interval)
-    summary={'completed':finished,'requested_last_case':args.last_case,'cases':results,'navigation_log_start_byte':meta['navigation_log_start_byte'],'navigation_log_end_byte':end_byte,'backup_events_in_interval':interval.count('Running backup'),'empty_plan_events_in_interval':interval.count('Resulting plan has 0 poses'),'navigation_configuration_changed':meta['navigation_configuration_changed'],'robot_configuration_changed':meta['robot_configuration_changed'],'historical_frozen_pose_root_cause_fixed':None,'root_cause_assessment':'not inferred by this route suite','finished_at':datetime.datetime.now().isoformat()}
+    summary={'completed':finished,'route_set':args.route_set,'requested_last_case':args.last_case,'cases':results,'navigation_log_start_byte':meta['navigation_log_start_byte'],'navigation_log_end_byte':end_byte,'backup_events_in_interval':interval.count('Running backup'),'empty_plan_events_in_interval':interval.count('Resulting plan has 0 poses'),'navigation_configuration_changed':meta['navigation_configuration_changed'],'robot_configuration_changed':meta['robot_configuration_changed'],'historical_frozen_pose_root_cause_fixed':None,'root_cause_assessment':'not inferred by this route suite','finished_at':datetime.datetime.now().isoformat()}
     (record/'suite-summary.json').write_text(json.dumps(summary,indent=2)+'\n');meta['active_phase']=None;meta['suite_complete']=finished;save_meta()
     emit('suite_finished',completed=finished,cases_passed=sum(v['passed'] for v in results),cases_recorded=len(results));stream.close();lock.close()
 raise SystemExit(0 if finished else 1)
