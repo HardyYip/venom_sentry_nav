@@ -1,0 +1,1365 @@
+{
+  "record_directory": "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/diagnostics/structural-20261020-224258-C022",
+  "scope": "Specified static simulator routes; not real robot calibration",
+  "suites": {
+    "stable-full-01": {
+      "completed": true,
+      "cases_passed": 8,
+      "motion_goals": 6,
+      "max_truth_error_m": 0.09408613863676235,
+      "max_estimate_error_m": 0.07424450873194442,
+      "max_stopped_component": 0.00012806032724199863,
+      "backups": 0,
+      "empty_local_paths": 0
+    },
+    "stable-full-02": {
+      "completed": true,
+      "cases_passed": 8,
+      "motion_goals": 6,
+      "max_truth_error_m": 0.10632182669205985,
+      "max_estimate_error_m": 0.0913193903941246,
+      "max_stopped_component": 7.245490636073963e-05,
+      "backups": 0,
+      "empty_local_paths": 0
+    },
+    "normal-full-01": {
+      "completed": true,
+      "cases_passed": 8,
+      "motion_goals": 6,
+      "max_truth_error_m": 0.18206407368772462,
+      "max_estimate_error_m": 0.17187988854955769,
+      "max_stopped_component": 0.00010804378054216647,
+      "backups": 0,
+      "empty_local_paths": 0
+    }
+  },
+  "runtime_guard": {
+    "additive": {
+      "passed": true,
+      "checks": 30,
+      "checks_detail": [
+        {
+          "name": "startup-blocked-without-pose-command",
+          "passed": true
+        },
+        {
+          "name": "omni-translation-and-spin-addition",
+          "passed": true
+        },
+        {
+          "name": "coordinate-rotation",
+          "passed": true,
+          "yaw": 1.5707963267948966,
+          "expected": [
+            0.4000000000000001,
+            -0.6,
+            0.9
+          ]
+        },
+        {
+          "name": "coordinate-rotation",
+          "passed": true,
+          "yaw": -1.5707963267948966,
+          "expected": [
+            -0.39999999999999997,
+            0.6,
+            0.9
+          ]
+        },
+        {
+          "name": "coordinate-rotation",
+          "passed": true,
+          "yaw": 3.141592653589793,
+          "expected": [
+            -0.6,
+            -0.4000000000000001,
+            0.9
+          ]
+        },
+        {
+          "name": "coordinate-rotation",
+          "passed": true,
+          "yaw": 0.63,
+          "expected": [
+            0.7204744081641989,
+            -0.030275851440500934,
+            0.9
+          ]
+        },
+        {
+          "name": "zero-command-does-not-replay-cached-motion",
+          "passed": true
+        },
+        {
+          "name": "odometry-receive-loss",
+          "passed": true,
+          "detected_stop_delay_s": 0.5031115819947445,
+          "status": "STOPPED:odometry_receive_timeout"
+        },
+        {
+          "name": "odometry-receive-loss-fresh-recovery",
+          "passed": true
+        },
+        {
+          "name": "frozen-source-stamp-with-live-messages",
+          "passed": true,
+          "detected_stop_delay_s": 0.4999991009972291,
+          "status": "STOPPED:pose_stamp_stalled"
+        },
+        {
+          "name": "frozen-source-stamp-with-live-messages-fresh-recovery",
+          "passed": true
+        },
+        {
+          "name": "local-plan-loss",
+          "passed": true,
+          "detected_stop_delay_s": 0.49328484699799446,
+          "status": "STOPPED:plan_receive_timeout"
+        },
+        {
+          "name": "local-plan-loss-fresh-recovery",
+          "passed": true
+        },
+        {
+          "name": "command-receive-loss",
+          "passed": true,
+          "detected_stop_delay_s": 0.48719403299764963,
+          "status": "STOPPED:command_missing"
+        },
+        {
+          "name": "command-receive-loss-fresh-recovery",
+          "passed": true
+        },
+        {
+          "name": "invalid-pose",
+          "passed": true,
+          "detected_stop_delay_s": 0.06328948900045361,
+          "status": "STOPPED:pose_missing_or_invalid"
+        },
+        {
+          "name": "invalid-pose-fresh-recovery",
+          "passed": true
+        },
+        {
+          "name": "future-pose-stamp",
+          "passed": true,
+          "detected_stop_delay_s": 0.05647413100086851,
+          "status": "STOPPED:pose_stamp_stalled"
+        },
+        {
+          "name": "future-pose-stamp-fresh-recovery",
+          "passed": true
+        },
+        {
+          "name": "fractional-future-stamp-does-not-refresh-fake-tf",
+          "passed": true
+        },
+        {
+          "name": "fractional-future-stamp-recovers-with-new-command",
+          "passed": true
+        },
+        {
+          "name": "empty-local-plan",
+          "passed": true,
+          "detected_stop_delay_s": 0.05290545299794758,
+          "status": "STOPPED:empty_or_invalid_plan"
+        },
+        {
+          "name": "empty-local-plan-fresh-recovery",
+          "passed": true
+        },
+        {
+          "name": "invalid-command",
+          "passed": true,
+          "detected_stop_delay_s": 0.05651063500408782,
+          "status": "STOPPED:invalid_command"
+        },
+        {
+          "name": "invalid-command-fresh-recovery",
+          "passed": true
+        },
+        {
+          "name": "software-stop-overrides-positive-command-and-spin",
+          "passed": true
+        },
+        {
+          "name": "stop-release-cannot-replay-pre-stop-command",
+          "passed": true
+        },
+        {
+          "name": "stop-release-new-command-recovers",
+          "passed": true
+        },
+        {
+          "name": "normal-zero-respects-rotation-mode",
+          "passed": true
+        },
+        {
+          "name": "diagnostics-and-fake-frame",
+          "passed": true
+        }
+      ]
+    },
+    "heading": {
+      "passed": true,
+      "checks": 31,
+      "checks_detail": [
+        {
+          "name": "startup-blocked-without-pose-command",
+          "passed": true
+        },
+        {
+          "name": "omni-translation-and-spin-addition",
+          "passed": true
+        },
+        {
+          "name": "coordinate-rotation",
+          "passed": true,
+          "yaw": 1.5707963267948966,
+          "expected": [
+            0.4000000000000001,
+            -0.6,
+            0.9
+          ]
+        },
+        {
+          "name": "coordinate-rotation",
+          "passed": true,
+          "yaw": -1.5707963267948966,
+          "expected": [
+            -0.39999999999999997,
+            0.6,
+            0.9
+          ]
+        },
+        {
+          "name": "coordinate-rotation",
+          "passed": true,
+          "yaw": 3.141592653589793,
+          "expected": [
+            -0.6,
+            -0.4000000000000001,
+            0.9
+          ]
+        },
+        {
+          "name": "coordinate-rotation",
+          "passed": true,
+          "yaw": 0.63,
+          "expected": [
+            0.7204744081641989,
+            -0.030275851440500934,
+            0.9
+          ]
+        },
+        {
+          "name": "zero-command-does-not-replay-cached-motion",
+          "passed": true
+        },
+        {
+          "name": "odometry-receive-loss",
+          "passed": true,
+          "detected_stop_delay_s": 0.5067554650013335,
+          "status": "STOPPED:odometry_receive_timeout"
+        },
+        {
+          "name": "odometry-receive-loss-fresh-recovery",
+          "passed": true
+        },
+        {
+          "name": "frozen-source-stamp-with-live-messages",
+          "passed": true,
+          "detected_stop_delay_s": 0.4999806269988767,
+          "status": "STOPPED:pose_stamp_stalled"
+        },
+        {
+          "name": "frozen-source-stamp-with-live-messages-fresh-recovery",
+          "passed": true
+        },
+        {
+          "name": "local-plan-loss",
+          "passed": true,
+          "detected_stop_delay_s": 0.5125922649967833,
+          "status": "STOPPED:plan_receive_timeout"
+        },
+        {
+          "name": "local-plan-loss-fresh-recovery",
+          "passed": true
+        },
+        {
+          "name": "command-receive-loss",
+          "passed": true,
+          "detected_stop_delay_s": 0.5085875889999443,
+          "status": "STOPPED:command_missing"
+        },
+        {
+          "name": "command-receive-loss-fresh-recovery",
+          "passed": true
+        },
+        {
+          "name": "invalid-pose",
+          "passed": true,
+          "detected_stop_delay_s": 0.06242171700432664,
+          "status": "STOPPED:pose_missing_or_invalid"
+        },
+        {
+          "name": "invalid-pose-fresh-recovery",
+          "passed": true
+        },
+        {
+          "name": "future-pose-stamp",
+          "passed": true,
+          "detected_stop_delay_s": 0.056087561999447644,
+          "status": "STOPPED:pose_stamp_stalled"
+        },
+        {
+          "name": "future-pose-stamp-fresh-recovery",
+          "passed": true
+        },
+        {
+          "name": "fractional-future-stamp-does-not-refresh-fake-tf",
+          "passed": true
+        },
+        {
+          "name": "fractional-future-stamp-recovers-with-new-command",
+          "passed": true
+        },
+        {
+          "name": "empty-local-plan",
+          "passed": true,
+          "detected_stop_delay_s": 0.05571006600075634,
+          "status": "STOPPED:empty_or_invalid_plan"
+        },
+        {
+          "name": "empty-local-plan-fresh-recovery",
+          "passed": true
+        },
+        {
+          "name": "invalid-command",
+          "passed": true,
+          "detected_stop_delay_s": 0.0529384809997282,
+          "status": "STOPPED:invalid_command"
+        },
+        {
+          "name": "invalid-command-fresh-recovery",
+          "passed": true
+        },
+        {
+          "name": "software-stop-overrides-positive-command-and-spin",
+          "passed": true
+        },
+        {
+          "name": "stop-release-cannot-replay-pre-stop-command",
+          "passed": true
+        },
+        {
+          "name": "stop-release-new-command-recovers",
+          "passed": true
+        },
+        {
+          "name": "normal-zero-respects-rotation-mode",
+          "passed": true
+        },
+        {
+          "name": "heading-mode-rejects-additive-spin-bias",
+          "passed": true,
+          "final_heading_error": 0.0003196806007039754
+        },
+        {
+          "name": "diagnostics-and-fake-frame",
+          "passed": true
+        }
+      ]
+    }
+  },
+  "pending": [],
+  "physical-fault-01": {
+    "passed": true,
+    "processes": {
+      "launcher": {
+        "pid": 121673,
+        "command": [
+          "bash",
+          "/home/hardy/pb2025_nav_ws/src/pb2025_sentry_nav/scripts/rmul2027/start_rmul2027.sh",
+          "nav",
+          "--params-file",
+          "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/diagnostics/structural-20261020-224258-C022/physical-fault-01/fault-params.yaml",
+          "--gz-world-path",
+          "/home/hardy/pb2025_nav_ws/src/pb2025_sentry_nav/scripts/rmul2027/config/gz_world_test.yaml",
+          "--field-contact",
+          "cad-flat-floor",
+          "--render-mode",
+          "gpu",
+          "--tf2-library-dir",
+          "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/runtime/tf2-0.25.24/lib"
+        ]
+      },
+      "recorder": {
+        "pid": 121923,
+        "command": [
+          "ros2",
+          "bag",
+          "record",
+          "-o",
+          "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/diagnostics/structural-20261020-224258-C022/physical-fault-01/inputs",
+          "/clock",
+          "/red_standard_robot1/tf",
+          "/red_standard_robot1/tf_static",
+          "/red_standard_robot1/chassis_odometry_gt",
+          "/red_standard_robot1/odometry",
+          "/red_standard_robot1/cmd_vel",
+          "/red_standard_robot1/fault_test_cmd",
+          "/red_standard_robot1/cmd_spin",
+          "/red_standard_robot1/safety_stop",
+          "/red_standard_robot1/safety_status",
+          "/red_standard_robot1/registered_scan"
+        ]
+      },
+      "ready": {
+        "pid": 121924,
+        "command": [
+          "/usr/bin/python3",
+          "/home/hardy/pb2025_nav_ws/src/pb2025_sentry_nav/scripts/rmul2027/run_baseline_audit.py",
+          "--record-dir",
+          "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/diagnostics/structural-20261020-224258-C022/physical-fault-01/ready",
+          "--last-case",
+          "ready",
+          "--navigation-log",
+          "/home/hardy/pb2025_nav_ws/logs/20261020-230346-rmul2027-nav/navigation.log"
+        ]
+      }
+    },
+    "scope": "owned fresh simulation, no navigation goal, runtime node is stopping the chassis",
+    "navigation_log": "/home/hardy/pb2025_nav_ws/logs/20261020-230346-rmul2027-nav/navigation.log",
+    "before_fault_position": [
+      -4.613311529063837,
+      3.000436145651179
+    ],
+    "fault_started_wall": 46226.035968167,
+    "runtime_zero_delay_s": 0.485133746995416,
+    "paused_chassis_speed_max": 0.0018850484386254535,
+    "fault_displacement_m": 0.1290633977713733,
+    "resumed_motion": true,
+    "software_stop_physical": true,
+    "nav_goals_sent": 0
+  },
+  "blocked-legacy-01": {
+    "scenario": "blocked",
+    "started_at": "2026-10-20T23:10:42.488733+08:00",
+    "params_file": "/home/hardy/pb2025_nav_ws/src/pb2025_sentry_nav/scripts/rmul2027/config/nav2_original_speed_early_brake.yaml",
+    "params_sha256": "6298ed140bf3554134547adc55b5bcc380b22e25d8207176a0eab8d1893ee863",
+    "cart_size_m": [
+      0.14,
+      14.0,
+      0.5
+    ],
+    "obstacle_behavior": "stationary geometry proxy, no opponent controller",
+    "start_map_xy": [
+      1.0,
+      -5.5
+    ],
+    "goal_map_xy": [
+      5.0,
+      -5.5
+    ],
+    "cart_map_x": 3.0,
+    "status": "passed",
+    "processes": {
+      "launcher": {
+        "pid": 122261,
+        "command": [
+          "bash",
+          "/home/hardy/pb2025_nav_ws/src/pb2025_sentry_nav/scripts/rmul2027/start_rmul2027.sh",
+          "nav",
+          "--params-file",
+          "/home/hardy/pb2025_nav_ws/src/pb2025_sentry_nav/scripts/rmul2027/config/nav2_original_speed_early_brake.yaml",
+          "--gz-world-path",
+          "/home/hardy/pb2025_nav_ws/src/pb2025_sentry_nav/scripts/rmul2027/config/gz_world_test.yaml",
+          "--field-contact",
+          "cad-flat-floor",
+          "--render-mode",
+          "gpu",
+          "--tf2-library-dir",
+          "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/runtime/tf2-0.25.24/lib"
+        ]
+      },
+      "recorder": {
+        "pid": 122502,
+        "command": [
+          "ros2",
+          "bag",
+          "record",
+          "--include-hidden-topics",
+          "-o",
+          "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/diagnostics/structural-20261020-224258-C022/blocked-legacy-01/inputs",
+          "/clock",
+          "/red_standard_robot1/tf",
+          "/red_standard_robot1/tf_static",
+          "/red_standard_robot1/safety_status",
+          "/red_standard_robot1/chassis_odometry_gt",
+          "/red_standard_robot1/velodyne_points",
+          "/red_standard_robot1/livox/imu",
+          "/red_standard_robot1/registered_scan",
+          "/red_standard_robot1/terrain_map",
+          "/red_standard_robot1/terrain_map_ext",
+          "/red_standard_robot1/plan",
+          "/red_standard_robot1/local_plan",
+          "/red_standard_robot1/cmd_vel",
+          "/red_standard_robot1/map",
+          "/red_standard_robot1/local_costmap/costmap",
+          "/red_standard_robot1/local_costmap/costmap_updates",
+          "/red_standard_robot1/global_costmap/costmap",
+          "/red_standard_robot1/global_costmap/costmap_updates",
+          "/red_standard_robot1/navigate_to_pose/_action/status",
+          "/red_standard_robot1/navigate_to_pose/_action/feedback",
+          "/red_standard_robot1/livox/lidar",
+          "/red_standard_robot1/cloud_registered",
+          "/red_standard_robot1/aft_mapped_to_init",
+          "/red_standard_robot1/lidar_odometry",
+          "/red_standard_robot1/odometry",
+          "/red_standard_robot1/cmd_vel_controller",
+          "/red_standard_robot1/cmd_vel_nav2_result"
+        ]
+      },
+      "ready": {
+        "pid": 122503,
+        "command": [
+          "/usr/bin/python3",
+          "/home/hardy/pb2025_nav_ws/src/pb2025_sentry_nav/scripts/rmul2027/run_baseline_audit.py",
+          "--record-dir",
+          "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/diagnostics/structural-20261020-224258-C022/blocked-legacy-01/ready",
+          "--last-case",
+          "ready",
+          "--navigation-log",
+          "/home/hardy/pb2025_nav_ws/logs/20261020-231042-rmul2027-nav/navigation.log"
+        ]
+      },
+      "preposition": {
+        "pid": 122720,
+        "command": [
+          "/usr/bin/python3",
+          "/home/hardy/pb2025_nav_ws/src/pb2025_sentry_nav/scripts/rmul2027/verify_simulation.py",
+          "--mode",
+          "nav",
+          "--goal-x",
+          "1",
+          "--goal-y",
+          "-5.5",
+          "--scenario",
+          "simple",
+          "--startup-timeout",
+          "45",
+          "--goal-timeout",
+          "180",
+          "--stability-seconds",
+          "2",
+          "--record-dir",
+          "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/diagnostics/structural-20261020-224258-C022/blocked-legacy-01/preposition"
+        ]
+      },
+      "goal": {
+        "pid": 122791,
+        "command": [
+          "/usr/bin/python3",
+          "/home/hardy/pb2025_nav_ws/src/pb2025_sentry_nav/scripts/rmul2027/verify_simulation.py",
+          "--mode",
+          "nav",
+          "--goal-x",
+          "5",
+          "--goal-y",
+          "-5.5",
+          "--scenario",
+          "blocked_route",
+          "--startup-timeout",
+          "45",
+          "--goal-timeout",
+          "180",
+          "--stability-seconds",
+          "2",
+          "--record-dir",
+          "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/diagnostics/structural-20261020-224258-C022/blocked-legacy-01/goal"
+        ]
+      },
+      "after-clear-goal": {
+        "pid": 122827,
+        "command": [
+          "/usr/bin/python3",
+          "/home/hardy/pb2025_nav_ws/src/pb2025_sentry_nav/scripts/rmul2027/verify_simulation.py",
+          "--mode",
+          "nav",
+          "--goal-x",
+          "5",
+          "--goal-y",
+          "-5.5",
+          "--scenario",
+          "simple",
+          "--startup-timeout",
+          "45",
+          "--goal-timeout",
+          "180",
+          "--stability-seconds",
+          "2",
+          "--record-dir",
+          "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/diagnostics/structural-20261020-224258-C022/blocked-legacy-01/after-clear-goal"
+        ]
+      }
+    },
+    "dds_profile": "/home/hardy/pb2025_nav_ws/src/pb2025_sentry_nav/scripts/rmul2027/config/fastdds_local_64m.xml",
+    "dds_profile_sha256": "41b883f85949817a31dc3487941c280189b3042170a2b073507ca7f8318072f9",
+    "navigation_log": "/home/hardy/pb2025_nav_ws/logs/20261020-231042-rmul2027-nav/navigation.log",
+    "recorded_topics": [
+      "/clock",
+      "/red_standard_robot1/tf",
+      "/red_standard_robot1/tf_static",
+      "/red_standard_robot1/safety_status",
+      "/red_standard_robot1/chassis_odometry_gt",
+      "/red_standard_robot1/velodyne_points",
+      "/red_standard_robot1/livox/imu",
+      "/red_standard_robot1/registered_scan",
+      "/red_standard_robot1/terrain_map",
+      "/red_standard_robot1/terrain_map_ext",
+      "/red_standard_robot1/plan",
+      "/red_standard_robot1/local_plan",
+      "/red_standard_robot1/cmd_vel",
+      "/red_standard_robot1/map",
+      "/red_standard_robot1/local_costmap/costmap",
+      "/red_standard_robot1/local_costmap/costmap_updates",
+      "/red_standard_robot1/global_costmap/costmap",
+      "/red_standard_robot1/global_costmap/costmap_updates",
+      "/red_standard_robot1/navigate_to_pose/_action/status",
+      "/red_standard_robot1/navigate_to_pose/_action/feedback",
+      "/red_standard_robot1/livox/lidar",
+      "/red_standard_robot1/cloud_registered",
+      "/red_standard_robot1/aft_mapped_to_init",
+      "/red_standard_robot1/lidar_odometry",
+      "/red_standard_robot1/odometry",
+      "/red_standard_robot1/cmd_vel_controller",
+      "/red_standard_robot1/cmd_vel_nav2_result"
+    ],
+    "actor_pid": 122770,
+    "cart_location_static_prior": 0,
+    "contact_health": {
+      "event": "health",
+      "frames": 687,
+      "contacts": 0,
+      "probe_contacts": 687
+    },
+    "navigation_exit_code": 0,
+    "obstacle_detected": true,
+    "max_cloud_cart_hits": 52,
+    "min_footprint_clearance_m": 1.682052314360234,
+    "max_route_y_deviation_m": 0.004952281623961774,
+    "yield_samples": 0,
+    "obstacle_cleared": true,
+    "cleared_location_map_xy": [
+      3.0,
+      -5.5
+    ],
+    "cleared_costs": {
+      "local_costmap": 86,
+      "global_costmap": 86
+    },
+    "after_clear_navigation_exit_code": 0,
+    "after_clear_contact_health": {
+      "event": "health",
+      "frames": 687,
+      "contacts": 0,
+      "probe_contacts": 687
+    },
+    "passed": true,
+    "finished_at": "2026-10-20T23:12:11.153924+08:00",
+    "bag_metadata_exists": true
+  },
+  "stable-static-01": {
+    "scenario": "parked",
+    "started_at": "2026-10-20T23:26:32.762351+08:00",
+    "params_file": "/home/hardy/pb2025_nav_ws/src/pb2025_sentry_nav/scripts/rmul2027/config/nav2_original_speed_early_brake.yaml",
+    "params_sha256": "6298ed140bf3554134547adc55b5bcc380b22e25d8207176a0eab8d1893ee863",
+    "cart_size_m": [
+      0.58,
+      0.5,
+      0.5
+    ],
+    "obstacle_behavior": "stationary geometry proxy, no opponent controller",
+    "start_map_xy": [
+      1.0,
+      -5.5
+    ],
+    "goal_map_xy": [
+      5.0,
+      -5.5
+    ],
+    "cart_map_x": 3.0,
+    "status": "passed",
+    "processes": {
+      "launcher": {
+        "pid": 126360,
+        "command": [
+          "bash",
+          "/home/hardy/pb2025_nav_ws/src/pb2025_sentry_nav/scripts/rmul2027/start_rmul2027.sh",
+          "nav",
+          "--params-file",
+          "/home/hardy/pb2025_nav_ws/src/pb2025_sentry_nav/scripts/rmul2027/config/nav2_original_speed_early_brake.yaml",
+          "--gz-world-path",
+          "/home/hardy/pb2025_nav_ws/src/pb2025_sentry_nav/scripts/rmul2027/config/gz_world_test.yaml",
+          "--field-contact",
+          "cad-flat-floor",
+          "--render-mode",
+          "gpu",
+          "--tf2-library-dir",
+          "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/runtime/tf2-0.25.24/lib"
+        ]
+      },
+      "recorder": {
+        "pid": 126601,
+        "command": [
+          "ros2",
+          "bag",
+          "record",
+          "--include-hidden-topics",
+          "-o",
+          "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/diagnostics/structural-20261020-224258-C022/stable-static-01/inputs",
+          "/clock",
+          "/red_standard_robot1/tf",
+          "/red_standard_robot1/tf_static",
+          "/red_standard_robot1/safety_status",
+          "/red_standard_robot1/chassis_odometry_gt",
+          "/red_standard_robot1/velodyne_points",
+          "/red_standard_robot1/livox/imu",
+          "/red_standard_robot1/registered_scan",
+          "/red_standard_robot1/terrain_map",
+          "/red_standard_robot1/terrain_map_ext",
+          "/red_standard_robot1/plan",
+          "/red_standard_robot1/local_plan",
+          "/red_standard_robot1/cmd_vel",
+          "/red_standard_robot1/map",
+          "/red_standard_robot1/local_costmap/costmap",
+          "/red_standard_robot1/local_costmap/costmap_updates",
+          "/red_standard_robot1/global_costmap/costmap",
+          "/red_standard_robot1/global_costmap/costmap_updates",
+          "/red_standard_robot1/navigate_to_pose/_action/status",
+          "/red_standard_robot1/navigate_to_pose/_action/feedback",
+          "/red_standard_robot1/livox/lidar",
+          "/red_standard_robot1/cloud_registered",
+          "/red_standard_robot1/aft_mapped_to_init",
+          "/red_standard_robot1/lidar_odometry",
+          "/red_standard_robot1/odometry",
+          "/red_standard_robot1/cmd_vel_controller",
+          "/red_standard_robot1/cmd_vel_nav2_result"
+        ]
+      },
+      "ready": {
+        "pid": 126602,
+        "command": [
+          "/usr/bin/python3",
+          "/home/hardy/pb2025_nav_ws/src/pb2025_sentry_nav/scripts/rmul2027/run_baseline_audit.py",
+          "--record-dir",
+          "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/diagnostics/structural-20261020-224258-C022/stable-static-01/ready",
+          "--last-case",
+          "ready",
+          "--navigation-log",
+          "/home/hardy/pb2025_nav_ws/logs/20261020-232633-rmul2027-nav/navigation.log"
+        ]
+      },
+      "preposition": {
+        "pid": 126842,
+        "command": [
+          "/usr/bin/python3",
+          "/home/hardy/pb2025_nav_ws/src/pb2025_sentry_nav/scripts/rmul2027/verify_simulation.py",
+          "--mode",
+          "nav",
+          "--goal-x",
+          "1",
+          "--goal-y",
+          "-5.5",
+          "--scenario",
+          "simple",
+          "--startup-timeout",
+          "45",
+          "--goal-timeout",
+          "180",
+          "--stability-seconds",
+          "2",
+          "--record-dir",
+          "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/diagnostics/structural-20261020-224258-C022/stable-static-01/preposition"
+        ]
+      },
+      "goal": {
+        "pid": 126905,
+        "command": [
+          "/usr/bin/python3",
+          "/home/hardy/pb2025_nav_ws/src/pb2025_sentry_nav/scripts/rmul2027/verify_simulation.py",
+          "--mode",
+          "nav",
+          "--goal-x",
+          "5",
+          "--goal-y",
+          "-5.5",
+          "--scenario",
+          "simple",
+          "--startup-timeout",
+          "45",
+          "--goal-timeout",
+          "180",
+          "--stability-seconds",
+          "2",
+          "--record-dir",
+          "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/diagnostics/structural-20261020-224258-C022/stable-static-01/goal"
+        ]
+      }
+    },
+    "dds_profile": "/home/hardy/pb2025_nav_ws/src/pb2025_sentry_nav/scripts/rmul2027/config/fastdds_local_64m.xml",
+    "dds_profile_sha256": "41b883f85949817a31dc3487941c280189b3042170a2b073507ca7f8318072f9",
+    "navigation_log": "/home/hardy/pb2025_nav_ws/logs/20261020-232633-rmul2027-nav/navigation.log",
+    "recorded_topics": [
+      "/clock",
+      "/red_standard_robot1/tf",
+      "/red_standard_robot1/tf_static",
+      "/red_standard_robot1/safety_status",
+      "/red_standard_robot1/chassis_odometry_gt",
+      "/red_standard_robot1/velodyne_points",
+      "/red_standard_robot1/livox/imu",
+      "/red_standard_robot1/registered_scan",
+      "/red_standard_robot1/terrain_map",
+      "/red_standard_robot1/terrain_map_ext",
+      "/red_standard_robot1/plan",
+      "/red_standard_robot1/local_plan",
+      "/red_standard_robot1/cmd_vel",
+      "/red_standard_robot1/map",
+      "/red_standard_robot1/local_costmap/costmap",
+      "/red_standard_robot1/local_costmap/costmap_updates",
+      "/red_standard_robot1/global_costmap/costmap",
+      "/red_standard_robot1/global_costmap/costmap_updates",
+      "/red_standard_robot1/navigate_to_pose/_action/status",
+      "/red_standard_robot1/navigate_to_pose/_action/feedback",
+      "/red_standard_robot1/livox/lidar",
+      "/red_standard_robot1/cloud_registered",
+      "/red_standard_robot1/aft_mapped_to_init",
+      "/red_standard_robot1/lidar_odometry",
+      "/red_standard_robot1/odometry",
+      "/red_standard_robot1/cmd_vel_controller",
+      "/red_standard_robot1/cmd_vel_nav2_result"
+    ],
+    "actor_pid": 126892,
+    "cart_location_static_prior": 0,
+    "contact_health": {
+      "event": "health",
+      "frames": 688,
+      "contacts": 0,
+      "probe_contacts": 688
+    },
+    "navigation_exit_code": 0,
+    "obstacle_detected": true,
+    "max_cloud_cart_hits": 148,
+    "min_footprint_clearance_m": 0.262552684658496,
+    "max_route_y_deviation_m": 0.8228070714836644,
+    "yield_samples": 0,
+    "obstacle_cleared": true,
+    "cleared_location_map_xy": [
+      3.0,
+      -5.5
+    ],
+    "cleared_costs": {
+      "local_costmap": 0,
+      "global_costmap": 0
+    },
+    "passed": true,
+    "finished_at": "2026-10-20T23:27:46.224856+08:00",
+    "bag_metadata_exists": true
+  },
+  "rmuc2025-regression": {
+    "owner": "Codex C022",
+    "passed": true,
+    "started_at": "2026-10-20T23:32:05.744306+08:00",
+    "scope": "Original rmuc_2025 readiness and near-goal verifier; original spin=3.14 retained. Local TF2/DDS and GPU environment only.",
+    "launcher_source_sha256": "92958013d18694e82c6ad146e27f7573ef7a91e726387da216c0b2099e7e5ed5",
+    "processes": {
+      "launcher": {
+        "pid": 128089,
+        "command": [
+          "bash",
+          "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/diagnostics/structural-20261020-224258-C022/rmuc2025-regression/launcher.sh",
+          "nav"
+        ]
+      },
+      "verify": {
+        "pid": 128111,
+        "command": [
+          "/usr/bin/python3",
+          "/home/hardy/pb2025_nav_ws/src/pb2025_sentry_nav/scripts/venom/verify_headless.py",
+          "--mode",
+          "nav"
+        ]
+      }
+    },
+    "events": [
+      {
+        "event": "startup",
+        "mode": "nav",
+        "missing": [
+          "adapted_odometry",
+          "clock",
+          "converted_cloud",
+          "ground_truth",
+          "imu",
+          "lidar",
+          "lio",
+          "lio_cloud",
+          "map",
+          "odometry",
+          "registered_scan",
+          "terrain_map",
+          "terrain_map_ext"
+        ],
+        "frames_ready": false,
+        "states": {},
+        "counts": {}
+      },
+      {
+        "event": "lifecycle_retry",
+        "mode": "nav",
+        "server": "planner_server"
+      },
+      {
+        "event": "lifecycle_retry",
+        "mode": "nav",
+        "server": "bt_navigator"
+      },
+      {
+        "event": "lifecycle_retry",
+        "mode": "nav",
+        "server": "controller_server"
+      },
+      {
+        "event": "startup",
+        "mode": "nav",
+        "missing": [],
+        "frames_ready": true,
+        "states": {
+          "planner_server": 3,
+          "bt_navigator": 2,
+          "velocity_smoother": 3,
+          "controller_server": 3
+        },
+        "counts": {
+          "map": 1,
+          "cmd_vel": 678,
+          "clock": 7550,
+          "ground_truth": 5441,
+          "imu": 1685,
+          "lidar": 169,
+          "converted_cloud": 169,
+          "lio": 8014,
+          "adapted_odometry": 12424,
+          "lio_cloud": 163,
+          "registered_scan": 163,
+          "odometry": 74,
+          "terrain_map": 163,
+          "terrain_map_ext": 163
+        }
+      },
+      {
+        "event": "lifecycle_retry",
+        "mode": "nav",
+        "server": "planner_server"
+      },
+      {
+        "event": "lifecycle_retry",
+        "mode": "nav",
+        "server": "bt_navigator"
+      },
+      {
+        "event": "lifecycle_retry",
+        "mode": "nav",
+        "server": "velocity_smoother"
+      },
+      {
+        "event": "lifecycle_retry",
+        "mode": "nav",
+        "server": "controller_server"
+      },
+      {
+        "event": "lifecycle_retry",
+        "mode": "nav",
+        "server": "planner_server"
+      },
+      {
+        "event": "lifecycle_retry",
+        "mode": "nav",
+        "server": "bt_navigator"
+      },
+      {
+        "event": "lifecycle_retry",
+        "mode": "nav",
+        "server": "controller_server"
+      },
+      {
+        "event": "ready",
+        "mode": "nav",
+        "map_xy": [
+          0.004129042903638544,
+          -0.011487442756782157
+        ],
+        "sim_time": 25.212,
+        "states": {
+          "planner_server": 3,
+          "bt_navigator": 3,
+          "velocity_smoother": 3,
+          "controller_server": 3
+        },
+        "counts": {
+          "map": 1,
+          "cmd_vel": 1680,
+          "clock": 23427,
+          "ground_truth": 17294,
+          "imu": 5033,
+          "lidar": 504,
+          "converted_cloud": 504,
+          "lio": 30842,
+          "adapted_odometry": 46535,
+          "lio_cloud": 499,
+          "registered_scan": 498,
+          "odometry": 128,
+          "terrain_map": 498,
+          "terrain_map_ext": 498
+        }
+      },
+      {
+        "event": "goal",
+        "mode": "nav",
+        "xy": [
+          0.8041290429036386,
+          -0.011487442756782157
+        ],
+        "initial_ground_truth": [
+          3.3999988680642472,
+          9.499999999865945
+        ]
+      },
+      {
+        "event": "waiting_for_action",
+        "mode": "nav",
+        "counts": {
+          "map": 1,
+          "cmd_vel": 2615,
+          "clock": 34393,
+          "ground_truth": 25066,
+          "imu": 7494,
+          "lidar": 751,
+          "converted_cloud": 750,
+          "lio": 52943,
+          "adapted_odometry": 72033,
+          "lio_cloud": 740,
+          "registered_scan": 740,
+          "odometry": 169,
+          "terrain_map": 739,
+          "terrain_map_ext": 739
+        }
+      },
+      {
+        "event": "result",
+        "mode": "nav",
+        "status": 4,
+        "ground_truth_moved": 0.8346471480112463,
+        "goal_error": 0.09502357252082877,
+        "nonzero_commands": 40,
+        "counts": {
+          "map": 1,
+          "cmd_vel": 2859,
+          "clock": 36123,
+          "ground_truth": 26322,
+          "imu": 7952,
+          "lidar": 796,
+          "converted_cloud": 796,
+          "lio": 57074,
+          "adapted_odometry": 75833,
+          "lio_cloud": 777,
+          "registered_scan": 777,
+          "odometry": 177,
+          "terrain_map": 777,
+          "terrain_map_ext": 777
+        }
+      },
+      {
+        "event": "PASS",
+        "mode": "nav"
+      }
+    ],
+    "finished_at": "2026-10-20T23:33:14.539226+08:00"
+  },
+  "point_time_contract": {
+    "passed": true,
+    "checks": 11,
+    "test_log": "point-time-contract-03.log",
+    "navigation_candidate_adopted": false
+  },
+  "point_time_navigation_failure": {
+    "wall": 1792509506.0223973,
+    "kind": "localization_guard",
+    "stamp": 45.299999999,
+    "sim_time": 45.333,
+    "tf_age_s": 0.03300000099999778,
+    "error_m": 0.3675916266247503,
+    "threshold_m": 0.35,
+    "estimated_xyz": [
+      -0.3926694139101021,
+      -2.9013962818890286,
+      -1.4584272583788231
+    ],
+    "truth_map_xy": [
+      -0.06987846321938829,
+      -2.7255281320812395
+    ],
+    "truth_before": [
+      45.299,
+      -4.869424581355134,
+      0.27675451369683945
+    ],
+    "truth_after": [
+      45.3,
+      -4.869878463673269,
+      0.2744718656361204
+    ],
+    "interpolation_weight": 0.99999900000347
+  },
+  "binary_source_commit": "07ab6a001525c5365e580182c506ad02427586c5",
+  "ui_source_commit": "21d08d5a7a8ddb96e5815930a0ef42eff573502b",
+  "commit_note": "binary_source_commit was built and tested; ui_source_commit added the RViz entry; this report is a later documentation commit.",
+  "ui_closure": {
+    "owner": "DeepSeek C022 closure",
+    "measured_at": "2026-10-21T00:19:00+08:00",
+    "scope": "RViz window auto-restore helper under WSLg; no navigation change",
+    "previous_failure": {
+      "evidence": "ui-auto-01.log, ui-check-final.json",
+      "symptom": "powershell.exe: Invalid argument; helper never ran; ui_validation_passed=false",
+      "old_invocation": "powershell.exe -WindowStyle Hidden -NonInteractive -ExecutionPolicy Bypass -File <UNC ps1> 8>&- &"
+    },
+    "recheck": {
+      "interop_command_only": {
+        "command": "powershell.exe -NoLogo -NoProfile -NonInteractive -Command Write-Output PS_OK",
+        "exit": 0,
+        "output": "PS_OK"
+      },
+      "interop_file_windows_local": {
+        "command": "powershell.exe -File C:\\Users\\Hardy\\AppData\\Local\\Temp\\ds_hello.ps1",
+        "exit": 0,
+        "output": "{\"hello\":true}"
+      },
+      "interop_file_restore_no_window_hidden": {
+        "command": "powershell.exe -NoLogo -NoProfile -NonInteractive -ExecutionPolicy Bypass -File <UNC restore_rviz_window.ps1> -ConfigTitle <abs rviz>",
+        "result_when_window_minimized": {
+          "offscreen_relocated": false,
+          "copy_mode": false,
+          "was_minimized": true,
+          "foreground_requested": false,
+          "project_rviz_found": true
+        },
+        "window_after": {
+          "iconic": false,
+          "visible": true,
+          "left": 96,
+          "top": 56,
+          "width": 2552,
+          "height": 2082
+        },
+        "exit": 0
+      },
+      "background_nohup_with_fd8_closed": {
+        "result": "window restored within 4 s; helper output identical to foreground run",
+        "log": "interop-background-fd8.log"
+      },
+      "logs": [
+        "interop-recheck.log",
+        "interop-restore-minimized.log",
+        "interop-background.log",
+        "interop-background-fd8.log"
+      ]
+    },
+    "fix": {
+      "file": "scripts/rmul2027/start_rviz.sh",
+      "change": "restore the automatic helper without -WindowStyle Hidden and without stdio on a closed fd; keep nohup background launch and fd 8 closed for the single-instance lock",
+      "verified": "start_rviz.sh gpu started RViz and the helper wrote project_rviz_found=true with a normal on-screen window"
+    },
+    "remaining_limits": [
+      "The WSLg offscreen/COPY MODE fault itself is not forced or permanently fixed; this only makes the existing helper execute.",
+      "If RViz takes longer than the helper's 30 s poll, no automatic restore happens; run the helper manually from Windows.",
+      "The helper is a display workaround, not part of navigation and not evidence of real-robot readiness."
+    ]
+  },
+  "clean_prepare": {
+    "source_commit": "07ab6a001525c5365e580182c506ad02427586c5",
+    "workspace": "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/reproduction/clean-C022-20261020",
+    "passed": true,
+    "stages": [
+      {
+        "name": "clean-clone",
+        "returncode": 0
+      },
+      {
+        "name": "clean-checkout",
+        "returncode": 0
+      },
+      {
+        "name": "clean-set-remote",
+        "returncode": 0
+      },
+      {
+        "name": "clean-prepare-1",
+        "returncode": 0
+      },
+      {
+        "name": "clean-prepare-2",
+        "returncode": 0
+      }
+    ]
+  },
+  "clean_build": {
+    "workspace": "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/reproduction/clean-C022-20261020",
+    "passed": true,
+    "status": "finished",
+    "returncode": 0
+  },
+  "clean_smoke": {
+    "passed": true,
+    "workspace": "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/reproduction/clean-C022-20261020",
+    "source_commit": "07ab6a001525c5365e580182c506ad02427586c5",
+    "build_reused": false,
+    "second_physical_computer_test": false,
+    "processes": {
+      "launcher": {
+        "pid": 138126,
+        "arguments": [
+          "bash",
+          "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/reproduction/clean-C022-20261020/src/pb2025_sentry_nav/scripts/rmul2027/start_rmul2027_test.sh"
+        ]
+      },
+      "audit": {
+        "pid": 138389,
+        "arguments": [
+          "python3",
+          "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/reproduction/clean-C022-20261020/src/pb2025_sentry_nav/scripts/rmul2027/run_baseline_audit.py",
+          "--record-dir",
+          "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/diagnostics/structural-20261020-224258-C022/clean-default-smoke/audit",
+          "--navigation-log",
+          "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/reproduction/clean-C022-20261020/logs/20261020-234002-rmul2027-nav/navigation.log",
+          "--last-case",
+          "01-short"
+        ]
+      }
+    },
+    "navigation_log": "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/reproduction/clean-C022-20261020/logs/20261020-234002-rmul2027-nav/navigation.log",
+    "actual_options": {
+      "mode": "nav",
+      "render_mode": "auto",
+      "map_set": "cad",
+      "wheel_contact": "rounded",
+      "field_contact": "cad-flat-floor",
+      "params_file": "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/reproduction/clean-C022-20261020/src/pb2025_sentry_nav/scripts/rmul2027/config/nav2_test.yaml",
+      "gz_world_path": "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/reproduction/clean-C022-20261020/src/pb2025_sentry_nav/scripts/rmul2027/config/gz_world_test.yaml",
+      "tf2_library_dir": "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/reproduction/clean-C022-20261020/artifacts/rmul_2027_3v3/runtime/tf2-0.25.24/lib"
+    },
+    "actual_rendering": {
+      "requested": "auto",
+      "selected": "gpu",
+      "probe": "name of display: :0\ndisplay: :0  screen: 0\ndirect rendering: Yes\nExtended renderer info (GLX_MESA_query_renderer):\n    Vendor: Microsoft Corporation (0xffffffff)\n    Device: D3D12 (NVIDIA GeForce RTX 5070 Laptop GPU) (0xffffffff)\n    Version: 25.0.7\n    Accelerated: yes\n    Video memory: 26275MB\n    Unified memory: no\n    Preferred profile: core (0x1)\n    Max core profile version: 3.3\n    Max compat profile version: 3.3\n    Max GLES1 profile version: 1.1\n    Max GLES[23] profile version: 3.1\nMemory info (GL_ATI_meminfo):\n    VBO free memory - total: 7109 MB, largest block: 7109 MB\n    VBO free aux. memory - total: 0 MB, largest block: 0 MB\n    Texture free memory - total: 7109 MB, largest block: 7109 MB\n    Texture free aux. memory - total: 0 MB, largest block: 0 MB\n    Renderbuffer free memory - total: 7109 MB, largest block: 7109 MB\n    Renderbuffer free aux. memory - total: 0 MB, largest block: 0 MB\nMemory info (GL_NVX_gpu_memory_info):\n    Dedicated video memory: 7891 MB\n    Total available memory: 26275 MB\n    Currently available dedicated video memory: 7109 MB\nOpenGL vendor string: Microsoft Corporation\nOpenGL renderer string: D3D12 (NVIDIA GeForce RTX 5070 Laptop GPU)\nOpenGL core profile version string: 3.3 (Core Profile) Mesa 25.0.7 - kisak-mesa PPA\nOpenGL core profile shading language version string: 4.60\nOpenGL core profile context flags: (none)\nOpenGL core profile profile mask: core profile\n\nOpenGL version string: 3.3 (Compatibility Profile) Mesa 25.0.7 - kisak-mesa PPA\nOpenGL shading language version string: 4.60\nOpenGL context flags: (none)\nOpenGL profile mask: compatibility profile\n\nOpenGL ES profile version string: OpenGL ES 3.1 Mesa 25.0.7 - kisak-mesa PPA\nOpenGL ES profile shading language version string: OpenGL ES GLSL ES 3.10\n\n",
+      "environment": {
+        "LIBGL_ALWAYS_SOFTWARE": null,
+        "GALLIUM_DRIVER": "d3d12",
+        "MESA_D3D12_DEFAULT_ADAPTER_NAME": "NVIDIA",
+        "LP_NUM_THREADS": null
+      }
+    },
+    "dds_runtime": {
+      "rmw_implementation": "rmw_fastrtps_cpp",
+      "profile": "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/reproduction/clean-C022-20261020/src/pb2025_sentry_nav/scripts/rmul2027/config/fastdds_local_64m.xml",
+      "sha256": "41b883f85949817a31dc3487941c280189b3042170a2b073507ca7f8318072f9"
+    },
+    "suite": {
+      "completed": true,
+      "route_set": "baseline",
+      "requested_last_case": "01-short",
+      "cases": [
+        {
+          "name": "ready",
+          "passed": true,
+          "exit_code": 0,
+          "metrics": [
+            {
+              "event": "localization_stability",
+              "mode": "ready",
+              "max_xy_drift_m": 0.012057254836676906,
+              "ground_truth_error_m": 0.0443268738410766
+            }
+          ]
+        },
+        {
+          "name": "01-short",
+          "passed": true,
+          "exit_code": 0,
+          "metrics": [
+            {
+              "event": "result",
+              "mode": "nav",
+              "status": 4,
+              "ground_truth_moved": 0.6828535415471225,
+              "goal_error": 0.14131059864842405,
+              "ground_truth_goal_error": 0.16117536432547533,
+              "ground_truth_map_xy": [
+                0.682773093252921,
+                2.1798303131870256e-05
+              ],
+              "estimated_map_xy": [
+                0.7032751445295957,
+                -0.005616266963703176
+              ],
+              "ground_truth_z": 0.0,
+              "stopped_speed": 4.386281230272829e-05,
+              "stopped_command": 0.0,
+              "elapsed_wall_s": 4.365848706998804,
+              "nonzero_commands": 65,
+              "counts": {
+                "clock": 6697,
+                "imu": 1467,
+                "ground_truth": 6233,
+                "lidar": 147,
+                "converted_cloud": 145,
+                "lio": 1314,
+                "adapted_odometry": 3719,
+                "cmd_vel": 288,
+                "registered_scan": 144,
+                "terrain_map": 144,
+                "odometry": 144,
+                "lio_cloud": 146,
+                "map": 1,
+                "local_costmap": 11,
+                "global_costmap": 1,
+                "terrain_map_ext": 134,
+                "global_plan": 10,
+                "local_plan": 67
+              }
+            }
+          ]
+        }
+      ],
+      "navigation_log_start_byte": 279,
+      "navigation_log_end_byte": 43748,
+      "backup_events_in_interval": 0,
+      "empty_plan_events_in_interval": 0,
+      "navigation_configuration_changed": true,
+      "robot_configuration_changed": true,
+      "historical_frozen_pose_root_cause_fixed": null,
+      "root_cause_assessment": "not inferred by this route suite",
+      "finished_at": "2026-10-20T23:40:49.311725"
+    },
+    "runtime_inspection": [
+      {
+        "pid": 138433,
+        "no_original_overlay": true,
+        "loaded_tf2": "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/reproduction/clean-C022-20261020/artifacts/rmul_2027_3v3/runtime/tf2-0.25.24/lib/libtf2.so"
+      }
+    ],
+    "phase": "finished",
+    "ui_check_timed_out": true,
+    "finished_at": "2026-10-20T23:47:02.062541+08:00"
+  }
+}

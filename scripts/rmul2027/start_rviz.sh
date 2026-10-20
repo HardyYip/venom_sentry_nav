@@ -40,10 +40,13 @@ else
     printf 'glxinfo unavailable; using the system renderer without forcing software.\n' >&2
   fi
 fi
-if [ -d /mnt/wslg ] && command -v powershell.exe >/dev/null 2>&1 && [ "${RMUL2027_RESTORE_WINDOW:-1}" != 0 ]; then
-  powershell.exe -NoLogo -NoProfile -NonInteractive -WindowStyle Hidden -ExecutionPolicy Bypass \
+if [ -d /mnt/wslg ] && command -v powershell.exe >/dev/null 2>&1 && command -v wslpath >/dev/null 2>&1 && [ "${RMUL2027_RESTORE_WINDOW:-1}" != 0 ]; then
+  # 必须保留用户桌面上下文：不要加 -WindowStyle Hidden（实测返回 Invalid argument），
+  # 也不要把 stdio 重定向到已关闭的 fd。restore 脚本自身轮询 30s 等待窗口出现。
+  nohup powershell.exe -NoLogo -NoProfile -NonInteractive -ExecutionPolicy Bypass \
     -File "$(wslpath -w "$task_dir/restore_rviz_window.ps1")" \
-    -ConfigTitle "$task_dir/config/interactive-light.rviz" 8>&- &
+    -ConfigTitle "$task_dir/config/interactive-light.rviz" \
+    >"${TMPDIR:-/tmp}/rmul2027-rviz-restore.log" 2>&1 </dev/null 8>&- &
 fi
 exec ros2 run rviz2 rviz2 -d "$task_dir/config/interactive-light.rviz" \
   --ros-args -r __ns:=/red_standard_robot1 -r /tf:=tf -r /tf_static:=tf_static -p use_sim_time:=true

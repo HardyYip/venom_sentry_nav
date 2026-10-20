@@ -2,7 +2,7 @@
 
 目标是验证北极熊原机器人在2027场地中的基础定位、规划、控制和静态避障。没有Venom实车适配、动态横穿或比赛战术开发。场地来源为官方RMUL2027_3V3_V1.0.0.stp。
 
-C022增加运行时输入／位姿／同步时效保护、故障停车覆盖自旋、恢复防旧指令重放、诊断和可复现故障注入。两次全新快速配置完整路线、静态绕障、完全封路停车与移除后新目标恢复已通过；普通配置、旧场景和干净恢复结果以[最新报告](reports/C022-RESULTS.zh-CN.md)为准。点时间快照候选未通过，默认未采用；不要把基础仿真通过理解为所有结构问题均已解决。
+C022增加运行时输入／位姿／同步时效保护、故障停车覆盖自旋、恢复防旧指令重放、诊断和可复现故障注入。两次全新快速配置完整路线、普通0.5m/s路线、静态绕障、完全封路停车与移除后新目标恢复、2025旧场景回归、干净检出构建与默认冒烟均已通过，数据见[最新报告](reports/C022-RESULTS.zh-CN.md)。点时间快照候选未通过，默认未采用；不要把基础仿真通过理解为所有结构问题均已解决。
 
 ## 队友获取、恢复与构建
 
@@ -55,7 +55,13 @@ bash scripts/rmul2027/start_rviz.sh
 python3 scripts/rmul2027/stop_rmul2027.py
 ```
 
-关闭RViz后可以重开，单实例锁防止重复启动。WSLg无窗口／COPY MODE属于独立显示传输问题，不能靠重启导航处理；见报告的真实验证范围，尚不承诺跨Windows／WSL重启永久无故障。
+关闭RViz后可以重开，单实例锁防止重复启动。WSLg下窗口可能以最小化或越界位置出现，`start_rviz.sh`会自动后台调用`restore_rviz_window.ps1`，30秒内轮询并恢复本项目窗口；该调用不能加`-WindowStyle Hidden`、也不能把stdio指向已关闭的fd，否则会返回`Invalid argument`或超时。设`RMUL2027_RESTORE_WINDOW=0`可关闭自动恢复。若30秒内未恢复，手动执行：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File restore_rviz_window.ps1 -ConfigTitle "\\wsl.localhost\Ubuntu-22.04\home\hardy\pb2025_nav_ws\src\pb2025_sentry_nav\scripts\rmul2027\config\interactive-light.rviz"
+```
+
+这只是显示层恢复，与导航链路无关；WSLg无窗口／COPY MODE仍属独立显示传输问题，不能靠重启导航处理，也不承诺跨Windows／WSL重启永久无故障。
 
 ## 场景和未通过项
 

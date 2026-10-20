@@ -52,4 +52,4 @@ python3 scripts/rmul2027/run_cart_obstacle_test.py --record-dir /tmp/parked-new 
 
 普通、fast与RViz入口共用configure_dds.sh，为本进程及子进程加载64MiB FastDDS共享内存配置，并记录hash；不改系统ROS或全局DDS。普通入口保持0.5m/s，fast仍是2.5m/s＋提前2m减速。RMUL2027_DDS_PROFILE可显式选择其他配置，但须另验收。64MiB是本机1.831MB点云的已验证设置，不是适用于所有机器的固定标定值。
 
-完整结果以reports/C022-RESULTS.zh-CN.md为准。WSLg显示独立于导航链路，历史存在共享内存EIO／COPY MODE；禁止用反复启动导航修复画面。当前尚未证明跨系统重启的永久修复。
+完整结果以reports/C022-RESULTS.zh-CN.md为准。WSLg显示独立于导航链路，历史存在共享内存EIO／COPY MODE；禁止用反复启动导航修复画面。`start_rviz.sh`现会在WSLg下自动后台调用restore_rviz_window.ps1，30秒内轮询并恢复最小化／越界窗口，实测4秒内生效；该自动调用不得加`-WindowStyle Hidden`或把stdio指向已关闭fd，否则返回`Invalid argument`／超时。自动恢复只处理显示层，超时可手动调用同一脚本，WSLg传输本身跨系统重启的永久修复仍未证明；导航保护与窗口恢复是两件事。

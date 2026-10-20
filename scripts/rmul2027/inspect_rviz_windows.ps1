@@ -1,4 +1,4 @@
-param([string]$CaptureDirectory)
+param([string]$CaptureDirectory, [switch]$Restore)
 Add-Type @'
 using System;
 using System.Text;
@@ -45,14 +45,14 @@ if ($CaptureDirectory -and $TaskWindows.Count -eq 1) {
     [void][System.IO.Directory]::CreateDirectory($CaptureDirectory)
     $TaskWindow = $TaskWindows[0]
     $TaskHandle = [IntPtr]$TaskWindow.handle
-    [void][RvizWindowProbe]::ShowWindow($TaskHandle, 9)
-    [void][RvizWindowProbe]::SetForegroundWindow($TaskHandle)
+    if ($Restore) { [void][RvizWindowProbe]::ShowWindow($TaskHandle, 9) }
+    if (-not [RvizWindowProbe]::IsIconic($TaskHandle)) { [void][RvizWindowProbe]::SetForegroundWindow($TaskHandle) }
     Start-Sleep -Milliseconds 700
     $TaskRect = [RvizWindowProbe+Rect]::new()
     [void][RvizWindowProbe]::GetWindowRect($TaskHandle, [ref]$TaskRect)
     $TaskWidth = $TaskRect.Right - $TaskRect.Left
     $TaskHeight = $TaskRect.Bottom - $TaskRect.Top
-    if ($TaskWidth -gt 0 -and $TaskHeight -gt 0) {
+    if ($TaskWidth -gt 0 -and $TaskHeight -gt 0 -and -not [RvizWindowProbe]::IsIconic($TaskHandle)) {
         Add-Type -AssemblyName System.Drawing
         $TaskBitmap = [System.Drawing.Bitmap]::new($TaskWidth, $TaskHeight)
         $TaskGraphics = [System.Drawing.Graphics]::FromImage($TaskBitmap)
