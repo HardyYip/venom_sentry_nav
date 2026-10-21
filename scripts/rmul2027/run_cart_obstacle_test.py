@@ -34,6 +34,7 @@ from tf2_ros import Buffer, TransformListener
 parser = argparse.ArgumentParser()
 parser.add_argument('--record-bag', action='store_true', help='Opt in to a light, guarded recording; default is no bag')
 parser.add_argument('--record-dir', required=True, type=Path)
+parser.add_argument('--spin-mode',action='store_true',help='Allow translation-only stop for successful spinning arrival; safety stops remain all-zero')
 parser.add_argument('--scenario', required=True, choices=['control', 'parked', 'blocked'])
 parser.add_argument('--params-file', required=True, type=Path)
 parser.add_argument('--actor', required=True, type=Path)
@@ -41,6 +42,7 @@ parser.add_argument('--obstacle-model', type=Path)
 parser.add_argument('--obstacle-size', nargs=3, type=float, default=[.58,.50,.50])
 parser.add_argument('--record-pipeline', action='store_true')
 parser.add_argument('--dds-profile', type=Path)
+parser.add_argument('--fixed-observation-seconds',type=float)
 args = parser.parse_args()
 if args.dds_profile:
     args.dds_profile=args.dds_profile.resolve()
@@ -127,6 +129,7 @@ class Monitor(Node):
         self.last_sample, self.last_cloud = -1.0, -1.0
         self.grids, self.plan, self.truth_history = {}, [], collections.deque(maxlen=30000)
         self.cloud_hits, self.max_cloud_hits = 0, 0
+        self.last_cloud_by_source={};self.cloud_hits_by_source={};self.max_hits_by_source={}
         self.min_clearance, self.max_deviation = float('inf'), 0.0
         self.detected, self.phase = False, 'preparing'
         self.first_detection, self.yield_samples = None, 0
@@ -138,7 +141,8 @@ class Monitor(Node):
                      self.create_subscription(Odometry, 'chassis_odometry_gt', self.pose, sensor),
                      self.create_subscription(Twist, 'cmd_vel', self.command, 10),
                      self.create_subscription(NavPath, 'plan', self.path, 10),
-                     self.create_subscription(PointCloud2, 'terrain_map', self.cloud, sensor)]
+                     self.create_subscription(PointCloud2,'terrain_map',lambda msg:self.cloud(msg,'terrain_map'),sensor),
+                     self.create_subscription(PointCloud2,'rplidar_obstacles',lambda msg:self.cloud(msg,'rplidar_obstacles'),sensor)]
         for key in ['local_costmap', 'global_costmap']:
             self.subs.append(self.create_subscription(OccupancyGrid, key+'/costmap', lambda msg,k=key:self.grid(k,msg), latched))
             self.subs.append(self.create_subscription(OccupancyGridUpdate, key+'/costmap_updates', lambda msg,k=key:self.update(k,msg), 10))
@@ -193,9 +197,9 @@ class Monitor(Node):
                 if 0<=iy<grid['data'].shape[0] and 0<=ix<grid['data'].shape[1]:values.append(int(grid['data'][iy,ix]))
         return max(values) if values else None
 
-    def cloud(self, msg):
-        if not self.cart or self.sim-self.last_cloud < .2:return
-        self.last_cloud=self.sim
+    def cloud(self, msg, source):
+        if not self.cart or self.sim-self.last_cloud_by_source.get(source,-1)<.2:return
+        self.last_cloud_by_source[source]=self.sim
         fields={f.name:f for f in msg.fields}
         if not all(k in fields for k in ['x','y','intensity']):return
         count=msg.width*msg.height
@@ -204,19 +208,22 @@ class Monitor(Node):
             cx,cy=self.transform_xy(*self.cart,msg.header.frame_id,'map')
             arrays={k:np.ndarray((count,),dtype='<f4',buffer=msg.data,offset=fields[k].offset,strides=(msg.point_step,)) for k in ['x','y','intensity']}
             mask=(np.abs(arrays['x']-cx)<.40)&(np.abs(arrays['y']-cy)<.36)&(arrays['intensity']>.1)
-            self.cloud_hits=int(np.count_nonzero(mask));self.max_cloud_hits=max(self.max_cloud_hits,self.cloud_hits)
+            self.cloud_hits_by_source[source]=(self.sim,int(np.count_nonzero(mask)))
+            self.cloud_hits=max((hits for at,hits in self.cloud_hits_by_source.values() if self.sim-at<.5),default=0)
+            self.max_cloud_hits=max(self.max_cloud_hits,self.cloud_hits)
+            self.max_hits_by_source[source]=max(self.max_hits_by_source.get(source,0),int(np.count_nonzero(mask)))
         except Exception:return
 
     def sample(self):
         if self.sim-self.last_sample < .05 or not self.truth:return
         self.last_sample=self.sim
-        value={'sim':self.sim,'truth_map':self.truth,'cart_map':self.cart,'phase':self.phase,'cloud_cart_hits':self.cloud_hits}
+        value={'sim':self.sim,'truth_map':self.truth,'cart_map':self.cart,'phase':self.phase,'cloud_cart_hits':self.cloud_hits,'cloud_hits_by_source':self.cloud_hits_by_source}
         if self.phase == 'goal':self.max_deviation=max(self.max_deviation,abs(self.truth[1]+5.5))
         if self.cart:
             gap=clearance(polygon(*self.truth),polygon(*self.cart,0,hx=args.obstacle_size[0]/2,hy=args.obstacle_size[1]/2))
             self.min_clearance=min(self.min_clearance,gap);value['footprint_clearance_m']=gap
             value['costs']={k:self.occupancy(k,self.cart) for k in self.grids}
-            if any(v is not None and v>=99 for v in value['costs'].values()) and self.cloud_hits>0:
+            if len(value['costs'])==2 and all(v is not None and v>=99 for v in value['costs'].values()) and self.cloud_hits>0:
                 self.detected=True
                 if self.first_detection is None:self.first_detection=self.sim
             if self.phase=='goal' and gap<0:
@@ -268,7 +275,7 @@ def send_actor(command):
 
 def navigation(name, x, y, scenario='simple'):
     return launch(name,[sys.executable,str(folder/'verify_simulation.py'),'--mode','nav','--goal-x',str(x),'--goal-y',str(y),
-                        '--scenario',scenario,'--startup-timeout','45','--goal-timeout','180','--stability-seconds','2','--record-dir',str(record/name)])
+                        '--scenario',scenario,'--startup-timeout','45','--goal-timeout','180','--stability-seconds','2','--record-dir',str(record/name)]+(['--spin-mode'] if args.spin_mode else []))
 
 
 def interrupt(signum,frame):raise KeyboardInterrupt
@@ -319,6 +326,7 @@ try:
     if not select.select([actor.stdout],[],[],15)[0]:raise TimeoutError('Cart create timeout')
     created=json.loads(actor.stdout.readline());event('cart_actor',response=created)
     if created.get('event')!='created':raise RuntimeError('Cart creation failed')
+    send_actor('POSE 20 20 0')
     probe=send_actor('PROBE');event('contact_positive_control',response=probe)
     if probe.get('contact_messages',0)<1 or not probe.get('removed'):raise RuntimeError('Contact instrumentation positive control failed')
     if probe.get('other_contacts',0):raise RuntimeError('Unexpected contact during instrumentation setup')
@@ -329,10 +337,18 @@ try:
     if args.scenario!='control':
         cy=-5.5
         send_actor('POSE 3.0 '+str(cy)+' 0');monitor.cart=[3.0,cy];event('cart_inserted',map_xy=monitor.cart,static_prior=prior_value)
-        end=monitor.sim+12;wall_end=time.monotonic()+35
-        while not monitor.detected and monitor.sim<end and time.monotonic()<wall_end:pump(.1)
-        monitor.snapshot('cart-detected')
-        if not monitor.detected:raise RuntimeError('Cart did not enter sensed pointcloud and costmap')
+        if args.fixed_observation_seconds is None:
+            end=monitor.sim+12;wall_end=time.monotonic()+35
+            while not monitor.detected and monitor.sim<end and time.monotonic()<wall_end:pump(.1)
+            monitor.snapshot('cart-detected')
+            if not monitor.detected:raise RuntimeError('Cart did not enter sensed pointcloud and costmap')
+        else:
+            if args.fixed_observation_seconds<0:raise ValueError('Observation duration must not be negative')
+            end=monitor.sim+args.fixed_observation_seconds;wall_end=time.monotonic()+35
+            while monitor.sim<end and time.monotonic()<wall_end:pump(.1)
+            meta['fixed_observation_seconds']=args.fixed_observation_seconds
+            meta['detected_before_goal']=monitor.detected
+            monitor.snapshot('after-fixed-observation')
     monitor.phase='goal';meta['status']='testing-goal';save()
     code=wait_child(navigation('goal',5,-5.5,'blocked_route' if args.scenario=='blocked' else 'simple'))
     monitor.phase='after-goal';monitor.snapshot('after-goal')
@@ -341,6 +357,8 @@ try:
                 min_footprint_clearance_m=monitor.min_clearance if math.isfinite(monitor.min_clearance) else None,
                 max_route_y_deviation_m=monitor.max_deviation,yield_samples=monitor.yield_samples)
     if code!=0:raise RuntimeError('Navigation goal failed its original acceptance checks')
+    meta['max_hits_by_source']=monitor.max_hits_by_source
+    if args.scenario!='control' and not monitor.detected:raise RuntimeError('Obstacle never verified by actual sensor and both costmaps')
     if health.get('contacts',0)>0:raise RuntimeError('Contact sensor recorded navigation collision')
     if args.scenario!='control':
         old=list(monitor.cart);send_actor('POSE 20 20 0');monitor.cart=None

@@ -78,6 +78,7 @@ runtime_paths = [workspace/'install/point_lio/lib/point_lio/pointlio_mapping',
     str(p.relative_to(workspace)): {'resolved':str(p.resolve()),'sha256':hashlib.sha256(p.read_bytes()).hexdigest()}
     for p in runtime_paths if p.is_file()},indent=2)+'\n')
 resources=[world_sdf,selected_gz_world,selected_manifest,logs/'nav2_params.yaml',maps/'rmul_2027_3v3.pcd',maps/'rmul_2027_3v3.yaml',maps/'rmul_2027_3v3.pgm']
+if 'rplidar_obstacles' in source_params:resources.append(folder/'rplidar_obstacle_cloud.py')
 models=[]
 for uri in ET.parse(world_sdf).findall('.//include/uri'):
     if uri.text and uri.text.startswith('model://'):
@@ -143,6 +144,7 @@ selected_tf2_library = (selected_tf2_dir or Path('/opt/ros/humble/lib')) / 'libt
     'navigation_ld_library_path': navigation_environment.get('LD_LIBRARY_PATH', ''),
 }, indent=2) + '\n')
 launches = []
+auxiliary = []
 streams = []
 
 def stop(signum, frame):
@@ -160,12 +162,20 @@ try:
          'gz_world_path:=' + str(selected_gz_world)],
         stdout=stream, stderr=subprocess.STDOUT, env=environment,
         start_new_session=True, pass_fds=(lock.fileno(),)))
-    (logs / 'launches.json').write_text(json.dumps({'wrapper_pid': os.getpid(), 'launch_pids': [p.pid for p in launches], 'mode': options.mode}, indent=2) + '\n')
+    (logs / 'launches.json').write_text(json.dumps({'wrapper_pid': os.getpid(), 'launch_pids': [p.pid for p in launches], 'auxiliary_pids': [p.pid for p in auxiliary], 'mode': options.mode}, indent=2) + '\n')
     if options.mode != 'scene':
         with (logs / 'settle.log').open('w') as settle_log:
             subprocess.run(['python3', str(folder / 'wait_for_settle.py')],
                            stdout=settle_log, stderr=subprocess.STDOUT,
                            env=environment, timeout=120, check=True)
+        if 'rplidar_obstacles' in source_params:
+            stream=(logs/'rplidar-obstacle-cloud.log').open('w')
+            streams.append(stream)
+            auxiliary.append(subprocess.Popen(
+                ['python3',str(folder/'rplidar_obstacle_cloud.py'),'--ros-args',
+                 '-r','__ns:=/red_standard_robot1','-p','use_sim_time:=true'],
+                stdout=stream,stderr=subprocess.STDOUT,env=environment,
+                start_new_session=True,pass_fds=(lock.fileno(),)))
         print('Robot and IMU settled; starting navigation.', flush=True)
         stream = (logs / 'navigation.log').open('w')
         streams.append(stream)
@@ -180,16 +190,28 @@ try:
             stdout=stream, stderr=subprocess.STDOUT, env=navigation_environment,
             start_new_session=True, pass_fds=(lock.fileno(),)))
     (logs / 'launches.json').write_text(json.dumps({'wrapper_pid': os.getpid(),
-        'launch_pids': [p.pid for p in launches], 'mode': options.mode}, indent=2) + '\n')
+        'launch_pids': [p.pid for p in launches], 'auxiliary_pids': [p.pid for p in auxiliary], 'mode': options.mode}, indent=2) + '\n')
     print(f'RMUL 2027 {options.mode} started. Logs: {logs}', flush=True)
     print('No navigation goals are sent by this launcher. Ctrl+C stops this launch tree.', flush=True)
-    while all(p.poll() is None for p in launches):
+    while all(p.poll() is None for p in launches + auxiliary):
         time.sleep(.25)
 except KeyboardInterrupt:
     pass
 finally:
     signal.signal(signal.SIGINT, signal.SIG_IGN)
     signal.signal(signal.SIGTERM, signal.SIG_IGN)
+    for child in auxiliary:
+        if child.poll() is None:
+            child.send_signal(signal.SIGINT)
+            try:
+                child.wait(timeout=5)
+            except subprocess.TimeoutExpired:
+                child.terminate()
+                try:
+                    child.wait(timeout=3)
+                except subprocess.TimeoutExpired:
+                    child.kill()
+                    child.wait(timeout=3)
     alive = [str(p.pid) for p in launches if p.poll() is None]
     if alive:
         subprocess.run(['python3', str(folder.parent / 'venom' / 'stop_launches.py'), *alive],

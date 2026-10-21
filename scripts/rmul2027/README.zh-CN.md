@@ -1,8 +1,10 @@
 # 北极熊 × RMUL 2027 3V3 基础导航仿真
 
-目标是验证北极熊原机器人在2027场地中的基础定位、规划、控制和静态避障。没有Venom实车适配、动态横穿或比赛战术开发。场地来源为官方RMUL2027_3V3_V1.0.0.stp。
+目标是验证北极熊机器人在2027场地中的基础定位、规划、控制，以及规定的固定障碍和单个同速对向移动物体避让。场地来源为官方RMUL2027_3V3_V1.0.0.stp；不扩展到Venom实车、多车或比赛战术。
 
-C024/C025补齐独立下游停车、Nav2位姿时效门控和Point-LIO点时间链路；两次全新快速完整路线及普通完整路线、静态绕障、封路停车/移除后恢复、2025旧图近点回归已通过。普通与fast入口采用已验证的instantaneous秒单位快照、IMU队列400及真实IMU缺口锁止。当前交付状态见[最新报告](reports/C025-RESULTS.zh-CN.md)；历史C022未采用快照的失败仍保留，不能混为当前结果。
+C024/C025补齐独立下游停车、Nav2位姿时效门控和Point-LIO点时间链路；两次全新快速完整路线及普通完整路线、静态绕障、封路停车/移除后恢复、2025旧图近点回归已通过。普通与fast入口采用已验证的instantaneous秒单位快照、IMU队列400及真实IMU缺口锁止。定位基线见[C025报告](reports/C025-RESULTS.zh-CN.md)；历史C022未采用快照的失败仍保留，不能混为当前结果。
+
+当前普通0.5m/s入口采用原自旋3.14rad/s、地形观测保持2秒及真实水平RPLidar的独立2秒观测层。C034最终同一配置固定四类各3次12/12、单个0.5m/s对向代理3/3、移除清除和封路恢复通过，固定/移动真实接触均0。完整路线按固定2秒稳定停止窗口8/8；按1秒平移快照口径为7/8，中心点1秒仍0.270823m/s、1.712秒确认稳定，1秒停车问题未修复。结果与限制见[C034报告](reports/C034-RESULTS.zh-CN.md)，旧失败全部保留。
 
 ## 队友获取、恢复与构建
 
@@ -24,6 +26,8 @@ bash scripts/rmul2027/build_rmul2027.sh
 prepare按已发布依赖基准与patches/manifest.json恢复源码及完整补丁，校验资源并只在项目内解包TF2。重复运行识别已应用状态，遇到已有冲突停止，不覆盖用户修改。--source-cache可提供固定Git对象缓存，但不得作为运行overlay；2027不依赖原2025的121MB点云。做旧地图回归才需要按原文档获取该点云，并用--legacy-pcd导入校验。
 
 ## 启动与手动测试
+
+普通入口恢复了原自旋：到点可以平移停止而仍在旋转；安全停止须vx/vy/w全部归零。自动验收用显式`--spin-mode`区分，ABORTED/封路仍按全零安全停止检查。fast入口保持C025配置，本轮新避障结论只覆盖普通0.5m/s。
 
 终端A，在仓库目录执行。普通入口保持0.5m/s；只运行一套后台Gazebo，不发目标、不打开Gazebo GUI：
 
@@ -85,7 +89,7 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File "$rvizTools\restore_rviz
 
 ```bash
 export RMUL_TEST_ARTIFACT_ROOT=/mnt/e/RMULArtifacts/pb2025_nav_ws
-python3 scripts/rmul2027/run_timing_experiment.py --record-dir "$RMUL_TEST_ARTIFACT_ROOT/full-$(date +%Y%m%d-%H%M%S)" --params-file scripts/rmul2027/config/nav2_test.yaml --gz-world-path scripts/rmul2027/config/gz_world_test.yaml --field-contact cad-flat-floor --render-mode gpu --last-case 07-occupied --dds-profile scripts/rmul2027/config/fastdds_local_64m.xml
+python3 scripts/rmul2027/run_timing_experiment.py --record-dir "$RMUL_TEST_ARTIFACT_ROOT/full-$(date +%Y%m%d-%H%M%S)" --params-file scripts/rmul2027/config/nav2_test.yaml --gz-world-path scripts/rmul2027/config/gz_world_test.yaml --field-contact cad-flat-floor --render-mode gpu --last-case 07-occupied --dds-profile scripts/rmul2027/config/fastdds_local_64m.xml --spin-mode
 ```
 
 快速对照只把params-file换成nav2_original_speed_early_brake.yaml。完整路线为静止、6运动点、占用目标拒绝，任一失败停止后续目标；180秒／0.35m时序对齐误差、真值位移及实际停车判据保持。真值只用于评估。
@@ -94,7 +98,7 @@ python3 scripts/rmul2027/run_timing_experiment.py --record-dir "$RMUL_TEST_ARTIF
 
 TF2用官方0.25.24项目局部核心库处理已取证的双线程死锁，不替换系统ROS。依赖补丁基准、来源及hash在patches和assets。共享代码保护不能替代硬件急停或MCU看门狗；真实驱动、尺寸、延迟和制动仍需独立验收。
 
-[最新C025报告](reports/C025-RESULTS.zh-CN.md)、[C024保护说明](reports/C024-RESULTS.zh-CN.md)、[历史C022报告](reports/C022-RESULTS.zh-CN.md)、[C021大点云传输与静态避障](reports/C021-RESULTS.zh-CN.md)、[C015基础场景结果](TEST_RESULTS.zh-CN.md)分别记录范围。旧说明保留在history。C盘唯一read.md维护AI交接，本仓库文档维护可发布工程快照。
+[最新C034报告](reports/C034-RESULTS.zh-CN.md)、[C025定位报告](reports/C025-RESULTS.zh-CN.md)、[C024保护说明](reports/C024-RESULTS.zh-CN.md)、[历史C022报告](reports/C022-RESULTS.zh-CN.md)、[C021大点云传输与静态避障](reports/C021-RESULTS.zh-CN.md)、[C015基础场景结果](TEST_RESULTS.zh-CN.md)分别记录范围。旧说明保留在history。C盘唯一read.md维护AI交接，本仓库文档维护可发布工程快照。
 
 
 ## 存储与收尾（2026-10-21起强制）
@@ -114,3 +118,21 @@ TF2用官方0.25.24项目局部核心库处理已取证的双线程死锁，不�
 | 独立恢复构建目录、临时检出、一次性脚本、重复副本 | 保存验证摘要后删除本轮可重建内容 |
 
 用户已要求每轮及时清理、最终仿真调试完成后清理无用检测数据。执行前核对归属和路径；只处理本项目自建且确认无用的内容，不清理无关项目或用户文件，不通过删除证据来伪造验收通过。删除WSL内部文件与Windows实际可用空间回收分别统计，VHD压缩另需安全停止WSL后执行。
+
+### 固定障碍与单物体对向验收
+
+先确认没有其他仿真。以下工具自动经容量守护、默认不录bag，并在E盘编译小型碰撞诊断代理；需要g++、pkg-config及ignition-transport11/msgs8开发包。固定矩阵四类各3次；移动工具要求同一参数的固定验收通过文件，执行一个预设对向场景3次。以下按仓库根目录运行，并先加载ROS、工作区与本项目DDS配置。
+
+```bash
+export RMUL_TEST_ARTIFACT_ROOT=/mnt/e/RMULArtifacts/pb2025_nav_ws
+source /opt/ros/humble/setup.bash
+source ../../install/setup.bash
+source scripts/rmul2027/configure_dds.sh
+export RMUL_FIXED_RECORD="$RMUL_TEST_ARTIFACT_ROOT/fixed-$(date +%Y%m%d-%H%M%S)"
+python3 scripts/rmul2027/run_fixed_obstacle_acceptance.py --record-dir "$RMUL_FIXED_RECORD"
+python3 scripts/rmul2027/run_moving_obstacle_acceptance.py --record-dir "$RMUL_TEST_ARTIFACT_ROOT/headon-$(date +%Y%m%d-%H%M%S)" --fixed-acceptance "$RMUL_FIXED_RECORD/static-acceptance.json"
+```
+
+移动代理是0.58×0.50×0.50m、带真实碰撞和激光回波的运动盒体。双方额定平移0.5m/s，物体按仿真时间固定直线行驶；我方目标实际接收后才触发运动。每次先验证运动碰撞正对照，位姿真值只用于驱动和评估，不注入导航。成功到点、仍在自旋、全零安全停和测试保护分别记录。
+
+旧普通配置在`history/before-C031-nav2_test.yaml`，C029中间候选在`history/C029-spin-persistence-nav2_test.yaml`。C031永久2D层在`history/C031-persistent-rplidar-nav2_test.yaml`；三者用于历史对照。当前真实LaserScan经`rplidar_obstacle_cloud.py`保留原时间戳/坐标投影为占用点，再由已有IntensityVoxelLayer每轮重建，观测保留2秒，避免移走后的永久旧格。此链路不使用物体真值。保持50/40/30GiB、单轮512MiB及累计预算；不能以换目录绕过守护。

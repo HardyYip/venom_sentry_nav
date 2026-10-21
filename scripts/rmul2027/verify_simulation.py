@@ -34,6 +34,7 @@ parser.add_argument('--goal-x', type=float)
 parser.add_argument('--goal-y', type=float)
 parser.add_argument('--record-dir', type=Path, required=True)
 parser.add_argument('--stability-seconds', type=float, default=12)
+parser.add_argument('--spin-mode', action='store_true')
 options = parser.parse_args()
 options.record_dir.mkdir(parents=True,exist_ok=True)
 trace = []
@@ -411,6 +412,35 @@ try:
             stop_deadline = time.monotonic() + 45
             while clock_seconds() < initial_sim_time + 1.0 and time.monotonic() < stop_deadline:
                 rclpy.spin_once(node, timeout_sec=.1)
+            first_velocity = messages['ground_truth'].twist.twist
+            first_command = messages.get('cmd_vel', Twist())
+            initial_stop_snapshot = {'at_sim_s':clock_seconds()-initial_sim_time,
+                'translation_speed_mps':math.hypot(first_velocity.linear.x,first_velocity.linear.y),
+                'translation_command_mps':math.hypot(first_command.linear.x,first_command.linear.y),
+                'angular_speed_rps':abs(first_velocity.angular.z),'angular_command_rps':abs(first_command.angular.z)}
+            allow_arrival_spin = options.spin_mode and options.scenario == 'simple' and result.status == 4
+            stop_samples=[];stable_since=None;stable_stop_confirmed=False
+            settle_wall_deadline=time.monotonic()+45
+            while clock_seconds() <= initial_sim_time+2.0 and time.monotonic()<settle_wall_deadline:
+                observed=messages['ground_truth'].twist.twist
+                observed_command=messages.get('cmd_vel',Twist())
+                sim_now=clock_seconds()
+                linear_speed=math.hypot(observed.linear.x,observed.linear.y)
+                linear_command=math.hypot(observed_command.linear.x,observed_command.linear.y)
+                stopped=linear_speed<.03 and linear_command<.03
+                if not allow_arrival_spin:stopped=stopped and abs(observed.angular.z)<.03 and abs(observed_command.angular.z)<.03
+                stop_samples.append({'after_result_sim_s':sim_now-initial_sim_time,'translation_speed_mps':linear_speed,
+                    'translation_command_mps':linear_command,'angular_speed_rps':abs(observed.angular.z),
+                    'angular_command_rps':abs(observed_command.angular.z),'within_original_threshold':stopped})
+                if stopped:
+                    if stable_since is None:stable_since=sim_now
+                    if sim_now-stable_since>=.2:stable_stop_confirmed=True;break
+                else:stable_since=None
+                rclpy.spin_once(node,timeout_sec=.02)
+            stop_observation={'budget_sim_s':2.0,'stable_window_sim_s':.2,'threshold':.03,
+                'first_snapshot_after_1s':initial_stop_snapshot,'confirmed':stable_stop_confirmed,
+                'confirmed_after_result_sim_s':clock_seconds()-initial_sim_time,'samples':stop_samples}
+            (options.record_dir/'stop-observation.json').write_text(json.dumps(stop_observation,indent=2)+'\n')
             final = pose()
             truth = messages['ground_truth'].pose.pose.position
             movement = math.hypot(truth.x-initial_truth[0], truth.y-initial_truth[1])
@@ -421,12 +451,32 @@ try:
             command = messages.get('cmd_vel', Twist())
             stopped_speed = max(abs(velocity.linear.x), abs(velocity.linear.y), abs(velocity.angular.z))
             stopped_command = max(abs(command.linear.x),abs(command.linear.y),abs(command.angular.z))
+            translation_speed=math.hypot(velocity.linear.x,velocity.linear.y)
+            translation_command=math.hypot(command.linear.x,command.linear.y)
+            angular_speed=abs(velocity.angular.z)
+            angular_command=abs(command.angular.z)
+            still_spinning = angular_speed > .03 or angular_command > .03
+            allow_arrival_spin = options.spin_mode and options.scenario == 'simple' and result.status == 4
+            if allow_arrival_spin:
+                stop_classification=('translation_stopped_still_spinning' if still_spinning else 'safety_stop') if translation_speed<.03 and translation_command<.03 else 'translation_moving'
+            else:
+                stop_classification='safety_stop' if stopped_speed<.03 and stopped_command<.03 else 'moving'
+            stop_state={'mode':'spin-arrival' if allow_arrival_spin else 'strict-safety-stop',
+                        'classification':stop_classification,
+                        'still_spinning':bool(still_spinning),
+                        'translation_speed_mps':translation_speed,'translation_command_mps':translation_command,
+                        'angular_speed_rps':angular_speed,'angular_command_rps':angular_command,
+                        'legacy_max_speed':stopped_speed,'legacy_max_command':stopped_command,
+                        'stable_stop_confirmed':stable_stop_confirmed,'stop_observation_budget_sim_s':2.0,
+                        'stop_confirmation_delay_sim_s':stop_observation['confirmed_after_result_sim_s'],
+                        'threshold':.03,'source':'chassis_odometry_gt twist and cmd_vel received at final check'}
+            (options.record_dir/'stop-state.json').write_text(json.dumps(stop_state,indent=2)+'\n')
             emit('result', status=result.status, ground_truth_moved=movement,
                  goal_error=error, ground_truth_goal_error=truth_error,
                  ground_truth_map_xy=truth_map, estimated_map_xy=[final.translation.x,final.translation.y],
                  ground_truth_z=truth.z, stopped_speed=stopped_speed,
                  stopped_command=stopped_command, elapsed_wall_s=time.monotonic()-started,
-                 nonzero_commands=nonzero_commands, counts=counts)
+                 nonzero_commands=nonzero_commands, counts=counts, stop_state=stop_state)
             if options.scenario == 'blocked_route':
                 assert result.status == 6, 'Blocked route did not return ABORTED without test cancellation'
                 assert truth_error > .35, 'Blocked-route test unexpectedly reached target'
@@ -442,7 +492,12 @@ try:
             model_rpy = [float(v) for v in coordinates[1].split()]
             emit('physical_pose',xyz=model_xyz,rpy=model_rpy)
             assert .02 < model_xyz[2] < .15 and max(abs(v) for v in model_rpy[:2]) < .1, 'Robot dropped, floated or tipped on the flat test area'
-            assert stopped_speed < .03 and stopped_command < .03, 'Robot did not stop'
+            assert stable_stop_confirmed, 'Stop did not remain below original thresholds for 0.2s within fixed 2.0s observation budget'
+            assert time.monotonic()-started <= options.goal_timeout, 'Arrival and stable stop exceeded original goal timeout'
+            if allow_arrival_spin:
+                assert translation_speed < .03 and translation_command < .03, 'Translation did not stop (spin-mode; still spinning is allowed and recorded separately)'
+            else:
+                assert stopped_speed < .03 and stopped_command < .03, 'Robot did not stop'
             if options.scenario == 'simple':
                 assert nonzero_commands > 0
             emit('PASS', scenario=options.scenario)

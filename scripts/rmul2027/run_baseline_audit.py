@@ -17,6 +17,7 @@ from pathlib import Path
 
 parser=argparse.ArgumentParser()
 parser.add_argument('--record-dir',type=Path,required=True)
+parser.add_argument('--spin-mode',action='store_true',help='Allow translation-only stop for successful spinning arrival; safety stops remain all-zero')
 parser.add_argument('--navigation-log',type=Path)
 parser.add_argument('--route-set',choices=['baseline','central-marking','manual-c014'],default='baseline')
 parser.add_argument('--last-case',choices=['ready','01-short','02-east-north','03-center','04-west-south','05-west-north','06-east-north-repeat','07-occupied','01-manual-first','02-manual-second','03-seam-approach','04-seam-positive-y','05-seam-negative-y'])
@@ -146,6 +147,7 @@ try:
         if any(v.get('age',0)>3 for v in state.get('footprints',{}).values()):raise RuntimeError('Costmap footprint stale before goal; preserve runtime.')
         target.mkdir()
         command=[sys.executable,str(folder/'verify_simulation.py'),'--startup-timeout','45','--goal-timeout','180','--stability-seconds','2','--record-dir',str(target),*options]
+        if args.spin_mode:command.append('--spin-mode')
         phase={'name':name,'command':command,'started_wall_epoch':time.time()}
         with logpath.open('w') as log:
             child=subprocess.Popen(command,stdout=log,stderr=subprocess.STDOUT,start_new_session=True)

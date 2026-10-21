@@ -16,6 +16,7 @@ from pathlib import Path
 parser=argparse.ArgumentParser()
 parser.add_argument('--record-bag', action='store_true', help='Opt in to a light, guarded recording; default is no bag')
 parser.add_argument('--record-dir',type=Path,required=True)
+parser.add_argument('--spin-mode',action='store_true',help='Allow translation-only stop for successful spinning arrival; safety stops remain all-zero')
 parser.add_argument('--params-file',type=Path,required=True)
 parser.add_argument('--gz-world-path',type=Path)
 parser.add_argument('--dds-profile',type=Path)
@@ -117,7 +118,9 @@ try:
     auditdir.mkdir()
     (auditdir/'observer').symlink_to('../observer',target_is_directory=True)
     save()
-    audit=launch('audit',[sys.executable,str(folder/'run_baseline_audit.py'),'--record-dir',str(auditdir),'--navigation-log',str(navlog),'--last-case',args.last_case,'--route-set',args.route_set])
+    audit_command=[sys.executable,str(folder/'run_baseline_audit.py'),'--record-dir',str(auditdir),'--navigation-log',str(navlog),'--last-case',args.last_case,'--route-set',args.route_set]
+    if args.spin_mode:audit_command.append('--spin-mode')
+    audit=launch('audit',audit_command)
     deadline=time.monotonic()+(3000 if args.last_case=='07-occupied' else 1500)
     while audit.poll() is None:
         if wrapper.poll() is not None:raise RuntimeError('Simulation exited during audit')
