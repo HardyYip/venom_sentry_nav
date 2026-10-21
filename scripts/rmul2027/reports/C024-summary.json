@@ -1,0 +1,2214 @@
+{
+  "record_directory": "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/diagnostics/safety-completion-20261021-090938-C024",
+  "scope": "Polar Bear static simulator navigation and structural fault handling; not Venom hardware",
+  "tests": {
+    "watchdog-02": {
+      "passed": true,
+      "checks": [
+        {
+          "name": "readiness passed",
+          "passed": true
+        },
+        {
+          "name": "nonzero spin before container freeze",
+          "passed": true
+        },
+        {
+          "name": "independent watchdog timeout observed",
+          "passed": true
+        },
+        {
+          "name": "watchdog timeout delay",
+          "passed": true,
+          "wall_seconds": 0.49420521600404754
+        },
+        {
+          "name": "chassis physically stopped while software guard frozen",
+          "passed": true,
+          "tail_speed_max": 0.0027647094865949602
+        },
+        {
+          "name": "no upstream zero command needed for watchdog stop",
+          "passed": true,
+          "messages": 0
+        },
+        {
+          "name": "no cached motion replay after guard resumes",
+          "passed": true
+        },
+        {
+          "name": "fresh commands restore motion",
+          "passed": true
+        },
+        {
+          "name": "plugin watchdog stops when bridge freezes",
+          "passed": true,
+          "wall_seconds": 0.495982227002969
+        },
+        {
+          "name": "physical stop while bridge frozen",
+          "passed": true
+        },
+        {
+          "name": "bridge stops after resume without fresh command stream",
+          "passed": true
+        },
+        {
+          "name": "plugin watchdog stops after bridge process exits",
+          "passed": true,
+          "wall_seconds": 0.49881770099455025
+        },
+        {
+          "name": "physical stop after bridge process exit",
+          "passed": true
+        }
+      ],
+      "scenario": "watchdog",
+      "runtime_hashes": {
+        "build/rmoss_gz_plugins/libMecanumDrive2.so": "f376d7654aab45ffe45d3b8354ab83f2d26e88d3cd36687cdce1c389f3232c1d",
+        "install/rmoss_gz_base/lib/librmoss_gz_base.so": "765a589ff0cb0ec1467ffff3c5fc827ec8a6b978630465044cdd4f56555afef7",
+        "install/point_lio/lib/point_lio/pointlio_mapping": "8b318bfa049fa6bb66e3ba42d5f3cc96ded120ece19f4004a0c17d79863b0998"
+      }
+    },
+    "localization-relay-02": {
+      "passed": true,
+      "checks": [
+        {
+          "name": "readiness passed",
+          "passed": true
+        },
+        {
+          "name": "goal accepted",
+          "passed": true,
+          "goal": [
+            9.3,
+            -0.2
+          ]
+        },
+        {
+          "name": "stale localization aborts current Nav2 goal",
+          "passed": true,
+          "status": 6,
+          "wall_seconds": 0.5071282659919234
+        },
+        {
+          "name": "physical stop after localization loss",
+          "passed": true
+        },
+        {
+          "name": "Nav2 freshness gate caused failure",
+          "passed": true
+        },
+        {
+          "name": "old goal does not restart automatically after localization returns",
+          "passed": true
+        },
+        {
+          "name": "new explicit safe goal succeeds after fresh localization",
+          "passed": true,
+          "record_dir": "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/diagnostics/safety-completion-20261021-090938-C024/localization-relay-02/recovery"
+        },
+        {
+          "name": "recovery goal physically stopped",
+          "passed": true
+        },
+        {
+          "name": "guarded NavigateThroughPoses accepted",
+          "passed": true
+        },
+        {
+          "name": "guarded NavigateThroughPoses succeeds",
+          "passed": true,
+          "status": 4
+        },
+        {
+          "name": "through-poses physically stopped",
+          "passed": true
+        }
+      ],
+      "scenario": "localization",
+      "runtime_hashes": {
+        "build/rmoss_gz_plugins/libMecanumDrive2.so": "f376d7654aab45ffe45d3b8354ab83f2d26e88d3cd36687cdce1c389f3232c1d",
+        "install/rmoss_gz_base/lib/librmoss_gz_base.so": "765a589ff0cb0ec1467ffff3c5fc827ec8a6b978630465044cdd4f56555afef7",
+        "install/point_lio/lib/point_lio/pointlio_mapping": "65f98d5c0ee0fda25fe3f1bc1d507c10f911fdd9ffa2854386bae42c57919c4a"
+      }
+    },
+    "lio-gap-03": {
+      "passed": true,
+      "checks": [
+        {
+          "name": "readiness passed",
+          "passed": true
+        },
+        {
+          "name": "goal accepted",
+          "passed": true,
+          "goal": [
+            9.3,
+            -0.2
+          ]
+        },
+        {
+          "name": "stale localization aborts current Nav2 goal",
+          "passed": true,
+          "status": 6,
+          "wall_seconds": 0.5259534649958368
+        },
+        {
+          "name": "physical stop after localization loss",
+          "passed": true
+        },
+        {
+          "name": "Nav2 freshness gate caused failure",
+          "passed": true
+        },
+        {
+          "name": "old goal does not restart automatically after localization returns",
+          "passed": true
+        },
+        {
+          "name": "lost IMU history causes explicit latched localization fault",
+          "passed": true
+        },
+        {
+          "name": "latched LIO refuses to publish falsely fresh poses",
+          "passed": true,
+          "messages": 0
+        },
+        {
+          "name": "goal accepted",
+          "passed": true,
+          "goal": [
+            9.3,
+            -0.2
+          ]
+        },
+        {
+          "name": "new goal rejected by freshness gate until localization restart",
+          "passed": true,
+          "status": 6
+        },
+        {
+          "name": "robot remains physically stopped while localization latched",
+          "passed": true
+        }
+      ],
+      "scenario": "lio-gap",
+      "runtime_hashes": {
+        "build/rmoss_gz_plugins/libMecanumDrive2.so": "f376d7654aab45ffe45d3b8354ab83f2d26e88d3cd36687cdce1c389f3232c1d",
+        "install/rmoss_gz_base/lib/librmoss_gz_base.so": "765a589ff0cb0ec1467ffff3c5fc827ec8a6b978630465044cdd4f56555afef7",
+        "install/point_lio/lib/point_lio/pointlio_mapping": "65f98d5c0ee0fda25fe3f1bc1d507c10f911fdd9ffa2854386bae42c57919c4a"
+      }
+    },
+    "C025-static-01": {
+      "scenario": "parked",
+      "started_at": "2026-10-21T19:43:49.979097+08:00",
+      "params_file": "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/diagnostics/safety-completion-20261021-090938-C024/fast-snapshot.yaml",
+      "params_sha256": "6418d90f3508fd8d13fc9961290cc516f09d1ba6486d0b42aaa70c845283661a",
+      "cart_size_m": [
+        0.58,
+        0.5,
+        0.5
+      ],
+      "obstacle_behavior": "stationary geometry proxy, no opponent controller",
+      "start_map_xy": [
+        1.0,
+        -5.5
+      ],
+      "goal_map_xy": [
+        5.0,
+        -5.5
+      ],
+      "cart_map_x": 3.0,
+      "status": "passed",
+      "processes": {
+        "launcher": {
+          "pid": 1726,
+          "command": [
+            "bash",
+            "/home/hardy/pb2025_nav_ws/src/pb2025_sentry_nav/scripts/rmul2027/start_rmul2027.sh",
+            "nav",
+            "--params-file",
+            "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/diagnostics/safety-completion-20261021-090938-C024/fast-snapshot.yaml",
+            "--gz-world-path",
+            "/home/hardy/pb2025_nav_ws/src/pb2025_sentry_nav/scripts/rmul2027/config/gz_world_test.yaml",
+            "--field-contact",
+            "cad-flat-floor",
+            "--render-mode",
+            "gpu",
+            "--tf2-library-dir",
+            "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/runtime/tf2-0.25.24/lib"
+          ]
+        },
+        "ready": {
+          "pid": 1967,
+          "command": [
+            "/usr/bin/python3",
+            "/home/hardy/pb2025_nav_ws/src/pb2025_sentry_nav/scripts/rmul2027/run_baseline_audit.py",
+            "--record-dir",
+            "/mnt/e/RMULArtifacts/pb2025_nav_ws/completion-C025/static-01/ready",
+            "--last-case",
+            "ready",
+            "--navigation-log",
+            "/home/hardy/pb2025_nav_ws/logs/20261021-194350-rmul2027-nav/navigation.log"
+          ]
+        },
+        "preposition": {
+          "pid": 2162,
+          "command": [
+            "/usr/bin/python3",
+            "/home/hardy/pb2025_nav_ws/src/pb2025_sentry_nav/scripts/rmul2027/verify_simulation.py",
+            "--mode",
+            "nav",
+            "--goal-x",
+            "1",
+            "--goal-y",
+            "-5.5",
+            "--scenario",
+            "simple",
+            "--startup-timeout",
+            "45",
+            "--goal-timeout",
+            "180",
+            "--stability-seconds",
+            "2",
+            "--record-dir",
+            "/mnt/e/RMULArtifacts/pb2025_nav_ws/completion-C025/static-01/preposition"
+          ]
+        },
+        "goal": {
+          "pid": 2224,
+          "command": [
+            "/usr/bin/python3",
+            "/home/hardy/pb2025_nav_ws/src/pb2025_sentry_nav/scripts/rmul2027/verify_simulation.py",
+            "--mode",
+            "nav",
+            "--goal-x",
+            "5",
+            "--goal-y",
+            "-5.5",
+            "--scenario",
+            "simple",
+            "--startup-timeout",
+            "45",
+            "--goal-timeout",
+            "180",
+            "--stability-seconds",
+            "2",
+            "--record-dir",
+            "/mnt/e/RMULArtifacts/pb2025_nav_ws/completion-C025/static-01/goal"
+          ]
+        }
+      },
+      "dds_profile": "/home/hardy/pb2025_nav_ws/src/pb2025_sentry_nav/scripts/rmul2027/config/fastdds_local_64m.xml",
+      "dds_profile_sha256": "41b883f85949817a31dc3487941c280189b3042170a2b073507ca7f8318072f9",
+      "navigation_log": "/home/hardy/pb2025_nav_ws/logs/20261021-194350-rmul2027-nav/navigation.log",
+      "record_bag": false,
+      "recorded_topics": [],
+      "actor_pid": 2211,
+      "cart_location_static_prior": 0,
+      "contact_health": {
+        "event": "health",
+        "frames": 567,
+        "contacts": 0,
+        "probe_contacts": 567
+      },
+      "navigation_exit_code": 0,
+      "obstacle_detected": true,
+      "max_cloud_cart_hits": 200,
+      "min_footprint_clearance_m": 0.21833090683679446,
+      "max_route_y_deviation_m": 0.8495981247331823,
+      "yield_samples": 0,
+      "obstacle_cleared": true,
+      "cleared_location_map_xy": [
+        3.0,
+        -5.5
+      ],
+      "cleared_costs": {
+        "local_costmap": 0,
+        "global_costmap": 0
+      },
+      "passed": true,
+      "finished_at": "2026-10-21T19:45:25.416795+08:00",
+      "bag_metadata_exists": false
+    },
+    "C025-blocked-01": {
+      "scenario": "blocked",
+      "started_at": "2026-10-21T19:45:32.996752+08:00",
+      "params_file": "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/diagnostics/safety-completion-20261021-090938-C024/fast-snapshot.yaml",
+      "params_sha256": "6418d90f3508fd8d13fc9961290cc516f09d1ba6486d0b42aaa70c845283661a",
+      "cart_size_m": [
+        0.14,
+        14.0,
+        0.5
+      ],
+      "obstacle_behavior": "stationary geometry proxy, no opponent controller",
+      "start_map_xy": [
+        1.0,
+        -5.5
+      ],
+      "goal_map_xy": [
+        5.0,
+        -5.5
+      ],
+      "cart_map_x": 3.0,
+      "status": "passed",
+      "processes": {
+        "launcher": {
+          "pid": 2299,
+          "command": [
+            "bash",
+            "/home/hardy/pb2025_nav_ws/src/pb2025_sentry_nav/scripts/rmul2027/start_rmul2027.sh",
+            "nav",
+            "--params-file",
+            "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/diagnostics/safety-completion-20261021-090938-C024/fast-snapshot.yaml",
+            "--gz-world-path",
+            "/home/hardy/pb2025_nav_ws/src/pb2025_sentry_nav/scripts/rmul2027/config/gz_world_test.yaml",
+            "--field-contact",
+            "cad-flat-floor",
+            "--render-mode",
+            "gpu",
+            "--tf2-library-dir",
+            "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/runtime/tf2-0.25.24/lib"
+          ]
+        },
+        "ready": {
+          "pid": 2540,
+          "command": [
+            "/usr/bin/python3",
+            "/home/hardy/pb2025_nav_ws/src/pb2025_sentry_nav/scripts/rmul2027/run_baseline_audit.py",
+            "--record-dir",
+            "/mnt/e/RMULArtifacts/pb2025_nav_ws/completion-C025/blocked-01/ready",
+            "--last-case",
+            "ready",
+            "--navigation-log",
+            "/home/hardy/pb2025_nav_ws/logs/20261021-194533-rmul2027-nav/navigation.log"
+          ]
+        },
+        "preposition": {
+          "pid": 2733,
+          "command": [
+            "/usr/bin/python3",
+            "/home/hardy/pb2025_nav_ws/src/pb2025_sentry_nav/scripts/rmul2027/verify_simulation.py",
+            "--mode",
+            "nav",
+            "--goal-x",
+            "1",
+            "--goal-y",
+            "-5.5",
+            "--scenario",
+            "simple",
+            "--startup-timeout",
+            "45",
+            "--goal-timeout",
+            "180",
+            "--stability-seconds",
+            "2",
+            "--record-dir",
+            "/mnt/e/RMULArtifacts/pb2025_nav_ws/completion-C025/blocked-01/preposition"
+          ]
+        },
+        "goal": {
+          "pid": 2803,
+          "command": [
+            "/usr/bin/python3",
+            "/home/hardy/pb2025_nav_ws/src/pb2025_sentry_nav/scripts/rmul2027/verify_simulation.py",
+            "--mode",
+            "nav",
+            "--goal-x",
+            "5",
+            "--goal-y",
+            "-5.5",
+            "--scenario",
+            "blocked_route",
+            "--startup-timeout",
+            "45",
+            "--goal-timeout",
+            "180",
+            "--stability-seconds",
+            "2",
+            "--record-dir",
+            "/mnt/e/RMULArtifacts/pb2025_nav_ws/completion-C025/blocked-01/goal"
+          ]
+        },
+        "after-clear-goal": {
+          "pid": 2839,
+          "command": [
+            "/usr/bin/python3",
+            "/home/hardy/pb2025_nav_ws/src/pb2025_sentry_nav/scripts/rmul2027/verify_simulation.py",
+            "--mode",
+            "nav",
+            "--goal-x",
+            "5",
+            "--goal-y",
+            "-5.5",
+            "--scenario",
+            "simple",
+            "--startup-timeout",
+            "45",
+            "--goal-timeout",
+            "180",
+            "--stability-seconds",
+            "2",
+            "--record-dir",
+            "/mnt/e/RMULArtifacts/pb2025_nav_ws/completion-C025/blocked-01/after-clear-goal"
+          ]
+        }
+      },
+      "dds_profile": "/home/hardy/pb2025_nav_ws/src/pb2025_sentry_nav/scripts/rmul2027/config/fastdds_local_64m.xml",
+      "dds_profile_sha256": "41b883f85949817a31dc3487941c280189b3042170a2b073507ca7f8318072f9",
+      "navigation_log": "/home/hardy/pb2025_nav_ws/logs/20261021-194533-rmul2027-nav/navigation.log",
+      "record_bag": false,
+      "recorded_topics": [],
+      "actor_pid": 2790,
+      "cart_location_static_prior": 0,
+      "contact_health": {
+        "event": "health",
+        "frames": 555,
+        "contacts": 0,
+        "probe_contacts": 555
+      },
+      "navigation_exit_code": 0,
+      "obstacle_detected": true,
+      "max_cloud_cart_hits": 62,
+      "min_footprint_clearance_m": 1.6903024456308127,
+      "max_route_y_deviation_m": 0.041438514903200385,
+      "yield_samples": 0,
+      "obstacle_cleared": true,
+      "cleared_location_map_xy": [
+        3.0,
+        -5.5
+      ],
+      "cleared_costs": {
+        "local_costmap": 70,
+        "global_costmap": 70
+      },
+      "after_clear_navigation_exit_code": 0,
+      "after_clear_contact_health": {
+        "event": "health",
+        "frames": 555,
+        "contacts": 0,
+        "probe_contacts": 555
+      },
+      "passed": true,
+      "finished_at": "2026-10-21T19:47:11.589140+08:00",
+      "bag_metadata_exists": false
+    },
+    "C025-rmuc2025-regression": {
+      "owner": "Codex C022",
+      "passed": true,
+      "started_at": "2026-10-21T19:47:22.347549+08:00",
+      "scope": "Original rmuc_2025 readiness and near-goal verifier; original spin=3.14 retained. Local TF2/DDS and GPU environment only.",
+      "launcher_source_sha256": "92958013d18694e82c6ad146e27f7573ef7a91e726387da216c0b2099e7e5ed5",
+      "processes": {
+        "launcher": {
+          "pid": 2900,
+          "command": [
+            "bash",
+            "/mnt/e/RMULArtifacts/pb2025_nav_ws/completion-C025/rmuc2025-regression/launcher.sh",
+            "nav"
+          ]
+        },
+        "verify": {
+          "pid": 2922,
+          "command": [
+            "/usr/bin/python3",
+            "/home/hardy/pb2025_nav_ws/src/pb2025_sentry_nav/scripts/venom/verify_headless.py",
+            "--mode",
+            "nav"
+          ]
+        }
+      },
+      "events": [
+        {
+          "event": "startup",
+          "mode": "nav",
+          "missing": [
+            "adapted_odometry",
+            "clock",
+            "converted_cloud",
+            "ground_truth",
+            "imu",
+            "lidar",
+            "lio",
+            "lio_cloud",
+            "map",
+            "odometry",
+            "registered_scan",
+            "terrain_map",
+            "terrain_map_ext"
+          ],
+          "frames_ready": false,
+          "states": {},
+          "counts": {}
+        },
+        {
+          "event": "startup",
+          "mode": "nav",
+          "missing": [],
+          "frames_ready": true,
+          "states": {
+            "controller_server": 3,
+            "planner_server": 3,
+            "velocity_smoother": 2,
+            "bt_navigator": 2
+          },
+          "counts": {
+            "clock": 2196,
+            "imu": 704,
+            "ground_truth": 1529,
+            "map": 1,
+            "cmd_vel": 638,
+            "lidar": 72,
+            "converted_cloud": 71,
+            "lio": 3420,
+            "adapted_odometry": 3848,
+            "lio_cloud": 65,
+            "registered_scan": 65,
+            "terrain_map": 65,
+            "terrain_map_ext": 65,
+            "odometry": 11
+          }
+        },
+        {
+          "event": "lifecycle_retry",
+          "mode": "nav",
+          "server": "bt_navigator"
+        },
+        {
+          "event": "lifecycle_retry",
+          "mode": "nav",
+          "server": "velocity_smoother"
+        },
+        {
+          "event": "ready",
+          "mode": "nav",
+          "map_xy": [
+            0.0038458662868373276,
+            -0.011451183422202117
+          ],
+          "sim_time": 9.81,
+          "states": {
+            "controller_server": 3,
+            "planner_server": 3,
+            "velocity_smoother": 3,
+            "bt_navigator": 3
+          },
+          "counts": {
+            "clock": 6959,
+            "imu": 1941,
+            "ground_truth": 5021,
+            "map": 1,
+            "cmd_vel": 1350,
+            "lidar": 197,
+            "converted_cloud": 197,
+            "lio": 12956,
+            "adapted_odometry": 14257,
+            "lio_cloud": 190,
+            "registered_scan": 187,
+            "terrain_map": 190,
+            "terrain_map_ext": 190,
+            "odometry": 25
+          }
+        },
+        {
+          "event": "goal",
+          "mode": "nav",
+          "xy": [
+            0.8038458662868374,
+            -0.011451183422202117
+          ],
+          "initial_ground_truth": [
+            3.400003047921439,
+            9.499999999878945
+          ]
+        },
+        {
+          "event": "waiting_for_action",
+          "mode": "nav",
+          "counts": {
+            "clock": 12976,
+            "imu": 3767,
+            "ground_truth": 9219,
+            "map": 1,
+            "cmd_vel": 2707,
+            "lidar": 383,
+            "converted_cloud": 383,
+            "lio": 25852,
+            "adapted_odometry": 27548,
+            "lio_cloud": 376,
+            "registered_scan": 358,
+            "terrain_map": 366,
+            "terrain_map_ext": 366,
+            "odometry": 49
+          }
+        },
+        {
+          "event": "waiting_for_action",
+          "mode": "nav",
+          "counts": {
+            "clock": 16661,
+            "imu": 5001,
+            "ground_truth": 11729,
+            "map": 1,
+            "cmd_vel": 3852,
+            "lidar": 512,
+            "converted_cloud": 511,
+            "lio": 35089,
+            "adapted_odometry": 35817,
+            "lio_cloud": 498,
+            "registered_scan": 461,
+            "terrain_map": 481,
+            "terrain_map_ext": 481,
+            "odometry": 58
+          }
+        },
+        {
+          "event": "waiting_for_action",
+          "mode": "nav",
+          "counts": {
+            "clock": 21457,
+            "imu": 6486,
+            "ground_truth": 14921,
+            "map": 1,
+            "cmd_vel": 4868,
+            "lidar": 663,
+            "converted_cloud": 662,
+            "lio": 47159,
+            "adapted_odometry": 47374,
+            "lio_cloud": 647,
+            "registered_scan": 603,
+            "terrain_map": 629,
+            "terrain_map_ext": 629,
+            "odometry": 79
+          }
+        },
+        {
+          "event": "waiting_for_action",
+          "mode": "nav",
+          "counts": {
+            "clock": 25267,
+            "imu": 7780,
+            "ground_truth": 17537,
+            "map": 1,
+            "cmd_vel": 6000,
+            "lidar": 797,
+            "converted_cloud": 797,
+            "lio": 56976,
+            "adapted_odometry": 56462,
+            "lio_cloud": 783,
+            "registered_scan": 733,
+            "terrain_map": 762,
+            "terrain_map_ext": 762,
+            "odometry": 91
+          }
+        },
+        {
+          "event": "result",
+          "mode": "nav",
+          "status": 4,
+          "ground_truth_moved": 0.6682697502084869,
+          "goal_error": 0.1566337407592968,
+          "nonzero_commands": 37,
+          "counts": {
+            "clock": 29498,
+            "imu": 9113,
+            "ground_truth": 20355,
+            "map": 1,
+            "cmd_vel": 6972,
+            "lidar": 934,
+            "converted_cloud": 934,
+            "lio": 67473,
+            "adapted_odometry": 66639,
+            "lio_cloud": 919,
+            "registered_scan": 869,
+            "terrain_map": 898,
+            "terrain_map_ext": 898,
+            "odometry": 104
+          }
+        },
+        {
+          "event": "PASS",
+          "mode": "nav"
+        }
+      ],
+      "finished_at": "2026-10-21T19:49:37.728406+08:00"
+    }
+  },
+  "suites": {
+    "snapshot-fast-full-01": {
+      "completed": true,
+      "cases_passed": 8,
+      "motion_goals": 6,
+      "max_truth_error_m": 0.10961157888606923,
+      "max_estimate_error_m": 0.0842592169634245,
+      "max_stopped_component": 0.00012848701008727478,
+      "backups": 0,
+      "empty_local_paths": 0,
+      "goals": [
+        {
+          "event": "result",
+          "mode": "nav",
+          "status": 4,
+          "ground_truth_moved": 0.7869889928900496,
+          "goal_error": 0.03945254118456458,
+          "ground_truth_goal_error": 0.043123884431555015,
+          "ground_truth_map_xy": [
+            0.7868863236671704,
+            0.00718015636478464
+          ],
+          "estimated_map_xy": [
+            0.7905937793112903,
+            0.00676107792763359
+          ],
+          "ground_truth_z": 0.0,
+          "stopped_speed": 8.062302427076163e-05,
+          "stopped_command": 0.0,
+          "elapsed_wall_s": 2.570146953992662,
+          "nonzero_commands": 28,
+          "counts": {
+            "cmd_vel": 324,
+            "adapted_odometry": 134,
+            "registered_scan": 134,
+            "odometry": 134,
+            "map": 1,
+            "local_costmap": 7,
+            "global_costmap": 1,
+            "converted_cloud": 129,
+            "terrain_map": 129,
+            "terrain_map_ext": 129,
+            "lio": 128,
+            "lio_cloud": 129,
+            "clock": 4161,
+            "ground_truth": 3921,
+            "imu": 886,
+            "lidar": 89,
+            "global_plan": 5,
+            "local_plan": 31
+          }
+        },
+        {
+          "event": "result",
+          "mode": "nav",
+          "status": 4,
+          "ground_truth_moved": 8.41938185644872,
+          "goal_error": 0.0842592169634245,
+          "ground_truth_goal_error": 0.10961157888606923,
+          "ground_truth_map_xy": [
+            9.202292995580425,
+            -0.24967936707779215
+          ],
+          "estimated_map_xy": [
+            9.233123276795421,
+            -0.251255434216359
+          ],
+          "ground_truth_z": 0.0,
+          "stopped_speed": 4.4881637938268664e-05,
+          "stopped_command": 0.0,
+          "elapsed_wall_s": 8.675293916996452,
+          "nonzero_commands": 147,
+          "counts": {
+            "clock": 11559,
+            "imu": 2423,
+            "ground_truth": 10767,
+            "lidar": 245,
+            "adapted_odometry": 219,
+            "registered_scan": 219,
+            "cmd_vel": 353,
+            "odometry": 219,
+            "map": 1,
+            "local_costmap": 27,
+            "converted_cloud": 215,
+            "terrain_map": 215,
+            "terrain_map_ext": 215,
+            "lio": 213,
+            "global_costmap": 1,
+            "lio_cloud": 214,
+            "global_plan": 22,
+            "local_plan": 153
+          }
+        },
+        {
+          "event": "result",
+          "mode": "nav",
+          "status": 4,
+          "ground_truth_moved": 5.186399864842029,
+          "goal_error": 0.034921993062214954,
+          "ground_truth_goal_error": 0.03627851356953815,
+          "ground_truth_map_xy": [
+            4.784770576713945,
+            -2.9670728802779633
+          ],
+          "estimated_map_xy": [
+            4.80650777276128,
+            -2.965689731957839
+          ],
+          "ground_truth_z": 0.0,
+          "stopped_speed": 7.460279159838155e-05,
+          "stopped_command": 0.0,
+          "elapsed_wall_s": 4.528124955992098,
+          "nonzero_commands": 64,
+          "counts": {
+            "clock": 7646,
+            "converted_cloud": 169,
+            "lio": 169,
+            "lio_cloud": 169,
+            "terrain_map": 169,
+            "terrain_map_ext": 169,
+            "ground_truth": 6227,
+            "imu": 1503,
+            "lidar": 150,
+            "cmd_vel": 252,
+            "map": 1,
+            "global_costmap": 1,
+            "local_costmap": 14,
+            "adapted_odometry": 131,
+            "registered_scan": 131,
+            "odometry": 131,
+            "global_plan": 10,
+            "local_plan": 70
+          }
+        },
+        {
+          "event": "result",
+          "mode": "nav",
+          "status": 4,
+          "ground_truth_moved": 5.587551724376466,
+          "goal_error": 0.03744611313587159,
+          "ground_truth_goal_error": 0.031608770916798874,
+          "ground_truth_map_xy": [
+            0.0011282840402611072,
+            -5.8545096146237725
+          ],
+          "estimated_map_xy": [
+            0.007003227890342949,
+            -5.854257830141851
+          ],
+          "ground_truth_z": 0.0,
+          "stopped_speed": 5.082028259211997e-05,
+          "stopped_command": 0.0,
+          "elapsed_wall_s": 4.88925611700688,
+          "nonzero_commands": 71,
+          "counts": {
+            "cmd_vel": 374,
+            "registered_scan": 177,
+            "adapted_odometry": 177,
+            "odometry": 177,
+            "map": 1,
+            "local_costmap": 14,
+            "global_costmap": 1,
+            "converted_cloud": 173,
+            "terrain_map": 173,
+            "terrain_map_ext": 173,
+            "lio": 171,
+            "lio_cloud": 172,
+            "clock": 5860,
+            "ground_truth": 5436,
+            "imu": 1331,
+            "lidar": 133,
+            "global_plan": 11,
+            "local_plan": 77
+          }
+        },
+        {
+          "event": "result",
+          "mode": "nav",
+          "status": 4,
+          "ground_truth_moved": 5.602348233005097,
+          "goal_error": 0.05952636725420627,
+          "ground_truth_goal_error": 0.06609778198795337,
+          "ground_truth_map_xy": [
+            -0.04039815899718935,
+            -0.25231544258978245
+          ],
+          "estimated_map_xy": [
+            -0.02021152837870274,
+            -0.2559900216027779
+          ],
+          "ground_truth_z": 0.0,
+          "stopped_speed": 0.00012848701008727478,
+          "stopped_command": 0.0,
+          "elapsed_wall_s": 4.828631235999637,
+          "nonzero_commands": 73,
+          "counts": {
+            "clock": 9718,
+            "imu": 2000,
+            "ground_truth": 9207,
+            "lidar": 200,
+            "terrain_map_ext": 200,
+            "cmd_vel": 317,
+            "adapted_odometry": 160,
+            "registered_scan": 160,
+            "odometry": 160,
+            "map": 1,
+            "local_costmap": 14,
+            "converted_cloud": 156,
+            "terrain_map": 156,
+            "lio": 154,
+            "global_costmap": 1,
+            "lio_cloud": 150,
+            "global_plan": 11,
+            "local_plan": 76
+          }
+        },
+        {
+          "event": "result",
+          "mode": "nav",
+          "status": 4,
+          "ground_truth_moved": 9.24605390480131,
+          "goal_error": 0.07695593251748832,
+          "ground_truth_goal_error": 0.09969226716193007,
+          "ground_truth_map_xy": [
+            9.205622104452939,
+            -0.23211480910722493
+          ],
+          "estimated_map_xy": [
+            9.227733146939613,
+            -0.22645217379317933
+          ],
+          "ground_truth_z": 0.0,
+          "stopped_speed": 4.441430389904467e-05,
+          "stopped_command": 0.0,
+          "elapsed_wall_s": 8.578602620007587,
+          "nonzero_commands": 144,
+          "counts": {
+            "clock": 11124,
+            "imu": 2287,
+            "ground_truth": 10560,
+            "lidar": 228,
+            "lio": 228,
+            "lio_cloud": 228,
+            "terrain_map": 228,
+            "terrain_map_ext": 228,
+            "cmd_vel": 333,
+            "map": 1,
+            "global_costmap": 1,
+            "local_costmap": 26,
+            "converted_cloud": 210,
+            "adapted_odometry": 210,
+            "registered_scan": 210,
+            "odometry": 210,
+            "global_plan": 21,
+            "local_plan": 151
+          }
+        }
+      ],
+      "dependency_runtime": null
+    },
+    "snapshot-fast-full-02": {
+      "completed": true,
+      "cases_passed": 8,
+      "motion_goals": 6,
+      "max_truth_error_m": 0.12339215789389968,
+      "max_estimate_error_m": 0.1081297076772441,
+      "max_stopped_component": 7.725003964264098e-05,
+      "backups": 0,
+      "empty_local_paths": 0,
+      "goals": [
+        {
+          "event": "result",
+          "mode": "nav",
+          "status": 4,
+          "ground_truth_moved": 0.7689929903154868,
+          "goal_error": 0.046220472373744485,
+          "ground_truth_goal_error": 0.06085298702532485,
+          "ground_truth_map_xy": [
+            0.7689030648948867,
+            0.008785422419388844
+          ],
+          "estimated_map_xy": [
+            0.7835555992661186,
+            0.011374382780727124
+          ],
+          "ground_truth_z": 0.0,
+          "stopped_speed": 5.518589363550379e-05,
+          "stopped_command": 0.0,
+          "elapsed_wall_s": 2.5716211879916955,
+          "nonzero_commands": 26,
+          "counts": {
+            "clock": 4711,
+            "imu": 1087,
+            "ground_truth": 4364,
+            "lidar": 109,
+            "converted_cloud": 109,
+            "lio": 109,
+            "lio_cloud": 109,
+            "terrain_map_ext": 91,
+            "terrain_map": 90,
+            "map": 1,
+            "global_costmap": 1,
+            "local_costmap": 7,
+            "cmd_vel": 210,
+            "adapted_odometry": 90,
+            "registered_scan": 90,
+            "odometry": 90,
+            "global_plan": 5,
+            "local_plan": 31
+          }
+        },
+        {
+          "event": "result",
+          "mode": "nav",
+          "status": 4,
+          "ground_truth_moved": 8.433028204806158,
+          "goal_error": 0.09702634403026499,
+          "ground_truth_goal_error": 0.11532112017929727,
+          "ground_truth_map_xy": [
+            9.197850975250017,
+            -0.25352137425398436
+          ],
+          "estimated_map_xy": [
+            9.223618396660752,
+            -0.2598327845516575
+          ],
+          "ground_truth_z": 0.0,
+          "stopped_speed": 2.9734716888947192e-05,
+          "stopped_command": 0.0,
+          "elapsed_wall_s": 8.74835578200873,
+          "nonzero_commands": 144,
+          "counts": {
+            "clock": 10742,
+            "converted_cloud": 227,
+            "terrain_map": 227,
+            "ground_truth": 10120,
+            "imu": 2262,
+            "cmd_vel": 376,
+            "lidar": 226,
+            "lio": 226,
+            "adapted_odometry": 226,
+            "registered_scan": 226,
+            "odometry": 226,
+            "terrain_map_ext": 226,
+            "lio_cloud": 227,
+            "map": 1,
+            "local_costmap": 27,
+            "global_costmap": 1,
+            "global_plan": 23,
+            "local_plan": 154
+          }
+        },
+        {
+          "event": "result",
+          "mode": "nav",
+          "status": 4,
+          "ground_truth_moved": 5.187759753148351,
+          "goal_error": 0.02593537028635407,
+          "ground_truth_goal_error": 0.030928567633298678,
+          "ground_truth_map_xy": [
+            4.781398810841887,
+            -2.9752902436727586
+          ],
+          "estimated_map_xy": [
+            4.803378657790779,
+            -2.974285644020837
+          ],
+          "ground_truth_z": 0.0,
+          "stopped_speed": 6.662198703352616e-05,
+          "stopped_command": 0.0,
+          "elapsed_wall_s": 4.876915757005918,
+          "nonzero_commands": 72,
+          "counts": {
+            "clock": 8001,
+            "lio": 174,
+            "lio_cloud": 174,
+            "ground_truth": 6525,
+            "lidar": 153,
+            "imu": 1531,
+            "converted_cloud": 140,
+            "adapted_odometry": 140,
+            "registered_scan": 140,
+            "terrain_map": 140,
+            "terrain_map_ext": 140,
+            "cmd_vel": 267,
+            "odometry": 139,
+            "map": 1,
+            "local_costmap": 14,
+            "global_costmap": 1,
+            "global_plan": 11,
+            "local_plan": 76
+          }
+        },
+        {
+          "event": "result",
+          "mode": "nav",
+          "status": 4,
+          "ground_truth_moved": 5.564061987728173,
+          "goal_error": 0.06607735456311295,
+          "ground_truth_goal_error": 0.047859978774155536,
+          "ground_truth_map_xy": [
+            0.01635849799535105,
+            -5.848106000173296
+          ],
+          "estimated_map_xy": [
+            0.03484681361798787,
+            -5.847307185117033
+          ],
+          "ground_truth_z": 0.0,
+          "stopped_speed": 3.212063717987349e-05,
+          "stopped_command": 0.0,
+          "elapsed_wall_s": 4.6320102410099935,
+          "nonzero_commands": 66,
+          "counts": {
+            "clock": 8202,
+            "imu": 1481,
+            "ground_truth": 6784,
+            "lidar": 148,
+            "converted_cloud": 135,
+            "cmd_vel": 261,
+            "adapted_odometry": 135,
+            "registered_scan": 135,
+            "odometry": 135,
+            "terrain_map": 135,
+            "terrain_map_ext": 135,
+            "map": 1,
+            "lio": 134,
+            "lio_cloud": 135,
+            "local_costmap": 13,
+            "global_costmap": 1,
+            "global_plan": 11,
+            "local_plan": 72
+          }
+        },
+        {
+          "event": "result",
+          "mode": "nav",
+          "status": 4,
+          "ground_truth_moved": 5.5478064746635205,
+          "goal_error": 0.1029790881506493,
+          "ground_truth_goal_error": 0.10639867340150537,
+          "ground_truth_map_xy": [
+            -0.034831423195614164,
+            -0.3005358128219404
+          ],
+          "estimated_map_xy": [
+            -0.01417161533801542,
+            -0.30199930350277165
+          ],
+          "ground_truth_z": 0.0,
+          "stopped_speed": 1.5354437240683248e-05,
+          "stopped_command": 0.0,
+          "elapsed_wall_s": 5.080454957991606,
+          "nonzero_commands": 72,
+          "counts": {
+            "clock": 6544,
+            "ground_truth": 6095,
+            "imu": 1502,
+            "lidar": 150,
+            "terrain_map": 138,
+            "cmd_vel": 261,
+            "converted_cloud": 137,
+            "lio": 137,
+            "registered_scan": 137,
+            "adapted_odometry": 137,
+            "odometry": 137,
+            "terrain_map_ext": 137,
+            "lio_cloud": 138,
+            "map": 1,
+            "local_costmap": 15,
+            "global_costmap": 1,
+            "global_plan": 12,
+            "local_plan": 81
+          }
+        },
+        {
+          "event": "result",
+          "mode": "nav",
+          "status": 4,
+          "ground_truth_moved": 9.214624916488207,
+          "goal_error": 0.1081297076772441,
+          "ground_truth_goal_error": 0.12339215789389968,
+          "ground_truth_map_xy": [
+            9.179500411127336,
+            -0.2265607550952864
+          ],
+          "estimated_map_xy": [
+            9.195350843490298,
+            -0.2272137414585703
+          ],
+          "ground_truth_z": 0.0,
+          "stopped_speed": 7.725003964264098e-05,
+          "stopped_command": 0.0,
+          "elapsed_wall_s": 8.870375333004631,
+          "nonzero_commands": 141,
+          "counts": {
+            "map": 1,
+            "global_costmap": 1,
+            "local_costmap": 27,
+            "cmd_vel": 417,
+            "adapted_odometry": 242,
+            "registered_scan": 242,
+            "odometry": 242,
+            "clock": 11596,
+            "imu": 2397,
+            "ground_truth": 11035,
+            "lidar": 240,
+            "converted_cloud": 227,
+            "terrain_map": 227,
+            "terrain_map_ext": 227,
+            "lio": 226,
+            "lio_cloud": 222,
+            "global_plan": 22,
+            "local_plan": 156
+          }
+        }
+      ],
+      "dependency_runtime": {
+        "install/point_lio/lib/point_lio/pointlio_mapping": {
+          "resolved": "/home/hardy/pb2025_nav_ws/build/point_lio/pointlio_mapping",
+          "sha256": "65f98d5c0ee0fda25fe3f1bc1d507c10f911fdd9ffa2854386bae42c57919c4a"
+        },
+        "install/fake_vel_transform/lib/libfake_vel_transform.so": {
+          "resolved": "/home/hardy/pb2025_nav_ws/build/fake_vel_transform/libfake_vel_transform.so",
+          "sha256": "571061b1947056c780a72781d089cd43e867096d7a8d155076d6cddb893b7b46"
+        },
+        "install/rmoss_gz_base/lib/librmoss_gz_base.so": {
+          "resolved": "/home/hardy/pb2025_nav_ws/install/rmoss_gz_base/lib/librmoss_gz_base.so",
+          "sha256": "765a589ff0cb0ec1467ffff3c5fc827ec8a6b978630465044cdd4f56555afef7"
+        },
+        "install/rmoss_gz_plugins/plugins/libMecanumDrive2.so": {
+          "resolved": "/home/hardy/pb2025_nav_ws/build/rmoss_gz_plugins/libMecanumDrive2.so",
+          "sha256": "f376d7654aab45ffe45d3b8354ab83f2d26e88d3cd36687cdce1c389f3232c1d"
+        },
+        "install/pb_nav2_plugins/lib/libpb_pose_fresh_condition_bt_node.so": {
+          "resolved": "/home/hardy/pb2025_nav_ws/build/pb_nav2_plugins/libpb_pose_fresh_condition_bt_node.so",
+          "sha256": "decc158e260a4223394f3bcc4993efdcd97f312d503459a55832b78df2854dab"
+        }
+      }
+    },
+    "snapshot-fast-full-03": {
+      "completed": true,
+      "cases_passed": 8,
+      "motion_goals": 6,
+      "max_truth_error_m": 0.10007259734170666,
+      "max_estimate_error_m": 0.0806766931197011,
+      "max_stopped_component": 8.627640697547892e-05,
+      "backups": 0,
+      "empty_local_paths": 0,
+      "goals": [
+        {
+          "event": "result",
+          "mode": "nav",
+          "status": 4,
+          "ground_truth_moved": 0.7907412323898948,
+          "goal_error": 0.023934968112767966,
+          "ground_truth_goal_error": 0.03947625967391562,
+          "ground_truth_map_xy": [
+            0.79064877371958,
+            0.006511307059750671
+          ],
+          "estimated_map_xy": [
+            0.8062252409987735,
+            0.006417153307702706
+          ],
+          "ground_truth_z": 0.0,
+          "stopped_speed": 5.125268280621814e-05,
+          "stopped_command": 0.0,
+          "elapsed_wall_s": 2.6152470639935927,
+          "nonzero_commands": 27,
+          "counts": {
+            "terrain_map": 108,
+            "clock": 4765,
+            "ground_truth": 4465,
+            "imu": 1022,
+            "lidar": 102,
+            "cmd_vel": 227,
+            "converted_cloud": 96,
+            "adapted_odometry": 96,
+            "registered_scan": 96,
+            "odometry": 96,
+            "terrain_map_ext": 96,
+            "lio": 95,
+            "map": 1,
+            "local_costmap": 6,
+            "global_costmap": 1,
+            "lio_cloud": 95,
+            "global_plan": 5,
+            "local_plan": 31
+          }
+        },
+        {
+          "event": "result",
+          "mode": "nav",
+          "status": 4,
+          "ground_truth_moved": 8.421968591218699,
+          "goal_error": 0.0806766931197011,
+          "ground_truth_goal_error": 0.10007259734170666,
+          "ground_truth_map_xy": [
+            9.208997539208227,
+            -0.24163023983304655
+          ],
+          "estimated_map_xy": [
+            9.232567247897611,
+            -0.24428942036906923
+          ],
+          "ground_truth_z": 0.0,
+          "stopped_speed": 5.7701864533676306e-05,
+          "stopped_command": 0.0,
+          "elapsed_wall_s": 9.03643349900085,
+          "nonzero_commands": 146,
+          "counts": {
+            "imu": 2392,
+            "ground_truth": 10127,
+            "lidar": 240,
+            "lio": 240,
+            "lio_cloud": 240,
+            "terrain_map_ext": 240,
+            "clock": 10259,
+            "converted_cloud": 228,
+            "terrain_map": 228,
+            "adapted_odometry": 209,
+            "registered_scan": 209,
+            "odometry": 209,
+            "map": 1,
+            "global_costmap": 1,
+            "local_costmap": 28,
+            "cmd_vel": 333,
+            "global_plan": 23,
+            "local_plan": 160
+          }
+        },
+        {
+          "event": "result",
+          "mode": "nav",
+          "status": 4,
+          "ground_truth_moved": 5.196788028026229,
+          "goal_error": 0.03227292173086705,
+          "ground_truth_goal_error": 0.039492214222913866,
+          "ground_truth_map_xy": [
+            4.78269265730341,
+            -2.964502241295945
+          ],
+          "estimated_map_xy": [
+            4.805378007463677,
+            -2.96817833265262
+          ],
+          "ground_truth_z": 0.0,
+          "stopped_speed": 6.3692644154893e-05,
+          "stopped_command": 0.0,
+          "elapsed_wall_s": 4.8274611980014015,
+          "nonzero_commands": 72,
+          "counts": {
+            "map": 1,
+            "global_costmap": 1,
+            "local_costmap": 13,
+            "cmd_vel": 404,
+            "converted_cloud": 193,
+            "adapted_odometry": 193,
+            "registered_scan": 193,
+            "odometry": 193,
+            "ground_truth": 7094,
+            "imu": 1515,
+            "clock": 7426,
+            "lidar": 151,
+            "terrain_map_ext": 146,
+            "terrain_map": 146,
+            "lio": 145,
+            "lio_cloud": 137,
+            "global_plan": 11,
+            "local_plan": 76
+          }
+        },
+        {
+          "event": "result",
+          "mode": "nav",
+          "status": 4,
+          "ground_truth_moved": 5.570950999505728,
+          "goal_error": 0.05310152624230901,
+          "ground_truth_goal_error": 0.04581663060396407,
+          "ground_truth_map_xy": [
+            0.011322898118503844,
+            -5.840211575833639
+          ],
+          "estimated_map_xy": [
+            0.020413892373467028,
+            -5.843320325392289
+          ],
+          "ground_truth_z": 0.0,
+          "stopped_speed": 8.627640697547892e-05,
+          "stopped_command": 0.0,
+          "elapsed_wall_s": 5.072006521993899,
+          "nonzero_commands": 73,
+          "counts": {
+            "clock": 6727,
+            "lio": 159,
+            "lio_cloud": 152,
+            "terrain_map_ext": 140,
+            "ground_truth": 5343,
+            "imu": 1388,
+            "map": 1,
+            "global_costmap": 1,
+            "local_costmap": 15,
+            "cmd_vel": 261,
+            "lidar": 139,
+            "converted_cloud": 139,
+            "adapted_odometry": 139,
+            "registered_scan": 139,
+            "odometry": 139,
+            "terrain_map": 139,
+            "global_plan": 12,
+            "local_plan": 81
+          }
+        },
+        {
+          "event": "result",
+          "mode": "nav",
+          "status": 4,
+          "ground_truth_moved": 5.577657354846364,
+          "goal_error": 0.07613414582809985,
+          "ground_truth_goal_error": 0.07802475490743287,
+          "ground_truth_map_xy": [
+            -0.046218934084542695,
+            -0.2628623298204391
+          ],
+          "estimated_map_xy": [
+            -0.028154830527959442,
+            -0.2707369329199129
+          ],
+          "ground_truth_z": 0.0,
+          "stopped_speed": 4.634253566830915e-05,
+          "stopped_command": 0.0,
+          "elapsed_wall_s": 4.792603096997482,
+          "nonzero_commands": 68,
+          "counts": {
+            "clock": 7176,
+            "lidar": 157,
+            "imu": 1538,
+            "lio": 157,
+            "lio_cloud": 156,
+            "ground_truth": 6768,
+            "converted_cloud": 138,
+            "terrain_map": 138,
+            "terrain_map_ext": 137,
+            "registered_scan": 135,
+            "odometry": 135,
+            "map": 1,
+            "global_costmap": 1,
+            "local_costmap": 14,
+            "cmd_vel": 254,
+            "adapted_odometry": 134,
+            "global_plan": 11,
+            "local_plan": 75
+          }
+        },
+        {
+          "event": "result",
+          "mode": "nav",
+          "status": 4,
+          "ground_truth_moved": 9.28091867602346,
+          "goal_error": 0.06020187687907796,
+          "ground_truth_goal_error": 0.07387200542775714,
+          "ground_truth_map_xy": [
+            9.234680361184143,
+            -0.23450243427476503
+          ],
+          "estimated_map_xy": [
+            9.255737013427854,
+            -0.2408050732076006
+          ],
+          "ground_truth_z": 0.0,
+          "stopped_speed": 7.132260097536757e-05,
+          "stopped_command": 0.0,
+          "elapsed_wall_s": 8.996907250999357,
+          "nonzero_commands": 145,
+          "counts": {
+            "imu": 2683,
+            "ground_truth": 11675,
+            "lidar": 269,
+            "clock": 10184,
+            "converted_cloud": 217,
+            "cmd_vel": 344,
+            "adapted_odometry": 217,
+            "registered_scan": 217,
+            "odometry": 217,
+            "terrain_map_ext": 216,
+            "terrain_map": 216,
+            "lio": 216,
+            "map": 1,
+            "local_costmap": 27,
+            "lio_cloud": 217,
+            "global_costmap": 1,
+            "global_plan": 23,
+            "local_plan": 159
+          }
+        }
+      ],
+      "dependency_runtime": {
+        "install/point_lio/lib/point_lio/pointlio_mapping": {
+          "resolved": "/home/hardy/pb2025_nav_ws/build/point_lio/pointlio_mapping",
+          "sha256": "65f98d5c0ee0fda25fe3f1bc1d507c10f911fdd9ffa2854386bae42c57919c4a"
+        },
+        "install/fake_vel_transform/lib/libfake_vel_transform.so": {
+          "resolved": "/home/hardy/pb2025_nav_ws/build/fake_vel_transform/libfake_vel_transform.so",
+          "sha256": "571061b1947056c780a72781d089cd43e867096d7a8d155076d6cddb893b7b46"
+        },
+        "install/rmoss_gz_base/lib/librmoss_gz_base.so": {
+          "resolved": "/home/hardy/pb2025_nav_ws/install/rmoss_gz_base/lib/librmoss_gz_base.so",
+          "sha256": "765a589ff0cb0ec1467ffff3c5fc827ec8a6b978630465044cdd4f56555afef7"
+        },
+        "install/rmoss_gz_plugins/plugins/libMecanumDrive2.so": {
+          "resolved": "/home/hardy/pb2025_nav_ws/build/rmoss_gz_plugins/libMecanumDrive2.so",
+          "sha256": "f376d7654aab45ffe45d3b8354ab83f2d26e88d3cd36687cdce1c389f3232c1d"
+        },
+        "install/pb_nav2_plugins/lib/libpb_pose_fresh_condition_bt_node.so": {
+          "resolved": "/home/hardy/pb2025_nav_ws/build/pb_nav2_plugins/libpb_pose_fresh_condition_bt_node.so",
+          "sha256": "decc158e260a4223394f3bcc4993efdcd97f312d503459a55832b78df2854dab"
+        }
+      }
+    },
+    "C025-normal-full-01": {
+      "completed": true,
+      "cases_passed": 8,
+      "motion_goals": 6,
+      "max_truth_error_m": 0.19091892536911578,
+      "max_estimate_error_m": 0.1691180188070096,
+      "max_stopped_component": 7.12858979709398e-05,
+      "backups": 0,
+      "empty_local_paths": 0,
+      "goals": [
+        {
+          "event": "result",
+          "mode": "nav",
+          "status": 4,
+          "ground_truth_moved": 0.6723365255216613,
+          "goal_error": 0.13777156435073754,
+          "ground_truth_goal_error": 0.1583593409531759,
+          "ground_truth_map_xy": [
+            0.6722845186883442,
+            1.8243989011512696e-05
+          ],
+          "estimated_map_xy": [
+            0.692524770207439,
+            0.0076496582879884015
+          ],
+          "ground_truth_z": 0.0,
+          "stopped_speed": 4.3518295324903996e-05,
+          "stopped_command": 0.0,
+          "elapsed_wall_s": 4.936495387000008,
+          "nonzero_commands": 64,
+          "counts": {
+            "clock": 4259,
+            "converted_cloud": 139,
+            "imu": 1321,
+            "lio": 139,
+            "lio_cloud": 139,
+            "ground_truth": 3776,
+            "lidar": 138,
+            "cmd_vel": 293,
+            "adapted_odometry": 129,
+            "registered_scan": 129,
+            "odometry": 129,
+            "terrain_map_ext": 129,
+            "terrain_map": 128,
+            "map": 1,
+            "local_costmap": 11,
+            "global_costmap": 1,
+            "global_plan": 11,
+            "local_plan": 77
+          }
+        },
+        {
+          "event": "result",
+          "mode": "nav",
+          "status": 4,
+          "ground_truth_moved": 8.45944428530673,
+          "goal_error": 0.1587097249050261,
+          "ground_truth_goal_error": 0.17711930162390183,
+          "ground_truth_map_xy": [
+            9.128275230081465,
+            -0.2433802997242389
+          ],
+          "estimated_map_xy": [
+            9.146319698574771,
+            -0.23963763026821536
+          ],
+          "ground_truth_z": 0.0,
+          "stopped_speed": 3.1599537335516346e-05,
+          "stopped_command": 0.0,
+          "elapsed_wall_s": 48.88508994500003,
+          "nonzero_commands": 802,
+          "counts": {
+            "lio": 886,
+            "lio_cloud": 886,
+            "ground_truth": 18290,
+            "imu": 8022,
+            "terrain_map_ext": 870,
+            "clock": 20362,
+            "terrain_map": 870,
+            "cmd_vel": 1010,
+            "map": 1,
+            "global_costmap": 1,
+            "local_costmap": 157,
+            "lidar": 869,
+            "converted_cloud": 869,
+            "adapted_odometry": 869,
+            "registered_scan": 869,
+            "odometry": 869,
+            "global_plan": 134,
+            "local_plan": 956
+          }
+        },
+        {
+          "event": "result",
+          "mode": "nav",
+          "status": 4,
+          "ground_truth_moved": 5.059120135879401,
+          "goal_error": 0.10909835157586226,
+          "ground_truth_goal_error": 0.0953842718752776,
+          "ground_truth_map_xy": [
+            4.828305867315455,
+            -2.908912475076459
+          ],
+          "estimated_map_xy": [
+            4.850907807797875,
+            -2.9035072778817748
+          ],
+          "ground_truth_z": 0.0,
+          "stopped_speed": 3.025917639615639e-05,
+          "stopped_command": 0.0,
+          "elapsed_wall_s": 22.27835756899998,
+          "nonzero_commands": 312,
+          "counts": {
+            "cmd_vel": 647,
+            "converted_cloud": 410,
+            "adapted_odometry": 410,
+            "registered_scan": 410,
+            "odometry": 410,
+            "terrain_map_ext": 410,
+            "terrain_map": 410,
+            "map": 1,
+            "local_costmap": 60,
+            "global_costmap": 1,
+            "lio": 404,
+            "lio_cloud": 406,
+            "imu": 3505,
+            "ground_truth": 8403,
+            "clock": 9325,
+            "lidar": 368,
+            "global_plan": 60,
+            "local_plan": 421
+          }
+        },
+        {
+          "event": "result",
+          "mode": "nav",
+          "status": 4,
+          "ground_truth_moved": 5.566283052093777,
+          "goal_error": 0.13499012893546833,
+          "ground_truth_goal_error": 0.11966608185042307,
+          "ground_truth_map_xy": [
+            0.0807922085276509,
+            -5.814777686094168
+          ],
+          "estimated_map_xy": [
+            0.09275674690193544,
+            -5.803847386525038
+          ],
+          "ground_truth_z": 0.0,
+          "stopped_speed": 4.395162900684281e-05,
+          "stopped_command": 0.0,
+          "elapsed_wall_s": 22.925261043000035,
+          "nonzero_commands": 343,
+          "counts": {
+            "ground_truth": 11171,
+            "clock": 12326,
+            "imu": 4201,
+            "lidar": 431,
+            "converted_cloud": 419,
+            "cmd_vel": 605,
+            "adapted_odometry": 419,
+            "registered_scan": 419,
+            "odometry": 419,
+            "map": 1,
+            "terrain_map_ext": 418,
+            "terrain_map": 418,
+            "local_costmap": 64,
+            "global_costmap": 1,
+            "lio": 414,
+            "lio_cloud": 415,
+            "global_plan": 61,
+            "local_plan": 435
+          }
+        },
+        {
+          "event": "result",
+          "mode": "nav",
+          "status": 4,
+          "ground_truth_moved": 5.465989894040849,
+          "goal_error": 0.15180860677194305,
+          "ground_truth_goal_error": 0.15411288217148195,
+          "ground_truth_map_xy": [
+            -0.035270964694792184,
+            -0.35002246332033016
+          ],
+          "estimated_map_xy": [
+            -0.009857665823453578,
+            -0.35148821576133094
+          ],
+          "ground_truth_z": 0.0,
+          "stopped_speed": 7.12858979709398e-05,
+          "stopped_command": 0.0,
+          "elapsed_wall_s": 18.85556111400001,
+          "nonzero_commands": 286,
+          "counts": {
+            "clock": 13413,
+            "imu": 4012,
+            "ground_truth": 12085,
+            "lidar": 404,
+            "cmd_vel": 516,
+            "converted_cloud": 358,
+            "adapted_odometry": 358,
+            "registered_scan": 358,
+            "odometry": 358,
+            "terrain_map": 358,
+            "terrain_map_ext": 358,
+            "map": 1,
+            "local_costmap": 55,
+            "global_costmap": 1,
+            "lio": 353,
+            "lio_cloud": 354,
+            "global_plan": 50,
+            "local_plan": 355
+          }
+        },
+        {
+          "event": "result",
+          "mode": "nav",
+          "status": 4,
+          "ground_truth_moved": 9.151225221299025,
+          "goal_error": 0.1691180188070096,
+          "ground_truth_goal_error": 0.19091892536911578,
+          "ground_truth_map_xy": [
+            9.115409034206452,
+            -0.24874639895933948
+          ],
+          "estimated_map_xy": [
+            9.134323081947278,
+            -0.23394205517877975
+          ],
+          "ground_truth_z": 0.0,
+          "stopped_speed": 2.6403453629911796e-05,
+          "stopped_command": 0.0,
+          "elapsed_wall_s": 50.771948796000004,
+          "nonzero_commands": 784,
+          "counts": {
+            "ground_truth": 19855,
+            "clock": 21990,
+            "lidar": 865,
+            "imu": 8327,
+            "cmd_vel": 1040,
+            "converted_cloud": 852,
+            "adapted_odometry": 851,
+            "registered_scan": 851,
+            "odometry": 851,
+            "terrain_map_ext": 851,
+            "map": 1,
+            "terrain_map": 851,
+            "local_costmap": 158,
+            "global_costmap": 1,
+            "lio": 845,
+            "lio_cloud": 847,
+            "global_plan": 139,
+            "local_plan": 990
+          }
+        }
+      ],
+      "dependency_runtime": {
+        "install/point_lio/lib/point_lio/pointlio_mapping": {
+          "resolved": "/home/hardy/pb2025_nav_ws/build/point_lio/pointlio_mapping",
+          "sha256": "65f98d5c0ee0fda25fe3f1bc1d507c10f911fdd9ffa2854386bae42c57919c4a"
+        },
+        "install/fake_vel_transform/lib/libfake_vel_transform.so": {
+          "resolved": "/home/hardy/pb2025_nav_ws/build/fake_vel_transform/libfake_vel_transform.so",
+          "sha256": "571061b1947056c780a72781d089cd43e867096d7a8d155076d6cddb893b7b46"
+        },
+        "install/rmoss_gz_base/lib/librmoss_gz_base.so": {
+          "resolved": "/home/hardy/pb2025_nav_ws/install/rmoss_gz_base/lib/librmoss_gz_base.so",
+          "sha256": "765a589ff0cb0ec1467ffff3c5fc827ec8a6b978630465044cdd4f56555afef7"
+        },
+        "install/rmoss_gz_plugins/plugins/libMecanumDrive2.so": {
+          "resolved": "/home/hardy/pb2025_nav_ws/build/rmoss_gz_plugins/libMecanumDrive2.so",
+          "sha256": "f376d7654aab45ffe45d3b8354ab83f2d26e88d3cd36687cdce1c389f3232c1d"
+        },
+        "install/pb_nav2_plugins/lib/libpb_pose_fresh_condition_bt_node.so": {
+          "resolved": "/home/hardy/pb2025_nav_ws/build/pb_nav2_plugins/libpb_pose_fresh_condition_bt_node.so",
+          "sha256": "decc158e260a4223394f3bcc4993efdcd97f312d503459a55832b78df2854dab"
+        }
+      }
+    }
+  },
+  "failed_attempts": [
+    {
+      "name": "watchdog-01",
+      "passed": false,
+      "checks": [
+        {
+          "name": "readiness passed",
+          "passed": true
+        },
+        {
+          "name": "nonzero spin before container freeze",
+          "passed": true
+        },
+        {
+          "name": "independent watchdog timeout observed",
+          "passed": false
+        }
+      ],
+      "error": "AssertionError('independent watchdog timeout observed')",
+      "scenario": "watchdog"
+    },
+    {
+      "name": "localization-01",
+      "passed": false,
+      "checks": [
+        {
+          "name": "readiness passed",
+          "passed": true
+        },
+        {
+          "name": "goal accepted",
+          "passed": true,
+          "goal": [
+            2.0,
+            0.0
+          ]
+        }
+      ],
+      "error": "TimeoutError('Condition timed out in phase active-goal')",
+      "scenario": "localization",
+      "runtime_hashes": {
+        "build/rmoss_gz_plugins/libMecanumDrive2.so": "f376d7654aab45ffe45d3b8354ab83f2d26e88d3cd36687cdce1c389f3232c1d",
+        "install/rmoss_gz_base/lib/librmoss_gz_base.so": "765a589ff0cb0ec1467ffff3c5fc827ec8a6b978630465044cdd4f56555afef7",
+        "install/point_lio/lib/point_lio/pointlio_mapping": "8b318bfa049fa6bb66e3ba42d5f3cc96ded120ece19f4004a0c17d79863b0998"
+      }
+    },
+    {
+      "name": "localization-02",
+      "passed": false,
+      "checks": [
+        {
+          "name": "readiness passed",
+          "passed": true
+        }
+      ],
+      "error": "TimeoutError('Condition timed out in phase active-goal')",
+      "scenario": "localization",
+      "runtime_hashes": {
+        "build/rmoss_gz_plugins/libMecanumDrive2.so": "f376d7654aab45ffe45d3b8354ab83f2d26e88d3cd36687cdce1c389f3232c1d",
+        "install/rmoss_gz_base/lib/librmoss_gz_base.so": "765a589ff0cb0ec1467ffff3c5fc827ec8a6b978630465044cdd4f56555afef7",
+        "install/point_lio/lib/point_lio/pointlio_mapping": "8b318bfa049fa6bb66e3ba42d5f3cc96ded120ece19f4004a0c17d79863b0998"
+      }
+    },
+    {
+      "name": "localization-03",
+      "passed": false,
+      "checks": [
+        {
+          "name": "readiness passed",
+          "passed": true
+        },
+        {
+          "name": "goal accepted",
+          "passed": true,
+          "goal": [
+            2.0,
+            0.0
+          ]
+        }
+      ],
+      "error": "TimeoutError('Condition timed out in phase active-goal')",
+      "scenario": "localization",
+      "runtime_hashes": {
+        "build/rmoss_gz_plugins/libMecanumDrive2.so": "f376d7654aab45ffe45d3b8354ab83f2d26e88d3cd36687cdce1c389f3232c1d",
+        "install/rmoss_gz_base/lib/librmoss_gz_base.so": "765a589ff0cb0ec1467ffff3c5fc827ec8a6b978630465044cdd4f56555afef7",
+        "install/point_lio/lib/point_lio/pointlio_mapping": "8b318bfa049fa6bb66e3ba42d5f3cc96ded120ece19f4004a0c17d79863b0998"
+      }
+    },
+    {
+      "name": "localization-04",
+      "passed": false,
+      "checks": [
+        {
+          "name": "readiness passed",
+          "passed": true
+        },
+        {
+          "name": "goal accepted",
+          "passed": true,
+          "goal": [
+            9.3,
+            -0.2
+          ]
+        },
+        {
+          "name": "stale localization aborts current Nav2 goal",
+          "passed": true,
+          "status": 6,
+          "wall_seconds": 0.48663923199637793
+        },
+        {
+          "name": "physical stop after localization loss",
+          "passed": true
+        },
+        {
+          "name": "Nav2 freshness gate caused failure",
+          "passed": true
+        }
+      ],
+      "error": "RuntimeError('Aligned localization error exceeds unchanged 0.35m guard')",
+      "scenario": "localization",
+      "runtime_hashes": {
+        "build/rmoss_gz_plugins/libMecanumDrive2.so": "f376d7654aab45ffe45d3b8354ab83f2d26e88d3cd36687cdce1c389f3232c1d",
+        "install/rmoss_gz_base/lib/librmoss_gz_base.so": "765a589ff0cb0ec1467ffff3c5fc827ec8a6b978630465044cdd4f56555afef7",
+        "install/point_lio/lib/point_lio/pointlio_mapping": "8b318bfa049fa6bb66e3ba42d5f3cc96ded120ece19f4004a0c17d79863b0998"
+      }
+    },
+    {
+      "name": "localization-relay-01",
+      "passed": false,
+      "checks": [
+        {
+          "name": "readiness passed",
+          "passed": true
+        },
+        {
+          "name": "goal accepted",
+          "passed": true,
+          "goal": [
+            9.3,
+            -0.2
+          ]
+        },
+        {
+          "name": "stale localization aborts current Nav2 goal",
+          "passed": true,
+          "status": 6,
+          "wall_seconds": 0.5047212110075634
+        },
+        {
+          "name": "physical stop after localization loss",
+          "passed": true
+        },
+        {
+          "name": "Nav2 freshness gate caused failure",
+          "passed": true
+        },
+        {
+          "name": "old goal does not restart automatically after localization returns",
+          "passed": true
+        },
+        {
+          "name": "new explicit safe goal succeeds after fresh localization",
+          "passed": true,
+          "record_dir": "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/diagnostics/safety-completion-20261021-090938-C024/localization-relay-01/recovery"
+        },
+        {
+          "name": "recovery goal physically stopped",
+          "passed": true
+        },
+        {
+          "name": "guarded NavigateThroughPoses accepted",
+          "passed": true
+        },
+        {
+          "name": "guarded NavigateThroughPoses succeeds",
+          "passed": false,
+          "status": 6
+        }
+      ],
+      "error": "AssertionError('guarded NavigateThroughPoses succeeds')",
+      "scenario": "localization",
+      "runtime_hashes": {
+        "build/rmoss_gz_plugins/libMecanumDrive2.so": "f376d7654aab45ffe45d3b8354ab83f2d26e88d3cd36687cdce1c389f3232c1d",
+        "install/rmoss_gz_base/lib/librmoss_gz_base.so": "765a589ff0cb0ec1467ffff3c5fc827ec8a6b978630465044cdd4f56555afef7",
+        "install/point_lio/lib/point_lio/pointlio_mapping": "65f98d5c0ee0fda25fe3f1bc1d507c10f911fdd9ffa2854386bae42c57919c4a"
+      }
+    },
+    {
+      "name": "lio-gap-01",
+      "passed": false,
+      "checks": [
+        {
+          "name": "readiness passed",
+          "passed": false
+        }
+      ],
+      "error": "AssertionError('readiness passed')",
+      "scenario": "lio-gap",
+      "runtime_hashes": {
+        "build/rmoss_gz_plugins/libMecanumDrive2.so": "f376d7654aab45ffe45d3b8354ab83f2d26e88d3cd36687cdce1c389f3232c1d",
+        "install/rmoss_gz_base/lib/librmoss_gz_base.so": "765a589ff0cb0ec1467ffff3c5fc827ec8a6b978630465044cdd4f56555afef7",
+        "install/point_lio/lib/point_lio/pointlio_mapping": "65f98d5c0ee0fda25fe3f1bc1d507c10f911fdd9ffa2854386bae42c57919c4a"
+      }
+    },
+    {
+      "name": "lio-gap-02",
+      "passed": false,
+      "checks": [
+        {
+          "name": "readiness passed",
+          "passed": true
+        },
+        {
+          "name": "goal accepted",
+          "passed": true,
+          "goal": [
+            9.3,
+            -0.2
+          ]
+        },
+        {
+          "name": "stale localization aborts current Nav2 goal",
+          "passed": true,
+          "status": 6,
+          "wall_seconds": 0.4936177659983514
+        },
+        {
+          "name": "physical stop after localization loss",
+          "passed": true
+        },
+        {
+          "name": "Nav2 freshness gate caused failure",
+          "passed": true
+        },
+        {
+          "name": "old goal does not restart automatically after localization returns",
+          "passed": true
+        },
+        {
+          "name": "lost IMU history causes explicit latched localization fault",
+          "passed": false
+        }
+      ],
+      "error": "AssertionError('lost IMU history causes explicit latched localization fault')",
+      "scenario": "lio-gap",
+      "runtime_hashes": {
+        "build/rmoss_gz_plugins/libMecanumDrive2.so": "f376d7654aab45ffe45d3b8354ab83f2d26e88d3cd36687cdce1c389f3232c1d",
+        "install/rmoss_gz_base/lib/librmoss_gz_base.so": "765a589ff0cb0ec1467ffff3c5fc827ec8a6b978630465044cdd4f56555afef7",
+        "install/point_lio/lib/point_lio/pointlio_mapping": "65f98d5c0ee0fda25fe3f1bc1d507c10f911fdd9ffa2854386bae42c57919c4a"
+      }
+    },
+    {
+      "name": "lio-buffered-01",
+      "passed": false,
+      "checks": [
+        {
+          "name": "readiness passed",
+          "passed": false
+        }
+      ],
+      "error": "AssertionError('readiness passed')",
+      "scenario": "lio-buffered",
+      "runtime_hashes": {
+        "build/rmoss_gz_plugins/libMecanumDrive2.so": "f376d7654aab45ffe45d3b8354ab83f2d26e88d3cd36687cdce1c389f3232c1d",
+        "install/rmoss_gz_base/lib/librmoss_gz_base.so": "765a589ff0cb0ec1467ffff3c5fc827ec8a6b978630465044cdd4f56555afef7",
+        "install/point_lio/lib/point_lio/pointlio_mapping": "65f98d5c0ee0fda25fe3f1bc1d507c10f911fdd9ffa2854386bae42c57919c4a"
+      }
+    },
+    {
+      "name": "snapshot-normal-full-01",
+      "reason": "Historical session interrupted by host disk exhaustion; superseded by C025-normal-full-01, not counted as passed."
+    }
+  ],
+  "continuation_record_directory": "/mnt/e/RMULArtifacts/pb2025_nav_ws/completion-C025",
+  "historical_sequence_is_not_current_status": true,
+  "kalman_contract": {
+    "before_pass": 47,
+    "before_fail": 33,
+    "after_pass": 80,
+    "checks": 80,
+    "maximum_state_error_after": 1.98624e-12,
+    "maximum_covariance_error_after": 2.20008e-12
+  },
+  "bt_contract": {
+    "checks": 20,
+    "passed": true
+  },
+  "patch_restoration": [
+    {
+      "path": "src/pb2025_sentry_nav/point_lio",
+      "base_commit": "e85e79558cf746f6699888a54285fe48b3b0ac71",
+      "sha256": "60741fb6695000708cbf7b022f8e1d0b75c5afc65b397a234c15d09c5503c91d",
+      "files": [
+        "include/IKFoM/IKFoM_toolkit/esekfom/esekfom.hpp",
+        "src/laserMapping.cpp",
+        "src/li_initialization.cpp",
+        "src/parameters.cpp",
+        "src/parameters.h",
+        "src/preprocess.cpp",
+        "src/preprocess.h",
+        "src/timing_diagnostics.h"
+      ],
+      "clean_apply": true,
+      "reverse_check": true,
+      "source_bytes_identical": true
+    },
+    {
+      "path": "src/rmu_gazebo_simulator",
+      "base_commit": "b42d7832500e5a9ad31a09c2edc7bc4fe5b5ce03",
+      "sha256": "55994aa589bcaafc8bb7d48fc3c8247e32aa817af5ade52c145f7c0538b03739",
+      "files": [
+        "rmu_gazebo_simulator/launch/spawn_robots.launch.py",
+        "rmu_gazebo_simulator/scripts/referee_system/simple_competition_1v1.py"
+      ],
+      "clean_apply": true,
+      "reverse_check": true,
+      "source_bytes_identical": true
+    },
+    {
+      "path": "src/rmoss_gazebo",
+      "base_commit": "7443ff06c345752d0e23172c479d99b27207e2c7",
+      "sha256": "1517516f574ef4ccfcdbd8f978f1b55f800931f853c41a909f51bb9e5e08dcb0",
+      "files": [
+        "rmoss_gz_base/include/rmoss_gz_base/chassis_controller.hpp",
+        "rmoss_gz_base/src/chassis_controller.cpp",
+        "rmoss_gz_plugins/plugins/light_bar_controller/LightBarController.cc",
+        "rmoss_gz_plugins/plugins/mecanum_drive2/MecanumDrive2.cc"
+      ],
+      "clean_apply": true,
+      "reverse_check": true,
+      "source_bytes_identical": true
+    },
+    {
+      "path": "src/pb2025_sentry_nav/pb_nav2_plugins",
+      "base_commit": "e6778ca44d9e88aa612a3c6c87d536a8cfa21705",
+      "sha256": "8956748d743631850b14fb4dbd3c87e0c4a3761cb35e13c849aabbae13b35dbe",
+      "files": [
+        "CMakeLists.txt",
+        "package.xml",
+        "src/condition/pose_fresh.cpp"
+      ],
+      "clean_apply": true,
+      "reverse_check": true,
+      "source_bytes_identical": true
+    }
+  ],
+  "sequence": {
+    "owner": "Codex C024",
+    "stage": "snapshot-normal-full-01",
+    "cases": [
+      {
+        "name": "snapshot-fast-full-02",
+        "exit_code": 0
+      },
+      {
+        "name": "snapshot-fast-full-03",
+        "exit_code": 0
+      }
+    ],
+    "active_pid": 156832
+  },
+  "lost_imu_history_before_latch": {
+    "stamp": 35.200000099,
+    "estimate": [
+      0.8138677807586085,
+      -1.2703108957559437
+    ],
+    "truth_map": [
+      0.15622720632532072,
+      -0.27319211717363734
+    ],
+    "error_m": 1.1944609594885955,
+    "phase": "localization-resumed"
+  }
+}

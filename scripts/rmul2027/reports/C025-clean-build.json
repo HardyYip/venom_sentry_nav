@@ -1,0 +1,10 @@
+{
+  "workspace": "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/reproduction/clean-C025",
+  "exit_code": 0,
+  "elapsed_seconds": 280.444010608,
+  "finished_at": "2026-10-21T20:44:54.398398+08:00",
+  "summary": [
+    "Summary: 29 packages finished [4min 40s]"
+  ],
+  "passed": true
+}

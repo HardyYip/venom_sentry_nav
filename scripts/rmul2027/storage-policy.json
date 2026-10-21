@@ -1,0 +1,23 @@
+{
+  "schema": 1,
+  "start_free_gib": 50,
+  "warning_free_gib": 40,
+  "stop_free_gib": 30,
+  "poll_seconds": 1,
+  "max_session_gib": 4,
+  "profiles": {
+    "light": {
+      "max_run_mib": 512,
+      "max_seconds": 1800
+    },
+    "raw": {
+      "max_run_mib": 128,
+      "max_seconds": 10
+    },
+    "interactive": {
+      "max_run_mib": 512,
+      "max_seconds": 7200
+    }
+  },
+  "max_host_growth_gib": 2
+}

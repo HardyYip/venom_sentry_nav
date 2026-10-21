@@ -1,3 +1,7 @@
+if __name__ == "__main__":
+    from storage_entry import ensure_storage_guard
+    ensure_storage_guard(__file__)
+
 import argparse
 import datetime
 import hashlib
@@ -10,10 +14,12 @@ import time
 from pathlib import Path
 
 parser=argparse.ArgumentParser()
+parser.add_argument('--record-bag', action='store_true', help='Opt in to a light, guarded recording; default is no bag')
 parser.add_argument('--record-dir',type=Path,required=True)
 parser.add_argument('--params-file',type=Path,required=True)
 parser.add_argument('--gz-world-path',type=Path)
 parser.add_argument('--dds-profile',type=Path)
+parser.add_argument('--record-pipeline',action='store_true')
 parser.add_argument('--render-mode',choices=['software','gpu','auto'],default='software')
 parser.add_argument('--field-contact',choices=['cad','cad-flat-marking','cad-flat-floor','seam-ramps'],default='seam-ramps')
 parser.add_argument('--route-set',choices=['baseline','central-marking','manual-c014'],default='baseline')
@@ -36,6 +42,8 @@ if gz_world is not None and not gz_world.is_file():raise SystemExit('Missing spa
 metadata={'owner':'Codex timing experiment','started_at':datetime.datetime.now().astimezone().isoformat(),'record_dir':str(record),'params_file':str(params),'last_case':args.last_case,'processes':{},'status':'starting','finished':False}
 (record/'session.json').write_text(json.dumps(metadata,indent=2)+'\n')
 metadata['route_set']=args.route_set
+metadata['record_pipeline']=args.record_pipeline
+metadata['record_bag']=args.record_bag
 metadata['field_contact']=args.field_contact
 metadata['render_mode']=args.render_mode
 metadata['gz_world_path']=str(gz_world) if gz_world else None
@@ -75,8 +83,14 @@ signal.signal(signal.SIGTERM,interrupt)
 try:
     observer=launch('observer',[sys.executable,str(folder/'g1_tf_observer.py'),'--record-dir',str(record/'observer'),'--duration','3600','--interval','.5'])
     topics=['/clock','/red_standard_robot1/tf','/red_standard_robot1/tf_static','/red_standard_robot1/safety_status','/red_standard_robot1/global_costmap/published_footprint','/red_standard_robot1/local_costmap/published_footprint','/red_standard_robot1/chassis_odometry_gt','/red_standard_robot1/livox/imu','/red_standard_robot1/velodyne_points','/red_standard_robot1/aft_mapped_to_init','/red_standard_robot1/odometry','/red_standard_robot1/plan','/red_standard_robot1/cmd_vel']
+    if args.record_pipeline:
+        topics.extend(['/red_standard_robot1/livox/lidar','/red_standard_robot1/cloud_registered','/red_standard_robot1/cmd_vel_nav2_result'])
     topics.extend(['/red_standard_robot1/map','/red_standard_robot1/local_plan','/red_standard_robot1/global_costmap/costmap','/red_standard_robot1/global_costmap/costmap_updates','/red_standard_robot1/local_costmap/costmap','/red_standard_robot1/local_costmap/costmap_updates','/red_standard_robot1/navigate_to_pose/_action/status','/red_standard_robot1/navigate_to_pose/_action/feedback'])
-    recorder=launch('recorder',['ros2','bag','record','--include-hidden-topics','-o',str(record/'inputs'),*topics])
+    topics=[topic for topic in topics if not any(word in topic for word in ('velodyne_points','cloud_registered','livox/lidar','registered_scan','terrain_map'))]
+    metadata['recorded_topics']=topics if args.record_bag else []
+    recorder=None
+    if args.record_bag:
+        recorder=launch('recorder',['ros2','bag','record','--include-hidden-topics','--max-cache-size','67108864','--max-bag-size','33554432','-o',str(record/'inputs'),*topics])
     command=['bash',str(folder/'start_rmul2027.sh'),'nav','--params-file',str(params),'--tf2-library-dir',str(workspace/'artifacts/rmul_2027_3v3/runtime/tf2-0.25.24/lib')]
     command.extend(['--field-contact',args.field_contact,'--render-mode',args.render_mode])
     if gz_world is not None:command.extend(['--gz-world-path',str(gz_world)])
@@ -93,7 +107,7 @@ try:
         time.sleep(.2)
     if navlog is None:raise TimeoutError('Navigation startup exceeded180wallseconds')
     metadata['navigation_log']=str(navlog)
-    for name in ['robot-red_standard_robot1.sdf','resource-hashes.json','world.sdf','gz_world.yaml','nav2_params.yaml','tf2-runtime.json','run-options.json','flat-marking-contact-manifest.json','flat-floor-contact-manifest.json','rendering-runtime.json']:
+    for name in ['robot-red_standard_robot1.sdf','resource-hashes.json','world.sdf','gz_world.yaml','nav2_params.yaml','tf2-runtime.json','run-options.json','flat-marking-contact-manifest.json','flat-floor-contact-manifest.json','rendering-runtime.json','dependency-runtime.json']:
         source=navlog.parent/name
         if source.is_file():
             import shutil

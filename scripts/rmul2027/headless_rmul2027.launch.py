@@ -29,7 +29,8 @@ def generate_launch_description():
             launch_arguments={'gz_version': '6',
                               'gz_args': ['-r -s --headless-rendering ',LaunchConfiguration('world_sdf')]}.items()),
         Node(package='ros_gz_bridge', executable='parameter_bridge',
-             arguments=['/clock@rosgraph_msgs/msg/Clock[gz.msgs.Clock']),
+             arguments=['/clock@rosgraph_msgs/msg/Clock[gz.msgs.Clock',
+                        '/red_standard_robot1/cmd_vel_timed_out@std_msgs/msg/Bool[gz.msgs.Boolean']),
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(str(simulator / 'launch' / 'spawn_robots.launch.py')),
             condition=IfCondition(LaunchConfiguration('spawn_robot')),

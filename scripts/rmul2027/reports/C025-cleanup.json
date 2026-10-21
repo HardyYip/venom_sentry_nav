@@ -1,0 +1,139 @@
+{
+  "started_at": "2026-10-21T20:54:47.461385+08:00",
+  "raw_files": [
+    {
+      "path": "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/diagnostics/baseline-fresh-20261019-204643/replay/inputs-clip/inputs-clip_0.db3",
+      "bytes": 960770048,
+      "mtime_ns": 1792414371172341730,
+      "inode": 213950,
+      "case": "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/diagnostics/baseline-fresh-20261019-204643/replay",
+      "completed_and_summary_preserved": false,
+      "report": null,
+      "cleanup_reason": "Derived replay cache; original raw-sensors recording remains and can recreate it"
+    },
+    {
+      "path": "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/diagnostics/baseline-fresh-20261019-204643/replay/inputs-imu-median/inputs-imu-median_0.db3",
+      "bytes": 960770048,
+      "mtime_ns": 1792415892293086236,
+      "inode": 214181,
+      "case": "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/diagnostics/baseline-fresh-20261019-204643/replay",
+      "completed_and_summary_preserved": false,
+      "report": null,
+      "cleanup_reason": "Derived replay cache; original raw-sensors recording remains and can recreate it"
+    },
+    {
+      "path": "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/diagnostics/baseline-fresh-20261019-204643/replay/inputs-instant/inputs-instant_0.db3",
+      "bytes": 960770048,
+      "mtime_ns": 1792415038853495099,
+      "inode": 213990,
+      "case": "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/diagnostics/baseline-fresh-20261019-204643/replay",
+      "completed_and_summary_preserved": false,
+      "report": null,
+      "cleanup_reason": "Derived replay cache; original raw-sensors recording remains and can recreate it"
+    },
+    {
+      "path": "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/diagnostics/safety-completion-20261021-090938-C024/lio-gap-03/inputs/inputs_0.db3",
+      "bytes": 1219211264,
+      "mtime_ns": 1792548371549155759,
+      "inode": 253507,
+      "case": "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/diagnostics/safety-completion-20261021-090938-C024/lio-gap-03",
+      "completed_and_summary_preserved": true,
+      "report": "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/diagnostics/safety-completion-20261021-090938-C024/lio-gap-03/session.json",
+      "cleanup_reason": "Completed redundant simulation bag; full summary and configuration preserved; final acceptance passed"
+    },
+    {
+      "path": "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/diagnostics/safety-completion-20261021-090938-C024/localization-relay-02/inputs/inputs_0.db3",
+      "bytes": 1770209280,
+      "mtime_ns": 1792547046517474898,
+      "inode": 52203,
+      "case": "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/diagnostics/safety-completion-20261021-090938-C024/localization-relay-02",
+      "completed_and_summary_preserved": true,
+      "report": "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/diagnostics/safety-completion-20261021-090938-C024/localization-relay-02/session.json",
+      "cleanup_reason": "Completed redundant simulation bag; full summary and configuration preserved; final acceptance passed"
+    },
+    {
+      "path": "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/diagnostics/safety-completion-20261021-090938-C024/snapshot-fast-full-01/inputs/inputs_0.db3",
+      "bytes": 8765648896,
+      "mtime_ns": 1792546693234130062,
+      "inode": 47948,
+      "case": "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/diagnostics/safety-completion-20261021-090938-C024/snapshot-fast-full-01",
+      "completed_and_summary_preserved": true,
+      "report": "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/diagnostics/safety-completion-20261021-090938-C024/snapshot-fast-full-01/audit/suite-summary.json",
+      "cleanup_reason": "Completed redundant simulation bag; full summary and configuration preserved; final acceptance passed"
+    },
+    {
+      "path": "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/diagnostics/safety-completion-20261021-090938-C024/snapshot-fast-full-02/inputs/inputs_0.db3",
+      "bytes": 8522256384,
+      "mtime_ns": 1792548509389358697,
+      "inode": 253587,
+      "case": "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/diagnostics/safety-completion-20261021-090938-C024/snapshot-fast-full-02",
+      "completed_and_summary_preserved": true,
+      "report": "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/diagnostics/safety-completion-20261021-090938-C024/snapshot-fast-full-02/audit/suite-summary.json",
+      "cleanup_reason": "Completed redundant simulation bag; full summary and configuration preserved; final acceptance passed"
+    },
+    {
+      "path": "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/diagnostics/safety-completion-20261021-090938-C024/snapshot-fast-full-03/inputs/inputs_0.db3",
+      "bytes": 8632532992,
+      "mtime_ns": 1792548649537058545,
+      "inode": 253838,
+      "case": "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/diagnostics/safety-completion-20261021-090938-C024/snapshot-fast-full-03",
+      "completed_and_summary_preserved": true,
+      "report": "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/diagnostics/safety-completion-20261021-090938-C024/snapshot-fast-full-03/audit/suite-summary.json",
+      "cleanup_reason": "Completed redundant simulation bag; full summary and configuration preserved; final acceptance passed"
+    },
+    {
+      "path": "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/diagnostics/safety-completion-20261021-090938-C024/snapshot-normal-full-01/inputs/inputs_0.db3",
+      "bytes": 12469669888,
+      "mtime_ns": 1792548851703836461,
+      "inode": 254031,
+      "case": "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/diagnostics/safety-completion-20261021-090938-C024/snapshot-normal-full-01",
+      "completed_and_summary_preserved": false,
+      "report": "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/diagnostics/safety-completion-20261021-090938-C024/snapshot-normal-full-01/session.json",
+      "cleanup_reason": "Disk-exhaustion interrupted duplicate recording; same normal parameters now completed 8/8 in C025 without bag; preserve old metadata/session"
+    },
+    {
+      "path": "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/diagnostics/safety-completion-20261021-090938-C024/watchdog-02/inputs/inputs_0.db3",
+      "bytes": 149172224,
+      "mtime_ns": 1792545885323344040,
+      "inode": 37654,
+      "case": "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/diagnostics/safety-completion-20261021-090938-C024/watchdog-02",
+      "completed_and_summary_preserved": true,
+      "report": "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/diagnostics/safety-completion-20261021-090938-C024/watchdog-02/session.json",
+      "cleanup_reason": "Completed redundant simulation bag; full summary and configuration preserved; final acceptance passed"
+    },
+    {
+      "path": "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/diagnostics/speed-obstacles-20261020-201657-C020/obstacle-crossing-01/inputs/inputs_0.db3",
+      "bytes": 896028672,
+      "mtime_ns": 1792499950490508153,
+      "inode": 236253,
+      "case": "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/diagnostics/speed-obstacles-20261020-201657-C020/obstacle-crossing-01",
+      "completed_and_summary_preserved": false,
+      "report": "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/diagnostics/speed-obstacles-20261020-201657-C020/obstacle-crossing-01/session.json",
+      "cleanup_reason": "Obsolete crossing experiment explicitly excluded by user; retain small historical reports and configuration"
+    },
+    {
+      "path": "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/diagnostics/speed-obstacles-20261020-201657-C020/obstacle-crossing-02/inputs/inputs_0.db3",
+      "bytes": 709521408,
+      "mtime_ns": 1792500380412511929,
+      "inode": 236520,
+      "case": "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/diagnostics/speed-obstacles-20261020-201657-C020/obstacle-crossing-02",
+      "completed_and_summary_preserved": false,
+      "report": "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/diagnostics/speed-obstacles-20261020-201657-C020/obstacle-crossing-02/session.json",
+      "cleanup_reason": "Obsolete crossing experiment explicitly excluded by user; retain small historical reports and configuration"
+    }
+  ],
+  "raw_bytes_deleted": 46016561152,
+  "temporary_tree_bytes_deleted": 1887394305,
+  "raw_bags_replayable_after_deletion": false,
+  "preserved_failure_and_baseline_bytes": 26309525504,
+  "temporary_directories": [
+    "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/reproduction/github-flat-marking-20261020-153927",
+    "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/reproduction/github-C015-20261020-183534",
+    "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/reproduction/clean-C022-20261020",
+    "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/reproduction/clean-C025",
+    "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/reproduction/github-20261020-140200",
+    "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/reproduction/clean-20261020-140200"
+  ],
+  "finished_at": "2026-10-21T20:54:49.917068+08:00",
+  "passed": true
+}

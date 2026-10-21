@@ -2,7 +2,7 @@
 
 目标是验证北极熊原机器人在2027场地中的基础定位、规划、控制和静态避障。没有Venom实车适配、动态横穿或比赛战术开发。场地来源为官方RMUL2027_3V3_V1.0.0.stp。
 
-C022增加运行时输入／位姿／同步时效保护、故障停车覆盖自旋、恢复防旧指令重放、诊断和可复现故障注入。两次全新快速配置完整路线、普通0.5m/s路线、静态绕障、完全封路停车与移除后新目标恢复、2025旧场景回归、干净检出构建与默认冒烟均已通过，数据见[最新报告](reports/C022-RESULTS.zh-CN.md)。点时间快照候选未通过，默认未采用；不要把基础仿真通过理解为所有结构问题均已解决。
+C024/C025补齐独立下游停车、Nav2位姿时效门控和Point-LIO点时间链路；两次全新快速完整路线及普通完整路线、静态绕障、封路停车/移除后恢复、2025旧图近点回归已通过。普通与fast入口采用已验证的instantaneous秒单位快照、IMU队列400及真实IMU缺口锁止。当前交付状态见[最新报告](reports/C025-RESULTS.zh-CN.md)；历史C022未采用快照的失败仍保留，不能混为当前结果。
 
 ## 队友获取、恢复与构建
 
@@ -77,14 +77,15 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File "$rvizTools\restore_rviz
 
 原CAD、视觉、地图及历史失败均保留。不宣称官方确认薄层真实铺设方式；也没有开放高台、隧道或任意三维通行。
 
-Point-LIO默认仍沿用legacy_rolling＋timestamp_unit=2的已知失配。新增显式point_time_is_valid与instantaneous只供独立契约／失败复现；nav2_point_time_snapshot.yaml远点误差0.368m未通过，未切默认。实车需核对真实雷达每点时间格式和外参，不采用模拟器快照假设。
+普通与fast验证入口使用instantaneous＋timestamp_unit=0＋point_time_is_valid=true；IMU队列400，真实IMU缺口超过0.1秒则锁止定位并要求重新初始化。快照批量更新的信息权重修正后，两次快速与一次普通完整路线通过，历史0.368m失败不会被改写。历史参数在history/before-C025-*；底层历史入口及原2025配置仍保持原选择。实车必须核对真实雷达逐点时间，不能照搬Gazebo整帧快照假设。
 
 ## 自动验收与证据
 
-先停止已有仿真，source Humble与../../install/setup.bash。record-dir须不存在，每次只运行一组；大型录包放工作区artifacts。普通完整路线：
+先停止已有仿真，source Humble与../../install/setup.bash。record-dir须不存在，每次只运行一组。先设置与实际机器相符的产物根目录；WSL必须位于Windows挂载分区，下面以E盘为例。原生Linux可改为有足够空间的普通目录。普通完整路线默认不录bag：
 
 ```bash
-python3 scripts/rmul2027/run_timing_experiment.py --record-dir /tmp/rmul2027-full-new --params-file scripts/rmul2027/config/nav2_test.yaml --gz-world-path scripts/rmul2027/config/gz_world_test.yaml --field-contact cad-flat-floor --render-mode gpu --last-case 07-occupied --dds-profile scripts/rmul2027/config/fastdds_local_64m.xml
+export RMUL_TEST_ARTIFACT_ROOT=/mnt/e/RMULArtifacts/pb2025_nav_ws
+python3 scripts/rmul2027/run_timing_experiment.py --record-dir "$RMUL_TEST_ARTIFACT_ROOT/full-$(date +%Y%m%d-%H%M%S)" --params-file scripts/rmul2027/config/nav2_test.yaml --gz-world-path scripts/rmul2027/config/gz_world_test.yaml --field-contact cad-flat-floor --render-mode gpu --last-case 07-occupied --dds-profile scripts/rmul2027/config/fastdds_local_64m.xml
 ```
 
 快速对照只把params-file换成nav2_original_speed_early_brake.yaml。完整路线为静止、6运动点、占用目标拒绝，任一失败停止后续目标；180秒／0.35m时序对齐误差、真值位移及实际停车判据保持。真值只用于评估。
@@ -93,4 +94,23 @@ python3 scripts/rmul2027/run_timing_experiment.py --record-dir /tmp/rmul2027-ful
 
 TF2用官方0.25.24项目局部核心库处理已取证的双线程死锁，不替换系统ROS。依赖补丁基准、来源及hash在patches和assets。共享代码保护不能替代硬件急停或MCU看门狗；真实驱动、尺寸、延迟和制动仍需独立验收。
 
-[最新C022报告](reports/C022-RESULTS.zh-CN.md)、[C021大点云传输与静态避障](reports/C021-RESULTS.zh-CN.md)、[C015基础场景结果](TEST_RESULTS.zh-CN.md)分别记录范围。旧说明保留在history。C盘唯一read.md维护AI交接，本仓库文档维护可发布工程快照。
+[最新C025报告](reports/C025-RESULTS.zh-CN.md)、[C024保护说明](reports/C024-RESULTS.zh-CN.md)、[历史C022报告](reports/C022-RESULTS.zh-CN.md)、[C021大点云传输与静态避障](reports/C021-RESULTS.zh-CN.md)、[C015基础场景结果](TEST_RESULTS.zh-CN.md)分别记录范围。旧说明保留在history。C盘唯一read.md维护AI交接，本仓库文档维护可发布工程快照。
+
+
+## 存储与收尾（2026-10-21起强制）
+
+本项目曾因整条路线重复录制多路点云耗尽宿主D盘。普通启动、完整路线、故障注入和避障入口均通过storage_entry进入storage_guard；默认不录bag，禁止--record-pipeline整路线原始录包。需要单次原始诊断时使用record_raw_window.py，128MiB或10秒先到即停。
+
+本机工作区的.rmul-storage.json不进Git，指定宿主分区/mnt/d、产物根/mnt/e/RMULArtifacts/pb2025_nav_ws、状态/mnt/e/RMULStorageState/pb2025_nav_ws及Windows Python。队友应根据虚拟磁盘所在分区配置，不能照抄盘符。原生Linux默认检查工作区所在分区；WSL的df /不能代替Windows宿主剩余空间。
+
+开始至少50GiB，40GiB预警，30GiB或容量读取失败停止本轮自有进程；单轮512MiB、累计产物根4GiB，宿主分配增量2GiB。触线返回74，拒绝启动73。阈值用于提前停止，不是硬配额；通知可能被Windows焦点助手隐藏。守护只在受保护入口存活时有效，不是后台永久监控。详见[存储保护说明](STORAGE-SAFETY.zh-CN.md)。
+
+| 文件类别 | 每轮及最终交付后的处理 |
+| --- | --- |
+| 源码、地图、必要资源、补丁、可复现命令 | 保留，纳入对应版本管理 |
+| 结果JSON、关键图、报告与失败索引 | 保留小型必要证据，记录对应配置hash |
+| 已通过且摘要完整的重复原始包 | 确认不再需要回放后清理，记录路径、字节和原因 |
+| 未查清失败的唯一原始证据 | 保留有诊断价值的最小范围，不自动当作缓存删除 |
+| 独立恢复构建目录、临时检出、一次性脚本、重复副本 | 保存验证摘要后删除本轮可重建内容 |
+
+用户已要求每轮及时清理、最终仿真调试完成后清理无用检测数据。执行前核对归属和路径；只处理本项目自建且确认无用的内容，不清理无关项目或用户文件，不通过删除证据来伪造验收通过。删除WSL内部文件与Windows实际可用空间回收分别统计，VHD压缩另需安全停止WSL后执行。

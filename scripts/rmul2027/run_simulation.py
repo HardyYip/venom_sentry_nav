@@ -1,3 +1,7 @@
+if __name__ == "__main__":
+    from storage_entry import ensure_storage_guard
+    ensure_storage_guard(__file__)
+
 import argparse
 import datetime
 import fcntl
@@ -65,6 +69,14 @@ shutil.copyfile(selected_gz_world,logs/'gz_world.yaml')
 if (maps/'manifest.json').exists():
     shutil.copyfile(maps/'manifest.json',logs/'maps-manifest.json')
 (logs/'run-options.json').write_text(json.dumps(vars(options),indent=2)+'\n')
+runtime_paths = [workspace/'install/point_lio/lib/point_lio/pointlio_mapping',
+                 workspace/'install/fake_vel_transform/lib/libfake_vel_transform.so',
+                 workspace/'install/rmoss_gz_base/lib/librmoss_gz_base.so',
+                 workspace/'install/rmoss_gz_plugins/plugins/libMecanumDrive2.so',
+                 workspace/'install/pb_nav2_plugins/lib/libpb_pose_fresh_condition_bt_node.so']
+(logs/'dependency-runtime.json').write_text(json.dumps({
+    str(p.relative_to(workspace)): {'resolved':str(p.resolve()),'sha256':hashlib.sha256(p.read_bytes()).hexdigest()}
+    for p in runtime_paths if p.is_file()},indent=2)+'\n')
 resources=[world_sdf,selected_gz_world,selected_manifest,logs/'nav2_params.yaml',maps/'rmul_2027_3v3.pcd',maps/'rmul_2027_3v3.yaml',maps/'rmul_2027_3v3.pgm']
 models=[]
 for uri in ET.parse(world_sdf).findall('.//include/uri'):

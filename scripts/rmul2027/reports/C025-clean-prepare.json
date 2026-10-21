@@ -1,0 +1,22 @@
+{
+  "started_at": "2026-10-21T20:38:54.671257+08:00",
+  "clean_workspace": "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/reproduction/clean-C025",
+  "validation_tree": "6ab1d5f1a0378f4719a7a91aa4e36decd42e534c",
+  "validation_commit": "ac497766db596ad0a2d7201e8d3d43bc512770f1",
+  "base_commit": "3453124efe8bb1246733b016039e8e56eca8bd0a",
+  "source_cache_is_not_runtime_overlay": true,
+  "passes": [
+    {
+      "attempt": 1,
+      "exit_code": 0,
+      "seconds": 1.4119560379999996
+    },
+    {
+      "attempt": 2,
+      "exit_code": 0,
+      "seconds": 0.16414889600000038
+    }
+  ],
+  "passed": true,
+  "finished_at": "2026-10-21T20:38:56.257301+08:00"
+}

@@ -1,5 +1,130 @@
+diff --git a/rmoss_gz_base/include/rmoss_gz_base/chassis_controller.hpp b/rmoss_gz_base/include/rmoss_gz_base/chassis_controller.hpp
+index f25c85a..d46b7de 100644
+--- a/rmoss_gz_base/include/rmoss_gz_base/chassis_controller.hpp
++++ b/rmoss_gz_base/include/rmoss_gz_base/chassis_controller.hpp
+@@ -16,9 +16,12 @@
+ #define RMOSS_GZ_BASE__CHASSIS_CONTROLLER_HPP_
+ 
+ #include <memory>
++#include <mutex>
++#include <chrono>
+ #include <string>
+ 
+ #include "rclcpp/rclcpp.hpp"
++#include "std_msgs/msg/bool.hpp"
+ #include "rmoss_gz_base/pid.hpp"
+ #include "rmoss_interfaces/msg/chassis_cmd.hpp"
+ #include "geometry_msgs/msg/twist.hpp"
+@@ -49,6 +52,11 @@ private:
+ 
+ private:
+   rclcpp::Node::SharedPtr node_;
++  std::mutex command_mutex_;
++  std::chrono::steady_clock::time_point last_command_{};
++  double command_timeout_{0.5};
++  bool command_timed_out_{true};
++  rclcpp::Publisher<std_msgs::msg::Bool>::SharedPtr timeout_pub_;
+   rclcpp::Subscription<rmoss_interfaces::msg::ChassisCmd>::SharedPtr ros_chassis_cmd_sub_;
+   rclcpp::Subscription<geometry_msgs::msg::Twist>::SharedPtr ros_cmd_vel_sub_;
+   rclcpp::TimerBase::SharedPtr controller_timer_;
+diff --git a/rmoss_gz_base/src/chassis_controller.cpp b/rmoss_gz_base/src/chassis_controller.cpp
+index d9bd284..456a5d5 100644
+--- a/rmoss_gz_base/src/chassis_controller.cpp
++++ b/rmoss_gz_base/src/chassis_controller.cpp
+@@ -14,6 +14,8 @@
+ #include "rmoss_gz_base/chassis_controller.hpp"
+ 
+ #include <memory>
++#include <cmath>
++#include <stdexcept>
+ #include <string>
+ 
+ 
+@@ -31,10 +33,17 @@ ChassisController::ChassisController(
+   declare_pid_parameter(node_, controller_name + ".follow_yaw_pid");
+   get_pid_parameter(node_, controller_name + ".follow_yaw_pid", chassis_pid_param_);
+   set_chassis_pid(chassis_pid_param_);
++  command_timeout_ = node_->declare_parameter<double>(controller_name + ".command_timeout", 0.5);
++  if (!std::isfinite(command_timeout_) || command_timeout_ <= 0.0) {
++    throw std::invalid_argument("ChassisController command_timeout must be positive and finite");
++  }
++  timeout_pub_ = node_->create_publisher<std_msgs::msg::Bool>(
++    "robot_base/command_timed_out", rclcpp::QoS(1).transient_local());
+   // sensor data
+   gimbal_encoder_->add_callback(
+     [this](const rmoss_interfaces::msg::Gimbal & data, const rclcpp::Time & /*stamp*/) {
+       // Limit yaw data to [0, 2*PI)
++      std::lock_guard<std::mutex> lock(command_mutex_);
+       cur_yaw_ = std::remainder(data.yaw, 2 * M_PI);
+     });
+   // ros sub
+@@ -51,9 +60,22 @@ ChassisController::ChassisController(
+ 
+ void ChassisController::update()
+ {
++  std::lock_guard<std::mutex> lock(command_mutex_);
+   static const auto DT = std::chrono::milliseconds(10);
+   geometry_msgs::msg::Twist result_vel;
+ 
++  const bool timed_out = last_command_ == std::chrono::steady_clock::time_point{} ||
++    std::chrono::duration<double>(std::chrono::steady_clock::now() - last_command_).count() > command_timeout_;
++  if (timed_out) {
++    target_vel_ = geometry_msgs::msg::Twist{};
++    follow_mode_flag_ = false;
++    chassis_pid_.Reset();
++  }
++  if (timed_out != command_timed_out_) {
++    std_msgs::msg::Bool status; status.data = timed_out; timeout_pub_->publish(status);
++    command_timed_out_ = timed_out;
++    RCLCPP_INFO(node_->get_logger(), "Chassis command timeout: %s", timed_out ? "STOPPED" : "ACTIVE");
++  }
+   if (follow_mode_flag_) {
+     // follow mode
+     result_vel.linear = target_vel_.linear;
+@@ -69,10 +91,18 @@ void ChassisController::update()
+ 
+ void ChassisController::chassis_cb(const rmoss_interfaces::msg::ChassisCmd::SharedPtr msg)
+ {
++  std::lock_guard<std::mutex> lock(command_mutex_);
++  const auto & twist = msg->twist;
++  if (!std::isfinite(twist.linear.x) || !std::isfinite(twist.linear.y) ||
++    !std::isfinite(twist.angular.z)) {
++    last_command_ = {}; target_vel_ = geometry_msgs::msg::Twist{}; return;
++  }
+   if (msg->type == msg->VELOCITY) {
++    last_command_ = std::chrono::steady_clock::now();
+     target_vel_ = msg->twist;
+     follow_mode_flag_ = false;
+   } else if (msg->type == msg->FOLLOW_GIMBAL) {
++    last_command_ = std::chrono::steady_clock::now();
+     target_vel_.linear.x = msg->twist.linear.x;
+     target_vel_.linear.y = msg->twist.linear.y;
+     if (!follow_mode_flag_) {
+@@ -86,6 +116,12 @@ void ChassisController::chassis_cb(const rmoss_interfaces::msg::ChassisCmd::Shar
+ 
+ void ChassisController::cmd_vel_cb(const geometry_msgs::msg::Twist::SharedPtr msg)
+ {
++  std::lock_guard<std::mutex> lock(command_mutex_);
++  if (!std::isfinite(msg->linear.x) || !std::isfinite(msg->linear.y) ||
++    !std::isfinite(msg->angular.z)) {
++    last_command_ = {}; target_vel_ = geometry_msgs::msg::Twist{}; return;
++  }
++  last_command_ = std::chrono::steady_clock::now();
+   target_vel_ = *msg;
+   follow_mode_flag_ = false;
+ }
+@@ -99,6 +135,9 @@ void ChassisController::set_chassis_pid(PidParam pid_param)
+ 
+ void ChassisController::reset()
+ {
++  std::lock_guard<std::mutex> lock(command_mutex_);
++  last_command_ = {};
++  follow_mode_flag_ = false;
+   target_vel_.linear.x = 0;
+   target_vel_.linear.y = 0;
+   target_vel_.angular.z = 0;
 diff --git a/rmoss_gz_plugins/plugins/light_bar_controller/LightBarController.cc b/rmoss_gz_plugins/plugins/light_bar_controller/LightBarController.cc
-index c26de1ad02344b50c133c3aa9a5a4a7e95265995..dd7ddf4123bf00ab24eff0fbfbf9b39845c2476d 100644
+index c26de1a..dd7ddf4 100644
 --- a/rmoss_gz_plugins/plugins/light_bar_controller/LightBarController.cc
 +++ b/rmoss_gz_plugins/plugins/light_bar_controller/LightBarController.cc
 @@ -16,6 +16,7 @@
@@ -62,18 +187,20 @@ index c26de1ad02344b50c133c3aa9a5a4a7e95265995..dd7ddf4123bf00ab24eff0fbfbf9b398
 \ No newline at end of file
 +IGNITION_ADD_PLUGIN_ALIAS(LightBarController, "ignition::gazebo::systems::LightBarController")
 diff --git a/rmoss_gz_plugins/plugins/mecanum_drive2/MecanumDrive2.cc b/rmoss_gz_plugins/plugins/mecanum_drive2/MecanumDrive2.cc
-index 27b003a1b19352b505964ab045fee6517d3a7f94..edfe6db9d62119b5ebb67f837c37381be51f5f96 100644
+index 27b003a..91b35b3 100644
 --- a/rmoss_gz_plugins/plugins/mecanum_drive2/MecanumDrive2.cc
 +++ b/rmoss_gz_plugins/plugins/mecanum_drive2/MecanumDrive2.cc
-@@ -13,6 +13,7 @@
+@@ -13,6 +13,9 @@
  // limitations under the License.
  
  #include <mutex>
++#include <chrono>
++#include <stdexcept>
 +#include <cmath>
  #include <ignition/common/Util.hh>
  #include <ignition/common/Profiler.hh>
  #include <ignition/plugin/Register.hh>
-@@ -72,6 +73,7 @@ public:
+@@ -72,6 +75,7 @@ public:
      ignition::math::PID xPid;
      ignition::math::PID yPid;
      ignition::math::PID wPid;
@@ -81,7 +208,29 @@ index 27b003a1b19352b505964ab045fee6517d3a7f94..edfe6db9d62119b5ebb67f837c37381b
      //for Odometry
      bool initFlag = false;
      std::string odomFrameId;
-@@ -130,8 +132,21 @@ void MecanumDrive2::Configure(const Entity &_entity,
+@@ -82,6 +86,10 @@ public:
+     //velocity cmd
+     msgs::Twist targetVel;
+     std::mutex targetVelMutex;
++    std::chrono::steady_clock::time_point lastCommand{};
++    double commandTimeout{0.5};
++    bool commandTimedOut{true};
++    transport::Node::Publisher watchdogPub;
+ };
+ 
+ /******************implementation for MecanumDrive2************************/
+@@ -124,20 +132,40 @@ void MecanumDrive2::Configure(const Entity &_entity,
+     std::string topic{this->dataPtr->model.Name(_ecm) + "/cmd_vel"};
+     this->dataPtr->node.Subscribe(topic, &MecanumDrive2Private::OnCmdVel, this->dataPtr.get());
+     ignmsg << "MecanumDrive2 subscribing to twist messages on [" << topic << "]" << std::endl;
++    this->dataPtr->commandTimeout = _sdf->Get<double>("command_timeout", 0.5).first;
++    if (!std::isfinite(this->dataPtr->commandTimeout) || this->dataPtr->commandTimeout <= 0.0)
++        throw std::invalid_argument("MecanumDrive2 command_timeout must be positive and finite");
++    this->dataPtr->watchdogPub = this->dataPtr->node.Advertise<msgs::Boolean>(
++        this->dataPtr->model.Name(_ecm) + "/cmd_vel_timed_out");
+     //publisher of odometry
+     std::string odomTopic{this->dataPtr->model.Name(_ecm) + "/odometry"};
+     this->dataPtr->odomPub = this->dataPtr->node.Advertise<msgs::Odometry>(odomTopic);
      this->dataPtr->odomFrameId=this->dataPtr->model.Name(_ecm) + "/odom" ;
      this->dataPtr->odomChildFrameId = this->dataPtr->model.Name(_ecm) + "/" + ignition::common::replaceAll(this->dataPtr->chassisLinkName, "::", "/");
      //init PID
@@ -105,7 +254,35 @@ index 27b003a1b19352b505964ab045fee6517d3a7f94..edfe6db9d62119b5ebb67f837c37381b
      this->dataPtr->wPid.Init(200, 0, 0, 0, 0, 100, -100, 0);
  }
  
-@@ -167,6 +182,13 @@ void MecanumDrive2::PreUpdate(const ignition::gazebo::UpdateInfo &_info,
+ void MecanumDrive2::PreUpdate(const ignition::gazebo::UpdateInfo &_info,
+                              ignition::gazebo::EntityComponentManager &_ecm)
+ {
++    if (_info.paused || _info.dt <= std::chrono::steady_clock::duration::zero())
++        return;
+     //control for chassis
+     Link chassisLink(this->dataPtr->chassisLink);
+     if (!_ecm.Component<components::WorldPose>(this->dataPtr->chassisLink))
+@@ -156,6 +184,19 @@ void MecanumDrive2::PreUpdate(const ignition::gazebo::UpdateInfo &_info,
+     msgs::Twist targetVel;
+     {
+         std::lock_guard<std::mutex> lock(this->dataPtr->targetVelMutex);
++        const auto elapsed = std::chrono::duration<double>(
++            std::chrono::steady_clock::now() - this->dataPtr->lastCommand).count();
++        const bool timedOut = this->dataPtr->lastCommand == std::chrono::steady_clock::time_point{} ||
++            elapsed > this->dataPtr->commandTimeout;
++        if (timedOut)
++            this->dataPtr->targetVel.Clear();
++        if (timedOut != this->dataPtr->commandTimedOut)
++        {
++            msgs::Boolean status;
++            status.set_data(timedOut);
++            this->dataPtr->watchdogPub.Publish(status);
++            this->dataPtr->commandTimedOut = timedOut;
++        }
+         targetVel = this->dataPtr->targetVel;
+     }
+     //current state
+@@ -167,6 +208,13 @@ void MecanumDrive2::PreUpdate(const ignition::gazebo::UpdateInfo &_info,
          this->dataPtr->initPose = chassisPose;
          this->dataPtr->initFlag = true;
      }
@@ -119,3 +296,19 @@ index 27b003a1b19352b505964ab045fee6517d3a7f94..edfe6db9d62119b5ebb67f837c37381b
      //for linear velocity control
      double xErr = linearVel.X() - targetVel.linear().x();
      double xCmd = this->dataPtr->xPid.Update(xErr, _info.dt);
+@@ -200,7 +248,15 @@ void MecanumDrive2::PostUpdate(const ignition::gazebo::UpdateInfo &_info,
+ void MecanumDrive2Private::OnCmdVel(const ignition::msgs::Twist &_msg)
+ {
+     std::lock_guard<std::mutex> lock(this->targetVelMutex);
++    if (!std::isfinite(_msg.linear().x()) || !std::isfinite(_msg.linear().y()) ||
++        !std::isfinite(_msg.angular().z()))
++    {
++        this->targetVel.Clear();
++        this->lastCommand = {};
++        return;
++    }
+     this->targetVel = _msg;
++    this->lastCommand = std::chrono::steady_clock::now();
+     //ignmsg << "MecanumDrive2 msg x: [" << _msg.linear().x() << "]" << std::endl;
+ }
+ 

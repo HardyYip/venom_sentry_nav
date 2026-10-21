@@ -1,3 +1,7 @@
+if __name__ == "__main__":
+    from storage_entry import ensure_storage_guard
+    ensure_storage_guard(__file__)
+
 import argparse
 import datetime
 import fcntl

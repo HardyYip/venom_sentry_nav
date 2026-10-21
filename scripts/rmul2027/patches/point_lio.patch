@@ -1,5 +1,23 @@
+diff --git a/include/IKFoM/IKFoM_toolkit/esekfom/esekfom.hpp b/include/IKFoM/IKFoM_toolkit/esekfom/esekfom.hpp
+index bc5c43e..2da7222 100755
+--- a/include/IKFoM/IKFoM_toolkit/esekfom/esekfom.hpp
++++ b/include/IKFoM/IKFoM_toolkit/esekfom/esekfom.hpp
+@@ -230,11 +230,11 @@ public:
+         }
+         K_ = PHT * HPHT.inverse();
+       } else {
+-        Matrix<scalar_type, 12, 12> HTH = m_noise * h_x.transpose() * h_x;
++        Matrix<scalar_type, 12, 12> HTH = (h_x.transpose() * h_x) / m_noise;
+         Matrix<scalar_type, n, n> P_inv = P_.inverse();
+         P_inv.template block<12, 12>(0, 0) += HTH;
+         P_inv = P_inv.inverse();
+-        K_ = P_inv.template block<n, 12>(0, 0) * h_x.transpose() * m_noise;
++        K_ = P_inv.template block<n, 12>(0, 0) * h_x.transpose() / m_noise;
+       }
+       Matrix<scalar_type, n, 1> dx_ =
+         K_ * z;  // - h) + (K_x - Matrix<scalar_type, n, n>::Identity()) * dx_new;
 diff --git a/src/laserMapping.cpp b/src/laserMapping.cpp
-index 2b654fa27b050a7d5186b64bc7b6b5bb976fc05e..c2045aca8b2b08206a1b557378ef83a3660a541a 100755
+index 2b654fa..c6db6ba 100755
 --- a/src/laserMapping.cpp
 +++ b/src/laserMapping.cpp
 @@ -1,3 +1,4 @@
@@ -7,10 +25,14 @@ index 2b654fa27b050a7d5186b64bc7b6b5bb976fc05e..c2045aca8b2b08206a1b557378ef83a3
  // #include <so3_math.h>
  #include <malloc.h>
  #include <pcl/filters/voxel_grid.h>
-@@ -317,6 +318,12 @@ int main(int argc, char ** argv)
+@@ -317,6 +318,16 @@ int main(int argc, char ** argv)
    executor.add_node(nh);
  
    readParameters(nh);
++  if (!std::isfinite(max_imu_gap) || max_imu_gap < 0.0) {
++    RCLCPP_ERROR(nh->get_logger(), "max_imu_gap must be finite and nonnegative");
++    return 1;
++  }
 +  if (imu_queue_depth < 1) {
 +    RCLCPP_ERROR(nh->get_logger(), "imu_queue_depth must be positive");
 +    rclcpp::shutdown();
@@ -20,7 +42,7 @@ index 2b654fa27b050a7d5186b64bc7b6b5bb976fc05e..c2045aca8b2b08206a1b557378ef83a3
    std::cout << "lidar_type: " << lidar_type << '\n';
    ivox_ = std::make_shared<IVoxType>(ivox_options_);
  
-@@ -378,7 +385,8 @@ int main(int argc, char ** argv)
+@@ -378,7 +389,8 @@ int main(int argc, char ** argv)
        [](const sensor_msgs::msg::PointCloud2::SharedPtr msg) { standard_pcl_cbk(msg); });
    }
    auto sub_imu =
@@ -30,18 +52,19 @@ index 2b654fa27b050a7d5186b64bc7b6b5bb976fc05e..c2045aca8b2b08206a1b557378ef83a3
    auto pub_laser_cloud_full_res =
      nh->create_publisher<sensor_msgs::msg::PointCloud2>("cloud_registered", 20);
    auto pub_laser_cloud_full_res_body =
-@@ -397,7 +405,9 @@ int main(int argc, char ** argv)
+@@ -397,7 +409,10 @@ int main(int argc, char ** argv)
    while (rclcpp::ok()) {
      if (flg_exit) break;
      executor.spin_some();
 +    timing_probe().report(imu_deque.size(), lidar_buffer.size());
++    if (imu_input_fault) {rate.sleep(); continue;}
      if (sync_packages(Measures)) {
 +      TimingScanScope timing_scope(Measures.lidar_beg_time, lidar_end_time);
        if (flg_reset) {
          RCLCPP_WARN(LOGGER, "reset when rosbag play back");
          p_imu->Reset();
 diff --git a/src/li_initialization.cpp b/src/li_initialization.cpp
-index 2e31e6fc311398725d03af23a1fb6d24d262f0dd..93f9086ebaa209ae6aadcce36a5b62f4d2102915 100755
+index 2e31e6f..09b9d8c 100755
 --- a/src/li_initialization.cpp
 +++ b/src/li_initialization.cpp
 @@ -1,4 +1,5 @@
@@ -50,7 +73,15 @@ index 2e31e6fc311398725d03af23a1fb6d24d262f0dd..93f9086ebaa209ae6aadcce36a5b62f4
  bool data_accum_finished = false, data_accum_start = false, online_calib_finish = false,
       refine_print = false;
  int frame_num_init = 0;
-@@ -55,6 +56,7 @@ void standard_pcl_cbk(const sensor_msgs::msg::PointCloud2::SharedPtr & msg)
+@@ -26,6 +27,7 @@ std::deque<sensor_msgs::msg::Imu::ConstSharedPtr> imu_deque;
+ 
+ void standard_pcl_cbk(const sensor_msgs::msg::PointCloud2::SharedPtr & msg)
+ {
++  if (imu_input_fault) return;
+   // mtx_buffer.lock();
+   scan_count++;
+   double preprocess_start_time = omp_get_wtime();
+@@ -55,6 +57,7 @@ void standard_pcl_cbk(const sensor_msgs::msg::PointCloud2::SharedPtr & msg)
    } else {
      PointCloudXYZI::Ptr ptr(new PointCloudXYZI(20000, 1));
      p_pre->process(msg, ptr);
@@ -58,27 +89,54 @@ index 2e31e6fc311398725d03af23a1fb6d24d262f0dd..93f9086ebaa209ae6aadcce36a5b62f4
      if (con_frame) {
        if (frame_ct == 0) {
          time_con = last_timestamp_lidar;  //msg->header.stamp.toSec();
-@@ -152,6 +154,7 @@ void livox_pcl_cbk(const livox_ros_driver2::msg::CustomMsg::SharedPtr & msg)
+@@ -89,6 +92,7 @@ void standard_pcl_cbk(const sensor_msgs::msg::PointCloud2::SharedPtr & msg)
+ 
+ void livox_pcl_cbk(const livox_ros_driver2::msg::CustomMsg::SharedPtr & msg)
+ {
++  if (imu_input_fault) return;
+   // mtx_buffer.lock();
+   double preprocess_start_time = omp_get_wtime();
+   scan_count++;
+@@ -152,6 +156,8 @@ void livox_pcl_cbk(const livox_ros_driver2::msg::CustomMsg::SharedPtr & msg)
  
  void imu_cbk(const sensor_msgs::msg::Imu::ConstSharedPtr & msg_in)
  {
++  if (imu_input_fault) return;
 +  timing_probe().imu(get_time_sec(msg_in->header.stamp));
    // mtx_buffer.lock();
  
    sensor_msgs::msg::Imu::SharedPtr msg(new sensor_msgs::msg::Imu(*msg_in));
+@@ -163,6 +169,15 @@ void imu_cbk(const sensor_msgs::msg::Imu::ConstSharedPtr & msg_in)
+   double timestamp = get_time_sec(msg->header.stamp);
+   // printf("time_diff%f, %f, %f\n", last_timestamp_imu - timestamp, last_timestamp_imu, timestamp);
+ 
++  if (max_imu_gap > 0.0 && last_timestamp_imu >= 0.0 &&
++    (timestamp < last_timestamp_imu || timestamp - last_timestamp_imu > max_imu_gap)) {
++    imu_input_fault = true;
++    RCLCPP_ERROR(rclcpp::get_logger("li_initialization"),
++      "IMU_INPUT_FAULT_LATCH previous=%.9f current=%.9f gap=%.9f limit=%.6f; output disabled; restart with stationary initialization",
++      last_timestamp_imu, timestamp, timestamp - last_timestamp_imu, max_imu_gap);
++    imu_deque.clear(); lidar_buffer.clear(); time_buffer.clear();
++    return;
++  }
+   if (timestamp < last_timestamp_imu) {
+     RCLCPP_ERROR(rclcpp::get_logger("li_initialization"), "imu loop back, clear deque");
+     // imu_deque.shrink_to_fit();
 diff --git a/src/parameters.cpp b/src/parameters.cpp
-index c16f147aab74f5c08960280ccbb8e98d468d6dce..9af0a1340bf51611d4399e95f5990f0ebf095d2e 100755
+index c16f147..2af5db9 100755
 --- a/src/parameters.cpp
 +++ b/src/parameters.cpp
-@@ -1,5 +1,7 @@
+@@ -1,5 +1,9 @@
  #include "parameters.h"
  
 +bool timing_diagnostics = false;
 +int imu_queue_depth = 5;
++double max_imu_gap = 0.0;
++bool imu_input_fault = false;
  bool is_first_frame = true;
  double lidar_end_time = 0.0, first_lidar_time = 0.0, time_con = 0.0;
  double last_timestamp_lidar = -1.0, last_timestamp_imu = -1.0;
-@@ -54,6 +56,11 @@ void readParameters(std::shared_ptr<rclcpp::Node> & nh)
+@@ -54,6 +58,12 @@ void readParameters(std::shared_ptr<rclcpp::Node> & nh)
    p_pre.reset(new Preprocess());
    p_imu.reset(new ImuProcess());
    try {
@@ -86,11 +144,12 @@ index c16f147aab74f5c08960280ccbb8e98d468d6dce..9af0a1340bf51611d4399e95f5990f0e
 +    nh->get_parameter("timing_diagnostics", timing_diagnostics);
 +    nh->declare_parameter<int>("imu_queue_depth", 5);
 +    nh->get_parameter("imu_queue_depth", imu_queue_depth);
++    max_imu_gap = nh->declare_parameter<double>("max_imu_gap", 0.0);
 +
      nh->declare_parameter<bool>("prop_at_freq_of_imu", true);
      nh->get_parameter("prop_at_freq_of_imu", prop_at_freq_of_imu);
  
-@@ -180,6 +187,9 @@ void readParameters(std::shared_ptr<rclcpp::Node> & nh)
+@@ -180,6 +190,9 @@ void readParameters(std::shared_ptr<rclcpp::Node> & nh)
      nh->declare_parameter<int>("preprocess.timestamp_unit", 1);
      nh->get_parameter("preprocess.timestamp_unit", p_pre->time_unit);
  
@@ -101,20 +160,22 @@ index c16f147aab74f5c08960280ccbb8e98d468d6dce..9af0a1340bf51611d4399e95f5990f0e
      nh->get_parameter("mapping.match_s", match_s);
  
 diff --git a/src/parameters.h b/src/parameters.h
-index ded11bc0e9c2447d1b901d2b1d0bacdbcfcc357e..afa7c3b9c56dac3e8fe6d072b4e696f6ef65940a 100755
+index ded11bc..d32d5ea 100755
 --- a/src/parameters.h
 +++ b/src/parameters.h
-@@ -34,6 +34,8 @@ using IVoxType = faster_lio::IVox<3, faster_lio::IVoxNodeType::PHC, PointType>;
+@@ -34,6 +34,10 @@ using IVoxType = faster_lio::IVox<3, faster_lio::IVoxNodeType::PHC, PointType>;
  using IVoxType = faster_lio::IVox<3, faster_lio::IVoxNodeType::DEFAULT, PointType>;
  #endif
  
 +extern bool timing_diagnostics;
 +extern int imu_queue_depth;
++extern double max_imu_gap;
++extern bool imu_input_fault;
  extern bool is_first_frame;
  extern double lidar_end_time, first_lidar_time, time_con;
  extern double last_timestamp_lidar, last_timestamp_imu;
 diff --git a/src/preprocess.cpp b/src/preprocess.cpp
-index 1335353b110d93131a461665bab3f583cb61d4ac..5dbc3d485c6c926da674ed46adf0437e0957862d 100755
+index 1335353..5dbc3d4 100755
 --- a/src/preprocess.cpp
 +++ b/src/preprocess.cpp
 @@ -1,5 +1,8 @@
@@ -164,7 +225,7 @@ index 1335353b110d93131a461665bab3f583cb61d4ac..5dbc3d485c6c926da674ed46adf0437e
    } else {
      given_offset_time = false;
 diff --git a/src/preprocess.h b/src/preprocess.h
-index cd6862398b6284793bfd10858663cb7837a70904..59708c774715d27aab9b8deff3a31f41229b13fb 100755
+index cd68623..59708c7 100755
 --- a/src/preprocess.h
 +++ b/src/preprocess.h
 @@ -121,6 +121,7 @@ class Preprocess
@@ -177,7 +238,7 @@ index cd6862398b6284793bfd10858663cb7837a70904..59708c774715d27aab9b8deff3a31f41
    void avia_handler(const livox_ros_driver2::msg::CustomMsg::SharedPtr &msg);
 diff --git a/src/timing_diagnostics.h b/src/timing_diagnostics.h
 new file mode 100644
-index 0000000000000000000000000000000000000000..a729ecfc421b7a9e975127f488fd6a8bdad411d0
+index 0000000..a729ecf
 --- /dev/null
 +++ b/src/timing_diagnostics.h
 @@ -0,0 +1,178 @@

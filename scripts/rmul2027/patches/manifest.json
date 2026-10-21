@@ -4,19 +4,25 @@
       "path": "src/pb2025_sentry_nav/point_lio",
       "base_commit": "e85e79558cf746f6699888a54285fe48b3b0ac71",
       "patch": "point_lio.patch",
-      "sha256": "8c6fddbaa239da01bb6dd4581433ebd01badab790e94bb36038e37d7b6c5051f"
+      "sha256": "60741fb6695000708cbf7b022f8e1d0b75c5afc65b397a234c15d09c5503c91d"
     },
     {
       "path": "src/rmu_gazebo_simulator",
       "base_commit": "b42d7832500e5a9ad31a09c2edc7bc4fe5b5ce03",
       "patch": "rmu_gazebo_simulator.patch",
-      "sha256": "e08b5c44a7e16c2e7571e3274f090a4d6e3c996e09091ac6bf04228c01e09f12"
+      "sha256": "55994aa589bcaafc8bb7d48fc3c8247e32aa817af5ade52c145f7c0538b03739"
     },
     {
       "path": "src/rmoss_gazebo",
       "base_commit": "7443ff06c345752d0e23172c479d99b27207e2c7",
       "patch": "rmoss_gazebo.patch",
-      "sha256": "666db38f6429d115cceaf37e9ada4a351c7aa45d4c86758bfdf6e4c78f6a3ff7"
+      "sha256": "1517516f574ef4ccfcdbd8f978f1b55f800931f853c41a909f51bb9e5e08dcb0"
+    },
+    {
+      "path": "src/pb2025_sentry_nav/pb_nav2_plugins",
+      "base_commit": "e6778ca44d9e88aa612a3c6c87d536a8cfa21705",
+      "patch": "pb_nav2_plugins.patch",
+      "sha256": "8956748d743631850b14fb4dbd3c87e0c4a3761cb35e13c849aabbae13b35dbe"
     }
   ]
 }

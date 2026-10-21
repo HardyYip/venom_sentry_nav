@@ -1,0 +1,682 @@
+{
+  "passed": true,
+  "source_file_checks": 118,
+  "source_files": [
+    {
+      "file": "src/pb2025_sentry_nav/point_lio/include/IKFoM/IKFoM_toolkit/esekfom/esekfom.hpp",
+      "sha256": "dab8b7d77d90b3032b1adca67be6a200516788f2522df5aa50fb68d9e3930005",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/point_lio/src/laserMapping.cpp",
+      "sha256": "c1c8e3df5f3c0902eeeab7099a794498bd886105a01c900cc37243e2e2e6423d",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/point_lio/src/li_initialization.cpp",
+      "sha256": "2b7c5e4a0b4c8f182e2998c512bb34a3cdc37d321530d33b922ee40b9780e8a9",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/point_lio/src/parameters.cpp",
+      "sha256": "db1b91ec3611c99e7412714c3f0a5522f8660505df3ab3a50c7669ba38df5978",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/point_lio/src/parameters.h",
+      "sha256": "9ba7c27d4ea1bf24f854ed6dcb6e3e0c99aa0eaceb30a50ed2464be3b3d256e8",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/point_lio/src/preprocess.cpp",
+      "sha256": "241a7e3c77ea06f12a15b9358157768210a4b666de36f076664063f45ece6181",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/point_lio/src/preprocess.h",
+      "sha256": "ef2a9da39193a5f1e393ebbe79bce56c314c9672dc919ff1e7de517ba70a149a",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/point_lio/src/timing_diagnostics.h",
+      "sha256": "dccf36e37eeb5911e0ae6c22b1b756b52abd1b4c2154bc736c3c09325082c4b2",
+      "matches_clean": true
+    },
+    {
+      "file": "src/rmu_gazebo_simulator/rmu_gazebo_simulator/launch/spawn_robots.launch.py",
+      "sha256": "e94f11e5638b6470ab9d93389cc3fb4a72abab9390297333f2ce002aac7f6e67",
+      "matches_clean": true
+    },
+    {
+      "file": "src/rmu_gazebo_simulator/rmu_gazebo_simulator/scripts/referee_system/simple_competition_1v1.py",
+      "sha256": "d1913d8fd380cc81e8c0471d6a605c37a404c59faaf6d1d5c67a8107404b6ccc",
+      "matches_clean": true
+    },
+    {
+      "file": "src/rmoss_gazebo/rmoss_gz_base/include/rmoss_gz_base/chassis_controller.hpp",
+      "sha256": "70f03a0d88294727b4ea5190cce5fd4cd422dc9cf3436140d8127c43c71c82fe",
+      "matches_clean": true
+    },
+    {
+      "file": "src/rmoss_gazebo/rmoss_gz_base/src/chassis_controller.cpp",
+      "sha256": "49cfc280d840feee2d5c143c0415eb57c862a5cd2a799bfe878a708d08fbbdca",
+      "matches_clean": true
+    },
+    {
+      "file": "src/rmoss_gazebo/rmoss_gz_plugins/plugins/light_bar_controller/LightBarController.cc",
+      "sha256": "bb5010c40dbb5975aaa00da689c49236dea2574a32af0603e02a67a3625064c8",
+      "matches_clean": true
+    },
+    {
+      "file": "src/rmoss_gazebo/rmoss_gz_plugins/plugins/mecanum_drive2/MecanumDrive2.cc",
+      "sha256": "7c4b0875cbfd98cdcc377f25be87edb3aaaf7e8d04a89e3ce6a7a4849af77343",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/pb_nav2_plugins/CMakeLists.txt",
+      "sha256": "be1490e041a3e8012ca0e4840678e385ffea3ba2abf2aa30c76bf2d495f9a205",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/pb_nav2_plugins/package.xml",
+      "sha256": "3071c96ef7c8da25ff2141c12c4cf2a344f9b6a1aacd52bb5d7797dc1dae40eb",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/pb_nav2_plugins/src/condition/pose_fresh.cpp",
+      "sha256": "8a1cbeff2c789effa58e8a1ed304bd640dc8dfda4dfcbe3b9315bb4944dc3f4d",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/analyze_contact_experiment.py",
+      "sha256": "e21aba1469c2a790675c1e98429fad4c8dd4c7cdb10c5eee3d2ba3b3ebcaf655",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/analyze_timing_experiment.py",
+      "sha256": "2a46544adf7e48965e01fb6634f1ff031457ac0459c2fb9b8892ab237e72f7d3",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/assets/external-resources.json",
+      "sha256": "e91535a8fac63e5a663110c322cdb4f80a5b55d139f0b36477de1d193acf404a",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/assets/height_preview.npz",
+      "sha256": "efea20103a5705694f21f363450668f81a5a6c716f8ecfde7bcaf3bf23d213fe",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/assets/maps-cad/manifest.json",
+      "sha256": "4e9d8268495d8c19828bfa37c5eeac420e1d676faeff42142ca24294c4c2cd3b",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/assets/maps-cad/rmul_2027_3v3.pcd",
+      "sha256": "e83045fc37ffddd922eb64e4cf5deea8ab5f3972d8149f6cf76c19e8e3ff44e0",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/assets/maps-cad/rmul_2027_3v3.pgm",
+      "sha256": "6c45cc4ca2013f1c01b9c7f17c0c5d28da15ed60ef20e81bf743ac1dae8f5f94",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/assets/maps-cad/rmul_2027_3v3.yaml",
+      "sha256": "eb39f2d66514e11e330410f798aaa8169cf183c0a1754de09295073e95b1acd0",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/assets/runtime/ros-humble-tf2_0.25.24-1jammy.20260915.203746_amd64.deb",
+      "sha256": "f6b5d1d098a9ba9080e2c24cccf98a669f1f8bb878602b5b53bd55a4cfbd0cfc",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/assets/step-source.json",
+      "sha256": "0d78a447636ef579148eebf70ac31c76f0b34736563e3787b0108a9613670239",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/assets/test_barrier.sdf",
+      "sha256": "95311bc0dcd623c1ee21baaa3b18354cff29df5ab05fa4740f54ab0c0f33a55a",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/assets/test_cart.sdf",
+      "sha256": "ac2e5327f9264b83bf6cf7b16e3c56b4a4dfaff8aa5474b236d6cec1098dadbb",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/behavior_trees/navigate_field.xml",
+      "sha256": "04f8fbed8fc7853b7a475dd2dbd0474df0d4ef1afbb6f52826eb849542fce416",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/behavior_trees/navigate_through_poses_fresh.xml",
+      "sha256": "a919f1b33257a07ba17753a584151b1b4c97468b1c0e6be2af919c54715a2844",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/build_cad_navigation_maps.py",
+      "sha256": "7ca088cfa4703566d7ac3d2e47c0b301e2953387124275305200de7ff0427690",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/build_cart_test_tools.sh",
+      "sha256": "79dee56301bcdf20e592501575a759c1c13b609b091020bf7c5e65b3509291a7",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/build_flat_floor_scene.py",
+      "sha256": "0be47d34f7d6307b42b8477436e149092c7626ae58dc547bc4633f0e95491f43",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/build_flat_marking_scene.py",
+      "sha256": "3fda53da914106827f5e44d5bf7cba4306d77c5cb337075476b205d618820f00",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/build_navigation_contact_scene.py",
+      "sha256": "0521e71c83e4a8fa46449f0bb2e385aae4f1c8d0d716da91088a9ed7a8b56542",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/build_rmul2027.sh",
+      "sha256": "9537c3b6f702655304dd79cfe8617fd2767cc82cde155ca113e02aa6be89418d",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/config/fastdds_local_64m.xml",
+      "sha256": "41b883f85949817a31dc3487941c280189b3042170a2b073507ca7f8318072f9",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/config/gz_world.yaml",
+      "sha256": "2da8e845e4059f5265727dfaad0900fd8ee0871ed0f24d6e9f028e6d3e41214f",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/config/gz_world_original_drive.yaml",
+      "sha256": "a19528eac2f9943ab30bcb49c742b920027993577fa024b4887e2f80a13ed37d",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/config/gz_world_rounded.yaml",
+      "sha256": "0f1e70737bca936d5e0197cb98d7681b705a8779d0525277726f42b8e035d434",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/config/gz_world_test.yaml",
+      "sha256": "b7bacbfef607937de17be35f020f15342c535bb2c4ea1c58643866a4a5669623",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/config/interactive-light.before-field-reference.rviz",
+      "sha256": "bd04d9948deb1f44c1e98b9bcdbdb19617ee7048cdecd5abbc6a771131b19d21",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/config/interactive-light.before-route-fix.rviz",
+      "sha256": "1c86693d76a9fa56be9497326962b77b836b40862170b708c1e7523261989aa8",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/config/interactive-light.rviz",
+      "sha256": "c5cf7709476a8356577e94cbc854957daf0194b4bf520f60665a4f6de5bd6a16",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/config/nav2_original_speed.yaml",
+      "sha256": "0ca9e9742d2a37408f9da02073cb28d0503f16c3b94de49d92ed376f6a03cc6a",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/config/nav2_original_speed_early_brake.yaml",
+      "sha256": "6418d90f3508fd8d13fc9961290cc516f09d1ba6486d0b42aaa70c845283661a",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/config/nav2_params.yaml",
+      "sha256": "e52e1c11ce7e2dce174e7428f1271cdc37301613c9306a082222d6ae2814325f",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/config/nav2_point_time_snapshot.yaml",
+      "sha256": "6418d90f3508fd8d13fc9961290cc516f09d1ba6486d0b42aaa70c845283661a",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/config/nav2_test.yaml",
+      "sha256": "660c3b4ec67443e012a471ded164893b50c014dfcbbf10cd0f368cdb1754ae3c",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/configure_dds.sh",
+      "sha256": "58db3aa459317f74f2a6991ad212065520e3c981110813ac7d03b7a0b3804d99",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/convert_field.py",
+      "sha256": "9666bd67448550e1f3ded9aca8b6b9f10db728752dc5fce5596db1fa888f22aa",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/g1_tf_observer.py",
+      "sha256": "471b758fc97c587862e283184763495a0c9bda535a2246bdc026e41dfc4d78a8",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/generate_initial_report.py",
+      "sha256": "8d4f94091993d8c3890b386401cd21858bca57653ece43e7aeb6b08d7c921673",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/generate_report.py",
+      "sha256": "d13eb9241bc723cb37146ecbb4c96bdb77ec1ccba5b0f42e570a9eedb95c89be",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/headless_rmul2027.launch.py",
+      "sha256": "7c0fbaa060cb3b61aacf392e1f2958b45711174a518b0be61f26c60564b6e184",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/inspect_display.py",
+      "sha256": "6085a5d566f90be32435f3ae3a4edbafeea49a053bbdfcf5362c1daff8d9709c",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/inspect_runtime.py",
+      "sha256": "5169f8c75a2bcd8052ecf799ab0915d59a0d963b40dc525ca3ce88675b828c38",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/inspect_rviz_windows.ps1",
+      "sha256": "a6782a73f5fb17de585120ed57671b6fd883a1bc663eccb85768e6bffcd89089",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/inspect_scans.py",
+      "sha256": "2fe1e6a52147232b68ce6f0151e820e7b0a18a4e2a62b269f7ab1e1a78349732",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/notify_storage.py",
+      "sha256": "108df37d17585827b5f6181d496275aa28bfc3cd5e9e6d8b2da18d7eadb03c3c",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/obstacle_cart_actor.cpp",
+      "sha256": "45f052129875226b7eafda3052d547a208ca5d8227b97cb3293f6c10307d2dcb",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/patches/manifest.json",
+      "sha256": "3c4dcdaface171b7a8ce9f7372b26f60e231f122c1ac9e318cbe6679a592b959",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/patches/pb_nav2_plugins.patch",
+      "sha256": "8956748d743631850b14fb4dbd3c87e0c4a3761cb35e13c849aabbae13b35dbe",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/patches/point_lio.patch",
+      "sha256": "60741fb6695000708cbf7b022f8e1d0b75c5afc65b397a234c15d09c5503c91d",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/patches/rmoss_gazebo.patch",
+      "sha256": "1517516f574ef4ccfcdbd8f978f1b55f800931f853c41a909f51bb9e5e08dcb0",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/patches/rmu_gazebo_simulator.patch",
+      "sha256": "55994aa589bcaafc8bb7d48fc3c8247e32aa817af5ade52c145f7c0538b03739",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/prepare_rmul2027.py",
+      "sha256": "f6afbb9b8e108004251b5c7ef1f16d9d530e0a9e7be1f4f8bf7f12f18e381e12",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/preview_field.py",
+      "sha256": "468272ae403eae28f7a32a3c1c597fa111a69e0f62c9b9afee5357b7a47434d9",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/preview_field_3d.py",
+      "sha256": "dfb3fc1b80ac76b63c7e0cf017fc47f66746d009782e39c328c12ad154644ba9",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/prime_mapping.py",
+      "sha256": "33ae428f5b9596ee55249eb75c37c4a7dc5a84b0b96d8dc86c6c697d064519ba",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/publish_field_reference.py",
+      "sha256": "a07e181050010234761017954d4f6b730753b47156b0d53fccf771e5d031b6c7",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/record_raw_window.py",
+      "sha256": "750486546c9f43de0728a37abdb8ae17bde8e2d9348a43b6ccedd46c28554dd1",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/restore_rviz_window.ps1",
+      "sha256": "1f853ae7fc21a3112456a42bd57b08362e9e5285031e60c2c8e4e2382e081dcf",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/run_baseline_audit.py",
+      "sha256": "f0fb6392578405f0df4a4c9344ea064ccbd32eb7db4e47f5509f615e6f1cc6a8",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/run_cart_obstacle_test.py",
+      "sha256": "5bdfaa1d95dff7717c54b08c3281b4df6410b354b2053725ec7ae00285b824b3",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/run_legacy_regression.py",
+      "sha256": "443e81e897c7d9f32d174029fcd34a78f1cdcb6e91c425ca40d8abb764a07f82",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/run_point_time_contract.sh",
+      "sha256": "b32d31bf6d2290d4070f3e995150a5ab6148694d0c95d171633a8858ce00b138",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/run_safety_completion.py",
+      "sha256": "7e70905221ec8c58eb0c136aa2b79ce41138c80950d42cab963586f36614409a",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/run_safety_contract.sh",
+      "sha256": "21936641dee2e49463585bb1b447e83d063d4c8f2cbe183bc4194e481e9d2903",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/run_simulation.py",
+      "sha256": "995446eb97d3712f2601454c4bd5e3626b779468cf36779d32b82d6a6ece3b8e",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/run_timing_experiment.py",
+      "sha256": "d5b36c27590d30d5d2de9d33d50c5c8ee4c24697a4ef7c5dc8d5ed1eb8dc6c15",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/run_velocity_fault_sim.py",
+      "sha256": "3be91037106d95051893614942f5c6ee3eac2c35e869343569ca454d963394c1",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/save_mapping.py",
+      "sha256": "366086e1346b1109d2abb3005edf857820de46064440d06dfa9397db8f82401e",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/scene/conversion.json",
+      "sha256": "a35a55cef05bbaf36ec4b428af41855e251943bbe43c24d0dbe6802e270624e1",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/scene/flat-floor-contact-manifest.json",
+      "sha256": "feea96c020a9f11a410aa67b3ea3ad069e13f996764cabe108d7e36a4c1790fe",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/scene/flat-marking-contact-manifest.json",
+      "sha256": "dd85169dd317fe45e4952ef1045f0a3814e281ac59356354d9babcd53b88b445",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/scene/models/rmul_2027_3v3/meshes/collision/part_000.stl",
+      "sha256": "ad09dab6c06b66ed6d0286d9b359157bcb92ec41ce986ff533cb4772cd9a703f",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/scene/models/rmul_2027_3v3/meshes/collision/part_001.stl",
+      "sha256": "a9cbf9ab439660a45eef338a1cec35e4f4552334623214e758aff09320d1b65a",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/scene/models/rmul_2027_3v3/meshes/navigation_seam_transition.stl",
+      "sha256": "59b8a4f72651aa1b09f1a708af19601efda76585886913bfc869139bbfe23e45",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/scene/models/rmul_2027_3v3/meshes/visual/part_000.stl",
+      "sha256": "ad09dab6c06b66ed6d0286d9b359157bcb92ec41ce986ff533cb4772cd9a703f",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/scene/models/rmul_2027_3v3/meshes/visual/part_001.stl",
+      "sha256": "a9cbf9ab439660a45eef338a1cec35e4f4552334623214e758aff09320d1b65a",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/scene/models/rmul_2027_3v3/model.config",
+      "sha256": "65349a47a0b5a7e5d1a1cd2e819f88c42eac9931def19075ef55acddfc963031",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/scene/models/rmul_2027_3v3/model.sdf",
+      "sha256": "4ee6c3827cc4d7adb2f81765ad64eda6a0985421c5856109be1fbdde227833e8",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/scene/models/rmul_2027_3v3_flat_floor/meshes/collision/part_000.stl",
+      "sha256": "5787bf0d608ce5cfb8bfec1a93ac6af754db13161d635c9ae9062abf51db1c6a",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/scene/models/rmul_2027_3v3_flat_floor/model.config",
+      "sha256": "ffc1ef0a06243d68b7acaffef02cff57a16b026f3718505250d6e3c26f2f37b4",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/scene/models/rmul_2027_3v3_flat_floor/model.sdf",
+      "sha256": "322cda194b6e0e05b29bceebd7ac7b7f8138567657660020be0b9e57ec181dd3",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/scene/models/rmul_2027_3v3_flat_marking/meshes/collision/part_000.stl",
+      "sha256": "d54dbd56a26776dcc0bca7cc90043f8ec33a4c5a5dbd067e5098484e319987af",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/scene/models/rmul_2027_3v3_flat_marking/model.config",
+      "sha256": "26535bf9a7ce18a37b0d99c8d1ec1a2d46eaab02efeb344fb1fb4334ea7ff99b",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/scene/models/rmul_2027_3v3_flat_marking/model.sdf",
+      "sha256": "212ea3597d0789ce74c2554b3084e446d17c0cd05669aeab2d2fc891359bbcd2",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/scene/navigation-contact-manifest.json",
+      "sha256": "85917d0230a1776e1f8128cd090659033d83cfc67c8b9a3bb4e4ff2e7d17a936",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/scene/worlds/rmul_2027_3v3_flat_floor_world.sdf",
+      "sha256": "0dfbc42ebbbd09e4c32b144348485d95fe339a070c9f81d975e80df72c9e5d8c",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/scene/worlds/rmul_2027_3v3_flat_marking_world.sdf",
+      "sha256": "6b94410e5072a1d05f1dc5492281171256ad3948dde8e4b7246b7d5c55bbbc14",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/scene/worlds/rmul_2027_3v3_navigation_world.sdf",
+      "sha256": "d6e108da0b15b1e9b64332144572431a9c34e49a497b236417d69c76dbb1fde3",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/scene/worlds/rmul_2027_3v3_world.sdf",
+      "sha256": "66f30b5d98f2d37235d983e7160366c617e9f845e6b06045357182cb76ef6756",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/start_rmul2027.sh",
+      "sha256": "82ef5424c1da04868202d82f55b36895743ffe0f7200628c2005c62042310d3e",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/start_rmul2027_fast.sh",
+      "sha256": "18d180bc14dbeb37a6918fc7d959b854629887d2f428fb2c87048ec8c1594485",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/start_rmul2027_original_speed.sh",
+      "sha256": "d2641b63ddd2979dd0d60437d5c0fd56cc7d93ce704b3b548d297a31a9cf5286",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/start_rmul2027_test.sh",
+      "sha256": "3c3d09ebb03238a94f66ae13b77268155d09f3849ee7a38639cb09409815b8d2",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/start_rviz.sh",
+      "sha256": "5bef91107df94c785ef3db90654eaab0ddde6cc5f095e3161636651634b7708c",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/stop_rmul2027.py",
+      "sha256": "5954d235d98393e7890f27ebea4adaaa6094152bcd6fb45dde64b650dabd18e8",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/storage-policy.json",
+      "sha256": "a04a15d0f878151b33e13dfba690f176c410ff6334017b5adb9e48c2dffb0b9e",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/storage_entry.py",
+      "sha256": "681326348713be57633c126694522398103c64a4e8bdd624f59b4f68ff76150c",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/storage_guard.py",
+      "sha256": "6328287d44449f66e77b2bbac9e493ea6cb91c4b406f3dbc352b2437c9de7ea2",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/test_velocity_safety.py",
+      "sha256": "88869e434d5c1a3fc4ec8b31aa9a18e6133d2bdd6fadbae5b12fd828815aef43",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/verify_simulation.py",
+      "sha256": "d6f9115ef83d8e1482492e023015411dc1493ab347ce407c778a42c6b651a65a",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/wait_for_settle.instantaneous.py",
+      "sha256": "f933ffdb8c946b922c9abd076e795cd92817bf4d8405dbc10dd1b6a04646589b",
+      "matches_clean": true
+    },
+    {
+      "file": "src/pb2025_sentry_nav/scripts/rmul2027/wait_for_settle.py",
+      "sha256": "fe5512c4e80dad1d30bf5bb6f66d892b2bcab8d23ced01b6a3c3090743845bd3",
+      "matches_clean": true
+    }
+  ],
+  "runtime_libraries": {
+    "install/point_lio/lib/point_lio/pointlio_mapping": {
+      "resolved": "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/reproduction/clean-C025/build/point_lio/pointlio_mapping",
+      "sha256": "cf6181d67b6ff2726eb2bccca9bef39b2eab04106b501456115b7395b0992c29"
+    },
+    "install/fake_vel_transform/lib/libfake_vel_transform.so": {
+      "resolved": "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/reproduction/clean-C025/build/fake_vel_transform/libfake_vel_transform.so",
+      "sha256": "aeca0a69ef51428b43b6cdad9f87f63b63005d8cca235aef19b53acc7cf567b2"
+    },
+    "install/rmoss_gz_base/lib/librmoss_gz_base.so": {
+      "resolved": "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/reproduction/clean-C025/install/rmoss_gz_base/lib/librmoss_gz_base.so",
+      "sha256": "69c9c0d50d59d00e0a28e7c35efea6039a6657689dc78942ff0a83626f2618ff"
+    },
+    "install/rmoss_gz_plugins/plugins/libMecanumDrive2.so": {
+      "resolved": "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/reproduction/clean-C025/build/rmoss_gz_plugins/libMecanumDrive2.so",
+      "sha256": "cbb58727d793fb80eb4b15759ad89834eadfb446844530c358b386eb45769118"
+    },
+    "install/pb_nav2_plugins/lib/libpb_pose_fresh_condition_bt_node.so": {
+      "resolved": "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/reproduction/clean-C025/build/pb_nav2_plugins/libpb_pose_fresh_condition_bt_node.so",
+      "sha256": "be8348f90db819710bf699bdb7c4e24163af5b970366cf9d842300e0ec43a59c"
+    }
+  },
+  "clean_default_smoke_cases": [
+    {
+      "name": "ready",
+      "passed": true,
+      "exit_code": 0,
+      "metrics": [
+        {
+          "event": "localization_stability",
+          "mode": "ready",
+          "max_xy_drift_m": 0.012118512172054683,
+          "ground_truth_error_m": 0.019757178785734596
+        }
+      ]
+    },
+    {
+      "name": "01-short",
+      "passed": true,
+      "exit_code": 0,
+      "metrics": [
+        {
+          "event": "result",
+          "mode": "nav",
+          "status": 4,
+          "ground_truth_moved": 0.6779329575247802,
+          "goal_error": 0.13129540868792225,
+          "ground_truth_goal_error": 0.15178813279079761,
+          "ground_truth_map_xy": [
+            0.6778767051073675,
+            0.00011464265973559762
+          ],
+          "estimated_map_xy": [
+            0.6980836074606839,
+            0.0065963278528629946
+          ],
+          "ground_truth_z": 0.0,
+          "stopped_speed": 3.208903750431059e-05,
+          "stopped_command": 0.0,
+          "elapsed_wall_s": 4.386979901000018,
+          "nonzero_commands": 58,
+          "counts": {
+            "clock": 7288,
+            "imu": 1507,
+            "ground_truth": 6881,
+            "lidar": 151,
+            "cmd_vel": 271,
+            "converted_cloud": 134,
+            "registered_scan": 134,
+            "adapted_odometry": 134,
+            "odometry": 134,
+            "map": 1,
+            "terrain_map_ext": 133,
+            "local_costmap": 10,
+            "global_costmap": 1,
+            "lio": 132,
+            "terrain_map": 132,
+            "lio_cloud": 133,
+            "global_plan": 11,
+            "local_plan": 68
+          }
+        }
+      ]
+    }
+  ],
+  "runtime_overlay": "only clean install; no old install paths"
+}

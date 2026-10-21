@@ -1,3 +1,7 @@
+if __name__ == "__main__":
+    from storage_entry import ensure_storage_guard
+    ensure_storage_guard(__file__)
+
 import argparse
 import bisect
 import collections
@@ -28,6 +32,7 @@ from sensor_msgs.msg import PointCloud2
 from tf2_ros import Buffer, TransformListener
 
 parser = argparse.ArgumentParser()
+parser.add_argument('--record-bag', action='store_true', help='Opt in to a light, guarded recording; default is no bag')
 parser.add_argument('--record-dir', required=True, type=Path)
 parser.add_argument('--scenario', required=True, choices=['control', 'parked', 'blocked'])
 parser.add_argument('--params-file', required=True, type=Path)
@@ -296,8 +301,11 @@ try:
             '/red_standard_robot1/navigate_to_pose/_action/status','/red_standard_robot1/navigate_to_pose/_action/feedback']
     if args.record_pipeline:
         topics += ['/red_standard_robot1/'+name for name in ['livox/lidar','cloud_registered','aft_mapped_to_init','lidar_odometry','odometry','cmd_vel_controller','cmd_vel_nav2_result']]
-    meta['recorded_topics']=topics;save()
-    launch('recorder',['ros2','bag','record','--include-hidden-topics','-o',str(record/'inputs'),*topics])
+    topics=[topic for topic in topics if not any(word in topic for word in ('velodyne_points','cloud_registered','livox/lidar','registered_scan','terrain_map'))]
+    meta['record_bag']=args.record_bag
+    meta['recorded_topics']=topics if args.record_bag else [];save()
+    if args.record_bag:
+        launch('recorder',['ros2','bag','record','--include-hidden-topics','--max-cache-size','67108864','--max-bag-size','33554432','-o',str(record/'inputs'),*topics])
     check=launch('ready',[sys.executable,str(folder/'run_baseline_audit.py'),'--record-dir',str(record/'ready'),'--last-case','ready','--navigation-log',str(navlog)])
     if check.wait(timeout=180)!=0:raise RuntimeError('Ready verification failed')
     ready_meta=json.loads((record/'ready/run.json').read_text());oid=ready_meta.get('observer_pid')

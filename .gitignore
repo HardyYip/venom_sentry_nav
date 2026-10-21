@@ -23,3 +23,8 @@ pb2025_nav_bringup/map/reality/*.yaml
 pb2025_nav_bringup/map/reality/*.pgm
 
 !scripts/rmul2027/assets/maps-cad/*.pcd
+
+*.db3
+*.db3-wal
+*.db3-shm
+*.mcap
