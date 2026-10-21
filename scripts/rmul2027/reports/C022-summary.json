@@ -1123,8 +1123,22 @@
     "interpolation_weight": 0.99999900000347
   },
   "binary_source_commit": "07ab6a001525c5365e580182c506ad02427586c5",
-  "ui_source_commit": "21d08d5a7a8ddb96e5815930a0ef42eff573502b",
-  "commit_note": "binary_source_commit was built and tested; ui_source_commit added the RViz entry; this report is a later documentation commit.",
+  "ui_entry_initial_commit": "21d08d5a7a8ddb96e5815930a0ef42eff573502b",
+  "ui_provenance": {
+    "auditor": "Codex C023",
+    "audited_at": "2026-10-21T08:51:19.560438+08:00",
+    "initial_ui_commit": "21d08d5a7a8ddb96e5815930a0ef42eff573502b",
+    "verified_ui_source_commit": "3b7fd4b1de2e8f2c62aa268265c9f92a98cb17b4",
+    "delivered_head_audited": "dda8fbcb23fc51530a7a0ff452dcc58c5ae14a45",
+    "note": "21d08d5 automatic call failed; 3b7fd4b changed its invocation. Three C023 starts verified the delivered implementation, without rerunning navigation.",
+    "file_blobs": {
+      "start_rviz.sh": "f2de7eeff87075778f3ac87bba02369890fdc6a0",
+      "restore_rviz_window.ps1": "1be325c58cec8146915e26c79b603beca514abd8",
+      "inspect_rviz_windows.ps1": "dd5048b11681b0c40005534991cb440388bb42c2"
+    }
+  },
+  "ui_source_commit": "3b7fd4b1de2e8f2c62aa268265c9f92a98cb17b4",
+  "commit_note": "binary_source_commit was built and tested; ui_entry_initial_commit is the historical failed call; ui_source_commit identifies the independently verified fix. Later report revisions do not imply a rebuilt navigation binary.",
   "ui_closure": {
     "owner": "DeepSeek C022 closure",
     "measured_at": "2026-10-21T00:19:00+08:00",

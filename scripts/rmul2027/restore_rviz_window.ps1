@@ -1,8 +1,4 @@
 param([Parameter(Mandatory=$true)][string]$ConfigTitle)
-# Called in the background by start_rviz.sh under WSLg; can also be run manually from Windows.
-# The automatic call must not use -WindowStyle Hidden or stdio pointing at a closed fd:
-# both return "Invalid argument" or time out (reproduced 2026-10-21). The script polls for 30s.
-# Manual: powershell -ExecutionPolicy Bypass -File restore_rviz_window.ps1 -ConfigTitle "\\wsl.localhost\Ubuntu-22.04\home\hardy\pb2025_nav_ws\src\pb2025_sentry_nav\scripts\rmul2027\config\interactive-light.rviz"
 Add-Type @'
 using System;
 using System.Text;

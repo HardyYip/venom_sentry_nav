@@ -55,13 +55,16 @@ bash scripts/rmul2027/start_rviz.sh
 python3 scripts/rmul2027/stop_rmul2027.py
 ```
 
-关闭RViz后可以重开，单实例锁防止重复启动。WSLg下窗口可能以最小化或越界位置出现，`start_rviz.sh`会自动后台调用`restore_rviz_window.ps1`，30秒内轮询并恢复本项目窗口；该调用不能加`-WindowStyle Hidden`、也不能把stdio指向已关闭的fd，否则会返回`Invalid argument`或超时。设`RMUL2027_RESTORE_WINDOW=0`可关闭自动恢复。若30秒内未恢复，手动执行：
+关闭RViz后可以重开，单实例锁防止重复启动。WSLg下入口会以已验证的后台方式调用`restore_rviz_window.ps1`，30秒内查找并恢复本项目的最小化／屏外窗口。`RMUL2027_RESTORE_WINDOW=0`可关闭这一步。C023独立检查三次串行开关均通过，没有重新驱动机器人；见[核查报告](reports/C023-AUDIT.zh-CN.md)。
+
+若要从Windows PowerShell手动恢复，下面是本机示例；组员应替换发行版、用户名和工作区。`-File`是Windows能访问的脚本路径，`-ConfigTitle`必须是RViz标题中的Linux配置路径，两者不同：
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File restore_rviz_window.ps1 -ConfigTitle "\\wsl.localhost\Ubuntu-22.04\home\hardy\pb2025_nav_ws\src\pb2025_sentry_nav\scripts\rmul2027\config\interactive-light.rviz"
+$rvizTools = '\\wsl.localhost\Ubuntu-22.04\home\hardy\pb2025_nav_ws\src\pb2025_sentry_nav\scripts\rmul2027'
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File "$rvizTools\restore_rviz_window.ps1" -ConfigTitle '/home/hardy/pb2025_nav_ws/src/pb2025_sentry_nav/scripts/rmul2027/config/interactive-light.rviz'
 ```
 
-这只是显示层恢复，与导航链路无关；WSLg无窗口／COPY MODE仍属独立显示传输问题，不能靠重启导航处理，也不承诺跨Windows／WSL重启永久无故障。
+当前后台组合（`nohup`、普通文件日志、关闭辅助进程的锁fd）已实测可用。此前改变了多个调用条件后才恢复，尚未分别证明哪一项单独造成`Invalid argument`，不把组合修正写成唯一根因。这只是显示层恢复；WSLg传输跨Windows／WSL重启的长期稳定性尚未证明，不通过重启导航处理窗口故障。
 
 ## 场景和未通过项
 

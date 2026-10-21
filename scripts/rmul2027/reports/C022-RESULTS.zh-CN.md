@@ -15,7 +15,7 @@ Codex，实施记录。干净检出构建、默认冒烟与RViz窗口自动恢�
 
 - 干净检出构建：全新工作区按README克隆本分支后构建29包通过，耗时5分2秒、退出码0；prepare连续两次运行幂等，不覆盖用户修改，未改动依赖gitlink。
 - 干净默认冒烟：普通0.5m/s入口就绪＋近点2/2，真值终点误差0.161175m，实际停车；使用项目局部TF2与局部FastDDS配置，不替换系统ROS或全局DDS。
-- RViz窗口自动恢复：此前自动调用因`-WindowStyle Hidden`与stdio指向已关闭fd的组合返回`Invalid argument`／超时，曾据此移除；复测确认根因后恢复为修正版后台调用（不加Hidden、stdio重定向到普通文件、保留`8>&-`），实测4秒内`project_rviz_found=true`并恢复最小化窗口。仅解决显示层，30秒内未出现窗口仍需手动执行`restore_rviz_window.ps1`；WSLg传输本身未证明永久修复，也不靠反复重启导航掩盖画面问题。
+- RViz窗口自动恢复：修正后台调用组合后有真实最小化／恢复证据。C023又独立验证三次真实入口串行开关，Windows只读探针均为可见、非最小化，手动恢复正对照通过。当前组合没有Hidden选项，stdio指向普通日志文件且辅助进程不持有锁fd；这些条件同时改变，未分别证明单项或组合是唯一故障原因。30秒轮询仍可能超时，WSLg跨系统重启的长期稳定性尚未证明。命令与边界见README和C023核查报告。
 - GitHub交付：代码与证据提交`3b7fd4b1de2e8f2c62aa268265c9f92a98cb17b4`已推送`HardyYip/venom_sentry_nav`的`sim/rmul2027-3v3`。2026-10-21以`git ls-remote`＋`fetch`反查远端SHA与本地一致，`start_rviz.sh`、`restore_rviz_window.ps1`、`render_structural_results.py`、C022报告与summary等关键文件blob亦一致。未推北极熊上游、未改main、未合并、未强推。本文件的交付说明为随后的小提交。
 
 ## 未通过：快照点时间
@@ -29,3 +29,5 @@ Codex，实施记录。干净检出构建、默认冒烟与RViz窗口自动恢�
 完整录包、原始失败帧、配置、实际机器人／场景、代价图、路径、控制、物理姿态和日志位于工作区artifacts/rmul_2027_3v3/diagnostics/structural-20261020-224258-C022。该绝对目录是本机采样路径，接手者应使用新record-dir复现。
 
 运行保护说明及命令见../STRUCTURAL_SAFETY.zh-CN.md。点时间候选config/nav2_point_time_snapshot.yaml仅供失败复现。窗口自动恢复的最小复现与前后日志另存同目录ui-closure-01/，与历史ui-check-final.json（ui_validation_passed=false）并存，不篡改历史记录。实车硬件看门狗／急停及标定不在本轮验证范围。
+
+C023补充核查：导航核心、参数及依赖补丁与实际构建测试的07ab6a0保持一致，因此沿用已完成的导航／29包构建证据；未重复运行运动路线。UI初版21d08d5是历史失败版本，已验证调用修正来自3b7fd4b，报告摘要分别记录初版与修正版，不能用初版SHA代指修复。

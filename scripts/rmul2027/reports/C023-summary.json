@@ -1,0 +1,146 @@
+{
+  "owner": "Codex C023",
+  "audited_head": "dda8fbcb23fc51530a7a0ff452dcc58c5ae14a45",
+  "remote_verified_before_revision": true,
+  "navigation_core_and_configs_unchanged": true,
+  "dependency_patch_hash_and_reverse_checks_passed": true,
+  "navigation_tests_rerun": false,
+  "fresh_build_repeated": false,
+  "rviz_restart_rounds": [
+    {
+      "round": 1,
+      "pid": 144201,
+      "started_wall": 1792543644.4576185,
+      "launch_commit": "dda8fbcb23fc51530a7a0ff452dcc58c5ae14a45",
+      "scope": "Window lifecycle only, no navigation running or goals sent; existing Gazebo not touched",
+      "helper_output": "{\"offscreen_relocated\":false,\"copy_mode\":false,\"was_minimized\":false,\"foreground_requested\":true,\"project_rviz_found\":true}\n",
+      "window_probe": [
+        {
+          "handle": 2687536,
+          "title": "/home/hardy/pb2025_nav_ws/src/pb2025_sentry_nav/scripts/rmul2027/config/interactive-light.rviz - RViz (Ubuntu-22.04)",
+          "process_id": 29100,
+          "visible": true,
+          "minimized": false,
+          "cloaked": 0,
+          "rect": [
+            96,
+            56,
+            2648,
+            2138
+          ]
+        }
+      ],
+      "passed": true,
+      "closed": true
+    },
+    {
+      "round": 2,
+      "pid": 144405,
+      "started_wall": 1792543709.2790155,
+      "launch_commit": "dda8fbcb23fc51530a7a0ff452dcc58c5ae14a45",
+      "scope": "Window lifecycle only, no navigation or new Gazebo",
+      "helper_output": "{\"offscreen_relocated\":false,\"copy_mode\":false,\"was_minimized\":false,\"foreground_requested\":true,\"project_rviz_found\":true}\n",
+      "window_probe": [
+        {
+          "handle": 7342348,
+          "title": "/home/hardy/pb2025_nav_ws/src/pb2025_sentry_nav/scripts/rmul2027/config/interactive-light.rviz - RViz (Ubuntu-22.04)",
+          "process_id": 29100,
+          "visible": true,
+          "minimized": false,
+          "cloaked": 0,
+          "rect": [
+            96,
+            56,
+            2648,
+            2138
+          ]
+        }
+      ],
+      "passed": true,
+      "closed": true
+    },
+    {
+      "round": 3,
+      "pid": 144568,
+      "started_wall": 1792543782.8400002,
+      "launch_commit": "dda8fbcb23fc51530a7a0ff452dcc58c5ae14a45",
+      "scope": "Window lifecycle only, no navigation or new Gazebo",
+      "helper_output": "{\"offscreen_relocated\":false,\"copy_mode\":false,\"was_minimized\":false,\"foreground_requested\":true,\"project_rviz_found\":true}\n",
+      "window_probe": [
+        {
+          "handle": 3211648,
+          "title": "/home/hardy/pb2025_nav_ws/src/pb2025_sentry_nav/scripts/rmul2027/config/interactive-light.rviz - RViz (Ubuntu-22.04)",
+          "process_id": 29100,
+          "visible": true,
+          "minimized": false,
+          "cloaked": 0,
+          "rect": [
+            96,
+            56,
+            2648,
+            2138
+          ]
+        }
+      ],
+      "passed": true,
+      "closed": true
+    }
+  ],
+  "manual_restore_positive_control": {
+    "before_minimized": true,
+    "helper_output": "{\"offscreen_relocated\":false,\"copy_mode\":false,\"was_minimized\":true,\"foreground_requested\":true,\"project_rviz_found\":true}",
+    "after": {
+      "handle": 3211648,
+      "title": "/home/hardy/pb2025_nav_ws/src/pb2025_sentry_nav/scripts/rmul2027/config/interactive-light.rviz - RViz (Ubuntu-22.04)",
+      "process_id": 29100,
+      "visible": true,
+      "minimized": false,
+      "cloaked": 0,
+      "rect": [
+        96,
+        56,
+        2648,
+        2138
+      ]
+    }
+  },
+  "existing_bags": [
+    {
+      "metadata": "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/diagnostics/structural-20261020-224258-C022/stable-static-01/inputs/metadata.yaml",
+      "actual_message_counts": {
+        "/red_standard_robot1/livox/lidar": 1052,
+        "/red_standard_robot1/cloud_registered": 970,
+        "/red_standard_robot1/odometry": 970,
+        "/red_standard_robot1/cmd_vel_nav2_result": 179
+      }
+    },
+    {
+      "metadata": "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/diagnostics/structural-20261020-224258-C022/blocked-legacy-01/inputs/metadata.yaml",
+      "actual_message_counts": {
+        "/red_standard_robot1/livox/lidar": 1226,
+        "/red_standard_robot1/cloud_registered": 1157,
+        "/red_standard_robot1/odometry": 1156,
+        "/red_standard_robot1/cmd_vel_nav2_result": 199
+      }
+    },
+    {
+      "metadata": "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/diagnostics/pipeline-gap-20261020-214927-C021/pipeline-static-01/inputs/metadata.yaml",
+      "actual_message_counts": {
+        "/red_standard_robot1/livox/lidar": 1012,
+        "/red_standard_robot1/cloud_registered": 264,
+        "/red_standard_robot1/odometry": 264,
+        "/red_standard_robot1/cmd_vel_nav2_result": 173
+      }
+    }
+  ],
+  "remaining_limits": [
+    "point-time snapshot candidate not adopted",
+    "no proof of WSLg stability across system restart",
+    "separate downstream watchdog and real hardware not verified"
+  ],
+  "record_directory": "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/diagnostics/closure-audit-20261021-084655-C023",
+  "existing_gazebo_pids_left_untouched": [
+    139620,
+    139621
+  ]
+}

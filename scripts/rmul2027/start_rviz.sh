@@ -41,8 +41,6 @@ else
   fi
 fi
 if [ -d /mnt/wslg ] && command -v powershell.exe >/dev/null 2>&1 && command -v wslpath >/dev/null 2>&1 && [ "${RMUL2027_RESTORE_WINDOW:-1}" != 0 ]; then
-  # 必须保留用户桌面上下文：不要加 -WindowStyle Hidden（实测返回 Invalid argument），
-  # 也不要把 stdio 重定向到已关闭的 fd。restore 脚本自身轮询 30s 等待窗口出现。
   nohup powershell.exe -NoLogo -NoProfile -NonInteractive -ExecutionPolicy Bypass \
     -File "$(wslpath -w "$task_dir/restore_rviz_window.ps1")" \
     -ConfigTitle "$task_dir/config/interactive-light.rviz" \

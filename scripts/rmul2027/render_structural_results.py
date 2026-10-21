@@ -32,8 +32,10 @@ summary['point_time_contract']={**contract,'test_log':'point-time-contract-03.lo
 guards=list((root/'snapshot-full-01').rglob('guard-trigger.json'))
 summary['point_time_navigation_failure']=read(guards[0]) if guards else None
 summary['binary_source_commit']=(root/'code-commit.txt').read_text().strip()
-summary['ui_source_commit']=(root/'ui-code-commit.txt').read_text().strip() if (root/'ui-code-commit.txt').exists() else None
-summary['commit_note']='binary_source_commit was built and tested; ui_source_commit added the RViz entry; this report is a later documentation commit.'
+summary['ui_entry_initial_commit']=(root/'ui-code-commit.txt').read_text().strip() if (root/'ui-code-commit.txt').exists() else None
+summary['ui_provenance']=read(root/'ui-closure-01/verified-source.json')
+summary['ui_source_commit']=(summary['ui_provenance'] or {}).get('verified_ui_source_commit')
+summary['commit_note']='binary_source_commit was built and tested; ui_entry_initial_commit is the historical failed call; ui_source_commit identifies the independently verified fix. Later report revisions do not imply a rebuilt navigation binary.'
 summary['ui_closure']=read(root/'ui-closure-01/session.json')
 summary['clean_prepare']=read(root/'clean-prepare.json');summary['clean_build']=read(root/'clean-build.json');summary['clean_smoke']=read(root/'clean-default-smoke/session.json')
 (output/'C022-summary.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2)+'\n')
@@ -88,14 +90,15 @@ if guards:
    stamps.append(stamp);errors.append(np.nan);continue
   ratio=(stamp-times[index-1])/(times[index]-times[index-1]);aligned=truth_xy[index-1]+ratio*(truth_xy[index]-truth_xy[index-1])
   stamps.append(stamp);errors.append(np.linalg.norm(np.array(estimate['value'][:2])-aligned))
- stamps=np.array(stamps);errors=np.array(errors)
- # 采样空档处断线，不把稀疏点连成跨越空档的假连续误差曲线
+ stamps=np.array(stamps);errors=np.array(errors);sample_errors=errors.copy()
  sample_gaps=np.r_[False,np.diff(stamps)>.1];errors[sample_gaps]=np.nan
  fig,axes=plt.subplots(1,2,figsize=(11,4.3))
- axes[0].plot(truth_xy[:,0],truth_xy[:,1],label='Actual chassis',color='#247ba0')
- estimated=np.array([v['value'][:2] for v in estimates]);axes[0].plot(estimated[:,0],estimated[:,1],label='Estimated map pose',color='#d1495b')
+ truth_draw=truth_xy.copy();truth_draw[np.r_[False,np.diff(times)>.1]]=np.nan
+ axes[0].plot(truth_draw[:,0],truth_draw[:,1],label='Actual chassis',color='#247ba0')
+ estimated=np.array([v['value'][:2] for v in estimates]);axes[0].scatter(estimated[:,0],estimated[:,1],s=9,label='Estimated pose samples',color='#d1495b')
  axes[0].set_aspect('equal',adjustable='datalim');axes[0].set_xlabel('Map x (m)');axes[0].set_ylabel('Map y (m)');axes[0].legend(fontsize=8)
  axes[1].plot(stamps,errors,label='Aligned position error',color='#247ba0')
+ axes[1].scatter(stamps,sample_errors,s=9,color='#247ba0')
  axes[1].scatter([guard['stamp']],[guard['error_m']],color='#d1495b',marker='x',s=70,label='Exact guard sample')
  axes[1].axhline(.35,color='#d1495b',ls='--',label='Unchanged 0.35 m guard')
  axes[1].set_xlabel('TF source simulation stamp (s)');axes[1].set_ylabel('Position error (m)');axes[1].set_ylim(0,max(.42,guard['error_m']+.03));axes[1].legend(fontsize=8)
