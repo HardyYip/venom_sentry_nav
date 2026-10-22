@@ -52,6 +52,7 @@ FakeVelTransform::FakeVelTransform(const rclcpp::NodeOptions & options)
   input_cmd_vel_topic_ = declare_parameter<std::string>("input_cmd_vel_topic", "");
   output_cmd_vel_topic_ = declare_parameter<std::string>("output_cmd_vel_topic", "");
   spin_speed_ = declare_parameter<double>("init_spin_speed", 0.0);
+  spin_on_zero_command_ = declare_parameter<bool>("spin_on_zero_command", true);
   rotation_mode_ = declare_parameter<std::string>("rotation_mode", "additive");
   if (rotation_mode_ != "additive" && rotation_mode_ != "heading") {
     throw std::invalid_argument("rotation_mode must be additive or heading");
@@ -304,7 +305,8 @@ geometry_msgs::msg::Twist FakeVelTransform::transformVelocity(
   const geometry_msgs::msg::Twist & twist, double yaw_diff) const
 {
   geometry_msgs::msg::Twist result;
-  result.angular.z = twist.angular.z + (rotation_mode_ == "additive" ? spin_speed_ : 0.0);
+  const bool add_spin = rotation_mode_ == "additive" && (spin_on_zero_command_ || !zeroTwist(twist));
+  result.angular.z = twist.angular.z + (add_spin ? spin_speed_ : 0.0);
   result.linear.x = twist.linear.x * std::cos(yaw_diff) + twist.linear.y * std::sin(yaw_diff);
   result.linear.y = -twist.linear.x * std::sin(yaw_diff) + twist.linear.y * std::cos(yaw_diff);
   return result;

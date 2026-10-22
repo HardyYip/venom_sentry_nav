@@ -18,6 +18,7 @@ from tf2_msgs.msg import TFMessage
 p=argparse.ArgumentParser()
 p.add_argument('--record-dir',type=Path,required=True)
 p.add_argument('--rotation-mode',choices=['additive','heading'],default='additive')
+p.add_argument('--spin-on-zero-command',action=argparse.BooleanOptionalAction,default=True)
 args=p.parse_args()
 record=args.record_dir.resolve();record.mkdir(parents=True,exist_ok=False)
 rclpy.init();node=rclpy.create_node('velocity_safety_contract_test',namespace='/c022_test')
@@ -33,7 +34,7 @@ stop_pub=node.create_publisher(Bool,'safety_stop',10)
 command=[str(Path(get_package_prefix('fake_vel_transform'))/'lib/fake_vel_transform/fake_vel_transform_node'),'--ros-args','-r','__ns:=/c022_test',
          '-p','robot_base_frame:=base','-p','fake_robot_base_frame:=base_fake',
          '-p','input_cmd_vel_topic:=in','-p','output_cmd_vel_topic:=out','-p','init_spin_speed:=0.7',
-         '-p','diagnostics_period:=0.1','-p','rotation_mode:='+args.rotation_mode]
+         '-p','spin_on_zero_command:='+str(args.spin_on_zero_command).lower(),'-p','diagnostics_period:=0.1','-p','rotation_mode:='+args.rotation_mode]
 stream=(record/'node.log').open('w');proc=subprocess.Popen(command,stdout=stream,stderr=subprocess.STDOUT,start_new_session=True)
 settings={'odom':True,'plan':True,'command':True,'frozen':None,'future':0.,'yaw':0.,'invalid_pose':False,'empty_plan':False}
 cmd=[.6,.4,.2];last_publish=0.
@@ -125,7 +126,7 @@ try:
     healthy();v=Bool();v.data=True;stop_pub.publish(v);pump(.15);output_close([0.,0.,0.]);passed('software-stop-overrides-positive-command-and-spin')
     settings['command']=False;v.data=False;stop_pub.publish(v);pump(.25);output_close([0.,0.,0.]);passed('stop-release-cannot-replay-pre-stop-command')
     settings['command']=True;pump(.3);output_close([.6,.4,.9 if args.rotation_mode=='additive' else .2]);passed('stop-release-new-command-recovers')
-    healthy();cmd[:]=[0.,0.,0.];pump(.2);output_close([0.,0.,.7 if args.rotation_mode=='additive' else 0.]);passed('normal-zero-respects-rotation-mode')
+    healthy();cmd[:]=[0.,0.,0.];pump(.2);output_close([0.,0.,.7 if args.rotation_mode=='additive' and args.spin_on_zero_command else 0.]);passed('normal-zero-respects-rotation-mode-and-zero-command-policy')
     if args.rotation_mode=='heading':
         healthy();settings['yaw']=0.;target=1.2;cmd[:]=[0.,0.,0.]
         until=time.monotonic()+4.;last=time.monotonic()

@@ -12,8 +12,10 @@ import signal
 import shutil
 import subprocess
 import time
+import yaml
 import xml.etree.ElementTree as ET
 from pathlib import Path
+from dds_shm_cleanup import SharedMemoryScope
 
 parser = argparse.ArgumentParser()
 parser.add_argument('mode', choices=('scene', 'mapping', 'nav'), nargs='?', default='nav')
@@ -79,6 +81,7 @@ runtime_paths = [workspace/'install/point_lio/lib/point_lio/pointlio_mapping',
     for p in runtime_paths if p.is_file()},indent=2)+'\n')
 resources=[world_sdf,selected_gz_world,selected_manifest,logs/'nav2_params.yaml',maps/'rmul_2027_3v3.pcd',maps/'rmul_2027_3v3.yaml',maps/'rmul_2027_3v3.pgm']
 if 'rplidar_obstacles' in source_params:resources.append(folder/'rplidar_obstacle_cloud.py')
+resources.append(folder/'dds_shm_cleanup.py')
 models=[]
 for uri in ET.parse(world_sdf).findall('.//include/uri'):
     if uri.text and uri.text.startswith('model://'):
@@ -146,6 +149,8 @@ selected_tf2_library = (selected_tf2_dir or Path('/opt/ros/humble/lib')) / 'libt
 launches = []
 auxiliary = []
 streams = []
+shm_scope=SharedMemoryScope(os.environ.get("RMUL_STORAGE_RUN_ID"),logs/"dds-shm-cleanup.json")
+last_shm_capture=0.0
 
 def stop(signum, frame):
     raise KeyboardInterrupt
@@ -169,11 +174,15 @@ try:
                            stdout=settle_log, stderr=subprocess.STDOUT,
                            env=environment, timeout=120, check=True)
         if 'rplidar_obstacles' in source_params:
+            cloud_params = yaml.safe_load(source_params).get('rplidar_obstacle_cloud', {'ros__parameters': {}})
+            cloud_params_path = logs / 'rplidar_obstacle_cloud_params.yaml'
+            cloud_params_path.write_text(yaml.safe_dump({'/red_standard_robot1/rplidar_obstacle_cloud': cloud_params}))
             stream=(logs/'rplidar-obstacle-cloud.log').open('w')
             streams.append(stream)
             auxiliary.append(subprocess.Popen(
                 ['python3',str(folder/'rplidar_obstacle_cloud.py'),'--ros-args',
-                 '-r','__ns:=/red_standard_robot1','-p','use_sim_time:=true'],
+                 '-r','__ns:=/red_standard_robot1','-r','/tf:=tf','-r','/tf_static:=tf_static',
+                 '--params-file',str(cloud_params_path),'-p','use_sim_time:=true'],
                 stdout=stream,stderr=subprocess.STDOUT,env=environment,
                 start_new_session=True,pass_fds=(lock.fileno(),)))
         print('Robot and IMU settled; starting navigation.', flush=True)
@@ -194,12 +203,15 @@ try:
     print(f'RMUL 2027 {options.mode} started. Logs: {logs}', flush=True)
     print('No navigation goals are sent by this launcher. Ctrl+C stops this launch tree.', flush=True)
     while all(p.poll() is None for p in launches + auxiliary):
+        if time.monotonic()-last_shm_capture>=2.0:
+            shm_scope.capture();last_shm_capture=time.monotonic()
         time.sleep(.25)
 except KeyboardInterrupt:
     pass
 finally:
     signal.signal(signal.SIGINT, signal.SIG_IGN)
     signal.signal(signal.SIGTERM, signal.SIG_IGN)
+    shm_scope.capture()
     for child in auxiliary:
         if child.poll() is None:
             child.send_signal(signal.SIGINT)
@@ -220,4 +232,5 @@ finally:
         p.wait(timeout=5)
     for stream in streams:
         stream.close()
+    shm_scope.cleanup()
     lock.close()

@@ -1,0 +1,3232 @@
+{
+  "owner": "Codex C038",
+  "date": "2026-10-22",
+  "passed": true,
+  "params_sha256": "38f99505fff17660a639ec6239998b627bba04a5def96a0375ada738d352b9b3",
+  "fixed": {
+    "owner": "Codex C038",
+    "setup_abort_retained": null,
+    "passed": true,
+    "case_count": 12,
+    "params_sha256": "38f99505fff17660a639ec6239998b627bba04a5def96a0375ada738d352b9b3",
+    "groups": {
+      "left-near": {
+        "passed": 3,
+        "failed": 0
+      },
+      "left-far": {
+        "passed": 3,
+        "failed": 0
+      },
+      "left-reverse": {
+        "passed": 3,
+        "failed": 0
+      },
+      "right-control": {
+        "passed": 3,
+        "failed": 0
+      }
+    },
+    "max_truth_goal_error_m": 0.1918175218242993,
+    "minimum_nominal_clearance_m": 0.11608452716996244,
+    "max_aligned_localization_error_m": 0.06291647155815154,
+    "real_contacts": 0,
+    "cases": [
+      {
+        "case": "left-near-01",
+        "status": "passed",
+        "start": [
+          2.1,
+          -5.5
+        ],
+        "goal": [
+          5.0,
+          -5.5
+        ],
+        "estimated_goal_error_m": 0.16699141764108397,
+        "truth_goal_error_m": 0.14052249926422428,
+        "elapsed_wall_s": 16.678045530999952,
+        "nominal_min_clearance_m": 0.1212457896038475,
+        "max_aligned_localization_error_m": 0.032298206305348784,
+        "real_contact_messages": 0,
+        "positive_control_messages": 945,
+        "arrival_stop_state": {
+          "mode": "strict-safety-stop",
+          "classification": "safety_stop",
+          "still_spinning": false,
+          "translation_speed_mps": 9.567726822305433e-05,
+          "translation_command_mps": 0.0,
+          "angular_speed_rps": 4.1421853831130285e-11,
+          "angular_command_rps": 0.0,
+          "legacy_max_speed": 9.56772682222364e-05,
+          "legacy_max_command": 0.0,
+          "stable_stop_confirmed": true,
+          "original_1s_stop_passed": true,
+          "stop_observation_budget_sim_s": 2.0,
+          "stop_confirmation_delay_sim_s": 1.2010000000000005,
+          "threshold": 0.03,
+          "source": "chassis_odometry_gt twist and cmd_vel received at final check"
+        },
+        "first_1s_stop_snapshot": {
+          "at_sim_s": 1.0009999999999977,
+          "translation_speed_mps": 0.00011132655757946683,
+          "translation_command_mps": 0.0,
+          "angular_speed_rps": 4.370712986388834e-11,
+          "angular_command_rps": 0.0
+        },
+        "stop_confirmation_delay_sim_s": 1.2010000000000005,
+        "laser_samples": 177,
+        "laser_roi_hit_samples": 175,
+        "later_stop_state": {
+          "mode": "strict-stop",
+          "classification": "safety_stop",
+          "translation_speed_mps": 0.00012725362337012323,
+          "translation_command_mps": 0.0,
+          "angular_speed_rps": 7.791969714077181e-13,
+          "angular_command_rps": 0.0,
+          "still_spinning": false,
+          "threshold": 0.03,
+          "source": "chassis_odometry_gt twist and cmd_vel at final check"
+        },
+        "backup_runs": 0,
+        "cloud_statistics": {
+          "livox/lidar": {
+            "samples": 178,
+            "roi_hit_samples": 152,
+            "max_roi_points": 13527
+          },
+          "rplidar_obstacles": {
+            "samples": 177,
+            "roi_hit_samples": 175,
+            "max_roi_points": 79
+          },
+          "velodyne_points": {
+            "samples": 177,
+            "roi_hit_samples": 152,
+            "max_roi_points": 13671
+          },
+          "cloud_registered": {
+            "samples": 177,
+            "roi_hit_samples": 152,
+            "max_roi_points": 32
+          },
+          "registered_scan": {
+            "samples": 177,
+            "roi_hit_samples": 152,
+            "max_roi_points": 32
+          },
+          "terrain_map": {
+            "samples": 177,
+            "roi_hit_samples": 151,
+            "max_roi_points": 212
+          },
+          "terrain_map_ext": {
+            "samples": 177,
+            "roi_hit_samples": 152,
+            "max_roi_points": 224
+          }
+        },
+        "costmap_statistics": {
+          "global_costmap": {
+            "samples": 108,
+            "marked_samples": 108,
+            "zero_source_stamp_samples": 108
+          },
+          "local_costmap": {
+            "samples": 107,
+            "marked_samples": 107,
+            "zero_source_stamp_samples": 42
+          }
+        },
+        "record_dir": "/mnt/e/RMULArtifacts/pb2025_nav_ws/completion-C038/fixed-final/left-near-01"
+      },
+      {
+        "case": "left-near-02",
+        "status": "passed",
+        "start": [
+          2.1,
+          -5.5
+        ],
+        "goal": [
+          5.0,
+          -5.5
+        ],
+        "estimated_goal_error_m": 0.14168129714265792,
+        "truth_goal_error_m": 0.1371900855191329,
+        "elapsed_wall_s": 14.219863251000788,
+        "nominal_min_clearance_m": 0.13930446636305557,
+        "max_aligned_localization_error_m": 0.029395033540759077,
+        "real_contact_messages": 0,
+        "positive_control_messages": 1223,
+        "arrival_stop_state": {
+          "mode": "strict-safety-stop",
+          "classification": "safety_stop",
+          "still_spinning": false,
+          "translation_speed_mps": 3.674587500472041e-05,
+          "translation_command_mps": 0.0,
+          "angular_speed_rps": 1.0451139609714853e-10,
+          "angular_command_rps": 0.0,
+          "legacy_max_speed": 3.6745875004700465e-05,
+          "legacy_max_command": 0.0,
+          "stable_stop_confirmed": true,
+          "original_1s_stop_passed": true,
+          "stop_observation_budget_sim_s": 2.0,
+          "stop_confirmation_delay_sim_s": 1.2000000000000028,
+          "threshold": 0.03,
+          "source": "chassis_odometry_gt twist and cmd_vel received at final check"
+        },
+        "first_1s_stop_snapshot": {
+          "at_sim_s": 1.0,
+          "translation_speed_mps": 6.730847376455023e-05,
+          "translation_command_mps": 0.0,
+          "angular_speed_rps": 5.3911834676101635e-11,
+          "angular_command_rps": 0.0
+        },
+        "stop_confirmation_delay_sim_s": 1.2000000000000028,
+        "laser_samples": 188,
+        "laser_roi_hit_samples": 185,
+        "later_stop_state": {
+          "mode": "strict-stop",
+          "classification": "safety_stop",
+          "translation_speed_mps": 6.104718343016846e-05,
+          "translation_command_mps": 0.0,
+          "angular_speed_rps": 1.1312576739899589e-10,
+          "angular_command_rps": 0.0,
+          "still_spinning": false,
+          "threshold": 0.03,
+          "source": "chassis_odometry_gt twist and cmd_vel at final check"
+        },
+        "backup_runs": 0,
+        "cloud_statistics": {
+          "rplidar_obstacles": {
+            "samples": 188,
+            "roi_hit_samples": 185,
+            "max_roi_points": 77
+          },
+          "livox/lidar": {
+            "samples": 188,
+            "roi_hit_samples": 162,
+            "max_roi_points": 13228
+          },
+          "velodyne_points": {
+            "samples": 188,
+            "roi_hit_samples": 163,
+            "max_roi_points": 13430
+          },
+          "cloud_registered": {
+            "samples": 188,
+            "roi_hit_samples": 163,
+            "max_roi_points": 31
+          },
+          "terrain_map_ext": {
+            "samples": 188,
+            "roi_hit_samples": 163,
+            "max_roi_points": 197
+          },
+          "registered_scan": {
+            "samples": 188,
+            "roi_hit_samples": 162,
+            "max_roi_points": 30
+          },
+          "terrain_map": {
+            "samples": 188,
+            "roi_hit_samples": 163,
+            "max_roi_points": 197
+          }
+        },
+        "costmap_statistics": {
+          "local_costmap": {
+            "samples": 99,
+            "marked_samples": 99,
+            "zero_source_stamp_samples": 40
+          },
+          "global_costmap": {
+            "samples": 100,
+            "marked_samples": 100,
+            "zero_source_stamp_samples": 100
+          }
+        },
+        "record_dir": "/mnt/e/RMULArtifacts/pb2025_nav_ws/completion-C038/fixed-final/left-near-02"
+      },
+      {
+        "case": "left-near-03",
+        "status": "passed",
+        "start": [
+          2.1,
+          -5.5
+        ],
+        "goal": [
+          5.0,
+          -5.5
+        ],
+        "estimated_goal_error_m": 0.15006094426873406,
+        "truth_goal_error_m": 0.15678464143172646,
+        "elapsed_wall_s": 14.160219696999775,
+        "nominal_min_clearance_m": 0.11806891637234582,
+        "max_aligned_localization_error_m": 0.02809483061194985,
+        "real_contact_messages": 0,
+        "positive_control_messages": 1332,
+        "arrival_stop_state": {
+          "mode": "strict-safety-stop",
+          "classification": "safety_stop",
+          "still_spinning": false,
+          "translation_speed_mps": 0.00011974938333713665,
+          "translation_command_mps": 0.0,
+          "angular_speed_rps": 2.0126004537096986e-11,
+          "angular_command_rps": 0.0,
+          "legacy_max_speed": 0.0001197493833363483,
+          "legacy_max_command": 0.0,
+          "stable_stop_confirmed": true,
+          "original_1s_stop_passed": true,
+          "stop_observation_budget_sim_s": 2.0,
+          "stop_confirmation_delay_sim_s": 1.2010000000000005,
+          "threshold": 0.03,
+          "source": "chassis_odometry_gt twist and cmd_vel received at final check"
+        },
+        "first_1s_stop_snapshot": {
+          "at_sim_s": 1.000000000000007,
+          "translation_speed_mps": 4.865630198943478e-05,
+          "translation_command_mps": 0.0,
+          "angular_speed_rps": 3.3433046259201053e-11,
+          "angular_command_rps": 0.0
+        },
+        "stop_confirmation_delay_sim_s": 1.2010000000000005,
+        "laser_samples": 168,
+        "laser_roi_hit_samples": 166,
+        "later_stop_state": {
+          "mode": "strict-stop",
+          "classification": "safety_stop",
+          "translation_speed_mps": 1.5055399212899738e-05,
+          "translation_command_mps": 0.0,
+          "angular_speed_rps": 1.6483910505536442e-11,
+          "angular_command_rps": 0.0,
+          "still_spinning": false,
+          "threshold": 0.03,
+          "source": "chassis_odometry_gt twist and cmd_vel at final check"
+        },
+        "backup_runs": 0,
+        "cloud_statistics": {
+          "rplidar_obstacles": {
+            "samples": 168,
+            "roi_hit_samples": 166,
+            "max_roi_points": 78
+          },
+          "livox/lidar": {
+            "samples": 168,
+            "roi_hit_samples": 143,
+            "max_roi_points": 13552
+          },
+          "velodyne_points": {
+            "samples": 167,
+            "roi_hit_samples": 141,
+            "max_roi_points": 13367
+          },
+          "cloud_registered": {
+            "samples": 168,
+            "roi_hit_samples": 141,
+            "max_roi_points": 31
+          },
+          "registered_scan": {
+            "samples": 167,
+            "roi_hit_samples": 142,
+            "max_roi_points": 31
+          },
+          "terrain_map": {
+            "samples": 167,
+            "roi_hit_samples": 143,
+            "max_roi_points": 270
+          },
+          "terrain_map_ext": {
+            "samples": 167,
+            "roi_hit_samples": 142,
+            "max_roi_points": 270
+          }
+        },
+        "costmap_statistics": {
+          "local_costmap": {
+            "samples": 89,
+            "marked_samples": 89,
+            "zero_source_stamp_samples": 27
+          },
+          "global_costmap": {
+            "samples": 89,
+            "marked_samples": 89,
+            "zero_source_stamp_samples": 89
+          }
+        },
+        "record_dir": "/mnt/e/RMULArtifacts/pb2025_nav_ws/completion-C038/fixed-final/left-near-03"
+      },
+      {
+        "case": "left-far-01",
+        "status": "passed",
+        "start": [
+          1.0,
+          -5.5
+        ],
+        "goal": [
+          5.0,
+          -5.5
+        ],
+        "estimated_goal_error_m": 0.13061678585828398,
+        "truth_goal_error_m": 0.1496197382227216,
+        "elapsed_wall_s": 15.87462287299968,
+        "nominal_min_clearance_m": 0.1842230508703543,
+        "max_aligned_localization_error_m": 0.03938032509280525,
+        "real_contact_messages": 0,
+        "positive_control_messages": 1254,
+        "arrival_stop_state": {
+          "mode": "strict-safety-stop",
+          "classification": "safety_stop",
+          "still_spinning": false,
+          "translation_speed_mps": 7.530218449494895e-05,
+          "translation_command_mps": 0.0,
+          "angular_speed_rps": 2.7403058665368047e-11,
+          "angular_command_rps": 0.0,
+          "legacy_max_speed": 7.530218449363504e-05,
+          "legacy_max_command": 0.0,
+          "stable_stop_confirmed": true,
+          "original_1s_stop_passed": true,
+          "stop_observation_budget_sim_s": 2.0,
+          "stop_confirmation_delay_sim_s": 1.2000000000000028,
+          "threshold": 0.03,
+          "source": "chassis_odometry_gt twist and cmd_vel received at final check"
+        },
+        "first_1s_stop_snapshot": {
+          "at_sim_s": 1.0,
+          "translation_speed_mps": 4.348992198848112e-05,
+          "translation_command_mps": 0.0,
+          "angular_speed_rps": 2.066621470334784e-11,
+          "angular_command_rps": 0.0
+        },
+        "stop_confirmation_delay_sim_s": 1.2000000000000028,
+        "laser_samples": 201,
+        "laser_roi_hit_samples": 197,
+        "later_stop_state": {
+          "mode": "strict-stop",
+          "classification": "safety_stop",
+          "translation_speed_mps": 4.411287025163641e-05,
+          "translation_command_mps": 0.0,
+          "angular_speed_rps": 2.111625602899421e-11,
+          "angular_command_rps": 0.0,
+          "still_spinning": false,
+          "threshold": 0.03,
+          "source": "chassis_odometry_gt twist and cmd_vel at final check"
+        },
+        "backup_runs": 0,
+        "cloud_statistics": {
+          "rplidar_obstacles": {
+            "samples": 201,
+            "roi_hit_samples": 197,
+            "max_roi_points": 70
+          },
+          "livox/lidar": {
+            "samples": 201,
+            "roi_hit_samples": 169,
+            "max_roi_points": 11551
+          },
+          "cloud_registered": {
+            "samples": 201,
+            "roi_hit_samples": 167,
+            "max_roi_points": 32
+          },
+          "terrain_map": {
+            "samples": 201,
+            "roi_hit_samples": 105,
+            "max_roi_points": 235
+          },
+          "terrain_map_ext": {
+            "samples": 201,
+            "roi_hit_samples": 109,
+            "max_roi_points": 221
+          },
+          "registered_scan": {
+            "samples": 201,
+            "roi_hit_samples": 167,
+            "max_roi_points": 33
+          },
+          "velodyne_points": {
+            "samples": 200,
+            "roi_hit_samples": 166,
+            "max_roi_points": 11748
+          }
+        },
+        "costmap_statistics": {
+          "local_costmap": {
+            "samples": 110,
+            "marked_samples": 110,
+            "zero_source_stamp_samples": 42
+          },
+          "global_costmap": {
+            "samples": 110,
+            "marked_samples": 110,
+            "zero_source_stamp_samples": 110
+          }
+        },
+        "record_dir": "/mnt/e/RMULArtifacts/pb2025_nav_ws/completion-C038/fixed-final/left-far-01"
+      },
+      {
+        "case": "left-far-02",
+        "status": "passed",
+        "start": [
+          1.0,
+          -5.5
+        ],
+        "goal": [
+          5.0,
+          -5.5
+        ],
+        "estimated_goal_error_m": 0.17851186304273955,
+        "truth_goal_error_m": 0.16109444585276303,
+        "elapsed_wall_s": 18.291610109999965,
+        "nominal_min_clearance_m": 0.11608452716996244,
+        "max_aligned_localization_error_m": 0.04902350052268949,
+        "real_contact_messages": 0,
+        "positive_control_messages": 1345,
+        "arrival_stop_state": {
+          "mode": "strict-safety-stop",
+          "classification": "safety_stop",
+          "still_spinning": false,
+          "translation_speed_mps": 4.9301535477137005e-05,
+          "translation_command_mps": 0.0,
+          "angular_speed_rps": 1.5600587312127135e-10,
+          "angular_command_rps": 0.0,
+          "legacy_max_speed": 4.930153547694436e-05,
+          "legacy_max_command": 0.0,
+          "stable_stop_confirmed": true,
+          "original_1s_stop_passed": true,
+          "stop_observation_budget_sim_s": 2.0,
+          "stop_confirmation_delay_sim_s": 1.2010000000000076,
+          "threshold": 0.03,
+          "source": "chassis_odometry_gt twist and cmd_vel received at final check"
+        },
+        "first_1s_stop_snapshot": {
+          "at_sim_s": 1.0,
+          "translation_speed_mps": 7.325362840896538e-05,
+          "translation_command_mps": 0.0,
+          "angular_speed_rps": 1.6302471409712423e-10,
+          "angular_command_rps": 0.0
+        },
+        "stop_confirmation_delay_sim_s": 1.2010000000000076,
+        "laser_samples": 230,
+        "laser_roi_hit_samples": 226,
+        "later_stop_state": {
+          "mode": "strict-stop",
+          "classification": "safety_stop",
+          "translation_speed_mps": 6.740288130264003e-05,
+          "translation_command_mps": 0.0,
+          "angular_speed_rps": 2.0647357859300056e-10,
+          "angular_command_rps": 0.0,
+          "still_spinning": false,
+          "threshold": 0.03,
+          "source": "chassis_odometry_gt twist and cmd_vel at final check"
+        },
+        "backup_runs": 0,
+        "cloud_statistics": {
+          "rplidar_obstacles": {
+            "samples": 230,
+            "roi_hit_samples": 226,
+            "max_roi_points": 82
+          },
+          "livox/lidar": {
+            "samples": 230,
+            "roi_hit_samples": 191,
+            "max_roi_points": 14286
+          },
+          "cloud_registered": {
+            "samples": 230,
+            "roi_hit_samples": 190,
+            "max_roi_points": 31
+          },
+          "terrain_map_ext": {
+            "samples": 230,
+            "roi_hit_samples": 191,
+            "max_roi_points": 207
+          },
+          "registered_scan": {
+            "samples": 230,
+            "roi_hit_samples": 191,
+            "max_roi_points": 30
+          },
+          "terrain_map": {
+            "samples": 230,
+            "roi_hit_samples": 191,
+            "max_roi_points": 207
+          },
+          "velodyne_points": {
+            "samples": 230,
+            "roi_hit_samples": 191,
+            "max_roi_points": 14300
+          }
+        },
+        "costmap_statistics": {
+          "local_costmap": {
+            "samples": 123,
+            "marked_samples": 123,
+            "zero_source_stamp_samples": 42
+          },
+          "global_costmap": {
+            "samples": 124,
+            "marked_samples": 124,
+            "zero_source_stamp_samples": 124
+          }
+        },
+        "record_dir": "/mnt/e/RMULArtifacts/pb2025_nav_ws/completion-C038/fixed-final/left-far-02"
+      },
+      {
+        "case": "left-far-03",
+        "status": "passed",
+        "start": [
+          1.0,
+          -5.5
+        ],
+        "goal": [
+          5.0,
+          -5.5
+        ],
+        "estimated_goal_error_m": 0.2078750241991148,
+        "truth_goal_error_m": 0.16929996881991732,
+        "elapsed_wall_s": 16.625832835999972,
+        "nominal_min_clearance_m": 0.13434500448736778,
+        "max_aligned_localization_error_m": 0.060788074530308885,
+        "real_contact_messages": 0,
+        "positive_control_messages": 1307,
+        "arrival_stop_state": {
+          "mode": "strict-safety-stop",
+          "classification": "safety_stop",
+          "still_spinning": false,
+          "translation_speed_mps": 5.78482439350253e-05,
+          "translation_command_mps": 0.0,
+          "angular_speed_rps": 9.874540529784122e-12,
+          "angular_command_rps": 0.0,
+          "legacy_max_speed": 5.784824393459583e-05,
+          "legacy_max_command": 0.0,
+          "stable_stop_confirmed": true,
+          "original_1s_stop_passed": true,
+          "stop_observation_budget_sim_s": 2.0,
+          "stop_confirmation_delay_sim_s": 1.2000000000000028,
+          "threshold": 0.03,
+          "source": "chassis_odometry_gt twist and cmd_vel received at final check"
+        },
+        "first_1s_stop_snapshot": {
+          "at_sim_s": 1.0,
+          "translation_speed_mps": 2.4418650965799855e-05,
+          "translation_command_mps": 0.0,
+          "angular_speed_rps": 8.730143120476711e-12,
+          "angular_command_rps": 0.0
+        },
+        "stop_confirmation_delay_sim_s": 1.2000000000000028,
+        "laser_samples": 185,
+        "laser_roi_hit_samples": 181,
+        "later_stop_state": {
+          "mode": "strict-stop",
+          "classification": "safety_stop",
+          "translation_speed_mps": 4.411228955057831e-05,
+          "translation_command_mps": 0.0,
+          "angular_speed_rps": 7.52807339299296e-12,
+          "angular_command_rps": 0.0,
+          "still_spinning": false,
+          "threshold": 0.03,
+          "source": "chassis_odometry_gt twist and cmd_vel at final check"
+        },
+        "backup_runs": 0,
+        "cloud_statistics": {
+          "rplidar_obstacles": {
+            "samples": 185,
+            "roi_hit_samples": 181,
+            "max_roi_points": 81
+          },
+          "livox/lidar": {
+            "samples": 184,
+            "roi_hit_samples": 151,
+            "max_roi_points": 13977
+          },
+          "velodyne_points": {
+            "samples": 184,
+            "roi_hit_samples": 151,
+            "max_roi_points": 13977
+          },
+          "cloud_registered": {
+            "samples": 184,
+            "roi_hit_samples": 151,
+            "max_roi_points": 30
+          },
+          "registered_scan": {
+            "samples": 184,
+            "roi_hit_samples": 151,
+            "max_roi_points": 30
+          },
+          "terrain_map_ext": {
+            "samples": 184,
+            "roi_hit_samples": 151,
+            "max_roi_points": 231
+          },
+          "terrain_map": {
+            "samples": 184,
+            "roi_hit_samples": 151,
+            "max_roi_points": 249
+          }
+        },
+        "costmap_statistics": {
+          "global_costmap": {
+            "samples": 104,
+            "marked_samples": 104,
+            "zero_source_stamp_samples": 104
+          },
+          "local_costmap": {
+            "samples": 103,
+            "marked_samples": 103,
+            "zero_source_stamp_samples": 34
+          }
+        },
+        "record_dir": "/mnt/e/RMULArtifacts/pb2025_nav_ws/completion-C038/fixed-final/left-far-03"
+      },
+      {
+        "case": "left-reverse-01",
+        "status": "passed",
+        "start": [
+          5.0,
+          -5.5
+        ],
+        "goal": [
+          1.0,
+          -5.5
+        ],
+        "estimated_goal_error_m": 0.0793719698936221,
+        "truth_goal_error_m": 0.10417238302861649,
+        "elapsed_wall_s": 17.36278230700009,
+        "nominal_min_clearance_m": 0.14684486106231465,
+        "max_aligned_localization_error_m": 0.0301637928962625,
+        "real_contact_messages": 0,
+        "positive_control_messages": 1369,
+        "arrival_stop_state": {
+          "mode": "strict-safety-stop",
+          "classification": "safety_stop",
+          "still_spinning": false,
+          "translation_speed_mps": 7.391503867336117e-05,
+          "translation_command_mps": 0.0,
+          "angular_speed_rps": 1.4316281653656207e-11,
+          "angular_command_rps": 0.0,
+          "legacy_max_speed": 7.391503867310836e-05,
+          "legacy_max_command": 0.0,
+          "stable_stop_confirmed": true,
+          "original_1s_stop_passed": true,
+          "stop_observation_budget_sim_s": 2.0,
+          "stop_confirmation_delay_sim_s": 1.203000000000003,
+          "threshold": 0.03,
+          "source": "chassis_odometry_gt twist and cmd_vel received at final check"
+        },
+        "first_1s_stop_snapshot": {
+          "at_sim_s": 1.0,
+          "translation_speed_mps": 1.9134744210949305e-05,
+          "translation_command_mps": 0.0,
+          "angular_speed_rps": 1.2766100651633972e-11,
+          "angular_command_rps": 0.0
+        },
+        "stop_confirmation_delay_sim_s": 1.203000000000003,
+        "laser_samples": 223,
+        "laser_roi_hit_samples": 199,
+        "later_stop_state": {
+          "mode": "strict-stop",
+          "classification": "safety_stop",
+          "translation_speed_mps": 4.5054730964830615e-05,
+          "translation_command_mps": 0.0,
+          "angular_speed_rps": 2.289462977171001e-11,
+          "angular_command_rps": 0.0,
+          "still_spinning": false,
+          "threshold": 0.03,
+          "source": "chassis_odometry_gt twist and cmd_vel at final check"
+        },
+        "backup_runs": 0,
+        "cloud_statistics": {
+          "rplidar_obstacles": {
+            "samples": 223,
+            "roi_hit_samples": 199,
+            "max_roi_points": 79
+          },
+          "livox/lidar": {
+            "samples": 223,
+            "roi_hit_samples": 167,
+            "max_roi_points": 13716
+          },
+          "velodyne_points": {
+            "samples": 223,
+            "roi_hit_samples": 167,
+            "max_roi_points": 13716
+          },
+          "terrain_map_ext": {
+            "samples": 223,
+            "roi_hit_samples": 166,
+            "max_roi_points": 244
+          },
+          "terrain_map": {
+            "samples": 223,
+            "roi_hit_samples": 166,
+            "max_roi_points": 218
+          },
+          "cloud_registered": {
+            "samples": 222,
+            "roi_hit_samples": 167,
+            "max_roi_points": 32
+          },
+          "registered_scan": {
+            "samples": 222,
+            "roi_hit_samples": 167,
+            "max_roi_points": 32
+          }
+        },
+        "costmap_statistics": {
+          "global_costmap": {
+            "samples": 117,
+            "marked_samples": 117,
+            "zero_source_stamp_samples": 117
+          },
+          "local_costmap": {
+            "samples": 117,
+            "marked_samples": 117,
+            "zero_source_stamp_samples": 41
+          }
+        },
+        "record_dir": "/mnt/e/RMULArtifacts/pb2025_nav_ws/completion-C038/fixed-final/left-reverse-01"
+      },
+      {
+        "case": "left-reverse-02",
+        "status": "passed",
+        "start": [
+          5.0,
+          -5.5
+        ],
+        "goal": [
+          1.0,
+          -5.5
+        ],
+        "estimated_goal_error_m": 0.04174408723609579,
+        "truth_goal_error_m": 0.09896578675143758,
+        "elapsed_wall_s": 18.51823834300012,
+        "nominal_min_clearance_m": 0.14921042814556973,
+        "max_aligned_localization_error_m": 0.057699998940456354,
+        "real_contact_messages": 0,
+        "positive_control_messages": 1243,
+        "arrival_stop_state": {
+          "mode": "strict-safety-stop",
+          "classification": "safety_stop",
+          "still_spinning": false,
+          "translation_speed_mps": 8.641490972549088e-05,
+          "translation_command_mps": 0.0,
+          "angular_speed_rps": 5.16272211465591e-13,
+          "angular_command_rps": 0.0,
+          "legacy_max_speed": 8.641490972544309e-05,
+          "legacy_max_command": 0.0,
+          "stable_stop_confirmed": true,
+          "original_1s_stop_passed": true,
+          "stop_observation_budget_sim_s": 2.0,
+          "stop_confirmation_delay_sim_s": 1.2000000000000028,
+          "threshold": 0.03,
+          "source": "chassis_odometry_gt twist and cmd_vel received at final check"
+        },
+        "first_1s_stop_snapshot": {
+          "at_sim_s": 1.0,
+          "translation_speed_mps": 5.0608470890499764e-05,
+          "translation_command_mps": 0.0,
+          "angular_speed_rps": 2.172891155439013e-11,
+          "angular_command_rps": 0.0
+        },
+        "stop_confirmation_delay_sim_s": 1.2000000000000028,
+        "laser_samples": 199,
+        "laser_roi_hit_samples": 194,
+        "later_stop_state": {
+          "mode": "strict-stop",
+          "classification": "safety_stop",
+          "translation_speed_mps": 9.356328758315488e-05,
+          "translation_command_mps": 0.0,
+          "angular_speed_rps": 2.3240063964335287e-11,
+          "angular_command_rps": 0.0,
+          "still_spinning": false,
+          "threshold": 0.03,
+          "source": "chassis_odometry_gt twist and cmd_vel at final check"
+        },
+        "backup_runs": 0,
+        "cloud_statistics": {
+          "cloud_registered": {
+            "samples": 199,
+            "roi_hit_samples": 144,
+            "max_roi_points": 33
+          },
+          "registered_scan": {
+            "samples": 199,
+            "roi_hit_samples": 144,
+            "max_roi_points": 33
+          },
+          "terrain_map": {
+            "samples": 199,
+            "roi_hit_samples": 143,
+            "max_roi_points": 207
+          },
+          "terrain_map_ext": {
+            "samples": 199,
+            "roi_hit_samples": 141,
+            "max_roi_points": 191
+          },
+          "rplidar_obstacles": {
+            "samples": 199,
+            "roi_hit_samples": 194,
+            "max_roi_points": 74
+          },
+          "livox/lidar": {
+            "samples": 199,
+            "roi_hit_samples": 144,
+            "max_roi_points": 12849
+          },
+          "velodyne_points": {
+            "samples": 199,
+            "roi_hit_samples": 144,
+            "max_roi_points": 12849
+          }
+        },
+        "costmap_statistics": {
+          "local_costmap": {
+            "samples": 112,
+            "marked_samples": 112,
+            "zero_source_stamp_samples": 34
+          },
+          "global_costmap": {
+            "samples": 112,
+            "marked_samples": 112,
+            "zero_source_stamp_samples": 112
+          }
+        },
+        "record_dir": "/mnt/e/RMULArtifacts/pb2025_nav_ws/completion-C038/fixed-final/left-reverse-02"
+      },
+      {
+        "case": "left-reverse-03",
+        "status": "passed",
+        "start": [
+          5.0,
+          -5.5
+        ],
+        "goal": [
+          1.0,
+          -5.5
+        ],
+        "estimated_goal_error_m": 0.12338080109613166,
+        "truth_goal_error_m": 0.12625123931422091,
+        "elapsed_wall_s": 19.22752765899895,
+        "nominal_min_clearance_m": 0.1322515293256333,
+        "max_aligned_localization_error_m": 0.06291647155815154,
+        "real_contact_messages": 0,
+        "positive_control_messages": 1344,
+        "arrival_stop_state": {
+          "mode": "strict-safety-stop",
+          "classification": "safety_stop",
+          "still_spinning": false,
+          "translation_speed_mps": 3.0472512033035572e-05,
+          "translation_command_mps": 0.0,
+          "angular_speed_rps": 2.453249954709637e-11,
+          "angular_command_rps": 0.0,
+          "legacy_max_speed": 3.047251203280197e-05,
+          "legacy_max_command": 0.0,
+          "stable_stop_confirmed": true,
+          "original_1s_stop_passed": true,
+          "stop_observation_budget_sim_s": 2.0,
+          "stop_confirmation_delay_sim_s": 1.2000000000000028,
+          "threshold": 0.03,
+          "source": "chassis_odometry_gt twist and cmd_vel received at final check"
+        },
+        "first_1s_stop_snapshot": {
+          "at_sim_s": 1.0,
+          "translation_speed_mps": 6.854951345270202e-05,
+          "translation_command_mps": 0.0,
+          "angular_speed_rps": 3.586359925503078e-11,
+          "angular_command_rps": 0.0
+        },
+        "stop_confirmation_delay_sim_s": 1.2000000000000028,
+        "laser_samples": 221,
+        "laser_roi_hit_samples": 218,
+        "later_stop_state": {
+          "mode": "strict-stop",
+          "classification": "safety_stop",
+          "translation_speed_mps": 7.665351462790721e-05,
+          "translation_command_mps": 0.0,
+          "angular_speed_rps": 1.4294770515109833e-11,
+          "angular_command_rps": 0.0,
+          "still_spinning": false,
+          "threshold": 0.03,
+          "source": "chassis_odometry_gt twist and cmd_vel at final check"
+        },
+        "backup_runs": 0,
+        "cloud_statistics": {
+          "livox/lidar": {
+            "samples": 221,
+            "roi_hit_samples": 182,
+            "max_roi_points": 13338
+          },
+          "velodyne_points": {
+            "samples": 221,
+            "roi_hit_samples": 182,
+            "max_roi_points": 13338
+          },
+          "rplidar_obstacles": {
+            "samples": 221,
+            "roi_hit_samples": 218,
+            "max_roi_points": 77
+          },
+          "registered_scan": {
+            "samples": 221,
+            "roi_hit_samples": 181,
+            "max_roi_points": 31
+          },
+          "terrain_map": {
+            "samples": 221,
+            "roi_hit_samples": 180,
+            "max_roi_points": 217
+          },
+          "terrain_map_ext": {
+            "samples": 221,
+            "roi_hit_samples": 180,
+            "max_roi_points": 217
+          },
+          "cloud_registered": {
+            "samples": 220,
+            "roi_hit_samples": 180,
+            "max_roi_points": 29
+          }
+        },
+        "costmap_statistics": {
+          "local_costmap": {
+            "samples": 124,
+            "marked_samples": 124,
+            "zero_source_stamp_samples": 41
+          },
+          "global_costmap": {
+            "samples": 124,
+            "marked_samples": 124,
+            "zero_source_stamp_samples": 124
+          }
+        },
+        "record_dir": "/mnt/e/RMULArtifacts/pb2025_nav_ws/completion-C038/fixed-final/left-reverse-03"
+      },
+      {
+        "case": "right-control-01",
+        "status": "passed",
+        "start": [
+          5.0,
+          -0.2
+        ],
+        "goal": [
+          8.3,
+          -0.2
+        ],
+        "estimated_goal_error_m": 0.175771451448559,
+        "truth_goal_error_m": 0.18776548278656582,
+        "elapsed_wall_s": 14.425757199000145,
+        "nominal_min_clearance_m": 0.26785705676756544,
+        "max_aligned_localization_error_m": 0.04178966525265744,
+        "real_contact_messages": 0,
+        "positive_control_messages": 1345,
+        "arrival_stop_state": {
+          "mode": "strict-safety-stop",
+          "classification": "safety_stop",
+          "still_spinning": false,
+          "translation_speed_mps": 8.148637143411301e-05,
+          "translation_command_mps": 0.0,
+          "angular_speed_rps": 2.5631094497981684e-11,
+          "angular_command_rps": 0.0,
+          "legacy_max_speed": 8.148637143383882e-05,
+          "legacy_max_command": 0.0,
+          "stable_stop_confirmed": true,
+          "original_1s_stop_passed": true,
+          "stop_observation_budget_sim_s": 2.0,
+          "stop_confirmation_delay_sim_s": 1.2009999999999934,
+          "threshold": 0.03,
+          "source": "chassis_odometry_gt twist and cmd_vel received at final check"
+        },
+        "first_1s_stop_snapshot": {
+          "at_sim_s": 1.0,
+          "translation_speed_mps": 4.956223193987427e-05,
+          "translation_command_mps": 0.0,
+          "angular_speed_rps": 2.755131314021364e-11,
+          "angular_command_rps": 0.0
+        },
+        "stop_confirmation_delay_sim_s": 1.2009999999999934,
+        "laser_samples": 181,
+        "laser_roi_hit_samples": 176,
+        "later_stop_state": {
+          "mode": "strict-stop",
+          "classification": "safety_stop",
+          "translation_speed_mps": 3.9841536095346345e-05,
+          "translation_command_mps": 0.0,
+          "angular_speed_rps": 8.349875296040412e-12,
+          "angular_command_rps": 0.0,
+          "still_spinning": false,
+          "threshold": 0.03,
+          "source": "chassis_odometry_gt twist and cmd_vel at final check"
+        },
+        "backup_runs": 0,
+        "cloud_statistics": {
+          "rplidar_obstacles": {
+            "samples": 181,
+            "roi_hit_samples": 176,
+            "max_roi_points": 63
+          },
+          "livox/lidar": {
+            "samples": 181,
+            "roi_hit_samples": 148,
+            "max_roi_points": 9843
+          },
+          "velodyne_points": {
+            "samples": 181,
+            "roi_hit_samples": 148,
+            "max_roi_points": 9843
+          },
+          "cloud_registered": {
+            "samples": 181,
+            "roi_hit_samples": 147,
+            "max_roi_points": 34
+          },
+          "registered_scan": {
+            "samples": 181,
+            "roi_hit_samples": 147,
+            "max_roi_points": 34
+          },
+          "terrain_map": {
+            "samples": 181,
+            "roi_hit_samples": 142,
+            "max_roi_points": 231
+          },
+          "terrain_map_ext": {
+            "samples": 181,
+            "roi_hit_samples": 142,
+            "max_roi_points": 217
+          }
+        },
+        "costmap_statistics": {
+          "local_costmap": {
+            "samples": 97,
+            "marked_samples": 97,
+            "zero_source_stamp_samples": 34
+          },
+          "global_costmap": {
+            "samples": 97,
+            "marked_samples": 97,
+            "zero_source_stamp_samples": 97
+          }
+        },
+        "record_dir": "/mnt/e/RMULArtifacts/pb2025_nav_ws/completion-C038/fixed-final/right-control-01"
+      },
+      {
+        "case": "right-control-02",
+        "status": "passed",
+        "start": [
+          5.0,
+          -0.2
+        ],
+        "goal": [
+          8.3,
+          -0.2
+        ],
+        "estimated_goal_error_m": 0.19082916591764543,
+        "truth_goal_error_m": 0.1918175218242993,
+        "elapsed_wall_s": 16.220981755999674,
+        "nominal_min_clearance_m": 0.26319590774703433,
+        "max_aligned_localization_error_m": 0.033600856000936624,
+        "real_contact_messages": 0,
+        "positive_control_messages": 1346,
+        "arrival_stop_state": {
+          "mode": "strict-safety-stop",
+          "classification": "safety_stop",
+          "still_spinning": false,
+          "translation_speed_mps": 6.275153802794511e-05,
+          "translation_command_mps": 0.0,
+          "angular_speed_rps": 8.734996390006596e-11,
+          "angular_command_rps": 0.0,
+          "legacy_max_speed": 6.275153802794423e-05,
+          "legacy_max_command": 0.0,
+          "stable_stop_confirmed": true,
+          "original_1s_stop_passed": true,
+          "stop_observation_budget_sim_s": 2.0,
+          "stop_confirmation_delay_sim_s": 1.2000000000000028,
+          "threshold": 0.03,
+          "source": "chassis_odometry_gt twist and cmd_vel received at final check"
+        },
+        "first_1s_stop_snapshot": {
+          "at_sim_s": 1.0,
+          "translation_speed_mps": 2.742493401558114e-05,
+          "translation_command_mps": 0.0,
+          "angular_speed_rps": 1.0236285954134195e-10,
+          "angular_command_rps": 0.0
+        },
+        "stop_confirmation_delay_sim_s": 1.2000000000000028,
+        "laser_samples": 174,
+        "laser_roi_hit_samples": 170,
+        "later_stop_state": {
+          "mode": "strict-stop",
+          "classification": "safety_stop",
+          "translation_speed_mps": 0.00011388893874479292,
+          "translation_command_mps": 0.0,
+          "angular_speed_rps": 8.911215870616505e-11,
+          "angular_command_rps": 0.0,
+          "still_spinning": false,
+          "threshold": 0.03,
+          "source": "chassis_odometry_gt twist and cmd_vel at final check"
+        },
+        "backup_runs": 0,
+        "cloud_statistics": {
+          "rplidar_obstacles": {
+            "samples": 174,
+            "roi_hit_samples": 170,
+            "max_roi_points": 63
+          },
+          "registered_scan": {
+            "samples": 174,
+            "roi_hit_samples": 140,
+            "max_roi_points": 32
+          },
+          "cloud_registered": {
+            "samples": 174,
+            "roi_hit_samples": 140,
+            "max_roi_points": 32
+          },
+          "terrain_map": {
+            "samples": 174,
+            "roi_hit_samples": 138,
+            "max_roi_points": 233
+          },
+          "terrain_map_ext": {
+            "samples": 174,
+            "roi_hit_samples": 140,
+            "max_roi_points": 233
+          },
+          "livox/lidar": {
+            "samples": 173,
+            "roi_hit_samples": 139,
+            "max_roi_points": 9567
+          },
+          "velodyne_points": {
+            "samples": 173,
+            "roi_hit_samples": 139,
+            "max_roi_points": 9567
+          }
+        },
+        "costmap_statistics": {
+          "global_costmap": {
+            "samples": 101,
+            "marked_samples": 101,
+            "zero_source_stamp_samples": 101
+          },
+          "local_costmap": {
+            "samples": 101,
+            "marked_samples": 101,
+            "zero_source_stamp_samples": 34
+          }
+        },
+        "record_dir": "/mnt/e/RMULArtifacts/pb2025_nav_ws/completion-C038/fixed-final/right-control-02"
+      },
+      {
+        "case": "right-control-03",
+        "status": "passed",
+        "start": [
+          5.0,
+          -0.2
+        ],
+        "goal": [
+          8.3,
+          -0.2
+        ],
+        "estimated_goal_error_m": 0.12703086679906803,
+        "truth_goal_error_m": 0.17386459234930612,
+        "elapsed_wall_s": 20.414020227999572,
+        "nominal_min_clearance_m": 0.26948759062005645,
+        "max_aligned_localization_error_m": 0.04683825743647273,
+        "real_contact_messages": 0,
+        "positive_control_messages": 1080,
+        "arrival_stop_state": {
+          "mode": "strict-safety-stop",
+          "classification": "safety_stop",
+          "still_spinning": false,
+          "translation_speed_mps": 1.0272689360367327e-05,
+          "translation_command_mps": 0.0,
+          "angular_speed_rps": 9.228532183881251e-13,
+          "angular_command_rps": 0.0,
+          "legacy_max_speed": 1.027268936035889e-05,
+          "legacy_max_command": 0.0,
+          "stable_stop_confirmed": true,
+          "original_1s_stop_passed": true,
+          "stop_observation_budget_sim_s": 2.0,
+          "stop_confirmation_delay_sim_s": 1.2009999999999934,
+          "threshold": 0.03,
+          "source": "chassis_odometry_gt twist and cmd_vel received at final check"
+        },
+        "first_1s_stop_snapshot": {
+          "at_sim_s": 1.0,
+          "translation_speed_mps": 5.200991476192663e-05,
+          "translation_command_mps": 0.0,
+          "angular_speed_rps": 9.08866520533917e-13,
+          "angular_command_rps": 0.0
+        },
+        "stop_confirmation_delay_sim_s": 1.2009999999999934,
+        "laser_samples": 167,
+        "laser_roi_hit_samples": 166,
+        "later_stop_state": {
+          "mode": "strict-stop",
+          "classification": "safety_stop",
+          "translation_speed_mps": 1.0210907709567372e-05,
+          "translation_command_mps": 0.0,
+          "angular_speed_rps": 9.228770461506123e-13,
+          "angular_command_rps": 0.0,
+          "still_spinning": false,
+          "threshold": 0.03,
+          "source": "chassis_odometry_gt twist and cmd_vel at final check"
+        },
+        "backup_runs": 0,
+        "cloud_statistics": {
+          "livox/lidar": {
+            "samples": 167,
+            "roi_hit_samples": 140,
+            "max_roi_points": 9610
+          },
+          "registered_scan": {
+            "samples": 167,
+            "roi_hit_samples": 140,
+            "max_roi_points": 32
+          },
+          "terrain_map": {
+            "samples": 167,
+            "roi_hit_samples": 139,
+            "max_roi_points": 221
+          },
+          "terrain_map_ext": {
+            "samples": 167,
+            "roi_hit_samples": 142,
+            "max_roi_points": 233
+          },
+          "rplidar_obstacles": {
+            "samples": 167,
+            "roi_hit_samples": 166,
+            "max_roi_points": 61
+          },
+          "velodyne_points": {
+            "samples": 167,
+            "roi_hit_samples": 138,
+            "max_roi_points": 9650
+          },
+          "cloud_registered": {
+            "samples": 167,
+            "roi_hit_samples": 138,
+            "max_roi_points": 32
+          }
+        },
+        "costmap_statistics": {
+          "global_costmap": {
+            "samples": 121,
+            "marked_samples": 121,
+            "zero_source_stamp_samples": 121
+          },
+          "local_costmap": {
+            "samples": 121,
+            "marked_samples": 121,
+            "zero_source_stamp_samples": 35
+          }
+        },
+        "record_dir": "/mnt/e/RMULArtifacts/pb2025_nav_ws/completion-C038/fixed-final/right-control-03"
+      }
+    ],
+    "limits": [
+      "four prescribed fixed scenarios only",
+      "clearance uses nominal rectangle, physical contact sensor is authoritative",
+      "global costmap updates have zero source timestamp",
+      "queued real LaserScan samples and converted clouds preserve source timestamps",
+      "spin 3.14 while commanded motion; zero input suppresses injected spin; original one-second all-zero snapshot and stable stop both required"
+    ]
+  },
+  "moving": {
+    "owner": "Codex C038",
+    "passed": true,
+    "case_count": 3,
+    "params_sha256": "38f99505fff17660a639ec6239998b627bba04a5def96a0375ada738d352b9b3",
+    "scenario": {
+      "label": "headon",
+      "start": [
+        4.5,
+        -0.2
+      ],
+      "goal": [
+        9.3,
+        -0.2
+      ],
+      "opponent_start": [
+        8.0,
+        -0.2
+      ],
+      "opponent_end": [
+        4.5,
+        -0.2
+      ],
+      "speed": 0.5
+    },
+    "cases": [
+      {
+        "case": "headon-01",
+        "status": "passed",
+        "behavior": "detour_and_arrive",
+        "estimated_goal_error_m": 0.1531581781467955,
+        "truth_goal_error_m": 0.16930975644033716,
+        "elapsed_wall_s": 15.586414176999824,
+        "nominal_min_footprint_clearance_m": 0.17203162106927095,
+        "min_simultaneous_gazebo_center_distance_m": 0.7976941373823484,
+        "nominal_circumscribed_clearance_lower_bound_m": 0.09757514961055408,
+        "measured_opponent_speed_mps": 0.5001157440258919,
+        "nominal_speed_each_mps": 0.5,
+        "robot_goal_speed_peak_mps": 0.5036839817749098,
+        "initial_distance_at_move_trigger_m": 3.5418767465842005,
+        "max_lateral_deviation_m": 0.9550843178708937,
+        "real_navigation_contacts": 0,
+        "moving_collision_positive_control": {
+          "event": "motion_probe",
+          "ok": true,
+          "created": true,
+          "removed": true,
+          "contact_messages": 1209,
+          "begin_sim": 57.177,
+          "first_contact_sim": 58.109,
+          "speed_mps": 0.5,
+          "distance_m": 1.0
+        },
+        "motion_positive_first_contact_record": {
+          "sim": 58.109,
+          "probe": true,
+          "message": {
+            "header": {
+              "stamp": {
+                "sec": "58",
+                "nsec": 109000000
+              }
+            },
+            "contact": [
+              {
+                "header": {
+                  "stamp": {
+                    "sec": "58",
+                    "nsec": 109000000
+                  }
+                },
+                "collision1": {
+                  "id": "133",
+                  "name": "c020_opponent_cart::cart::cart_collision"
+                },
+                "collision2": {
+                  "id": "143",
+                  "name": "c020_contact_probe::probe::probe_collision"
+                },
+                "position": [
+                  {
+                    "x": 3.955499999999999,
+                    "y": 2.8499999999999996,
+                    "z": 0.32
+                  },
+                  {
+                    "x": 3.955499999999999,
+                    "y": 2.8499999999999996,
+                    "z": 0.22000000000000003
+                  },
+                  {
+                    "x": 3.955499999999999,
+                    "y": 2.75,
+                    "z": 0.22000000000000003
+                  },
+                  {
+                    "x": 3.955499999999999,
+                    "y": 2.75,
+                    "z": 0.32
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "laser_aligned_moving_samples": 70,
+        "laser_moving_roi_hit_samples": 67,
+        "costmap_moving_roi": {
+          "local_costmap": {
+            "samples": 37,
+            "marked_samples": 26,
+            "zero_source_stamp_samples": 4
+          },
+          "global_costmap": {
+            "samples": 37,
+            "marked_samples": 37,
+            "zero_source_stamp_samples": 37
+          }
+        },
+        "arrival_stop_state": {
+          "mode": "strict-safety-stop",
+          "classification": "safety_stop",
+          "still_spinning": false,
+          "translation_speed_mps": 4.882124491926293e-05,
+          "translation_command_mps": 0.0,
+          "angular_speed_rps": 9.000655932536944e-12,
+          "angular_command_rps": 0.0,
+          "legacy_max_speed": 4.882124491642138e-05,
+          "legacy_max_command": 0.0,
+          "stable_stop_confirmed": true,
+          "original_1s_stop_passed": true,
+          "stop_observation_budget_sim_s": 2.0,
+          "stop_confirmation_delay_sim_s": 1.2000000000000028,
+          "threshold": 0.03,
+          "source": "chassis_odometry_gt twist and cmd_vel received at final check"
+        },
+        "first_1s_stop_snapshot": {
+          "at_sim_s": 1.0,
+          "translation_speed_mps": 3.344365489348413e-06,
+          "translation_command_mps": 0.0,
+          "angular_speed_rps": 1.2154307062343919e-11,
+          "angular_command_rps": 0.0
+        },
+        "stop_confirmation_delay_sim_s": 1.2000000000000028,
+        "later_stop_state": {
+          "mode": "strict-stop",
+          "classification": "safety_stop",
+          "translation_speed_mps": 6.875368360384086e-05,
+          "translation_command_mps": 0.0,
+          "angular_speed_rps": 2.0788245288078294e-12,
+          "angular_command_rps": 0.0,
+          "still_spinning": false,
+          "threshold": 0.03,
+          "source": "chassis_odometry_gt twist and cmd_vel at final check"
+        },
+        "source_read_retries": 0,
+        "backup_runs": 0,
+        "max_aligned_localization_error_m": 0.04418274748660217,
+        "record_dir": "/mnt/e/RMULArtifacts/pb2025_nav_ws/completion-C038/moving-final/headon-01"
+      },
+      {
+        "case": "headon-02",
+        "status": "passed",
+        "behavior": "detour_and_arrive",
+        "estimated_goal_error_m": 0.15169371708105112,
+        "truth_goal_error_m": 0.15762387651570797,
+        "elapsed_wall_s": 18.02643358000023,
+        "nominal_min_footprint_clearance_m": 0.11882266228828585,
+        "min_simultaneous_gazebo_center_distance_m": 0.7890744627711879,
+        "nominal_circumscribed_clearance_lower_bound_m": 0.10412854218555112,
+        "measured_opponent_speed_mps": 0.5001161131942004,
+        "nominal_speed_each_mps": 0.5,
+        "robot_goal_speed_peak_mps": 0.5045594888725883,
+        "initial_distance_at_move_trigger_m": 3.5308345169730457,
+        "max_lateral_deviation_m": 0.9290148759657806,
+        "real_navigation_contacts": 0,
+        "moving_collision_positive_control": {
+          "event": "motion_probe",
+          "ok": true,
+          "created": true,
+          "removed": true,
+          "contact_messages": 1219,
+          "begin_sim": 65.538,
+          "first_contact_sim": 66.47,
+          "speed_mps": 0.5,
+          "distance_m": 1.0
+        },
+        "motion_positive_first_contact_record": {
+          "sim": 66.47,
+          "probe": true,
+          "message": {
+            "header": {
+              "stamp": {
+                "sec": "66",
+                "nsec": 470000000
+              }
+            },
+            "contact": [
+              {
+                "header": {
+                  "stamp": {
+                    "sec": "66",
+                    "nsec": 470000000
+                  }
+                },
+                "collision1": {
+                  "id": "133",
+                  "name": "c020_opponent_cart::cart::cart_collision"
+                },
+                "collision2": {
+                  "id": "143",
+                  "name": "c020_contact_probe::probe::probe_collision"
+                },
+                "position": [
+                  {
+                    "x": 3.955499999999999,
+                    "y": 2.8499999999999996,
+                    "z": 0.32
+                  },
+                  {
+                    "x": 3.955499999999999,
+                    "y": 2.8499999999999996,
+                    "z": 0.22000000000000003
+                  },
+                  {
+                    "x": 3.955499999999999,
+                    "y": 2.75,
+                    "z": 0.22000000000000003
+                  },
+                  {
+                    "x": 3.955499999999999,
+                    "y": 2.75,
+                    "z": 0.32
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "laser_aligned_moving_samples": 70,
+        "laser_moving_roi_hit_samples": 66,
+        "costmap_moving_roi": {
+          "local_costmap": {
+            "samples": 42,
+            "marked_samples": 31,
+            "zero_source_stamp_samples": 3
+          },
+          "global_costmap": {
+            "samples": 42,
+            "marked_samples": 42,
+            "zero_source_stamp_samples": 42
+          }
+        },
+        "arrival_stop_state": {
+          "mode": "strict-safety-stop",
+          "classification": "safety_stop",
+          "still_spinning": false,
+          "translation_speed_mps": 0.00010020616341077572,
+          "translation_command_mps": 0.0,
+          "angular_speed_rps": 8.396070774146662e-11,
+          "angular_command_rps": 0.0,
+          "legacy_max_speed": 0.00010020616341059335,
+          "legacy_max_command": 0.0,
+          "stable_stop_confirmed": true,
+          "original_1s_stop_passed": true,
+          "stop_observation_budget_sim_s": 2.0,
+          "stop_confirmation_delay_sim_s": 1.2019999999999982,
+          "threshold": 0.03,
+          "source": "chassis_odometry_gt twist and cmd_vel received at final check"
+        },
+        "first_1s_stop_snapshot": {
+          "at_sim_s": 1.0,
+          "translation_speed_mps": 0.00012768188141490418,
+          "translation_command_mps": 0.0,
+          "angular_speed_rps": 8.151353270273187e-11,
+          "angular_command_rps": 0.0
+        },
+        "stop_confirmation_delay_sim_s": 1.2019999999999982,
+        "later_stop_state": {
+          "mode": "strict-stop",
+          "classification": "safety_stop",
+          "translation_speed_mps": 4.871425218055348e-05,
+          "translation_command_mps": 0.0,
+          "angular_speed_rps": 7.975604826752183e-11,
+          "angular_command_rps": 0.0,
+          "still_spinning": false,
+          "threshold": 0.03,
+          "source": "chassis_odometry_gt twist and cmd_vel at final check"
+        },
+        "source_read_retries": 0,
+        "backup_runs": 0,
+        "max_aligned_localization_error_m": 0.04714146233715892,
+        "record_dir": "/mnt/e/RMULArtifacts/pb2025_nav_ws/completion-C038/moving-final/headon-02"
+      },
+      {
+        "case": "headon-03",
+        "status": "passed",
+        "behavior": "detour_and_arrive",
+        "estimated_goal_error_m": 0.16160398589905234,
+        "truth_goal_error_m": 0.17428672600825357,
+        "elapsed_wall_s": 15.907027365999966,
+        "nominal_min_footprint_clearance_m": 0.1588279733498221,
+        "min_simultaneous_gazebo_center_distance_m": 0.8109315301565462,
+        "nominal_circumscribed_clearance_lower_bound_m": 0.1134012864348572,
+        "measured_opponent_speed_mps": 0.4999339777822473,
+        "nominal_speed_each_mps": 0.5,
+        "robot_goal_speed_peak_mps": 0.5024515768347294,
+        "initial_distance_at_move_trigger_m": 3.5447850114569484,
+        "max_lateral_deviation_m": 0.9465068833649084,
+        "real_navigation_contacts": 0,
+        "moving_collision_positive_control": {
+          "event": "motion_probe",
+          "ok": true,
+          "created": true,
+          "removed": true,
+          "contact_messages": 1202,
+          "begin_sim": 61.356,
+          "first_contact_sim": 62.287,
+          "speed_mps": 0.5,
+          "distance_m": 1.0
+        },
+        "motion_positive_first_contact_record": {
+          "sim": 62.287,
+          "probe": true,
+          "message": {
+            "header": {
+              "stamp": {
+                "sec": "62",
+                "nsec": 287000000
+              }
+            },
+            "contact": [
+              {
+                "header": {
+                  "stamp": {
+                    "sec": "62",
+                    "nsec": 287000000
+                  }
+                },
+                "collision1": {
+                  "id": "133",
+                  "name": "c020_opponent_cart::cart::cart_collision"
+                },
+                "collision2": {
+                  "id": "143",
+                  "name": "c020_contact_probe::probe::probe_collision"
+                },
+                "position": [
+                  {
+                    "x": 3.9544999999999977,
+                    "y": 2.8499999999999996,
+                    "z": 0.32
+                  },
+                  {
+                    "x": 3.9544999999999977,
+                    "y": 2.8499999999999996,
+                    "z": 0.22000000000000003
+                  },
+                  {
+                    "x": 3.9544999999999977,
+                    "y": 2.75,
+                    "z": 0.22000000000000003
+                  },
+                  {
+                    "x": 3.9544999999999977,
+                    "y": 2.75,
+                    "z": 0.32
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "laser_aligned_moving_samples": 70,
+        "laser_moving_roi_hit_samples": 68,
+        "costmap_moving_roi": {
+          "local_costmap": {
+            "samples": 37,
+            "marked_samples": 30,
+            "zero_source_stamp_samples": 2
+          },
+          "global_costmap": {
+            "samples": 37,
+            "marked_samples": 37,
+            "zero_source_stamp_samples": 37
+          }
+        },
+        "arrival_stop_state": {
+          "mode": "strict-safety-stop",
+          "classification": "safety_stop",
+          "still_spinning": false,
+          "translation_speed_mps": 8.210391708729347e-05,
+          "translation_command_mps": 0.0,
+          "angular_speed_rps": 3.6141899719570446e-11,
+          "angular_command_rps": 0.0,
+          "legacy_max_speed": 8.210391708616361e-05,
+          "legacy_max_command": 0.0,
+          "stable_stop_confirmed": true,
+          "original_1s_stop_passed": true,
+          "stop_observation_budget_sim_s": 2.0,
+          "stop_confirmation_delay_sim_s": 1.2000000000000028,
+          "threshold": 0.03,
+          "source": "chassis_odometry_gt twist and cmd_vel received at final check"
+        },
+        "first_1s_stop_snapshot": {
+          "at_sim_s": 1.0,
+          "translation_speed_mps": 4.616146428997355e-05,
+          "translation_command_mps": 0.0,
+          "angular_speed_rps": 3.164017245733146e-12,
+          "angular_command_rps": 0.0
+        },
+        "stop_confirmation_delay_sim_s": 1.2000000000000028,
+        "later_stop_state": {
+          "mode": "strict-stop",
+          "classification": "safety_stop",
+          "translation_speed_mps": 8.509700395514349e-05,
+          "translation_command_mps": 0.0,
+          "angular_speed_rps": 2.4793923342281465e-11,
+          "angular_command_rps": 0.0,
+          "still_spinning": false,
+          "threshold": 0.03,
+          "source": "chassis_odometry_gt twist and cmd_vel at final check"
+        },
+        "source_read_retries": 0,
+        "backup_runs": 0,
+        "max_aligned_localization_error_m": 0.03421613861245506,
+        "record_dir": "/mnt/e/RMULArtifacts/pb2025_nav_ws/completion-C038/moving-final/headon-03"
+      }
+    ],
+    "real_navigation_contacts": 0,
+    "max_truth_goal_error_m": 0.17428672600825357,
+    "minimum_nominal_clearance_m": 0.11882266228828585,
+    "earlier_candidate3_attempts": "../../moving-C032 and ../../moving-C032-final remain separately preserved; none counted here",
+    "limits": [
+      "one predefined head-on proxy trajectory only",
+      "proxy is scripted kinematic set_pose motion, not another robot navigation stack",
+      "nominal footprint distance is estimated; contact sensor proves actual contact status",
+      "global update source stamp is zero; moving ROI uses reception time for that stream",
+      "opponent truth is used for driving/evaluation only; never injected into costmap/planner",
+      "spin 3.14 while commanded motion; zero input suppresses injected spin; arrival and safety stop both all-zero at original one-second snapshot"
+    ]
+  },
+  "regression": {
+    "owner": "Codex C038",
+    "passed": true,
+    "params_sha256": "38f99505fff17660a639ec6239998b627bba04a5def96a0375ada738d352b9b3",
+    "normal_full": {
+      "passed": 8,
+      "failed": 0,
+      "original_1s_snapshot_passed": 8,
+      "original_1s_snapshot_failures": [],
+      "motion_goal_count": 6,
+      "max_truth_goal_error_m": 0.18922701257506408,
+      "cases": [
+        {
+          "case": "01-short",
+          "truth_goal_error_m": 0.12948398128517302,
+          "estimated_goal_error_m": 0.11956514148008554,
+          "elapsed_wall_s": 4.920873518000008,
+          "stop": {
+            "confirmed": true,
+            "confirmed_after_result_sim_s": 1.2009999999999934,
+            "first_snapshot_after_1s": {
+              "at_sim_s": 1.0,
+              "translation_speed_mps": 6.018155812568832e-05,
+              "translation_command_mps": 0.0,
+              "angular_speed_rps": 1.0136181652459018e-10,
+              "angular_command_rps": 0.0
+            }
+          }
+        },
+        {
+          "case": "02-east-north",
+          "truth_goal_error_m": 0.18623287936334257,
+          "estimated_goal_error_m": 0.16475367184756998,
+          "elapsed_wall_s": 43.89063284099939,
+          "stop": {
+            "confirmed": true,
+            "confirmed_after_result_sim_s": 1.2000000000000028,
+            "first_snapshot_after_1s": {
+              "at_sim_s": 1.0,
+              "translation_speed_mps": 5.243880047378644e-05,
+              "translation_command_mps": 0.0,
+              "angular_speed_rps": 1.2265141078965563e-11,
+              "angular_command_rps": 0.0
+            }
+          }
+        },
+        {
+          "case": "03-center",
+          "truth_goal_error_m": 0.0788288821247783,
+          "estimated_goal_error_m": 0.10067602982354151,
+          "elapsed_wall_s": 16.849725568001304,
+          "stop": {
+            "confirmed": true,
+            "confirmed_after_result_sim_s": 1.2000000000000028,
+            "first_snapshot_after_1s": {
+              "at_sim_s": 1.0,
+              "translation_speed_mps": 0.0029311155845798166,
+              "translation_command_mps": 0.0,
+              "angular_speed_rps": 3.6039462609739075e-07,
+              "angular_command_rps": 0.0
+            }
+          }
+        },
+        {
+          "case": "04-west-south",
+          "truth_goal_error_m": 0.15407076768456412,
+          "estimated_goal_error_m": 0.142444146358164,
+          "elapsed_wall_s": 19.518196266000814,
+          "stop": {
+            "confirmed": true,
+            "confirmed_after_result_sim_s": 1.210000000000008,
+            "first_snapshot_after_1s": {
+              "at_sim_s": 1.009999999999991,
+              "translation_speed_mps": 6.845675261685084e-05,
+              "translation_command_mps": 0.0,
+              "angular_speed_rps": 4.546396924839498e-13,
+              "angular_command_rps": 0.0
+            }
+          }
+        },
+        {
+          "case": "05-west-north",
+          "truth_goal_error_m": 0.17565306584010054,
+          "estimated_goal_error_m": 0.17046696813324821,
+          "elapsed_wall_s": 17.304078811999716,
+          "stop": {
+            "confirmed": true,
+            "confirmed_after_result_sim_s": 1.2009999999999934,
+            "first_snapshot_after_1s": {
+              "at_sim_s": 1.0,
+              "translation_speed_mps": 0.0002469112219652814,
+              "translation_command_mps": 0.0,
+              "angular_speed_rps": 1.8617440343785972e-09,
+              "angular_command_rps": 0.0
+            }
+          }
+        },
+        {
+          "case": "06-east-north-repeat",
+          "truth_goal_error_m": 0.18922701257506408,
+          "estimated_goal_error_m": 0.2014318984886895,
+          "elapsed_wall_s": 42.64848343899939,
+          "stop": {
+            "confirmed": true,
+            "confirmed_after_result_sim_s": 1.2009999999999934,
+            "first_snapshot_after_1s": {
+              "at_sim_s": 1.0,
+              "translation_speed_mps": 3.584997540619761e-05,
+              "translation_command_mps": 0.0,
+              "angular_speed_rps": 7.526105505873877e-11,
+              "angular_command_rps": 0.0
+            }
+          }
+        }
+      ],
+      "occupied_target": {
+        "event": "invalid_result",
+        "mode": "nav",
+        "status": 6,
+        "path_points": 0,
+        "ground_truth_moved": 1.0816603403571425e-05,
+        "elapsed_wall_s": 3.21220164999977,
+        "nonzero_commands": 0
+      }
+    },
+    "obstacle_regression": [
+      {
+        "case": "parked-clear",
+        "passed": true,
+        "goal_result": {
+          "event": "result",
+          "mode": "nav",
+          "status": 4,
+          "ground_truth_moved": 3.9079480609492574,
+          "goal_error": 0.16088923580627515,
+          "ground_truth_goal_error": 0.17057970280225632,
+          "ground_truth_map_xy": [
+            4.8581445858036725,
+            -5.594733713488359
+          ],
+          "estimated_map_xy": [
+            4.878922106332424,
+            -5.6059504122849475
+          ],
+          "ground_truth_z": 0.0,
+          "stopped_speed": 3.8649495485362e-05,
+          "stopped_command": 0.0,
+          "elapsed_wall_s": 17.277409964999606,
+          "nonzero_commands": 265,
+          "counts": {
+            "clock": 16034,
+            "lio": 352,
+            "ground_truth": 14866,
+            "imu": 3517,
+            "lio_cloud": 352,
+            "terrain_map_ext": 352,
+            "lidar": 351,
+            "converted_cloud": 336,
+            "adapted_odometry": 336,
+            "registered_scan": 336,
+            "odometry": 336,
+            "terrain_map": 336,
+            "map": 1,
+            "cmd_vel": 506,
+            "global_costmap": 1,
+            "local_costmap": 48,
+            "global_plan": 44,
+            "local_plan": 313
+          },
+          "stop_state": {
+            "mode": "strict-safety-stop",
+            "classification": "safety_stop",
+            "still_spinning": false,
+            "translation_speed_mps": 3.864949548590005e-05,
+            "translation_command_mps": 0.0,
+            "angular_speed_rps": 1.7314860125635442e-10,
+            "angular_command_rps": 0.0,
+            "legacy_max_speed": 3.8649495485362e-05,
+            "legacy_max_command": 0.0,
+            "stable_stop_confirmed": true,
+            "original_1s_stop_passed": true,
+            "stop_observation_budget_sim_s": 2.0,
+            "stop_confirmation_delay_sim_s": 1.2009999999999934,
+            "threshold": 0.03,
+            "source": "chassis_odometry_gt twist and cmd_vel received at final check"
+          }
+        },
+        "stop": {
+          "confirmed": true,
+          "confirmed_after_result_sim_s": 1.2009999999999934,
+          "first_snapshot_after_1s": {
+            "at_sim_s": 1.0,
+            "translation_speed_mps": 4.22012924521269e-05,
+            "translation_command_mps": 0.0,
+            "angular_speed_rps": 1.4593042786459014e-10,
+            "angular_command_rps": 0.0
+          }
+        },
+        "after_clear_result": null,
+        "real_contacts": 0,
+        "cleared_costs": {
+          "local_costmap": 0,
+          "global_costmap": 0
+        },
+        "max_hits_by_source": {
+          "terrain_map": 212,
+          "rplidar_obstacles": 77
+        },
+        "nominal_min_clearance_m": 0.12470097006801842
+      },
+      {
+        "case": "blocked-clear",
+        "passed": true,
+        "goal_result": {
+          "event": "result",
+          "mode": "nav",
+          "status": 6,
+          "ground_truth_moved": 1.1388899157117924e-06,
+          "goal_error": 3.8325157463083386,
+          "ground_truth_goal_error": 4.04617438347147,
+          "ground_truth_map_xy": [
+            0.9558694925959728,
+            -5.371409251713896
+          ],
+          "estimated_map_xy": [
+            1.169271687760584,
+            -5.382963494973945
+          ],
+          "ground_truth_z": 0.0,
+          "stopped_speed": 9.117567439729623e-05,
+          "stopped_command": 0.0,
+          "elapsed_wall_s": 1.4716514519986958,
+          "nonzero_commands": 0,
+          "counts": {
+            "clock": 3581,
+            "imu": 823,
+            "ground_truth": 3308,
+            "lidar": 82,
+            "converted_cloud": 82,
+            "terrain_map": 82,
+            "terrain_map_ext": 82,
+            "cmd_vel": 199,
+            "map": 1,
+            "global_costmap": 1,
+            "local_costmap": 1,
+            "adapted_odometry": 70,
+            "registered_scan": 70,
+            "odometry": 70,
+            "lio_cloud": 70,
+            "lio": 68
+          },
+          "stop_state": {
+            "mode": "strict-safety-stop",
+            "classification": "safety_stop",
+            "still_spinning": false,
+            "translation_speed_mps": 9.117567439893186e-05,
+            "translation_command_mps": 0.0,
+            "angular_speed_rps": 4.3369654187399075e-11,
+            "angular_command_rps": 0.0,
+            "legacy_max_speed": 9.117567439729623e-05,
+            "legacy_max_command": 0.0,
+            "stable_stop_confirmed": true,
+            "original_1s_stop_passed": true,
+            "stop_observation_budget_sim_s": 2.0,
+            "stop_confirmation_delay_sim_s": 1.2010000000000005,
+            "threshold": 0.03,
+            "source": "chassis_odometry_gt twist and cmd_vel received at final check"
+          }
+        },
+        "stop": {
+          "confirmed": true,
+          "confirmed_after_result_sim_s": 1.2010000000000005,
+          "first_snapshot_after_1s": {
+            "at_sim_s": 1.0,
+            "translation_speed_mps": 7.179736399622019e-05,
+            "translation_command_mps": 0.0,
+            "angular_speed_rps": 5.743797573037471e-12,
+            "angular_command_rps": 0.0
+          }
+        },
+        "after_clear_result": {
+          "event": "result",
+          "mode": "nav",
+          "status": 4,
+          "ground_truth_moved": 3.885319873642535,
+          "goal_error": 0.1446305243483077,
+          "ground_truth_goal_error": 0.16223968451588572,
+          "ground_truth_map_xy": [
+            4.838508523746481,
+            -5.515563364972691
+          ],
+          "estimated_map_xy": [
+            4.855975993044399,
+            -5.513231552959472
+          ],
+          "ground_truth_z": 0.0,
+          "stopped_speed": 6.811544050529638e-05,
+          "stopped_command": 0.0,
+          "elapsed_wall_s": 12.482900926999719,
+          "nonzero_commands": 196,
+          "counts": {
+            "clock": 12848,
+            "ground_truth": 11980,
+            "imu": 2833,
+            "terrain_map_ext": 284,
+            "lidar": 283,
+            "registered_scan": 282,
+            "adapted_odometry": 282,
+            "odometry": 282,
+            "cmd_vel": 446,
+            "map": 1,
+            "local_costmap": 37,
+            "converted_cloud": 268,
+            "terrain_map": 268,
+            "lio": 266,
+            "lio_cloud": 268,
+            "global_costmap": 1,
+            "global_plan": 32,
+            "local_plan": 223
+          },
+          "stop_state": {
+            "mode": "strict-safety-stop",
+            "classification": "safety_stop",
+            "still_spinning": false,
+            "translation_speed_mps": 6.811544050739439e-05,
+            "translation_command_mps": 0.0,
+            "angular_speed_rps": 5.361276474759587e-11,
+            "angular_command_rps": 0.0,
+            "legacy_max_speed": 6.811544050529638e-05,
+            "legacy_max_command": 0.0,
+            "stable_stop_confirmed": true,
+            "original_1s_stop_passed": true,
+            "stop_observation_budget_sim_s": 2.0,
+            "stop_confirmation_delay_sim_s": 1.2000000000000028,
+            "threshold": 0.03,
+            "source": "chassis_odometry_gt twist and cmd_vel received at final check"
+          },
+          "stop_observation": {
+            "confirmed": true,
+            "confirmed_after_result_sim_s": 1.2000000000000028,
+            "first_snapshot_after_1s": {
+              "at_sim_s": 1.0,
+              "translation_speed_mps": 4.089240575717132e-05,
+              "translation_command_mps": 0.0,
+              "angular_speed_rps": 4.622735391432597e-11,
+              "angular_command_rps": 0.0
+            }
+          }
+        },
+        "real_contacts": 0,
+        "cleared_costs": {
+          "local_costmap": 0,
+          "global_costmap": 0
+        },
+        "max_hits_by_source": {
+          "terrain_map": 48,
+          "rplidar_obstacles": 27
+        },
+        "nominal_min_clearance_m": 1.6125761260691336
+      }
+    ],
+    "stop_policy": "Original 1s snapshot retained; fixed total 2.0 simulation seconds after result, continuously 0.2s below original 0.03 thresholds. C038 spin 3.14 while commanded motion; zero input suppresses injected spin; original 1s arrival and safety snapshots both require linear and angular zero. Original C033/C034 1s failures remain failed; C038 additionally requires original one-second all-zero stop, so 2s observation cannot rescue its failure."
+  },
+  "self_filter_contract": {
+    "passed": true,
+    "checks": {
+      "self_removed_external_preserved_header_and_intensity_preserved": true,
+      "source_timestamp_used_instead_of_latest_transform": true,
+      "missing_transform_drops_scan_instead_of_unfiltered_fallback": true,
+      "legacy_disabled_filter_retains_all_points_and_needs_no_tf": true,
+      "polygon_boundary_inside_external_points_outside": true
+    },
+    "runtime_counters": {
+      "scans": 4,
+      "published": 3,
+      "removed_self_points": 2,
+      "missing_transform_scans": 1
+    }
+  },
+  "unchanged_component_contracts_from_C036": {
+    "contact_log": {
+      "passed": true,
+      "checks": [
+        {
+          "name": "actual failed-round replay contains only explicit probe collision pairs",
+          "passed": true
+        },
+        {
+          "name": "new real collision detected after probe replay",
+          "passed": true
+        },
+        {
+          "name": "incomplete appended line retained until complete",
+          "passed": true
+        },
+        {
+          "name": "mixed real and probe contacts detected even with aggregate probe true",
+          "passed": true
+        },
+        {
+          "name": "delayed explicit positive-control pair excluded",
+          "passed": true
+        },
+        {
+          "name": "transient ENODATA retries without losing subsequent contact",
+          "passed": true
+        },
+        {
+          "name": "truncation fails closed",
+          "passed": true
+        },
+        {
+          "name": "inode replacement fails closed",
+          "passed": true
+        },
+        {
+          "name": "malformed complete record fails closed",
+          "passed": true
+        },
+        {
+          "name": "missing contact source fails closed",
+          "passed": true
+        }
+      ],
+      "replayed_source": "/mnt/e/RMULArtifacts/pb2025_nav_ws/completion-C036/moving/headon-03/contacts.jsonl",
+      "source_sha256": "0e2dfd447f5fa85832ee21464fbbf572a619371c59dfe550e1a8e927d637a614",
+      "monitor": {
+        "rows": 1903,
+        "explicit_probe_pairs": 1900,
+        "real_pairs": 4,
+        "read_retries": 1,
+        "pending_bytes": 0,
+        "policy": "inspect every collision pair; only explicit c020_contact_probe pairs excluded, regardless of aggregate probe flag"
+      }
+    },
+    "dds_shm": {
+      "mmap_only_protected": {
+        "deleted": false,
+        "reason": "lease_refused",
+        "errno": 11
+      },
+      "closed_mapping_deleted": {
+        "deleted": true,
+        "bytes": 4096,
+        "proof": "owned segment, unchanged inode, exclusive kernel write lease"
+      },
+      "open_descriptor_protected": {
+        "deleted": false,
+        "reason": "lease_refused",
+        "errno": 11
+      },
+      "replacement_protected": {
+        "deleted": false,
+        "reason": "identity_changed"
+      },
+      "live_owned_protected": {
+        "created_at_epoch": 1792630800.9828033,
+        "enabled": true,
+        "ownership": "new since launch; mapped or opened by a process carrying this storage run token",
+        "deletion_proof": "own UID + unchanged inode + exclusive kernel write lease; busy or uncertain segments retained",
+        "capture_errors": 2,
+        "deleted_files": 0,
+        "deleted_bytes": 0,
+        "records": [
+          {
+            "name": "fastrtps_43f458aa4f2f40d8",
+            "device": 65,
+            "inode": 136013,
+            "uid": 1000,
+            "bytes": 4096,
+            "observed_pids": [
+              79186
+            ],
+            "deleted": false,
+            "reason": "lease_refused",
+            "errno": 11
+          }
+        ],
+        "reference": "https://man7.org/linux/man-pages/man2/F_SETLEASE.2const.html"
+      },
+      "closed_owned_deleted": {
+        "created_at_epoch": 1792630800.9866228,
+        "enabled": true,
+        "ownership": "new since launch; mapped or opened by a process carrying this storage run token",
+        "deletion_proof": "own UID + unchanged inode + exclusive kernel write lease; busy or uncertain segments retained",
+        "capture_errors": 2,
+        "deleted_files": 1,
+        "deleted_bytes": 4096,
+        "records": [
+          {
+            "name": "fastrtps_43f458aa4f2f40d8",
+            "device": 65,
+            "inode": 136013,
+            "uid": 1000,
+            "bytes": 4096,
+            "observed_pids": [
+              79186
+            ],
+            "deleted": true,
+            "proof": "owned segment, unchanged inode, exclusive kernel write lease"
+          }
+        ],
+        "reference": "https://man7.org/linux/man-pages/man2/F_SETLEASE.2const.html"
+      },
+      "baseline_and_untracked_preserved": true,
+      "passed": true
+    },
+    "velocity": {
+      "contract-additive-legacy": {
+        "passed": true,
+        "results": [
+          {
+            "name": "startup-blocked-without-pose-command",
+            "passed": true
+          },
+          {
+            "name": "omni-translation-and-spin-addition",
+            "passed": true
+          },
+          {
+            "name": "coordinate-rotation",
+            "passed": true,
+            "yaw": 1.5707963267948966,
+            "expected": [
+              0.4000000000000001,
+              -0.6,
+              0.9
+            ]
+          },
+          {
+            "name": "coordinate-rotation",
+            "passed": true,
+            "yaw": -1.5707963267948966,
+            "expected": [
+              -0.39999999999999997,
+              0.6,
+              0.9
+            ]
+          },
+          {
+            "name": "coordinate-rotation",
+            "passed": true,
+            "yaw": 3.141592653589793,
+            "expected": [
+              -0.6,
+              -0.4000000000000001,
+              0.9
+            ]
+          },
+          {
+            "name": "coordinate-rotation",
+            "passed": true,
+            "yaw": 0.63,
+            "expected": [
+              0.7204744081641989,
+              -0.030275851440500934,
+              0.9
+            ]
+          },
+          {
+            "name": "zero-command-does-not-replay-cached-motion",
+            "passed": true
+          },
+          {
+            "name": "odometry-receive-loss",
+            "passed": true,
+            "detected_stop_delay_s": 0.49973798999963037,
+            "status": "STOPPED:odometry_receive_timeout"
+          },
+          {
+            "name": "odometry-receive-loss-fresh-recovery",
+            "passed": true
+          },
+          {
+            "name": "frozen-source-stamp-with-live-messages",
+            "passed": true,
+            "detected_stop_delay_s": 0.5004074299995409,
+            "status": "STOPPED:pose_stamp_stalled"
+          },
+          {
+            "name": "frozen-source-stamp-with-live-messages-fresh-recovery",
+            "passed": true
+          },
+          {
+            "name": "local-plan-loss",
+            "passed": true,
+            "detected_stop_delay_s": 0.49373570999887306,
+            "status": "STOPPED:plan_receive_timeout"
+          },
+          {
+            "name": "local-plan-loss-fresh-recovery",
+            "passed": true
+          },
+          {
+            "name": "command-receive-loss",
+            "passed": true,
+            "detected_stop_delay_s": 0.49165898300088884,
+            "status": "STOPPED:command_missing"
+          },
+          {
+            "name": "command-receive-loss-fresh-recovery",
+            "passed": true
+          },
+          {
+            "name": "invalid-pose",
+            "passed": true,
+            "detected_stop_delay_s": 0.06713364800089039,
+            "status": "STOPPED:pose_missing_or_invalid"
+          },
+          {
+            "name": "invalid-pose-fresh-recovery",
+            "passed": true
+          },
+          {
+            "name": "future-pose-stamp",
+            "passed": true,
+            "detected_stop_delay_s": 0.061636044998522266,
+            "status": "STOPPED:pose_stamp_stalled"
+          },
+          {
+            "name": "future-pose-stamp-fresh-recovery",
+            "passed": true
+          },
+          {
+            "name": "fractional-future-stamp-does-not-refresh-fake-tf",
+            "passed": true
+          },
+          {
+            "name": "fractional-future-stamp-recovers-with-new-command",
+            "passed": true
+          },
+          {
+            "name": "empty-local-plan",
+            "passed": true,
+            "detected_stop_delay_s": 0.057075711998550105,
+            "status": "STOPPED:empty_or_invalid_plan"
+          },
+          {
+            "name": "empty-local-plan-fresh-recovery",
+            "passed": true
+          },
+          {
+            "name": "invalid-command",
+            "passed": true,
+            "detected_stop_delay_s": 0.050497999000072014,
+            "status": "STOPPED:invalid_command"
+          },
+          {
+            "name": "invalid-command-fresh-recovery",
+            "passed": true
+          },
+          {
+            "name": "software-stop-overrides-positive-command-and-spin",
+            "passed": true
+          },
+          {
+            "name": "stop-release-cannot-replay-pre-stop-command",
+            "passed": true
+          },
+          {
+            "name": "stop-release-new-command-recovers",
+            "passed": true
+          },
+          {
+            "name": "normal-zero-respects-rotation-mode-and-zero-command-policy",
+            "passed": true
+          },
+          {
+            "name": "diagnostics-and-fake-frame",
+            "passed": true
+          }
+        ],
+        "thresholds_s": {
+          "command": 0.5,
+          "pose": 0.5,
+          "sync": 0.5
+        },
+        "scope": "isolated ROS node contract, not physical braking distance"
+      },
+      "contract-additive-zero-stop": {
+        "passed": true,
+        "results": [
+          {
+            "name": "startup-blocked-without-pose-command",
+            "passed": true
+          },
+          {
+            "name": "omni-translation-and-spin-addition",
+            "passed": true
+          },
+          {
+            "name": "coordinate-rotation",
+            "passed": true,
+            "yaw": 1.5707963267948966,
+            "expected": [
+              0.4000000000000001,
+              -0.6,
+              0.9
+            ]
+          },
+          {
+            "name": "coordinate-rotation",
+            "passed": true,
+            "yaw": -1.5707963267948966,
+            "expected": [
+              -0.39999999999999997,
+              0.6,
+              0.9
+            ]
+          },
+          {
+            "name": "coordinate-rotation",
+            "passed": true,
+            "yaw": 3.141592653589793,
+            "expected": [
+              -0.6,
+              -0.4000000000000001,
+              0.9
+            ]
+          },
+          {
+            "name": "coordinate-rotation",
+            "passed": true,
+            "yaw": 0.63,
+            "expected": [
+              0.7204744081641989,
+              -0.030275851440500934,
+              0.9
+            ]
+          },
+          {
+            "name": "zero-command-does-not-replay-cached-motion",
+            "passed": true
+          },
+          {
+            "name": "odometry-receive-loss",
+            "passed": true,
+            "detected_stop_delay_s": 0.5027011049987777,
+            "status": "STOPPED:odometry_receive_timeout"
+          },
+          {
+            "name": "odometry-receive-loss-fresh-recovery",
+            "passed": true
+          },
+          {
+            "name": "frozen-source-stamp-with-live-messages",
+            "passed": true,
+            "detected_stop_delay_s": 0.5051929159999418,
+            "status": "STOPPED:pose_stamp_stalled"
+          },
+          {
+            "name": "frozen-source-stamp-with-live-messages-fresh-recovery",
+            "passed": true
+          },
+          {
+            "name": "local-plan-loss",
+            "passed": true,
+            "detected_stop_delay_s": 0.49438015799933055,
+            "status": "STOPPED:plan_receive_timeout"
+          },
+          {
+            "name": "local-plan-loss-fresh-recovery",
+            "passed": true
+          },
+          {
+            "name": "command-receive-loss",
+            "passed": true,
+            "detected_stop_delay_s": 0.49801852499876986,
+            "status": "STOPPED:command_missing"
+          },
+          {
+            "name": "command-receive-loss-fresh-recovery",
+            "passed": true
+          },
+          {
+            "name": "invalid-pose",
+            "passed": true,
+            "detected_stop_delay_s": 0.05343750099928002,
+            "status": "STOPPED:pose_missing_or_invalid"
+          },
+          {
+            "name": "invalid-pose-fresh-recovery",
+            "passed": true
+          },
+          {
+            "name": "future-pose-stamp",
+            "passed": true,
+            "detected_stop_delay_s": 0.05937917300070694,
+            "status": "STOPPED:pose_stamp_stalled"
+          },
+          {
+            "name": "future-pose-stamp-fresh-recovery",
+            "passed": true
+          },
+          {
+            "name": "fractional-future-stamp-does-not-refresh-fake-tf",
+            "passed": true
+          },
+          {
+            "name": "fractional-future-stamp-recovers-with-new-command",
+            "passed": true
+          },
+          {
+            "name": "empty-local-plan",
+            "passed": true,
+            "detected_stop_delay_s": 0.053173163998508244,
+            "status": "STOPPED:empty_or_invalid_plan"
+          },
+          {
+            "name": "empty-local-plan-fresh-recovery",
+            "passed": true
+          },
+          {
+            "name": "invalid-command",
+            "passed": true,
+            "detected_stop_delay_s": 0.0595787799993559,
+            "status": "STOPPED:invalid_command"
+          },
+          {
+            "name": "invalid-command-fresh-recovery",
+            "passed": true
+          },
+          {
+            "name": "software-stop-overrides-positive-command-and-spin",
+            "passed": true
+          },
+          {
+            "name": "stop-release-cannot-replay-pre-stop-command",
+            "passed": true
+          },
+          {
+            "name": "stop-release-new-command-recovers",
+            "passed": true
+          },
+          {
+            "name": "normal-zero-respects-rotation-mode-and-zero-command-policy",
+            "passed": true
+          },
+          {
+            "name": "diagnostics-and-fake-frame",
+            "passed": true
+          }
+        ],
+        "thresholds_s": {
+          "command": 0.5,
+          "pose": 0.5,
+          "sync": 0.5
+        },
+        "scope": "isolated ROS node contract, not physical braking distance"
+      },
+      "contract-heading-legacy": {
+        "passed": true,
+        "results": [
+          {
+            "name": "startup-blocked-without-pose-command",
+            "passed": true
+          },
+          {
+            "name": "omni-translation-and-spin-addition",
+            "passed": true
+          },
+          {
+            "name": "coordinate-rotation",
+            "passed": true,
+            "yaw": 1.5707963267948966,
+            "expected": [
+              0.4000000000000001,
+              -0.6,
+              0.9
+            ]
+          },
+          {
+            "name": "coordinate-rotation",
+            "passed": true,
+            "yaw": -1.5707963267948966,
+            "expected": [
+              -0.39999999999999997,
+              0.6,
+              0.9
+            ]
+          },
+          {
+            "name": "coordinate-rotation",
+            "passed": true,
+            "yaw": 3.141592653589793,
+            "expected": [
+              -0.6,
+              -0.4000000000000001,
+              0.9
+            ]
+          },
+          {
+            "name": "coordinate-rotation",
+            "passed": true,
+            "yaw": 0.63,
+            "expected": [
+              0.7204744081641989,
+              -0.030275851440500934,
+              0.9
+            ]
+          },
+          {
+            "name": "zero-command-does-not-replay-cached-motion",
+            "passed": true
+          },
+          {
+            "name": "odometry-receive-loss",
+            "passed": true,
+            "detected_stop_delay_s": 0.4847522680011025,
+            "status": "STOPPED:odometry_receive_timeout"
+          },
+          {
+            "name": "odometry-receive-loss-fresh-recovery",
+            "passed": true
+          },
+          {
+            "name": "frozen-source-stamp-with-live-messages",
+            "passed": true,
+            "detected_stop_delay_s": 0.499658984999769,
+            "status": "STOPPED:pose_stamp_stalled"
+          },
+          {
+            "name": "frozen-source-stamp-with-live-messages-fresh-recovery",
+            "passed": true
+          },
+          {
+            "name": "local-plan-loss",
+            "passed": true,
+            "detected_stop_delay_s": 0.5019594089990278,
+            "status": "STOPPED:plan_receive_timeout"
+          },
+          {
+            "name": "local-plan-loss-fresh-recovery",
+            "passed": true
+          },
+          {
+            "name": "command-receive-loss",
+            "passed": true,
+            "detected_stop_delay_s": 0.5072473759992135,
+            "status": "STOPPED:command_missing"
+          },
+          {
+            "name": "command-receive-loss-fresh-recovery",
+            "passed": true
+          },
+          {
+            "name": "invalid-pose",
+            "passed": true,
+            "detected_stop_delay_s": 0.06286242500027583,
+            "status": "STOPPED:pose_missing_or_invalid"
+          },
+          {
+            "name": "invalid-pose-fresh-recovery",
+            "passed": true
+          },
+          {
+            "name": "future-pose-stamp",
+            "passed": true,
+            "detected_stop_delay_s": 0.05260906999865256,
+            "status": "STOPPED:pose_stamp_stalled"
+          },
+          {
+            "name": "future-pose-stamp-fresh-recovery",
+            "passed": true
+          },
+          {
+            "name": "fractional-future-stamp-does-not-refresh-fake-tf",
+            "passed": true
+          },
+          {
+            "name": "fractional-future-stamp-recovers-with-new-command",
+            "passed": true
+          },
+          {
+            "name": "empty-local-plan",
+            "passed": true,
+            "detected_stop_delay_s": 0.05310446499970567,
+            "status": "STOPPED:empty_or_invalid_plan"
+          },
+          {
+            "name": "empty-local-plan-fresh-recovery",
+            "passed": true
+          },
+          {
+            "name": "invalid-command",
+            "passed": true,
+            "detected_stop_delay_s": 0.06393225200008601,
+            "status": "STOPPED:invalid_command"
+          },
+          {
+            "name": "invalid-command-fresh-recovery",
+            "passed": true
+          },
+          {
+            "name": "software-stop-overrides-positive-command-and-spin",
+            "passed": true
+          },
+          {
+            "name": "stop-release-cannot-replay-pre-stop-command",
+            "passed": true
+          },
+          {
+            "name": "stop-release-new-command-recovers",
+            "passed": true
+          },
+          {
+            "name": "normal-zero-respects-rotation-mode-and-zero-command-policy",
+            "passed": true
+          },
+          {
+            "name": "heading-mode-rejects-additive-spin-bias",
+            "passed": true,
+            "final_heading_error": 0.0003203440523458223
+          },
+          {
+            "name": "diagnostics-and-fake-frame",
+            "passed": true
+          }
+        ],
+        "thresholds_s": {
+          "command": 0.5,
+          "pose": 0.5,
+          "sync": 0.5
+        },
+        "scope": "isolated ROS node contract, not physical braking distance"
+      },
+      "contract-heading-zero-stop": {
+        "passed": true,
+        "results": [
+          {
+            "name": "startup-blocked-without-pose-command",
+            "passed": true
+          },
+          {
+            "name": "omni-translation-and-spin-addition",
+            "passed": true
+          },
+          {
+            "name": "coordinate-rotation",
+            "passed": true,
+            "yaw": 1.5707963267948966,
+            "expected": [
+              0.4000000000000001,
+              -0.6,
+              0.9
+            ]
+          },
+          {
+            "name": "coordinate-rotation",
+            "passed": true,
+            "yaw": -1.5707963267948966,
+            "expected": [
+              -0.39999999999999997,
+              0.6,
+              0.9
+            ]
+          },
+          {
+            "name": "coordinate-rotation",
+            "passed": true,
+            "yaw": 3.141592653589793,
+            "expected": [
+              -0.6,
+              -0.4000000000000001,
+              0.9
+            ]
+          },
+          {
+            "name": "coordinate-rotation",
+            "passed": true,
+            "yaw": 0.63,
+            "expected": [
+              0.7204744081641989,
+              -0.030275851440500934,
+              0.9
+            ]
+          },
+          {
+            "name": "zero-command-does-not-replay-cached-motion",
+            "passed": true
+          },
+          {
+            "name": "odometry-receive-loss",
+            "passed": true,
+            "detected_stop_delay_s": 0.4856098079999356,
+            "status": "STOPPED:odometry_receive_timeout"
+          },
+          {
+            "name": "odometry-receive-loss-fresh-recovery",
+            "passed": true
+          },
+          {
+            "name": "frozen-source-stamp-with-live-messages",
+            "passed": true,
+            "detected_stop_delay_s": 0.4826055579997046,
+            "status": "STOPPED:pose_stamp_stalled"
+          },
+          {
+            "name": "frozen-source-stamp-with-live-messages-fresh-recovery",
+            "passed": true
+          },
+          {
+            "name": "local-plan-loss",
+            "passed": true,
+            "detected_stop_delay_s": 0.48249818600015715,
+            "status": "STOPPED:plan_receive_timeout"
+          },
+          {
+            "name": "local-plan-loss-fresh-recovery",
+            "passed": true
+          },
+          {
+            "name": "command-receive-loss",
+            "passed": true,
+            "detected_stop_delay_s": 0.48128427600022405,
+            "status": "STOPPED:command_missing"
+          },
+          {
+            "name": "command-receive-loss-fresh-recovery",
+            "passed": true
+          },
+          {
+            "name": "invalid-pose",
+            "passed": true,
+            "detected_stop_delay_s": 0.053268204001142294,
+            "status": "STOPPED:pose_missing_or_invalid"
+          },
+          {
+            "name": "invalid-pose-fresh-recovery",
+            "passed": true
+          },
+          {
+            "name": "future-pose-stamp",
+            "passed": true,
+            "detected_stop_delay_s": 0.05600218800100265,
+            "status": "STOPPED:pose_stamp_stalled"
+          },
+          {
+            "name": "future-pose-stamp-fresh-recovery",
+            "passed": true
+          },
+          {
+            "name": "fractional-future-stamp-does-not-refresh-fake-tf",
+            "passed": true
+          },
+          {
+            "name": "fractional-future-stamp-recovers-with-new-command",
+            "passed": true
+          },
+          {
+            "name": "empty-local-plan",
+            "passed": true,
+            "detected_stop_delay_s": 0.05640541499997198,
+            "status": "STOPPED:empty_or_invalid_plan"
+          },
+          {
+            "name": "empty-local-plan-fresh-recovery",
+            "passed": true
+          },
+          {
+            "name": "invalid-command",
+            "passed": true,
+            "detected_stop_delay_s": 0.06059928399918135,
+            "status": "STOPPED:invalid_command"
+          },
+          {
+            "name": "invalid-command-fresh-recovery",
+            "passed": true
+          },
+          {
+            "name": "software-stop-overrides-positive-command-and-spin",
+            "passed": true
+          },
+          {
+            "name": "stop-release-cannot-replay-pre-stop-command",
+            "passed": true
+          },
+          {
+            "name": "stop-release-new-command-recovers",
+            "passed": true
+          },
+          {
+            "name": "normal-zero-respects-rotation-mode-and-zero-command-policy",
+            "passed": true
+          },
+          {
+            "name": "heading-mode-rejects-additive-spin-bias",
+            "passed": true,
+            "final_heading_error": 0.000300661816061476
+          },
+          {
+            "name": "diagnostics-and-fake-frame",
+            "passed": true
+          }
+        ],
+        "thresholds_s": {
+          "command": 0.5,
+          "pose": 0.5,
+          "sync": 0.5
+        },
+        "scope": "isolated ROS node contract, not physical braking distance"
+      }
+    }
+  },
+  "parameter_scope": {
+    "passed": true,
+    "parent": "C037",
+    "change": {
+      "controller_server.FollowPath.min_approach_linear_velocity": [
+        0.1,
+        0.05
+      ]
+    },
+    "params_sha256": "38f99505fff17660a639ec6239998b627bba04a5def96a0375ada738d352b9b3"
+  },
+  "runtime_self_filter": [
+    {
+      "navigation_log": "/home/hardy/pb2025_nav_ws/logs/20261022-164926-rmul2027-nav/navigation.log",
+      "last_filter_counters": {
+        "event": "rplidar_self_filter",
+        "enabled": true,
+        "scans": 809,
+        "published": 809,
+        "removed_self_points": 33169,
+        "missing_transform_scans": 0
+      }
+    },
+    {
+      "navigation_log": "/home/hardy/pb2025_nav_ws/logs/20261022-160942-rmul2027-nav/navigation.log",
+      "last_filter_counters": {
+        "event": "rplidar_self_filter",
+        "enabled": true,
+        "scans": 1125,
+        "published": 1125,
+        "removed_self_points": 46125,
+        "missing_transform_scans": 0
+      }
+    },
+    {
+      "navigation_log": "/home/hardy/pb2025_nav_ws/logs/20261022-161214-rmul2027-nav/navigation.log",
+      "last_filter_counters": {
+        "event": "rplidar_self_filter",
+        "enabled": true,
+        "scans": 1081,
+        "published": 1081,
+        "removed_self_points": 44321,
+        "missing_transform_scans": 0
+      }
+    },
+    {
+      "navigation_log": "/home/hardy/pb2025_nav_ws/logs/20261022-161946-rmul2027-nav/navigation.log",
+      "last_filter_counters": {
+        "event": "rplidar_self_filter",
+        "enabled": true,
+        "scans": 688,
+        "published": 688,
+        "removed_self_points": 28208,
+        "missing_transform_scans": 0
+      }
+    },
+    {
+      "navigation_log": "/home/hardy/pb2025_nav_ws/logs/20261022-162127-rmul2027-nav/navigation.log",
+      "last_filter_counters": {
+        "event": "rplidar_self_filter",
+        "enabled": true,
+        "scans": 711,
+        "published": 711,
+        "removed_self_points": 29151,
+        "missing_transform_scans": 0
+      }
+    },
+    {
+      "navigation_log": "/home/hardy/pb2025_nav_ws/logs/20261022-162311-rmul2027-nav/navigation.log",
+      "last_filter_counters": {
+        "event": "rplidar_self_filter",
+        "enabled": true,
+        "scans": 664,
+        "published": 664,
+        "removed_self_points": 27224,
+        "missing_transform_scans": 0
+      }
+    },
+    {
+      "navigation_log": "/home/hardy/pb2025_nav_ws/logs/20261022-161448-rmul2027-nav/navigation.log",
+      "last_filter_counters": {
+        "event": "rplidar_self_filter",
+        "enabled": true,
+        "scans": 625,
+        "published": 625,
+        "removed_self_points": 25625,
+        "missing_transform_scans": 0
+      }
+    },
+    {
+      "navigation_log": "/home/hardy/pb2025_nav_ws/logs/20261022-161627-rmul2027-nav/navigation.log",
+      "last_filter_counters": {
+        "event": "rplidar_self_filter",
+        "enabled": true,
+        "scans": 694,
+        "published": 694,
+        "removed_self_points": 28454,
+        "missing_transform_scans": 0
+      }
+    },
+    {
+      "navigation_log": "/home/hardy/pb2025_nav_ws/logs/20261022-161809-rmul2027-nav/navigation.log",
+      "last_filter_counters": {
+        "event": "rplidar_self_filter",
+        "enabled": true,
+        "scans": 650,
+        "published": 650,
+        "removed_self_points": 26650,
+        "missing_transform_scans": 0
+      }
+    },
+    {
+      "navigation_log": "/home/hardy/pb2025_nav_ws/logs/20261022-162450-rmul2027-nav/navigation.log",
+      "last_filter_counters": {
+        "event": "rplidar_self_filter",
+        "enabled": true,
+        "scans": 764,
+        "published": 764,
+        "removed_self_points": 31324,
+        "missing_transform_scans": 0
+      }
+    },
+    {
+      "navigation_log": "/home/hardy/pb2025_nav_ws/logs/20261022-162638-rmul2027-nav/navigation.log",
+      "last_filter_counters": {
+        "event": "rplidar_self_filter",
+        "enabled": true,
+        "scans": 719,
+        "published": 719,
+        "removed_self_points": 29479,
+        "missing_transform_scans": 0
+      }
+    },
+    {
+      "navigation_log": "/home/hardy/pb2025_nav_ws/logs/20261022-162828-rmul2027-nav/navigation.log",
+      "last_filter_counters": {
+        "event": "rplidar_self_filter",
+        "enabled": true,
+        "scans": 772,
+        "published": 772,
+        "removed_self_points": 31652,
+        "missing_transform_scans": 0
+      }
+    },
+    {
+      "navigation_log": "/home/hardy/pb2025_nav_ws/logs/20261022-163023-rmul2027-nav/navigation.log",
+      "last_filter_counters": {
+        "event": "rplidar_self_filter",
+        "enabled": true,
+        "scans": 831,
+        "published": 831,
+        "removed_self_points": 34071,
+        "missing_transform_scans": 0
+      }
+    },
+    {
+      "navigation_log": "/home/hardy/pb2025_nav_ws/logs/20261022-163222-rmul2027-nav/navigation.log",
+      "last_filter_counters": {
+        "event": "rplidar_self_filter",
+        "enabled": true,
+        "scans": 841,
+        "published": 841,
+        "removed_self_points": 34481,
+        "missing_transform_scans": 0
+      }
+    },
+    {
+      "navigation_log": "/home/hardy/pb2025_nav_ws/logs/20261022-163419-rmul2027-nav/navigation.log",
+      "last_filter_counters": {
+        "event": "rplidar_self_filter",
+        "enabled": true,
+        "scans": 863,
+        "published": 863,
+        "removed_self_points": 35383,
+        "missing_transform_scans": 0
+      }
+    },
+    {
+      "navigation_log": "/home/hardy/pb2025_nav_ws/logs/20261022-163638-rmul2027-nav/navigation.log",
+      "last_filter_counters": {
+        "event": "rplidar_self_filter",
+        "enabled": true,
+        "scans": 846,
+        "published": 846,
+        "removed_self_points": 34686,
+        "missing_transform_scans": 0
+      }
+    },
+    {
+      "navigation_log": "/home/hardy/pb2025_nav_ws/logs/20261022-163848-rmul2027-nav/navigation.log",
+      "last_filter_counters": {
+        "event": "rplidar_self_filter",
+        "enabled": true,
+        "scans": 930,
+        "published": 930,
+        "removed_self_points": 38130,
+        "missing_transform_scans": 0
+      }
+    },
+    {
+      "navigation_log": "/home/hardy/pb2025_nav_ws/logs/20261022-164059-rmul2027-nav/navigation.log",
+      "last_filter_counters": {
+        "event": "rplidar_self_filter",
+        "enabled": true,
+        "scans": 875,
+        "published": 875,
+        "removed_self_points": 35875,
+        "missing_transform_scans": 0
+      }
+    },
+    {
+      "navigation_log": "/home/hardy/pb2025_nav_ws/logs/20261022-164304-rmul2027-nav/navigation.log",
+      "last_filter_counters": {
+        "event": "rplidar_self_filter",
+        "enabled": true,
+        "scans": 2154,
+        "published": 2154,
+        "removed_self_points": 88314,
+        "missing_transform_scans": 0
+      }
+    },
+    {
+      "navigation_log": "/home/hardy/pb2025_nav_ws/logs/20261022-164736-rmul2027-nav/navigation.log",
+      "last_filter_counters": {
+        "event": "rplidar_self_filter",
+        "enabled": true,
+        "scans": 757,
+        "published": 757,
+        "removed_self_points": 31037,
+        "missing_transform_scans": 0
+      }
+    }
+  ],
+  "stop_statistics": {
+    "snapshot_count": 47,
+    "maximum_linear_mps": 0.0029311155845798166,
+    "maximum_angular_rps": 3.6039462609739075e-07
+  },
+  "evidence_root": "/mnt/e/RMULArtifacts/pb2025_nav_ws/completion-C038",
+  "limits": [
+    "finite four fixed scenarios and one 0.5m/s head-on proxy only",
+    "source-stamped self-footprint exclusion uses TF, never ground truth",
+    "C036 original planning failure cause not uniquely proven; subsequent pass cannot erase it",
+    "initial TF-unavailable scans dropped and counted; no unfiltered fallback",
+    "no real hardware, multiple opponents, crossing or tactical validation"
+  ]
+}

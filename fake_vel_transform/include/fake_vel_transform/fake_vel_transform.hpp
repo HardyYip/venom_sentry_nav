@@ -78,6 +78,7 @@ private:
   std::string cmd_spin_topic_, input_cmd_vel_topic_, output_cmd_vel_topic_;
   std::string rotation_mode_;
   double spin_speed_{0.0};
+  bool spin_on_zero_command_{true};
   double current_robot_base_angle_{0.0}, synchronized_angle_{0.0};
   bool safety_enabled_{true}, software_stop_{false}, controller_active_{false};
   bool pose_valid_{false}, plan_valid_{true}, spin_valid_{true}, command_valid_{true};

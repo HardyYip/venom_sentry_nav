@@ -5,6 +5,7 @@ if __name__ == '__main__':
 import argparse
 from pathlib import Path
 import bisect,collections,datetime,hashlib,json,math,os,select,signal,subprocess,sys,time,traceback
+from contact_log import ContactLog
 import numpy as np
 import rclpy
 from rclpy.node import Node
@@ -23,7 +24,9 @@ FOLDER=Path(__file__).resolve().parent
 WS=FOLDER.parents[3]
 parser=argparse.ArgumentParser()
 parser.add_argument('--record-dir',type=Path,required=True)
+parser.add_argument('--spin-mode',action=argparse.BooleanOptionalAction,default=False)
 parser.add_argument('--params-file',type=Path,default=FOLDER/'config/nav2_test.yaml')
+parser.add_argument('--groups',nargs='+',choices=['left-near','left-far','left-reverse','right-control'],default=['left-near','left-far','left-reverse','right-control'])
 options=parser.parse_args()
 ROOT=options.record_dir.expanduser().resolve()
 ROOT.mkdir(parents=True,exist_ok=False)
@@ -33,10 +36,10 @@ flags=subprocess.check_output(['pkg-config','--cflags','--libs','ignition-transp
 subprocess.run(['g++','-std=c++17','-O2',str(FOLDER/'actors/scripted_obstacle_actor.cpp'),'-o',str(ROOT/'contact_actor'),*flags],check=True)
 BOXES=[(3.,-5.5),(6.6,-.2)]
 CASES=[('left-far',(1.,-5.5),(5.,-5.5)),('left-reverse',(5.,-5.5),(1.,-5.5)),('left-near',(2.1,-5.5),(5.,-5.5)),('right-control',(5.,-.2),(8.3,-.2))]
-STATE={'owner':'Codex C031','navigation_changes':False,'record_bag':False,'spin_mode':True,'cases':[],'started_at':datetime.datetime.now().astimezone().isoformat()}
+STATE={'owner':'Codex C031','navigation_changes':False,'record_bag':False,'spin_mode':options.spin_mode,'groups':options.groups,'cases':[],'started_at':datetime.datetime.now().astimezone().isoformat()}
 def write(p,v):p.write_text(json.dumps(v,ensure_ascii=False,indent=2)+'\n')
 def stop_state(p):
- return {'mode':'spin-mode',
+ return {'mode':'spin-mode' if options.spin_mode else 'strict-stop',
   'classification':('translation_stopped_still_spinning' if p.angular>.03 or abs(p.cmd[2])>.03 else 'safety_stop') if p.speed<.03 and math.hypot(*p.cmd[:2])<.03 else 'translation_moving',
   'translation_speed_mps':p.speed,'translation_command_mps':math.hypot(*p.cmd[:2]),
   'angular_speed_rps':p.angular,'angular_command_rps':abs(p.cmd[2]),
@@ -96,7 +99,7 @@ class Probe(Node):
   self.record=record;self.phase='preposition';self.boxes_active=False;self.tf=Buffer();self.listener=TransformListener(self.tf,self)
   self.stream=(record/'statistics.jsonl').open('w');self.ring=collections.deque();self.pending=collections.deque(maxlen=100);self.pending_lasers=collections.deque(maxlen=60)
   self.latest={};self.last_cloud={};self.errors=collections.Counter();self.grids={};self.truth=None;self.truths=collections.deque(maxlen=3000)
-  self.last_sample=0.;self.last_plan=0.;self.last_grid={};self.cmd=[0.,0.,0.];self.minimum=float('inf');self.fault=None;self.fault_wall=None;self.detect_events=[];self.last_detect={};self.maxloc=0.;self.lasttruth=None;self.speed=0.;self.angular=0.;self.counts=collections.Counter();self.contacts_path=record/'contacts.jsonl'
+  self.last_sample=0.;self.last_plan=0.;self.last_grid={};self.cmd=[0.,0.,0.];self.minimum=float('inf');self.fault=None;self.fault_wall=None;self.detect_events=[];self.last_detect={};self.maxloc=0.;self.lasttruth=None;self.speed=0.;self.angular=0.;self.counts=collections.Counter();self.contacts_path=record/'contacts.jsonl';self.contact_monitor=ContactLog(self.contacts_path)
   sensor=QoSProfile(depth=1,reliability=ReliabilityPolicy.BEST_EFFORT);latched=QoSProfile(depth=1,durability=DurabilityPolicy.TRANSIENT_LOCAL)
   self.stop_pub=self.create_publisher(Bool,'safety_stop',10)
   self.subs=[self.create_subscription(LaserScan,'rplidar_a2/scan',lambda m:self.pending_lasers.append((time.monotonic(),m)),sensor)]
@@ -223,16 +226,20 @@ class Probe(Node):
   if time.monotonic()-getattr(self,'grid_wall',0)>.19:
    self.grid_wall=time.monotonic()
    for k in self.grids:self.grid_roi(k)
-  if self.phase=='goal' and self.contacts_path.exists() and self.contacts_path.stat().st_size>getattr(self,'contact_calibration_size',0):self.fail('physical_contact',truth_map=self.truth)
+  if self.phase=='goal':
+   try:
+    contacts=self.contact_monitor.poll()
+    if contacts:self.fail('physical_contact',truth_map=self.truth,contact=contacts[0])
+   except Exception as error:self.fail('contact_monitor_unavailable',error=repr(error))
  def finish(self):
   if self.fault is not None:
    with (self.record/'failure-window.jsonl').open('w') as f:
     for row in self.ring:f.write(json.dumps(row,separators=(',',':'))+'\n')
-  write(self.record/'probe-summary.json',{'counts':dict(self.counts),'alignment_errors':dict(self.errors),'detection_transitions':self.detect_events,'minimum_clearance_m':self.minimum if math.isfinite(self.minimum) else None,'max_aligned_error_m':self.maxloc,'fault':self.fault,'point_window_cap_per_box_per_frame':256,'camera_init_contract':'matches loam_interface: fixed base_footprint->front_mid360 transform into odom, followed by stamped map->odom'})
+  write(self.record/'probe-summary.json',{'counts':dict(self.counts),'alignment_errors':dict(self.errors),'detection_transitions':self.detect_events,'minimum_clearance_m':self.minimum if math.isfinite(self.minimum) else None,'max_aligned_error_m':self.maxloc,'fault':self.fault,'contact_monitor':self.contact_monitor.summary(),'point_window_cap_per_box_per_frame':256,'camera_init_contract':'matches loam_interface: fixed base_footprint->front_mid360 transform into odom, followed by stamped map->odom'})
   self.stream.close();self.destroy_node()
 
 def run_case(label,start,goal,repeat):
- name=f'{label}-{repeat:02d}';record=ROOT/name;record.mkdir(exist_ok=False);meta={'case':name,'start':start,'goal':goal,'status':'running','started_at':datetime.datetime.now().astimezone().isoformat(),'params_sha256':hashlib.sha256(PARAMS.read_bytes()).hexdigest(),'boxes':BOXES,'box_size':[.58,.50,.50],'z_center':.25,'record_bag':False,'spin_mode':True};write(record/'session.json',meta)
+ name=f'{label}-{repeat:02d}';record=ROOT/name;record.mkdir(exist_ok=False);meta={'case':name,'start':start,'goal':goal,'status':'running','started_at':datetime.datetime.now().astimezone().isoformat(),'params_sha256':hashlib.sha256(PARAMS.read_bytes()).hexdigest(),'boxes':BOXES,'box_size':[.58,.50,.50],'z_center':.25,'record_bag':False,'spin_mode':options.spin_mode};write(record/'session.json',meta)
  children={};streams=[];probe=None;actor=None;navlog=None;rclpy_started=False
  env=os.environ.copy();env['RMUL_FIXED_CASE_ID']=str(ROOT)+':'+name
  def launch(k,cmd):
@@ -257,7 +264,7 @@ def run_case(label,start,goal,repeat):
     row=json.loads(actor.stdout.readline());(record/'actor-events.jsonl').open('a').write(json.dumps({'command':cmd,**row})+'\n');return row
    pump(.02,False)
   raise TimeoutError('Contact actor did not reply: '+cmd)
- def nav(k,xy):return launch(k,[sys.executable,str(FOLDER/'verify_simulation.py'),'--mode','nav','--goal-x',str(xy[0]),'--goal-y',str(xy[1]),'--record-dir',str(record/k),'--goal-timeout','180','--startup-timeout','45','--stability-seconds','2','--spin-mode'])
+ def nav(k,xy):return launch(k,[sys.executable,str(FOLDER/'verify_simulation.py'),'--mode','nav','--goal-x',str(xy[0]),'--goal-y',str(xy[1]),'--record-dir',str(record/k),'--goal-timeout','180','--startup-timeout','45','--stability-seconds','2']+(['--spin-mode'] if options.spin_mode else []))
  def cancel_goal():
   if probe is not None:
    probe.stop_pub.publish(Bool(data=True));probe.emit('test_safety_stop',reason='owned trial failure');pump(.08,False)
@@ -302,7 +309,7 @@ def run_case(label,start,goal,repeat):
    result=actor_cmd(cmd);meta['positive_controls'].append(result)
    if not result.get('created') or not result.get('removed') or result.get('contact_messages',0)<=previous_probe_contacts:raise RuntimeError('Contact positive control failed')
    previous_probe_contacts=result['contact_messages']
-  pump(.3);probe.contact_calibration_size=(record/'contacts.jsonl').stat().st_size if (record/'contacts.jsonl').exists() else 0
+  pump(.3)
   health=actor_cmd('HEALTH');meta['contacts_before_goal']=health
   if health.get('contacts',0):raise RuntimeError('Unexpected setup contact')
   probe.phase='fixed_observation';meta['observation_begin_sim']=probe.now();pump(5.);meta['observation_end_sim']=probe.now()
@@ -356,7 +363,7 @@ def run_case(label,start,goal,repeat):
 def interrupted(sig,frame):raise KeyboardInterrupt
 signal.signal(signal.SIGTERM,interrupted)
 STATE['baseline_git_head']=subprocess.check_output(['git','-C',str(FOLDER.parents[1]),'rev-parse','HEAD'],text=True).strip()
-ordered=[CASES[2],CASES[0],CASES[1],CASES[3]]
+ordered=[case for case in [CASES[2],CASES[0],CASES[1],CASES[3]] if case[0] in options.groups]
 for label,start,goal in ordered:
  for repeat in range(1,4):
   result=run_case(label,start,goal,repeat)
@@ -365,5 +372,5 @@ for label,start,goal in ordered:
   if result['status']!='passed' or result['process_cleanup']['remaining']:
    STATE['phase']='failed';write(ROOT/'status.json',STATE);raise SystemExit(1)
 STATE['phase']='completed';write(ROOT/'status.json',STATE)
-write(ROOT/'static-acceptance.json',{'passed':True,'cases':len(STATE['cases']),'params_sha256':hashlib.sha256(PARAMS.read_bytes()).hexdigest(),'results':STATE['cases'],'scope':'four fixed scenarios, three fresh launches each'})
+write(ROOT/'static-acceptance.json',{'passed':True,'cases':len(STATE['cases']),'params_sha256':hashlib.sha256(PARAMS.read_bytes()).hexdigest(),'results':STATE['cases'],'groups':options.groups,'scope':'selected fixed scenarios, three fresh launches each; full gate requires all four groups'})
 print('FIXED_ACCEPTANCE_DONE',flush=True)

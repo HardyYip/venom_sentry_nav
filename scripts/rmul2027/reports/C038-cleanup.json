@@ -1,0 +1,23 @@
+{
+  "archived_launch_directories": 20,
+  "compression_files": 156,
+  "raw_bytes": 121368435,
+  "gzip_bytes": 19389525,
+  "rebuildable_removed": [
+    {
+      "path": "/mnt/e/RMULArtifacts/pb2025_nav_ws/completion-C038/fixed-final/contact_actor",
+      "size": 294192,
+      "sha256": "1e1fcdffdaea5e2c21d0d63eaf5838047fbbbbb5ea01376b9f7a163b0a3b68a7",
+      "rebuild_source": "actors/scripted_obstacle_actor.cpp"
+    },
+    {
+      "path": "/mnt/e/RMULArtifacts/pb2025_nav_ws/completion-C038/moving-final/moving_actor",
+      "size": 294192,
+      "sha256": "1e1fcdffdaea5e2c21d0d63eaf5838047fbbbbb5ea01376b9f7a163b0a3b68a7",
+      "rebuild_source": "actors/scripted_obstacle_actor.cpp"
+    }
+  ],
+  "other_rounds_untouched": true,
+  "C035_C036_deferred": "retained for independent DeepSeek read-only audit; no concurrent renaming",
+  "completed_at": "2026-10-22T17:05:42.402383+08:00"
+}

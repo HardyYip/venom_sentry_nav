@@ -4,7 +4,7 @@
 
 ## 运行节点改变
 
-fake_vel_transform默认启用safety_enabled。监视命令接收、里程计接收、源时间戳进展／年龄和局部路径同步；识别空路径、无效输入和未来时间。故障时20ms墙钟定时器持续输出vx=vy=w=0，覆盖自旋；诊断safety_status报告STOPPED及具体原因。恢复后等待新鲜输入和新的速度指令，不重放旧缓存。普通导航零速在健康additive模式仍允许请求的自旋，与故障停车区分。
+fake_vel_transform默认启用safety_enabled。监视命令接收、里程计接收、源时间戳进展／年龄和局部路径同步；识别空路径、无效输入和未来时间。故障时20ms墙钟定时器持续输出vx=vy=w=0，覆盖自旋；诊断safety_status报告STOPPED及具体原因。恢复后等待新鲜输入和新的速度指令，不重放旧缓存。普通C038配置显式spin_on_zero_command=false：健康零Nav2输入也停止追加自旋。此参数的通用默认true保留历史additive自旋行为，heading仍不追加自旋；故障停车不受该选项影响，始终全零。
 
 原零速分支没有替换缓存，后续同步可能重放非零速度；已修复。虚拟TF现在使用里程计的原时间戳，拒绝过期／冻结／超前姿态，不能用当前时间掩盖旧姿态。
 
@@ -30,8 +30,8 @@ fake_vel_transform默认启用safety_enabled。监视命令接收、里程计接
 先关闭本工程已有仿真，source Humble及本工作区install/setup.bash，在仓库目录执行。每个record-dir须为新目录，以下命令会主动驱动机器人或注入故障。先按README设置RMUL_TEST_ARTIFACT_ROOT；受保护测试不得写入/tmp或WSL系统盘，默认不录bag。
 
 ```bash
-ROS_DOMAIN_ID=178 python3 scripts/rmul2027/test_velocity_safety.py --rotation-mode additive --record-dir /tmp/guard-additive-new
-ROS_DOMAIN_ID=179 python3 scripts/rmul2027/test_velocity_safety.py --rotation-mode heading --record-dir /tmp/guard-heading-new
+ROS_DOMAIN_ID=178 python3 scripts/rmul2027/test_velocity_safety.py --rotation-mode additive --record-dir "$RMUL_TEST_ARTIFACT_ROOT/guard-additive-new"
+ROS_DOMAIN_ID=179 python3 scripts/rmul2027/test_velocity_safety.py --rotation-mode heading --record-dir "$RMUL_TEST_ARTIFACT_ROOT/guard-heading-new"
 bash scripts/rmul2027/run_point_time_contract.sh
 python3 scripts/rmul2027/run_velocity_fault_sim.py --record-dir "$RMUL_TEST_ARTIFACT_ROOT/physical-fault-new"
 bash scripts/rmul2027/build_cart_test_tools.sh
@@ -55,3 +55,9 @@ python3 scripts/rmul2027/run_cart_obstacle_test.py --record-dir "$RMUL_TEST_ARTI
 完整结果见reports/C022-RESULTS.zh-CN.md，独立核查见reports/C023-AUDIT.zh-CN.md。WSLg显示与导航链路分开验收：当前后台窗口恢复调用经三次串行开关复核，手动恢复也有最小化正对照。其30秒轮询及当前会话通过，不代表跨Windows／WSL重启永久修复；历史共享内存EIO／COPY MODE保留。多项调用条件同时改变的试验只证明现组合可用，未证明某一单项为唯一故障原因。软件速度保护、Nav2自身时效检查和底盘独立看门狗也应分别描述，不能把已实现的fake_vel_transform保护误列为未实现。
 
 C024另有桥接层与Gazebo插件独立0.5秒墙钟看门狗，以及Nav2 PoseFresh行为树条件；分别经13项物理故障注入与20项实际插件检查。它们覆盖上游停止或冻结时的不同故障范围，不能代替实车MCU保护。完整实现通过四份依赖补丁交付。
+
+## C036/C038补充：严格停车与2D自身回波
+
+普通验收保留原1秒四项速度/指令<0.03硬判定，再要求连续0.2秒稳定；固定2秒观测预算不能挽救原1秒失败。C034中心点1秒0.270823m/s仍记录失败，C036完整路线规划ABORTED不能因停车通过而算到点。C038仅在2D输入投影中按源时间戳TF过滤未膨胀车体footprint内点，不动安装/地图/规划/膨胀或定位；启动TF未就绪帧丢弃并计数，无真值输入。
+
+接触夹具按每个collision1/collision2判真实对，显式探针对才排除，混合行不因probe标记被忽略。共享内存清理只针对本轮确证归属、基线排除、身份不变且内核lease确认无FD/mmap者；未知/活跃保留。各自契约与有限仿真结果见C036、C038报告，不将历史位姿停滞或规划失败因果写成已证明。

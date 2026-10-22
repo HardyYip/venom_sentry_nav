@@ -5,6 +5,7 @@ if __name__ == '__main__':
 import argparse
 from pathlib import Path
 import bisect,collections,datetime,hashlib,json,math,os,select,signal,subprocess,sys,time,traceback
+from contact_log import ContactLog
 import numpy as np
 import rclpy
 from rclpy.node import Node
@@ -22,6 +23,7 @@ FOLDER=Path(__file__).resolve().parent
 WS=FOLDER.parents[3]
 parser=argparse.ArgumentParser()
 parser.add_argument('--record-dir',type=Path,required=True)
+parser.add_argument('--spin-mode',action=argparse.BooleanOptionalAction,default=False)
 parser.add_argument('--params-file',type=Path,default=FOLDER/'config/nav2_test.yaml')
 parser.add_argument('--fixed-acceptance',type=Path,required=True)
 options=parser.parse_args()
@@ -32,10 +34,10 @@ PARAMS=options.params_file.expanduser().resolve()
 flags=subprocess.check_output(['pkg-config','--cflags','--libs','ignition-transport11','ignition-msgs8'],text=True).split()
 subprocess.run(['g++','-std=c++17','-O2',str(FOLDER/'actors/scripted_obstacle_actor.cpp'),'-o',str(ROOT/'moving_actor'),*flags],check=True)
 SCENE={'label':'headon','start':(4.5,-.2),'goal':(9.3,-.2),'opponent_start':(8.0,-.2),'opponent_end':(4.5,-.2),'speed':0.5}
-STATE={'owner':'Codex C032','navigation_changes':False,'record_bag':False,'spin_mode':True,'cases':[],'started_at':datetime.datetime.now().astimezone().isoformat()}
+STATE={'owner':'Codex C032','navigation_changes':False,'record_bag':False,'spin_mode':options.spin_mode,'cases':[],'started_at':datetime.datetime.now().astimezone().isoformat()}
 def write(p,v):p.write_text(json.dumps(v,ensure_ascii=False,indent=2)+'\n')
 def stop_state(p):
- return {'mode':'spin-mode',
+ return {'mode':'spin-mode' if options.spin_mode else 'strict-stop',
   'classification':('translation_stopped_still_spinning' if p.angular>.03 or abs(p.cmd[2])>.03 else 'safety_stop') if p.speed<.03 and math.hypot(*p.cmd[:2])<.03 else 'translation_moving',
   'translation_speed_mps':p.speed,'translation_command_mps':math.hypot(*p.cmd[:2]),
   'angular_speed_rps':p.angular,'angular_command_rps':abs(p.cmd[2]),
@@ -95,7 +97,7 @@ class Probe(Node):
   self.record=record;self.phase='preposition';self.targets=[];self.tf=Buffer();self.listener=TransformListener(self.tf,self)
   self.stream=(record/'statistics.jsonl').open('w');self.ring=collections.deque();self.pending=collections.deque(maxlen=100)
   self.latest={};self.last_cloud={};self.errors=collections.Counter();self.grids={};self.truth=None;self.truths=collections.deque(maxlen=3000)
-  self.last_sample=0.;self.last_plan=0.;self.last_grid={};self.cmd=[0.,0.,0.];self.minimum=float('inf');self.fault=None;self.fault_wall=None;self.detect_events=[];self.last_detect={};self.maxloc=0.;self.lasttruth=None;self.speed=0.;self.angular=0.;self.counts=collections.Counter();self.contacts_path=record/'contacts.jsonl'
+  self.last_sample=0.;self.last_plan=0.;self.last_grid={};self.cmd=[0.,0.,0.];self.minimum=float('inf');self.fault=None;self.fault_wall=None;self.detect_events=[];self.last_detect={};self.maxloc=0.;self.lasttruth=None;self.speed=0.;self.angular=0.;self.counts=collections.Counter();self.contacts_path=record/'contacts.jsonl';self.contact_monitor=ContactLog(self.contacts_path)
   self.opponents=collections.deque(maxlen=6000);self.opp_last=None;self.opp_speed=0.;self.min_opponent_gap=float('inf');self.min_opponent_gap_sim=None;self.opponent_move_started=None;self.opponent_past_endpoint=False;self.stopped_near_opponent=False;self.opponent_pose_handle=None;self.opponent_pose_leftover='';self.opponent_pose_offset=0;self.opponent_read_retries=0
   self.motion_rows=[]
   sensor=QoSProfile(depth=1,reliability=ReliabilityPolicy.BEST_EFFORT);latched=QoSProfile(depth=1,durability=DurabilityPolicy.TRANSIENT_LOCAL)
@@ -265,12 +267,16 @@ class Probe(Node):
   if time.monotonic()-getattr(self,'grid_wall',0)>.19:
    self.grid_wall=time.monotonic()
    for k in self.grids:self.grid_roi(k)
-  if self.phase=='goal' and self.contacts_path.exists() and self.contacts_path.stat().st_size>getattr(self,'contact_calibration_size',0):self.fail('physical_contact',truth_map=self.truth)
+  if self.phase=='goal':
+   try:
+    contacts=self.contact_monitor.poll()
+    if contacts:self.fail('physical_contact',truth_map=self.truth,contact=contacts[0])
+   except Exception as error:self.fail('contact_monitor_unavailable',error=repr(error))
  def finish(self):
   if self.fault is not None:
    with (self.record/'failure-window.jsonl').open('w') as f:
     for row in self.ring:f.write(json.dumps(row,separators=(',',':'))+'\n')
-  write(self.record/'probe-summary.json',{'counts':dict(self.counts),'alignment_errors':dict(self.errors),'detection_transitions':self.detect_events,'minimum_clearance_m':self.minimum if math.isfinite(self.minimum) else None,'minimum_opponent_gap_m':self.min_opponent_gap if math.isfinite(self.min_opponent_gap) else None,'minimum_opponent_gap_sim':self.min_opponent_gap_sim,'opponent_measured_speed_mps':self.opp_speed,'opponent_past_endpoint':self.opponent_past_endpoint,'stopped_near_opponent':self.stopped_near_opponent,'max_aligned_error_m':self.maxloc,'fault':self.fault,'point_window_cap_per_target_per_frame':256,'camera_init_contract':'matches loam_interface: fixed base_footprint->front_mid360 transform into odom, followed by stamped map->odom'})
+  write(self.record/'probe-summary.json',{'counts':dict(self.counts),'alignment_errors':dict(self.errors),'detection_transitions':self.detect_events,'minimum_clearance_m':self.minimum if math.isfinite(self.minimum) else None,'minimum_opponent_gap_m':self.min_opponent_gap if math.isfinite(self.min_opponent_gap) else None,'minimum_opponent_gap_sim':self.min_opponent_gap_sim,'opponent_measured_speed_mps':self.opp_speed,'opponent_past_endpoint':self.opponent_past_endpoint,'stopped_near_opponent':self.stopped_near_opponent,'max_aligned_error_m':self.maxloc,'fault':self.fault,'contact_monitor':self.contact_monitor.summary(),'point_window_cap_per_target_per_frame':256,'camera_init_contract':'matches loam_interface: fixed base_footprint->front_mid360 transform into odom, followed by stamped map->odom'})
   self.stream.close()
   if self.opponent_pose_handle:self.opponent_pose_handle.close()
   self.destroy_node()
@@ -278,7 +284,7 @@ class Probe(Node):
 def run_case(label,repeat):
  start=SCENE['start'];goal=SCENE['goal'];opp=SCENE['opponent_start'];opp_end=SCENE['opponent_end']
  name=f'{label}-{repeat:02d}';record=ROOT/name;record.mkdir(exist_ok=False)
- meta={'case':name,'start':start,'goal':goal,'status':'running','started_at':datetime.datetime.now().astimezone().isoformat(),'params_sha256':hashlib.sha256(PARAMS.read_bytes()).hexdigest(),'box_size':[.58,.50,.50],'z_center':.25,'record_bag':False,'spin_mode':True,'scenario':SCENE,'opponent_initial_distance_m':math.dist(start,opp),'opponent_direction':'toward_robot_-x','opponent_nominal_speed_mps':SCENE['speed']}
+ meta={'case':name,'start':start,'goal':goal,'status':'running','started_at':datetime.datetime.now().astimezone().isoformat(),'params_sha256':hashlib.sha256(PARAMS.read_bytes()).hexdigest(),'box_size':[.58,.50,.50],'z_center':.25,'record_bag':False,'spin_mode':options.spin_mode,'scenario':SCENE,'opponent_initial_distance_m':math.dist(start,opp),'opponent_direction':'toward_robot_-x','opponent_nominal_speed_mps':SCENE['speed']}
  write(record/'session.json',meta)
  children={};streams=[];probe=None;actor=None;navlog=None;rclpy_started=False
  env=os.environ.copy();env['RMUL_MOVING_CASE_ID']=str(ROOT)+':'+name
@@ -304,7 +310,7 @@ def run_case(label,repeat):
     row=json.loads(actor.stdout.readline());(record/'actor-events.jsonl').open('a').write(json.dumps({'command':cmd,**row})+'\n');return row
    pump(.02,False)
   raise TimeoutError('Moving actor did not reply: '+cmd)
- def nav(k,xy):return launch(k,[sys.executable,str(FOLDER/'verify_simulation.py'),'--mode','nav','--goal-x',str(xy[0]),'--goal-y',str(xy[1]),'--record-dir',str(record/k),'--goal-timeout','180','--startup-timeout','45','--stability-seconds','2','--spin-mode'])
+ def nav(k,xy):return launch(k,[sys.executable,str(FOLDER/'verify_simulation.py'),'--mode','nav','--goal-x',str(xy[0]),'--goal-y',str(xy[1]),'--record-dir',str(record/k),'--goal-timeout','180','--startup-timeout','45','--stability-seconds','2']+(['--spin-mode'] if options.spin_mode else []))
  def cancel_goal():
   if probe is not None:
    probe.stop_pub.publish(Bool(data=True));probe.emit('test_safety_stop',reason='owned trial failure');pump(.08,False)
@@ -348,10 +354,10 @@ def run_case(label,repeat):
    result=actor_cmd(cmd);meta['positive_controls'].append(result)
    if not result.get('created') or not result.get('removed') or result.get('contact_messages',0)<=previous_probe_contacts:raise RuntimeError('Contact positive control failed')
    previous_probe_contacts=result['contact_messages']
-  pump(.3);probe.contact_calibration_size=(record/'contacts.jsonl').stat().st_size if (record/'contacts.jsonl').exists() else 0
+  pump(.3)
   motion_check=actor_cmd('MOTIONPROBE');meta['motion_collision_positive_control']=motion_check
   if not motion_check.get('ok') or motion_check.get('contact_messages',0)<=0:raise RuntimeError('Moving collision consistency positive control failed')
-  pump(.3);probe.contact_calibration_size=(record/'contacts.jsonl').stat().st_size
+  pump(.3)
   health=actor_cmd('HEALTH');meta['contacts_before_goal']=health
   if health.get('contacts',0):raise RuntimeError('Unexpected setup contact')
   probe.phase='fixed_observation';meta['observation_begin_sim']=probe.now();pump(5.);meta['observation_end_sim']=probe.now()

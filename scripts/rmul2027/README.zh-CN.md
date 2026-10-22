@@ -4,7 +4,7 @@
 
 C024/C025补齐独立下游停车、Nav2位姿时效门控和Point-LIO点时间链路；两次全新快速完整路线及普通完整路线、静态绕障、封路停车/移除后恢复、2025旧图近点回归已通过。普通与fast入口采用已验证的instantaneous秒单位快照、IMU队列400及真实IMU缺口锁止。定位基线见[C025报告](reports/C025-RESULTS.zh-CN.md)；历史C022未采用快照的失败仍保留，不能混为当前结果。
 
-当前普通0.5m/s入口采用原自旋3.14rad/s、地形观测保持2秒及真实水平RPLidar的独立2秒观测层。C034最终同一配置固定四类各3次12/12、单个0.5m/s对向代理3/3、移除清除和封路恢复通过，固定/移动真实接触均0。完整路线按固定2秒稳定停止窗口8/8；按1秒平移快照口径为7/8，中心点1秒仍0.270823m/s、1.712秒确认稳定，1秒停车问题未修复。结果与限制见[C034报告](reports/C034-RESULTS.zh-CN.md)，旧失败全部保留。
+当前普通0.5m/s入口采用运动自旋3.14rad/s、零Nav2输入停止追加自旋，以及真实水平RPLidar的源时间戳车体footprint过滤和独立2秒观测层。C038同一配置固定四类各3次12/12、单个0.5m/s对向代理3/3、普通完整路线8/8、停放移除清除和封路恢复通过，固定/移动真实接触均0；到点与安全停车均通过原1秒全零阈值。结果和边界见[C038报告](reports/C038-RESULTS.zh-CN.md)。C034原1秒停车失败、C035无自旋危险逼近、C036规划失败保留；不把后续有限通过写成唯一根因已证实。 C038仅将接近最低速度0.1降为0.05m/s，额定速度保持；C037原1秒停车失败另见reports/C037-RESULTS.zh-CN.md。
 
 ## 队友获取、恢复与构建
 
@@ -27,7 +27,7 @@ prepare按已发布依赖基准与patches/manifest.json恢复源码及完整补�
 
 ## 启动与手动测试
 
-普通入口恢复了原自旋：到点可以平移停止而仍在旋转；安全停止须vx/vy/w全部归零。自动验收用显式`--spin-mode`区分，ABORTED/封路仍按全零安全停止检查。fast入口保持C025配置，本轮新避障结论只覆盖普通0.5m/s。
+普通入口运动时自旋，零Nav2输入时不再追加自旋；到点与安全停止均要求vx/vy/w归零。普通自动验收默认严格全零，显式`--spin-mode`仅供历史到点平移停止对照。fast入口保持C025配置，本轮新避障结论只覆盖普通0.5m/s。
 
 终端A，在仓库目录执行。普通入口保持0.5m/s；只运行一套后台Gazebo，不发目标、不打开Gazebo GUI：
 
@@ -89,7 +89,7 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File "$rvizTools\restore_rviz
 
 ```bash
 export RMUL_TEST_ARTIFACT_ROOT=/mnt/e/RMULArtifacts/pb2025_nav_ws
-python3 scripts/rmul2027/run_timing_experiment.py --record-dir "$RMUL_TEST_ARTIFACT_ROOT/full-$(date +%Y%m%d-%H%M%S)" --params-file scripts/rmul2027/config/nav2_test.yaml --gz-world-path scripts/rmul2027/config/gz_world_test.yaml --field-contact cad-flat-floor --render-mode gpu --last-case 07-occupied --dds-profile scripts/rmul2027/config/fastdds_local_64m.xml --spin-mode
+python3 scripts/rmul2027/run_timing_experiment.py --record-dir "$RMUL_TEST_ARTIFACT_ROOT/full-$(date +%Y%m%d-%H%M%S)" --params-file scripts/rmul2027/config/nav2_test.yaml --gz-world-path scripts/rmul2027/config/gz_world_test.yaml --field-contact cad-flat-floor --render-mode gpu --last-case 07-occupied --dds-profile scripts/rmul2027/config/fastdds_local_64m.xml
 ```
 
 快速对照只把params-file换成nav2_original_speed_early_brake.yaml。完整路线为静止、6运动点、占用目标拒绝，任一失败停止后续目标；180秒／0.35m时序对齐误差、真值位移及实际停车判据保持。真值只用于评估。
@@ -98,7 +98,7 @@ python3 scripts/rmul2027/run_timing_experiment.py --record-dir "$RMUL_TEST_ARTIF
 
 TF2用官方0.25.24项目局部核心库处理已取证的双线程死锁，不替换系统ROS。依赖补丁基准、来源及hash在patches和assets。共享代码保护不能替代硬件急停或MCU看门狗；真实驱动、尺寸、延迟和制动仍需独立验收。
 
-[最新C034报告](reports/C034-RESULTS.zh-CN.md)、[C025定位报告](reports/C025-RESULTS.zh-CN.md)、[C024保护说明](reports/C024-RESULTS.zh-CN.md)、[历史C022报告](reports/C022-RESULTS.zh-CN.md)、[C021大点云传输与静态避障](reports/C021-RESULTS.zh-CN.md)、[C015基础场景结果](TEST_RESULTS.zh-CN.md)分别记录范围。旧说明保留在history。C盘唯一read.md维护AI交接，本仓库文档维护可发布工程快照。
+[最新C038报告](reports/C038-RESULTS.zh-CN.md)、[C036未采用候选](reports/C036-RESULTS.zh-CN.md)、[C034历史](reports/C034-RESULTS.zh-CN.md)、[C025定位报告](reports/C025-RESULTS.zh-CN.md)、[C024保护说明](reports/C024-RESULTS.zh-CN.md)、[历史C022报告](reports/C022-RESULTS.zh-CN.md)、[C021大点云传输与静态避障](reports/C021-RESULTS.zh-CN.md)、[C015基础场景结果](TEST_RESULTS.zh-CN.md)分别记录范围。旧说明保留在history。C盘唯一read.md维护AI交接，本仓库文档维护可发布工程快照。
 
 
 ## 存储与收尾（2026-10-21起强制）
@@ -136,3 +136,6 @@ python3 scripts/rmul2027/run_moving_obstacle_acceptance.py --record-dir "$RMUL_T
 移动代理是0.58×0.50×0.50m、带真实碰撞和激光回波的运动盒体。双方额定平移0.5m/s，物体按仿真时间固定直线行驶；我方目标实际接收后才触发运动。每次先验证运动碰撞正对照，位姿真值只用于驱动和评估，不注入导航。成功到点、仍在自旋、全零安全停和测试保护分别记录。
 
 旧普通配置在`history/before-C031-nav2_test.yaml`，C029中间候选在`history/C029-spin-persistence-nav2_test.yaml`。C031永久2D层在`history/C031-persistent-rplidar-nav2_test.yaml`；三者用于历史对照。当前真实LaserScan经`rplidar_obstacle_cloud.py`保留原时间戳/坐标投影为占用点，再由已有IntensityVoxelLayer每轮重建，观测保留2秒，避免移走后的永久旧格。此链路不使用物体真值。保持50/40/30GiB、单轮512MiB及累计预算；不能以换目录绕过守护。
+C038先用LaserScan源时间戳TF到base_footprint，剔除与双图相同未膨胀footprint内/边界的自身回波；外部点继续原frame/时间戳投影，TF缺失不回退未过滤数据并计数。转换器通用默认过滤关闭，普通配置显式启用。参数组rplidar_obstacle_cloud与TF命名空间由入口接入；不把物体真值输入导航。
+
+C038的min_approach_linear_velocity=0.05m/s也参与曲率速度下界，本轮规定避障已重新验证，fast未改。

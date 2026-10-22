@@ -419,6 +419,9 @@ try:
                 'translation_command_mps':math.hypot(first_command.linear.x,first_command.linear.y),
                 'angular_speed_rps':abs(first_velocity.angular.z),'angular_command_rps':abs(first_command.angular.z)}
             allow_arrival_spin = options.spin_mode and options.scenario == 'simple' and result.status == 4
+            original_one_second_stop = initial_stop_snapshot['translation_speed_mps']<.03 and initial_stop_snapshot['translation_command_mps']<.03
+            if not allow_arrival_spin:
+                original_one_second_stop = original_one_second_stop and initial_stop_snapshot['angular_speed_rps']<.03 and initial_stop_snapshot['angular_command_rps']<.03
             stop_samples=[];stable_since=None;stable_stop_confirmed=False
             settle_wall_deadline=time.monotonic()+45
             while clock_seconds() <= initial_sim_time+2.0 and time.monotonic()<settle_wall_deadline:
@@ -438,7 +441,7 @@ try:
                 else:stable_since=None
                 rclpy.spin_once(node,timeout_sec=.02)
             stop_observation={'budget_sim_s':2.0,'stable_window_sim_s':.2,'threshold':.03,
-                'first_snapshot_after_1s':initial_stop_snapshot,'confirmed':stable_stop_confirmed,
+                'first_snapshot_after_1s':initial_stop_snapshot,'confirmed':stable_stop_confirmed,'original_1s_stop_passed':original_one_second_stop,
                 'confirmed_after_result_sim_s':clock_seconds()-initial_sim_time,'samples':stop_samples}
             (options.record_dir/'stop-observation.json').write_text(json.dumps(stop_observation,indent=2)+'\n')
             final = pose()
@@ -467,7 +470,7 @@ try:
                         'translation_speed_mps':translation_speed,'translation_command_mps':translation_command,
                         'angular_speed_rps':angular_speed,'angular_command_rps':angular_command,
                         'legacy_max_speed':stopped_speed,'legacy_max_command':stopped_command,
-                        'stable_stop_confirmed':stable_stop_confirmed,'stop_observation_budget_sim_s':2.0,
+                        'stable_stop_confirmed':stable_stop_confirmed,'original_1s_stop_passed':original_one_second_stop,'stop_observation_budget_sim_s':2.0,
                         'stop_confirmation_delay_sim_s':stop_observation['confirmed_after_result_sim_s'],
                         'threshold':.03,'source':'chassis_odometry_gt twist and cmd_vel received at final check'}
             (options.record_dir/'stop-state.json').write_text(json.dumps(stop_state,indent=2)+'\n')
@@ -492,6 +495,7 @@ try:
             model_rpy = [float(v) for v in coordinates[1].split()]
             emit('physical_pose',xyz=model_xyz,rpy=model_rpy)
             assert .02 < model_xyz[2] < .15 and max(abs(v) for v in model_rpy[:2]) < .1, 'Robot dropped, floated or tipped on the flat test area'
+            assert original_one_second_stop, 'Original one-second stop snapshot exceeded original 0.03 threshold'
             assert stable_stop_confirmed, 'Stop did not remain below original thresholds for 0.2s within fixed 2.0s observation budget'
             assert time.monotonic()-started <= options.goal_timeout, 'Arrival and stable stop exceeded original goal timeout'
             if allow_arrival_spin:

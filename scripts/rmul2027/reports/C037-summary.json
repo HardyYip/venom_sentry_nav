@@ -1,0 +1,41 @@
+{
+  "owner": "Codex C037 raw re-audit",
+  "passed": false,
+  "adopted": false,
+  "params_sha256": "6e9bbb76a07d10885f063ec46b3f18b87150e7b493afe385efb6d052d528f747",
+  "fixed": {
+    "passed": true,
+    "case_count": 12,
+    "max_truth_goal_error_m": 0.19206162880666533,
+    "minimum_nominal_clearance_m": 0.10352121315407103,
+    "max_aligned_localization_error_m": 0.08028695295378839,
+    "real_contacts": 0
+  },
+  "moving": {
+    "passed": true,
+    "case_count": 3,
+    "max_truth_goal_error_m": 0.1936929427218494,
+    "minimum_nominal_clearance_m": 0.07811382899743771,
+    "real_navigation_contacts": 0
+  },
+  "full_route": {
+    "passed": false,
+    "failed_case": "03-center",
+    "reason": "original one-second physical translation speed",
+    "first_snapshot_after_1s": {
+      "at_sim_s": 1.0,
+      "translation_speed_mps": 0.05597889375957735,
+      "translation_command_mps": 0.0,
+      "angular_speed_rps": 3.254352250502634e-05,
+      "angular_command_rps": 0.0
+    },
+    "confirmed_after_result_sim_s": 1.25
+  },
+  "not_run": [
+    "remaining full goals",
+    "parked-clear",
+    "blocked-clear"
+  ],
+  "preposition_abort_preserved": "/mnt/e/RMULArtifacts/pb2025_nav_ws/completion-C037/fixed-final/right-control-03/session.json",
+  "evidence_root": "/mnt/e/RMULArtifacts/pb2025_nav_ws/completion-C037"
+}

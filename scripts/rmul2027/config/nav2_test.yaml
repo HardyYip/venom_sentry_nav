@@ -168,6 +168,7 @@ fake_vel_transform:
     output_cmd_vel_topic: cmd_vel
     cmd_spin_topic: cmd_spin
     init_spin_speed: 3.14
+    spin_on_zero_command: false
 small_gicp_relocalization:
   ros__parameters:
     use_sim_time: true
@@ -362,7 +363,7 @@ controller_server:
       use_interpolation: false
       use_rotate_to_heading: false
       use_rotate_to_heading_treshold: 0.1
-      min_approach_linear_velocity: 0.1
+      min_approach_linear_velocity: 0.05
       approach_velocity_scaling_dist: 1.0
       v_linear_min: -0.5
       v_linear_max: 0.5
@@ -674,3 +675,10 @@ pb_teleop_twist_joy_node:
       roll: 0.0
       pitch: -1.5
       yaw: 3.5
+rplidar_obstacle_cloud:
+  ros__parameters:
+    use_sim_time: true
+    self_filter_enabled: true
+    self_filter_frame: base_footprint
+    self_filter_footprint: '[[0.29, 0.25], [0.29, -0.25], [-0.29, -0.25], [-0.29,
+      0.25]]'

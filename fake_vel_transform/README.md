@@ -29,3 +29,4 @@ Related issue: [Switch from Twist to TwistStamped for cmd_vel #1594](https://git
 * `input_cmd_vel_topic` (`string`, default: "") - 输入速度指令的话题
 * `output_cmd_vel_topic` (`string`, default: "") - 输出速度指令的话题。将原本基于 `fake_robot_base_frame` 的速度变换到 `robot_base_frame` 后发布
 * `init_spin_speed` (`double`, default: 0.0) - 若没有接收 `cmd_spin_topic`，则使用该值作为固定旋转速度
+* `spin_on_zero_command` (`bool`, default: true) - additive模式是否对全零导航输入继续注入自旋。设为false时，零速指令保持零速；非零运动指令仍使用原自旋。heading模式及默认true保留原语义。
