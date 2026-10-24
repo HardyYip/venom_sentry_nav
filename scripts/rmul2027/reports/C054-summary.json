@@ -1,0 +1,37 @@
+{
+  "at": "2026-10-24T14:21:24.913642+08:00",
+  "owner": "Codex",
+  "task": "C054 bounded read-only timing evidence recorder",
+  "capture_delivery_passed": true,
+  "final_offline_contracts": 13,
+  "portable_live_contracts": 9,
+  "independent_ROS_only_build": true,
+  "final_patch_byte_restore": true,
+  "real_navigation_runs": [
+    {
+      "case": "integration-route",
+      "result": "preposition_native6_stamp_stalled",
+      "moving_encounter": "not_run",
+      "original_1s_stop_passed": true,
+      "fatal_clock_window_available": false,
+      "reason": "v1 first recoverable warning consumed only window11s before formal failure"
+    },
+    {
+      "case": "v2-integration-route",
+      "result": "preposition_and_moving_encounter_passed",
+      "minimum_nominal_gap_m": 0.09649321264760725,
+      "original_1s_stop_passed": true,
+      "PoseFresh_failures": 0,
+      "warning_phase": "post-goal shutdown; trigger3.637s after last goal trace"
+    }
+  ],
+  "historical_root_identified": false,
+  "historical_root_fixed": false,
+  "navigation_default_changed": false,
+  "DS5_candidate_adoption": "rejected",
+  "manual_full_out_and_back": "not_run",
+  "new_fast_avoidance": "not_run_not_qualified",
+  "production_navigation_baseline": "25e6e18790bd06605227be96530aa963c7214b9b",
+  "canonical_tool_patch_sha256": "6e78d167cc150117c107b4df8d1349320d781c14dc28c24096e7eb167d6f2634",
+  "raw_evidence": "/mnt/e/RMULArtifacts/pb2025_nav_ws/codex-trigger-capture-C054-20261024-133406"
+}

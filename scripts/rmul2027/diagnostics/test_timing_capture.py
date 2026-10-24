@@ -1,0 +1,80 @@
+from pathlib import Path
+import importlib.util
+import json
+import tempfile
+import unittest
+spec=importlib.util.spec_from_file_location("capture",Path(__file__).with_name("timing_capture.py"))
+m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
+entry_spec=importlib.util.spec_from_file_location("capture_entry",Path(__file__).resolve().parents[1]/"run_timing_capture.py")
+entry=importlib.util.module_from_spec(entry_spec);entry_spec.loader.exec_module(entry)
+class CaptureContract(unittest.TestCase):
+ def test_guarded_entry_preserves_child_output_arguments(self):
+  argv=["entry","--output","capture","--","python3","child.py","--output","child-output"]
+  self.assertEqual(entry.normalize_output_arguments(argv),["entry","--record-dir","capture","--","python3","child.py","--output","child-output"])
+  self.assertEqual(argv[1],"--output")
+ def test_guarded_entry_accepts_equals_form_without_touching_child(self):
+  self.assertEqual(entry.normalize_output_arguments(["entry","--output=capture","--","child","--output=x"]),["entry","--record-dir=capture","--","child","--output=x"])
+
+ def test_actual_bounded_pre_post_history(self):
+  with tempfile.TemporaryDirectory() as p:
+   w=m.Window(p)
+   for i in range(161):
+    t=i*.05;w.accept({"steady":t,"wall":100+t,"payload":i},
+      {"reason":"injected"} if i==100 else None)
+   s=w.finish();rows=[json.loads(x) for x in (Path(p)/"event.jsonl").read_text().splitlines()]
+   self.assertGreaterEqual(s["pre_available_s"],2.95)
+   self.assertTrue(s["post_complete"])
+   self.assertGreaterEqual(rows[0]["steady"],2.)
+   self.assertLessEqual(rows[-1]["steady"],7.05)
+ def test_no_event_does_not_write_full_stream(self):
+  with tempfile.TemporaryDirectory() as p:
+   w=m.Window(p,ring_bytes=300)
+   for i in range(10000):w.accept({"steady":i*.01,"value":"a"*40})
+   self.assertLessEqual(w.ring_bytes,300);self.assertFalse((Path(p)/"event.jsonl").exists())
+   self.assertIsNone(w.finish()["trigger"])
+ def test_disk_byte_limit_is_explicitly_incomplete(self):
+  with tempfile.TemporaryDirectory() as p:
+   w=m.Window(p,max_bytes=250)
+   for i in range(100):w.accept({"steady":i*.05,"data":"x"*80},{"reason":"injected"} if i==1 else None)
+   s=w.finish();self.assertTrue(s["truncated"]);self.assertFalse(s["post_complete"])
+   self.assertLessEqual((Path(p)/"event.jsonl").stat().st_size,250)
+ def test_truncated_child_exit_not_full_post_window(self):
+  with tempfile.TemporaryDirectory() as p:
+   w=m.Window(p);w.accept({"steady":1.},{"reason":"injected"});w.accept({"steady":1.1})
+   self.assertFalse(w.finish()["post_complete"])
+ def test_missing_streams_are_not_a_diagnosed_stall(self):
+  self.assertIsNone(m.trigger_for({"steady":10.,"streams":{}} ,True))
+ def test_observer_gap_is_recorded_as_missing_coverage(self):
+  streams={k:{"count":20,"progress":10.} for k in m.REQUIRED}
+  r=m.trigger_for({"steady":10.1,"streams":streams,"loop_gap":.3},True)
+  self.assertEqual(r["reason"],"observer_gap");self.assertEqual(r["causality"],"uncovered_observation")
+ def test_slow_clock_frozen_tf_is_observed_without_relaxing_a_guard(self):
+  streams={k:{"count":20,"progress":10.7} for k in m.REQUIRED}
+  streams["tf:map->odom"]["progress"]=10.
+  r=m.trigger_for({"steady":10.7,"streams":streams},True)
+  self.assertEqual(set(r["progress_age_s"]),{"tf:map->odom"})
+  self.assertEqual(r["causality"],"not_determined")
+ def test_rosout_failure_triggers_even_without_complete_headers(self):
+  r=m.trigger_for({"steady":10.,"failures":[{"message":"PoseFresh FAILURE: stamp_stalled"}]},False)
+  self.assertEqual(r["reason"],"PoseFresh_FAILURE")
+ def test_invalid_nan_is_not_serialized_as_evidence(self):
+  with tempfile.TemporaryDirectory() as p:
+   w=m.Window(p);w.accept({"steady":float("nan")},{"reason":"injected"})
+   self.assertEqual(w.finish()["invalid_records"],1)
+ def test_closed_goal_does_not_arm_shutdown_but_next_goal_does(self):
+  with tempfile.TemporaryDirectory() as p:
+   root=Path(p);goal=root/"first";goal.mkdir()
+   (goal/"goal-ownership.json").write_text('{"goal_uuid":"00000000000000000000000000000001"}')
+   self.assertTrue(m.active_owned_goal(root))
+   (goal/"stop-state.json").write_text('{"original_1s_stop_passed":true}')
+   self.assertFalse(m.active_owned_goal(root))
+   second=root/"second";second.mkdir();(second/"goal-ownership.json").write_text("{}")
+   self.assertTrue(m.active_owned_goal(root))
+ def test_resources_retain_per_thread_identities(self):
+  r=m.resource_snapshot()
+  self.assertEqual(r["type"],"resource");self.assertIn("clipped",r)
+  for process in r["processes"]:
+   for thread in process["threads"]:
+    self.assertEqual(len(thread["schedstat"]),3)
+    self.assertGreater(thread["start_ticks"],0)
+if __name__=="__main__":unittest.main(verbosity=2)
