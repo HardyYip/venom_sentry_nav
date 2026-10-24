@@ -28,6 +28,7 @@ int main(int argc, char **argv)
     std::atomic<double> sim{0.0};
     std::atomic<unsigned long> frames{0}, contacts{0}, probeContacts{0};
     std::atomic<bool> calibrating{false}, motionProbeActive{false};
+    std::atomic<unsigned long> motionProbeContacts{0};
     std::atomic<double> motionFirstContact{-1.0};
     std::ofstream raw(record + "/contacts.jsonl"), poses(record + "/gazebo-poses.jsonl");
     std::ofstream moveLog(record + "/move.jsonl");
@@ -50,12 +51,18 @@ int main(int argc, char **argv)
             if (!msg.contact_size()) return;
             std::lock_guard<std::mutex> lock(mutex);
             bool probe = calibrating.load();
+            bool currentMotionProbe = false;
             for (const auto &c : msg.contact()) {
                 if (c.collision1().name().find("c020_contact_probe") != std::string::npos ||
                     c.collision2().name().find("c020_contact_probe") != std::string::npos) probe = true;
+                if (c.collision1().name().find("c020_contact_probe::motion_probe::") != std::string::npos ||
+                    c.collision2().name().find("c020_contact_probe::motion_probe::") != std::string::npos) currentMotionProbe = true;
             }
             if (probe) ++probeContacts; else ++contacts;
-            if (probe && motionProbeActive.load() && motionFirstContact.load() < 0.0) motionFirstContact = sim.load();
+            if (currentMotionProbe && motionProbeActive.load()) {
+                ++motionProbeContacts;
+                if (motionFirstContact.load() < 0.0) motionFirstContact = sim.load();
+            }
             std::string json;
             google::protobuf::util::MessageToJsonString(msg, &json);
             raw << "{\"sim\":" << std::setprecision(15) << sim.load()
@@ -102,17 +109,16 @@ int main(int argc, char **argv)
         input >> command;
         if (command == "QUIT") break;
         if (command == "MOTIONPROBE") {
-            calibrating = true; motionFirstContact = -1.0;
+            calibrating = true; motionFirstContact = -1.0; motionProbeContacts = 0;
             const double originalX=x, originalY=y;
             std::ostringstream sdf;
             sdf << std::setprecision(15) << "<sdf version='1.7'><model name='c020_contact_probe'><pose>"
-                << originalX+.8 << ' ' << originalY << " .27 0 0 0</pose><link name='probe'><gravity>false</gravity>"
+                << originalX+.8 << ' ' << originalY << " .27 0 0 0</pose><link name='motion_probe'><gravity>false</gravity>"
                 << "<inertial><mass>0.01</mass><inertia><ixx>.0001</ixx><iyy>.0001</iyy><izz>.0001</izz></inertia></inertial>"
                 << "<collision name='probe_collision'><geometry><box><size>.1 .1 .1</size></box></geometry></collision></link></model></sdf>";
             ignition::msgs::EntityFactory factory;factory.set_sdf(sdf.str());
             bool made=request("/world/default/create",factory);
             std::this_thread::sleep_for(std::chrono::milliseconds(200));
-            const auto before=probeContacts.load();
             const double begin=sim.load();
             motionProbeActive=true;
             auto setModelPose=[&](double px) {
@@ -136,7 +142,7 @@ int main(int argc, char **argv)
             moved=setModelPose(originalX)&&moved;
             std::this_thread::sleep_for(std::chrono::milliseconds(250));
             calibrating=false;health();
-            const auto hits=probeContacts.load()-before;
+            const auto hits=motionProbeContacts.load();
             const bool ok=made&&removed&&moved&&hits>0&&motionFirstContact.load()>begin+.4;
             std::cout << std::setprecision(15) << "{\"event\":\"motion_probe\",\"ok\":" << (ok?"true":"false")
                       << ",\"created\":" << (made?"true":"false") << ",\"removed\":" << (removed?"true":"false")

@@ -326,7 +326,7 @@ controller_server:
     odom_topic: odometry
     controller_frequency: 20.0
     min_x_velocity_threshold: 0.001
-    min_y_velocity_threshold: 0.5
+    min_y_velocity_threshold: 0.001
     min_theta_velocity_threshold: 0.001
     failure_tolerance: 0.3
     progress_checker_plugins:
@@ -345,36 +345,52 @@ controller_server:
       xy_goal_tolerance: 0.15
       yaw_goal_tolerance: 6.28
     FollowPath:
-      plugin: pb_omni_pid_pursuit_controller::OmniPidPursuitController
-      translation_kp: 3.0
-      translation_ki: 0.1
-      translation_kd: 0.3
-      enable_rotation: false
-      rotation_kp: 3.0
-      rotation_ki: 0.1
-      rotation_kd: 0.3
+      plugin: pb_omni_pid_pursuit_controller::CollisionAwareOmniController
+      trajectory_generator_name: dwb_plugins::StandardTrajectoryGenerator
+      debug_trajectory_details: true
+      min_vel_x: -0.5
+      min_vel_y: -0.5
+      max_vel_x: 0.5
+      max_vel_y: 0.5
+      max_vel_theta: 0.0
+      min_speed_xy: 0.0
+      max_speed_xy: 0.5
+      min_speed_theta: 0.0
+      acc_lim_x: 1.0
+      acc_lim_y: 1.0
+      acc_lim_theta: 0.0
+      decel_lim_x: -1.0
+      decel_lim_y: -1.0
+      decel_lim_theta: 0.0
+      vx_samples: 21
+      vy_samples: 21
+      vtheta_samples: 1
+      sim_time: 1.5
+      linear_granularity: 0.025
+      angular_granularity: 0.025
       transform_tolerance: 0.1
-      min_max_sum_error: 1.0
-      lookahead_dist: 2.0
-      use_velocity_scaled_lookahead_dist: true
-      lookahead_time: 1.0
-      min_lookahead_dist: 0.5
-      max_lookahead_dist: 1.0
-      use_interpolation: false
-      use_rotate_to_heading: false
-      use_rotate_to_heading_treshold: 0.1
-      min_approach_linear_velocity: 0.05
-      approach_velocity_scaling_dist: 1.0
-      v_linear_min: -0.5
-      v_linear_max: 0.5
-      v_angular_min: -3.0
-      v_angular_max: 3.0
-      curvature_min: 0.4
-      curvature_max: 0.7
-      reduction_ratio_at_high_curvature: 0.5
-      curvature_forward_dist: 0.7
-      curvature_backward_dist: 0.3
-      max_velocity_scaling_factor_rate: 0.9
+      include_last_point: true
+      limit_vel_cmd_in_traj: true
+      short_circuit_trajectory_evaluation: true
+      prune_plan: true
+      prune_distance: 1.0
+      forward_prune_distance: 2.0
+      shorten_transformed_plan: true
+      publish_evaluation: false
+      publish_trajectories: false
+      publish_cost_grid_pc: false
+      publish_local_plan: true
+      publish_global_plan: true
+      publish_transformed_plan: true
+      critics:
+      - BaseObstacle
+      - ObstacleFootprint
+      - PathDist
+      - GoalDist
+      BaseObstacle.scale: 0.4
+      ObstacleFootprint.scale: 0.04
+      PathDist.scale: 16.0
+      GoalDist.scale: 32.0
 local_costmap:
   local_costmap:
     ros__parameters:
@@ -432,7 +448,7 @@ local_costmap:
         plugin: pb_nav2_costmap_2d::IntensityVoxelLayer
         enabled: true
         track_unknown_space: true
-        footprint_clearing_enabled: true
+        footprint_clearing_enabled: false
         publish_voxel_map: false
         combination_method: 1
         mark_threshold: 0
@@ -504,14 +520,24 @@ global_costmap:
         cost_scaling_factor: 4.0
         inflation_radius: 0.7
       always_send_full_costmap: false
-      footprint: '[[0.29, 0.25], [0.29, -0.25], [-0.29, -0.25], [-0.29, 0.25]]'
+      footprint: '[[0.434978334, 0.0], [0.426620347, 0.084860063], [0.401867579, 0.166459002],
+        [0.361671266, 0.241661014], [0.307576129, 0.307576129], [0.241661014, 0.361671266],
+        [0.166459002, 0.401867579], [0.084860063, 0.426620347], [0.0, 0.434978334],
+        [-0.084860063, 0.426620347], [-0.166459002, 0.401867579], [-0.241661014, 0.361671266],
+        [-0.307576129, 0.307576129], [-0.361671266, 0.241661014], [-0.401867579, 0.166459002],
+        [-0.426620347, 0.084860063], [-0.434978334, 0.0], [-0.426620347, -0.084860063],
+        [-0.401867579, -0.166459002], [-0.361671266, -0.241661014], [-0.307576129,
+        -0.307576129], [-0.241661014, -0.361671266], [-0.166459002, -0.401867579],
+        [-0.084860063, -0.426620347], [-0.0, -0.434978334], [0.084860063, -0.426620347],
+        [0.166459002, -0.401867579], [0.241661014, -0.361671266], [0.307576129, -0.307576129],
+        [0.361671266, -0.241661014], [0.401867579, -0.166459002], [0.426620347, -0.084860063]]'
       footprint_padding: 0.02
       track_unknown_space: true
       rplidar_obstacle_layer:
         plugin: pb_nav2_costmap_2d::IntensityVoxelLayer
         enabled: true
         track_unknown_space: true
-        footprint_clearing_enabled: true
+        footprint_clearing_enabled: false
         publish_voxel_map: false
         combination_method: 1
         mark_threshold: 0
@@ -553,11 +579,9 @@ planner_server:
     planner_plugins:
     - GridBased
     GridBased:
-      plugin: nav2_theta_star_planner/ThetaStarPlanner
-      how_many_corners: 8
-      w_euc_cost: 1.0
-      w_traversal_cost: 10.0
-      w_heuristic_cost: 1.0
+      plugin: nav2_navfn_planner/NavfnPlanner
+      tolerance: 0.15
+      use_astar: false
       allow_unknown: false
 smoother_server:
   ros__parameters:

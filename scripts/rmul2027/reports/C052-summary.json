@@ -1,0 +1,466 @@
+{
+  "schema": "rmul-C052-release/1",
+  "at": "2026-10-24T09:25:37.849145+08:00",
+  "reviewer": "Codex",
+  "scope": "Ordinary0.5m/s profile only, finite specified simulation matrix",
+  "candidate": {
+    "params_sha256": "3dd610e809375a29f5467790fb00bcccdfb03666d569b4c0fa312088e7df3a10",
+    "controller_entry_source_sha256": "2e308daa6a8ff9396c8b80d94409c7f9fdd5924d7e8db009c232aa5cf23fd69d",
+    "controller_library_sha256": "bf6b4c496aa4713f4615e38d41ded64bb6fbc13c035678aa8cb02fc3abdbb611",
+    "spin_header_sha256": "87fab136045f7b73315211c07bf70c809fd6399a53b75ea379972b2f60cca0b8",
+    "actor_source_sha256": "b0594f5823182d39e8cf1e3069cd2725a20ed0fabbb571b790c924e4479333c7",
+    "launcher_sha256": "4a835520cfa7857d32f0419f8bc4778c3862a2e40d3576689da2b9c343352bc9",
+    "controller_package_sha256": "f1060e19db2aa5dd0783036a86e271af92aeb7680926b5a6c12f53d6a7edb1db",
+    "bt_xml_sha256": "04f8fbed8fc7853b7a475dd2dbd0474df0d4ef1afbb6f52826eb849542fce416",
+    "geodesic_header_sha256": "db57c76d7b395b4c708f57786e2b571185ef99a1115a464f6ec9a0241788d9cc",
+    "fixed_harness_sha256": "b721e28a789dffd0187966e84b9144ece9328361e67b56093e5f3f557679be8b",
+    "fixed_order_wrapper_sha256": "1c1ef862b7e1daa4742358293d334ec0135b2630610621afacd26c5d1651dd3b",
+    "at": "2026-10-24T08:29:51.327323+08:00",
+    "scope": "Only GoalDist route metric changed: smooth bounded clearance1..2, same full-spin hard/free graph, actual old critic callbacks/scaling retained. Same params bytes3dd610e8. All fresh tests; no C050/C051 pass borrowing."
+  },
+  "fixed": {
+    "at": "2026-10-24T08:54:45.715782+08:00",
+    "scope": "C052 one fresh batch12, original thresholds; summarized after independent raw/per-launch runtime review by suite runner",
+    "case_count": 12,
+    "passed": 12,
+    "contact_count": 0,
+    "backup_runs": 0,
+    "progress_failures": 0,
+    "min_nominal_gap_m": 0.1146777572917427,
+    "max_estimated_goal_error_m": 0.1790286212658268,
+    "max_truth_goal_error_m": 0.14961568280858029,
+    "max_elapsed_wall_s": 20.182671407000043,
+    "max_aligned_error_m": 0.0726750908108864,
+    "all_original_1s_stop_passed": true,
+    "records": [
+      {
+        "case": "right-control-01",
+        "native_status": 4,
+        "estimated_goal_error_m": 0.11530613010181155,
+        "truth_goal_error_m": 0.12893031529947516,
+        "elapsed_wall_s": 11.193172531000016,
+        "nominal_minimum_gap_m": 0.2715490301120634,
+        "max_aligned_error_m": 0.055190447664654176,
+        "contact_count": 0,
+        "original_1s_stop_passed": true,
+        "backup_runs": 0,
+        "progress_failures": 0,
+        "startup_end_bracket_owned_goals": true
+      },
+      {
+        "case": "right-control-02",
+        "native_status": 4,
+        "estimated_goal_error_m": 0.12777901567254352,
+        "truth_goal_error_m": 0.1410686452140181,
+        "elapsed_wall_s": 10.892686433999984,
+        "nominal_minimum_gap_m": 0.28189230344684585,
+        "max_aligned_error_m": 0.02923350296960953,
+        "contact_count": 0,
+        "original_1s_stop_passed": true,
+        "backup_runs": 0,
+        "progress_failures": 0,
+        "startup_end_bracket_owned_goals": true
+      },
+      {
+        "case": "right-control-03",
+        "native_status": 4,
+        "estimated_goal_error_m": 0.14352579494024154,
+        "truth_goal_error_m": 0.13242722136643506,
+        "elapsed_wall_s": 11.337878598999964,
+        "nominal_minimum_gap_m": 0.2679062029461738,
+        "max_aligned_error_m": 0.03755747361323588,
+        "contact_count": 0,
+        "original_1s_stop_passed": true,
+        "backup_runs": 0,
+        "progress_failures": 0,
+        "startup_end_bracket_owned_goals": true
+      },
+      {
+        "case": "left-near-01",
+        "native_status": 4,
+        "estimated_goal_error_m": 0.1313971486950637,
+        "truth_goal_error_m": 0.11676266537958593,
+        "elapsed_wall_s": 16.686924300999976,
+        "nominal_minimum_gap_m": 0.18742739385000373,
+        "max_aligned_error_m": 0.03886481777503559,
+        "contact_count": 0,
+        "original_1s_stop_passed": true,
+        "backup_runs": 0,
+        "progress_failures": 0,
+        "startup_end_bracket_owned_goals": true
+      },
+      {
+        "case": "left-near-02",
+        "native_status": 4,
+        "estimated_goal_error_m": 0.1465019325305491,
+        "truth_goal_error_m": 0.12841310517945756,
+        "elapsed_wall_s": 16.543485135000083,
+        "nominal_minimum_gap_m": 0.18570629266014482,
+        "max_aligned_error_m": 0.04189964498364775,
+        "contact_count": 0,
+        "original_1s_stop_passed": true,
+        "backup_runs": 0,
+        "progress_failures": 0,
+        "startup_end_bracket_owned_goals": true
+      },
+      {
+        "case": "left-near-03",
+        "native_status": 4,
+        "estimated_goal_error_m": 0.11927068676886526,
+        "truth_goal_error_m": 0.11577919106969414,
+        "elapsed_wall_s": 18.599364265999952,
+        "nominal_minimum_gap_m": 0.19103927273349908,
+        "max_aligned_error_m": 0.0726750908108864,
+        "contact_count": 0,
+        "original_1s_stop_passed": true,
+        "backup_runs": 0,
+        "progress_failures": 0,
+        "startup_end_bracket_owned_goals": true
+      },
+      {
+        "case": "left-far-01",
+        "native_status": 4,
+        "estimated_goal_error_m": 0.15892155691980933,
+        "truth_goal_error_m": 0.14961568280858029,
+        "elapsed_wall_s": 16.740544834000048,
+        "nominal_minimum_gap_m": 0.20449135594731516,
+        "max_aligned_error_m": 0.028956949853770605,
+        "contact_count": 0,
+        "original_1s_stop_passed": true,
+        "backup_runs": 0,
+        "progress_failures": 0,
+        "startup_end_bracket_owned_goals": true
+      },
+      {
+        "case": "left-far-02",
+        "native_status": 4,
+        "estimated_goal_error_m": 0.13221594173231535,
+        "truth_goal_error_m": 0.12987742242254352,
+        "elapsed_wall_s": 16.307603283999924,
+        "nominal_minimum_gap_m": 0.14102505639213625,
+        "max_aligned_error_m": 0.03240408391859348,
+        "contact_count": 0,
+        "original_1s_stop_passed": true,
+        "backup_runs": 0,
+        "progress_failures": 0,
+        "startup_end_bracket_owned_goals": true
+      },
+      {
+        "case": "left-far-03",
+        "native_status": 4,
+        "estimated_goal_error_m": 0.1790286212658268,
+        "truth_goal_error_m": 0.12608518079684022,
+        "elapsed_wall_s": 15.988956045999885,
+        "nominal_minimum_gap_m": 0.1782064380851347,
+        "max_aligned_error_m": 0.055240288359592514,
+        "contact_count": 0,
+        "original_1s_stop_passed": true,
+        "backup_runs": 0,
+        "progress_failures": 0,
+        "startup_end_bracket_owned_goals": true
+      },
+      {
+        "case": "left-reverse-01",
+        "native_status": 4,
+        "estimated_goal_error_m": 0.1037729463211681,
+        "truth_goal_error_m": 0.13564461619276827,
+        "elapsed_wall_s": 12.942599065999957,
+        "nominal_minimum_gap_m": 0.1483335961679409,
+        "max_aligned_error_m": 0.03425290739103484,
+        "contact_count": 0,
+        "original_1s_stop_passed": true,
+        "backup_runs": 0,
+        "progress_failures": 0,
+        "startup_end_bracket_owned_goals": true
+      },
+      {
+        "case": "left-reverse-02",
+        "native_status": 4,
+        "estimated_goal_error_m": 0.07676259960129617,
+        "truth_goal_error_m": 0.13582577055505882,
+        "elapsed_wall_s": 20.182671407000043,
+        "nominal_minimum_gap_m": 0.1146777572917427,
+        "max_aligned_error_m": 0.06793029813665055,
+        "contact_count": 0,
+        "original_1s_stop_passed": true,
+        "backup_runs": 0,
+        "progress_failures": 0,
+        "startup_end_bracket_owned_goals": true
+      },
+      {
+        "case": "left-reverse-03",
+        "native_status": 4,
+        "estimated_goal_error_m": 0.12407944899516567,
+        "truth_goal_error_m": 0.12656615923793793,
+        "elapsed_wall_s": 16.054538324000077,
+        "nominal_minimum_gap_m": 0.20988498226157795,
+        "max_aligned_error_m": 0.03574824741049542,
+        "contact_count": 0,
+        "original_1s_stop_passed": true,
+        "backup_runs": 0,
+        "progress_failures": 0,
+        "startup_end_bracket_owned_goals": true
+      }
+    ]
+  },
+  "moving": {
+    "at": "2026-10-24T09:10:08.278573+08:00",
+    "scope": "C052 three fresh single-proxy standard head-on trials, both nominal .5m/s; independently raw-reviewed by suite runner",
+    "passed": 3,
+    "minimum_nominal_gap_m": 0.09274376889498469,
+    "max_estimated_goal_error_m": 0.18488131128561547,
+    "max_truth_goal_error_m": 0.15469147841263917,
+    "max_elapsed_wall_s": 13.997756342999764,
+    "all_original_1s_stop_passed": true,
+    "records": [
+      {
+        "case": "headon-01",
+        "status": 4,
+        "estimated_goal_error_m": 0.18488131128561547,
+        "truth_goal_error_m": 0.1532296605475205,
+        "elapsed_wall_s": 13.997756342999764,
+        "gap_m": 0.23519618039893622,
+        "original_1s_stop_passed": true,
+        "evidence": "/mnt/e/RMULArtifacts/pb2025_nav_ws/codex-clearance-metric-C052-20261024-0826/moving-final/headon-01",
+        "motion_metadata": {
+          "opponent_nominal_speed_mps": 0.5,
+          "opponent_motion_regression_speed_mps": 0.5000177392737706,
+          "opponent_measured_velocity_mps": [
+            -0.5000177392737706,
+            -3.1737170526474056e-17
+          ],
+          "robot_goal_speed_peak_mps": 0.5553390074403479,
+          "opponent_measured_speed_mps": 0.0
+        },
+        "contact_health": {
+          "event": "health",
+          "frames": 2584,
+          "contacts": 0,
+          "probe_contacts": 2584
+        }
+      },
+      {
+        "case": "headon-02",
+        "status": 4,
+        "estimated_goal_error_m": 0.12373391002389664,
+        "truth_goal_error_m": 0.13864625286119073,
+        "elapsed_wall_s": 13.985027508999792,
+        "gap_m": 0.09274376889498469,
+        "original_1s_stop_passed": true,
+        "evidence": "/mnt/e/RMULArtifacts/pb2025_nav_ws/codex-clearance-metric-C052-20261024-0826/moving-final/headon-02",
+        "motion_metadata": {
+          "opponent_nominal_speed_mps": 0.5,
+          "opponent_motion_regression_speed_mps": 0.4996304580726238,
+          "opponent_measured_velocity_mps": [
+            -0.4996304580726238,
+            6.453664467183592e-17
+          ],
+          "robot_goal_speed_peak_mps": 0.5632587805816257,
+          "opponent_measured_speed_mps": 0.0
+        },
+        "contact_health": {
+          "event": "health",
+          "frames": 2580,
+          "contacts": 0,
+          "probe_contacts": 2580
+        }
+      },
+      {
+        "case": "headon-03",
+        "status": 4,
+        "estimated_goal_error_m": 0.16056557320380724,
+        "truth_goal_error_m": 0.15469147841263917,
+        "elapsed_wall_s": 13.938538600999891,
+        "gap_m": 0.24339377501077042,
+        "original_1s_stop_passed": true,
+        "evidence": "/mnt/e/RMULArtifacts/pb2025_nav_ws/codex-clearance-metric-C052-20261024-0826/moving-final/headon-03",
+        "motion_metadata": {
+          "opponent_nominal_speed_mps": 0.5,
+          "opponent_motion_regression_speed_mps": 0.5002285149090919,
+          "opponent_measured_velocity_mps": [
+            -0.5002285149090919,
+            1.62664058531529e-17
+          ],
+          "robot_goal_speed_peak_mps": 0.5227649668968231,
+          "opponent_measured_speed_mps": 0.0
+        },
+        "contact_health": {
+          "event": "health",
+          "frames": 2567,
+          "contacts": 0,
+          "probe_contacts": 2567
+        }
+      }
+    ]
+  },
+  "endpoint_gaps_m": [
+    0.1620994575291628,
+    0.0659557696012908,
+    0.08704147869083141
+  ],
+  "normal": {
+    "passed_checks": 8,
+    "motion_goals_succeeded": 6,
+    "occupied_goal": "expected status6 with no path/no nonzero command",
+    "max_truth_goal_error_m": 0.1813059318799867,
+    "max_wall_goal_s": 46.70204205999971
+  },
+  "clearing": [
+    {
+      "kind": "parked",
+      "goal": {
+        "event": "result",
+        "mode": "nav",
+        "status": 4,
+        "ground_truth_moved": 3.9025512683755395,
+        "goal_error": 0.13130578390121614,
+        "ground_truth_goal_error": 0.12615270851305366,
+        "ground_truth_map_xy": [
+          4.895763133267198,
+          -5.428942407309933
+        ],
+        "estimated_map_xy": [
+          4.8826610205028,
+          -5.4410697634785965
+        ],
+        "ground_truth_z": 0.0,
+        "stopped_speed": 3.7114576771118855e-06,
+        "stopped_command": 0.0,
+        "elapsed_wall_s": 12.205130413999996,
+        "nonzero_commands": 205,
+        "counts": {
+          "ground_truth": 13824,
+          "imu": 3144,
+          "clock": 14804,
+          "lidar": 315,
+          "converted_cloud": 278,
+          "adapted_odometry": 278,
+          "registered_scan": 278,
+          "odometry": 278,
+          "cmd_vel": 411,
+          "terrain_map": 278,
+          "terrain_map_ext": 278,
+          "lio": 277,
+          "map": 1,
+          "local_costmap": 37,
+          "lio_cloud": 278,
+          "global_costmap": 1,
+          "global_plan": 31,
+          "local_plan": 219
+        },
+        "stop_state": {
+          "mode": "strict-safety-stop",
+          "classification": "safety_stop",
+          "still_spinning": false,
+          "translation_speed_mps": 3.7114576771497593e-06,
+          "translation_command_mps": 0.0,
+          "angular_speed_rps": 1.5116773251514104e-11,
+          "angular_command_rps": 0.0,
+          "legacy_max_speed": 3.7114576771118855e-06,
+          "legacy_max_command": 0.0,
+          "stable_stop_confirmed": true,
+          "original_1s_stop_passed": true,
+          "stop_observation_budget_sim_s": 2.0,
+          "stop_confirmation_delay_sim_s": 1.2000000000000028,
+          "threshold": 0.03,
+          "source": "chassis_odometry_gt twist and cmd_vel received at final check"
+        }
+      },
+      "cleared_costs": {
+        "local_costmap": 0,
+        "global_costmap": 0
+      },
+      "real_contact_pairs": 0
+    },
+    {
+      "kind": "blocked",
+      "goal": {
+        "event": "result",
+        "mode": "nav",
+        "status": 6,
+        "ground_truth_moved": 1.0878767837715834e-05,
+        "goal_error": 4.012544776138221,
+        "ground_truth_goal_error": 4.00420932240388,
+        "ground_truth_map_xy": [
+          0.9983605579155732,
+          -5.356563347848693
+        ],
+        "estimated_map_xy": [
+          0.9896563467828449,
+          -5.367111461686822
+        ],
+        "ground_truth_z": 0.0,
+        "stopped_speed": 8.404619891015868e-05,
+        "stopped_command": 0.0,
+        "elapsed_wall_s": 1.4672388929998306,
+        "nonzero_commands": 0,
+        "counts": {
+          "imu": 1859,
+          "ground_truth": 8015,
+          "lidar": 186,
+          "lio": 186,
+          "terrain_map_ext": 186,
+          "terrain_map": 186,
+          "converted_cloud": 185,
+          "lio_cloud": 186,
+          "clock": 7881,
+          "cmd_vel": 398,
+          "map": 1,
+          "adapted_odometry": 148,
+          "registered_scan": 148,
+          "odometry": 148,
+          "global_costmap": 1,
+          "local_costmap": 1
+        },
+        "stop_state": {
+          "mode": "strict-safety-stop",
+          "classification": "safety_stop",
+          "still_spinning": false,
+          "translation_speed_mps": 8.404619891040468e-05,
+          "translation_command_mps": 0.0,
+          "angular_speed_rps": 2.1879731686113628e-11,
+          "angular_command_rps": 0.0,
+          "legacy_max_speed": 8.404619891015868e-05,
+          "legacy_max_command": 0.0,
+          "stable_stop_confirmed": true,
+          "original_1s_stop_passed": true,
+          "stop_observation_budget_sim_s": 2.0,
+          "stop_confirmation_delay_sim_s": 1.2000000000000028,
+          "threshold": 0.03,
+          "source": "chassis_odometry_gt twist and cmd_vel received at final check"
+        }
+      },
+      "cleared_costs": {
+        "local_costmap": 0,
+        "global_costmap": 0
+      },
+      "real_contact_pairs": 0
+    }
+  ],
+  "runtime_records_verified": 21,
+  "source_patch": {
+    "base": "b542c5794b91fba2bb3fe2cbdc72fcf854fedb1a",
+    "files": 16,
+    "sha256": "33f069c088be30d86c9911c0cd30c06c04757cd51636da9dad4767122cfcbdd5",
+    "clean_build": true,
+    "integrated_gtest": true,
+    "actual_pluginlib_load": true,
+    "clean_library_sha256": "4c1847dfe695c17c7b6f35a15dc43aa743eb0b90a2073965e34b9f27d18c6dbf"
+  },
+  "original_1s_stop_contract_unchanged": true,
+  "default_adopted": true,
+  "previous_default_sha256": "38f99505fff17660a639ec6239998b627bba04a5def96a0375ada738d352b9b3",
+  "fast_profile_new_tests": "not_run",
+  "full_manual_out_and_back": "not_run",
+  "historical_T4_root_cause_fixed": false,
+  "native_clock": {
+    "sampled_goal_count": 48,
+    "missing_goal_count": 0,
+    "max_unchanged_sim_sample_span_s": 0.1341261069999291
+  },
+  "native_observer_coverage_gaps": 24,
+  "source_review": "codex-code-review.json",
+  "evidence_root_windows": "E:\\RMULArtifacts\\pb2025_nav_ws\\codex-clearance-metric-C052-20261024-0826",
+  "worker_auditor_correction": "Original worker failed only its old BT filename assertion after all numerical stages passed; original state/audit retained, fresh exact-BT/header/spin/package audit21/21 passed.",
+  "git_publication": "Validation snapshot prepared for publication; release commit is the commit containing this file on sim/rmul2027-3v3. Final remote SHA is recorded in read.md and the external publication receipt."
+}

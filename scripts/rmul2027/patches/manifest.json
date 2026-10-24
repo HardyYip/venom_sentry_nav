@@ -23,6 +23,12 @@
       "base_commit": "e6778ca44d9e88aa612a3c6c87d536a8cfa21705",
       "patch": "pb_nav2_plugins.patch",
       "sha256": "8956748d743631850b14fb4dbd3c87e0c4a3761cb35e13c849aabbae13b35dbe"
+    },
+    {
+      "path": "src/pb2025_sentry_nav/pb_omni_pid_pursuit_controller",
+      "base_commit": "b542c5794b91fba2bb3fe2cbdc72fcf854fedb1a",
+      "patch": "pb_omni_pid_pursuit_controller.patch",
+      "sha256": "33f069c088be30d86c9911c0cd30c06c04757cd51636da9dad4767122cfcbdd5"
     }
   ]
 }

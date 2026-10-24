@@ -4,11 +4,13 @@
 
 C024/C025补齐独立下游停车、Nav2位姿时效门控和Point-LIO点时间链路；两次全新快速完整路线及普通完整路线、静态绕障、封路停车/移除后恢复、2025旧图近点回归已通过。普通与fast入口采用已验证的instantaneous秒单位快照、IMU队列400及真实IMU缺口锁止。定位基线见[C025报告](reports/C025-RESULTS.zh-CN.md)；历史C022未采用快照的失败仍保留，不能混为当前结果。
 
-当前普通0.5m/s入口采用运动自旋3.14rad/s、零Nav2输入停止追加自旋，以及真实水平RPLidar的源时间戳车体footprint过滤和独立2秒观测层。C038同一配置固定四类各3次12/12、单个0.5m/s对向代理3/3、普通完整路线8/8、停放移除清除和封路恢复通过，固定/移动真实接触均0；到点与安全停车均通过原1秒全零阈值。结果和边界见[C038报告](reports/C038-RESULTS.zh-CN.md)。C034原1秒停车失败、C035无自旋危险逼近、C036规划失败保留；不把后续有限通过写成唯一根因已证实。 C038仅将接近最低速度0.1降为0.05m/s，额定速度保持；C037原1秒停车失败另见reports/C037-RESULTS.zh-CN.md。
+当前普通0.5m/s入口采用CollisionAwareOmniController：保留原DWB障碍检查，使用完整物理自旋圆硬检查，并按同一可达空间中的距离与软余量选择平移路线。运动自旋3.14rad/s、零Nav2输入停止追加自旋、真实水平RPLidar源时间戳车体footprint过滤及独立2秒观测层保持。C052全新单批固定12/12、单个同速对向移动3/3、原危险末段3/3、普通8项及两类清除恢复全部通过，原1秒停车门槛保持，21份逐次运行来源及16文件补丁独立恢复/构建/实际加载已核验。范围、数值和限制见[C052报告](reports/C052-RESULTS.zh-CN.md)。
+
+C038是此前采用的历史版本；C041所选跨批/重试记录不作为本候选通过来源，C050/C051准备失败完整保留。普通旧参数在history/before-C052-nav2_test.yaml，fast未改、本轮未重新验收。完整人工往返尚未运行，历史T4时序根因未确认，不将有限通过外推全场可靠。
 
 ## 队友获取、恢复与构建
 
-本次验证环境：Ubuntu22.04 amd64、ROS2 Humble、Gazebo Fortress6.18。先具备ROS／Gazebo及scripts/venom/environment.lock.tsv所列依赖。Python需要PyYAML、numpy、scipy、matplotlib、Pillow、xmacro==1.2.1，GPU探测需要mesa-utils。无需安装FreeCAD即可使用附带网格与地图。
+本次验证环境：Ubuntu22.04 amd64、ROS2 Humble、Gazebo Fortress6.18；本轮DWB/Navfn版本1.1.20。先具备ROS／Gazebo及scripts/venom/environment.lock.tsv所列依赖。Python需要PyYAML、numpy、scipy、matplotlib、Pillow、xmacro==1.2.1，GPU探测需要mesa-utils。无需安装FreeCAD即可使用附带网格与地图。
 
 在新的Linux／WSL工作区执行：
 
@@ -98,7 +100,7 @@ python3 scripts/rmul2027/run_timing_experiment.py --record-dir "$RMUL_TEST_ARTIF
 
 TF2用官方0.25.24项目局部核心库处理已取证的双线程死锁，不替换系统ROS。依赖补丁基准、来源及hash在patches和assets。共享代码保护不能替代硬件急停或MCU看门狗；真实驱动、尺寸、延迟和制动仍需独立验收。
 
-[最新C038报告](reports/C038-RESULTS.zh-CN.md)、[C036未采用候选](reports/C036-RESULTS.zh-CN.md)、[C034历史](reports/C034-RESULTS.zh-CN.md)、[C025定位报告](reports/C025-RESULTS.zh-CN.md)、[C024保护说明](reports/C024-RESULTS.zh-CN.md)、[历史C022报告](reports/C022-RESULTS.zh-CN.md)、[C021大点云传输与静态避障](reports/C021-RESULTS.zh-CN.md)、[C015基础场景结果](TEST_RESULTS.zh-CN.md)分别记录范围。旧说明保留在history。C盘唯一read.md维护AI交接，本仓库文档维护可发布工程快照。
+[最新C052报告](reports/C052-RESULTS.zh-CN.md)、[历史C038报告](reports/C038-RESULTS.zh-CN.md)、[C036未采用候选](reports/C036-RESULTS.zh-CN.md)、[C034历史](reports/C034-RESULTS.zh-CN.md)、[C025定位报告](reports/C025-RESULTS.zh-CN.md)、[C024保护说明](reports/C024-RESULTS.zh-CN.md)、[历史C022报告](reports/C022-RESULTS.zh-CN.md)、[C021大点云传输与静态避障](reports/C021-RESULTS.zh-CN.md)、[C015基础场景结果](TEST_RESULTS.zh-CN.md)分别记录范围。旧说明保留在history。C盘唯一read.md维护AI交接，本仓库文档维护可发布工程快照。
 
 
 ## 存储与收尾（2026-10-21起强制）

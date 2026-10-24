@@ -1,0 +1,1128 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index f8cc825..41ce5af 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -14,11 +14,15 @@ ament_auto_find_build_dependencies()
+ ament_auto_add_library(${PROJECT_NAME} SHARED
+   src/omni_pid_pursuit_controller.cpp
+   src/pid.cpp
++  src/collision_aware_omni_controller.cpp
+ )
+ 
+ if(BUILD_TESTING)
+   set(ament_cmake_clang_format_CONFIG_FILE "${CMAKE_SOURCE_DIR}/.clang-format")
+   set(ament_cmake_clang_tidy_CONFIG_FILE "${CMAKE_SOURCE_DIR}/.clang-tidy")
++  find_package(ament_cmake_gtest REQUIRED)
++  ament_add_gtest(test_geodesic_goal_field test/test_geodesic_goal_field.cpp)
++  target_include_directories(test_geodesic_goal_field PRIVATE include)
+   find_package(ament_lint_auto REQUIRED)
+     ament_lint_auto_find_test_dependencies()
+ endif()
+diff --git a/README.md b/README.md
+index 84cb54e..2d41086 100644
+--- a/README.md
++++ b/README.md
+@@ -94,3 +94,25 @@ controller_server:
+       curvature_backward_dist: 0.3
+       max_velocity_scaling_factor_rate: 0.9
+ ```
++
++
++### Optional path-corner steering
++
++`FollowPath.use_path_corner_lookahead` defaults to `false`. When enabled, translation steering targets the first unreached bend greater than 22.5 degrees before the ordinary lookahead point. A bend within one local costmap cell is considered reached. Linear speed, curvature regulation, final approach, and angular regulation retain their ordinary lookahead calculations. This keeps the steering direction from skipping across a planned detour; it does not add moving-object prediction. The published lookahead point shows the steering target.
++
++A standalone regression replays two recorded C041 obstacle-detour paths and checks straight paths, duplicate vertices, reached turns, and short final segments:
++
++```bash
++c++ -std=c++17 -I include test/test_path_corner_lookahead.cpp -o /tmp/test_path_corner
++/tmp/test_path_corner
++```
++
++### Experimental collision checked lookahead
++
++`FollowPath.use_collision_checked_lookahead` defaults to `false`. It requires translation-only control and corner lookahead disabled. When enabled, it samples the actual robot-to-target straight segment at half-cell spacing on the local costmap, rejects costs >=253 including unknown/outside, and shortens the target along the current path if necessary. Target distance caps speed over transform tolerance plus three control periods. The costmap inflation footprint must represent the full physical swept body; this does not predict moving obstacle trajectories. C041 qualification is pending.
++
++### Experimental collision-aware omnidirectional DWB
++
++`pb_omni_pid_pursuit_controller::CollisionAwareOmniController` wraps installed DWB with velocity estimated by regression over the latest 0.15 seconds of the supplied localization poses. Velocity is expressed in the nonspinning command frame. The downstream sensor_scan_generation odometry twist uses wall-clock transform differences; this wrapper instead uses localization pose timestamps and the nonspinning command frame. Simulation truth is never used. It requires `max_vel_theta: 0.0`, with physical spin handled separately and covered by the costmap footprint. The ordinary RMUL 2027 profile passed the finite C052 matrix: one fresh fixed-obstacle batch (12/12), one-proxy head-on moving (3/3), original near-endpoint reconstruction (3/3), baseline route (8 checks), and both obstacle-removal recovery scenarios. This does not qualify the fast profile or arbitrary environments. See the parent project's scripts/rmul2027/reports/C052-RESULTS.zh-CN.md for evidence and limits.
++
++The wrapper keeps the original DWB obstacle critics and adds a hard full-spin circle check (radius 0.432883794 m) at every trajectory pose, including its first pose. GoalDist retains the original critic callbacks and scale, but uses a local reachable geodesic field over the same hard-safe cells. Positive edge costs rise smoothly from 1 to 2 within two cells of the hard boundary, encouraging clearance without blocking additional cells. It uses localization poses and costmaps; simulator truth is not a navigation input. ROS Humble DWB/Navfn 1.1.20 was used in C052.
+diff --git a/include/pb_omni_pid_pursuit_controller/omni_pid_pursuit_controller.hpp b/include/pb_omni_pid_pursuit_controller/omni_pid_pursuit_controller.hpp
+index 0d5563b..417958b 100644
+--- a/include/pb_omni_pid_pursuit_controller/omni_pid_pursuit_controller.hpp
++++ b/include/pb_omni_pid_pursuit_controller/omni_pid_pursuit_controller.hpp
+@@ -278,6 +278,8 @@ private:
+   double control_duration_;
+   double max_robot_pose_search_dist_;
+   bool use_interpolation_;
++  bool use_path_corner_lookahead_{false};
++  bool use_collision_checked_lookahead_{false};
+   double lookahead_dist_;
+   bool use_velocity_scaled_lookahead_dist_;
+   double min_lookahead_dist_;
+diff --git a/package.xml b/package.xml
+index e5c2bad..8001884 100644
+--- a/package.xml
++++ b/package.xml
+@@ -11,6 +11,9 @@
+ 
+   <depend>nav2_common</depend>
+   <depend>nav2_core</depend>
++  <depend>dwb_core</depend>
++  <exec_depend>dwb_plugins</exec_depend>
++  <exec_depend>dwb_critics</exec_depend>
+   <depend>nav2_util</depend>
+   <depend>nav2_costmap_2d</depend>
+   <depend>rclcpp</depend>
+@@ -33,4 +36,5 @@
+     <nav2_core plugin="${prefix}/pb_omni_pid_pursuit_controller.xml" />
+   </export>
+ 
++  <test_depend>ament_cmake_gtest</test_depend>
+ </package>
+diff --git a/pb_omni_pid_pursuit_controller.xml b/pb_omni_pid_pursuit_controller.xml
+index 3123d13..f717023 100644
+--- a/pb_omni_pid_pursuit_controller.xml
++++ b/pb_omni_pid_pursuit_controller.xml
+@@ -5,5 +5,8 @@
+                 pb_omni_pid_pursuit_controller
+             </description>
+         </class>
++        <class type="pb_omni_pid_pursuit_controller::CollisionAwareOmniController" base_class_type="nav2_core::Controller">
++            <description>Translation-only DWB with estimated pose velocity in the nonspinning frame.</description>
++        </class>
+     </library>
+ </class_libraries>
+diff --git a/src/omni_pid_pursuit_controller.cpp b/src/omni_pid_pursuit_controller.cpp
+index dc5b310..828b3e9 100644
+--- a/src/omni_pid_pursuit_controller.cpp
++++ b/src/omni_pid_pursuit_controller.cpp
+@@ -13,6 +13,8 @@
+ // limitations under the License.
+ 
+ #include "pb_omni_pid_pursuit_controller/omni_pid_pursuit_controller.hpp"
++#include "pb_omni_pid_pursuit_controller/path_corner_lookahead.hpp"
++#include "pb_omni_pid_pursuit_controller/collision_checked_lookahead.hpp"
+ 
+ #include "nav2_core/exceptions.hpp"
+ #include "nav2_util/geometry_utils.hpp"
+@@ -81,6 +83,10 @@ void OmniPidPursuitController::configure(
+     node, plugin_name_ + ".lookahead_time", rclcpp::ParameterValue(1.0));
+   declare_parameter_if_not_declared(
+     node, plugin_name_ + ".use_interpolation", rclcpp::ParameterValue(true));
++  declare_parameter_if_not_declared(
++    node, plugin_name_ + ".use_path_corner_lookahead", rclcpp::ParameterValue(false));
++  declare_parameter_if_not_declared(
++    node, plugin_name_ + ".use_collision_checked_lookahead", rclcpp::ParameterValue(false));
+   declare_parameter_if_not_declared(
+     node, plugin_name_ + ".use_rotate_to_heading", rclcpp::ParameterValue(true));
+   declare_parameter_if_not_declared(
+@@ -129,6 +135,15 @@ void OmniPidPursuitController::configure(
+   node->get_parameter(plugin_name_ + ".max_lookahead_dist", max_lookahead_dist_);
+   node->get_parameter(plugin_name_ + ".lookahead_time", lookahead_time_);
+   node->get_parameter(plugin_name_ + ".use_interpolation", use_interpolation_);
++  node->get_parameter(plugin_name_ + ".use_path_corner_lookahead", use_path_corner_lookahead_);
++  node->get_parameter(
++    plugin_name_ + ".use_collision_checked_lookahead", use_collision_checked_lookahead_);
++  if (use_collision_checked_lookahead_) {
++    RCLCPP_INFO(logger_, "Collision checked lookahead enabled: checking commanded straight segments");
++  }
++  if (use_path_corner_lookahead_) {
++    RCLCPP_INFO(logger_, "Path corner lookahead enabled: steering follows unreached bends");
++  }
+   node->get_parameter(plugin_name_ + ".use_rotate_to_heading", use_rotate_to_heading_);
+   node->get_parameter(
+     plugin_name_ + ".use_rotate_to_heading_treshold", use_rotate_to_heading_treshold_);
+@@ -231,12 +246,61 @@ geometry_msgs::msg::TwistStamped OmniPidPursuitController::computeVelocityComman
+   // Find look ahead distance and point on path and publish
+   double lookahead_dist = getLookAheadDistance(velocity);
+ 
+-  auto carrot_pose = getLookAheadPoint(lookahead_dist, transformed_plan);
++  const auto nominal_carrot_pose = getLookAheadPoint(lookahead_dist, transformed_plan);
++  auto carrot_pose = nominal_carrot_pose;
++  if (use_path_corner_lookahead_) {
++    std::vector<std::pair<double, double>> points;
++    points.reserve(transformed_plan.poses.size());
++    for (const auto & point : transformed_plan.poses) {
++      points.emplace_back(point.pose.position.x, point.pose.position.y);
++    }
++    const auto corner = firstPathCorner(points, lookahead_dist, costmap->getResolution());
++    if (corner) {carrot_pose = transformed_plan.poses[*corner];}
++  }
++  if (use_collision_checked_lookahead_) {
++    if (enable_rotation_ || use_path_corner_lookahead_) {
++      throw nav2_core::PlannerException(
++              "Collision checked lookahead requires translation-only control and corner mode disabled");
++    }
++    std::vector<geometry_msgs::msg::PoseStamped> targets;
++    for (const auto & point : transformed_plan.poses) {
++      if (std::hypot(point.pose.position.x, point.pose.position.y) >= lookahead_dist) {break;}
++      targets.push_back(point);
++    }
++    targets.push_back(nominal_carrot_pose);
++    geometry_msgs::msg::PoseStamped robot_in_costmap;
++    if (!transformPose(costmap_ros_->getGlobalFrameID(), pose, robot_in_costmap)) {
++      throw nav2_core::PlannerException("Cannot transform robot for commanded segment checking");
++    }
++    std::vector<std::pair<double, double>> points;
++    points.reserve(targets.size());
++    for (const auto & point : targets) {
++      geometry_msgs::msg::PoseStamped transformed;
++      if (!transformPose(costmap_ros_->getGlobalFrameID(), point, transformed)) {
++        throw nav2_core::PlannerException("Cannot transform target for commanded segment checking");
++      }
++      points.emplace_back(transformed.pose.position.x, transformed.pose.position.y);
++    }
++    const auto is_safe = [costmap](double x, double y) {
++        unsigned int mx, my;
++        return costmap->worldToMap(x, y, mx, my) &&
++               costmap->getCost(mx, my) < nav2_costmap_2d::INSCRIBED_INFLATED_OBSTACLE;
++      };
++    const auto target = collisionCheckedTarget(
++      points, robot_in_costmap.pose.position.x, robot_in_costmap.pose.position.y,
++      costmap->getResolution(), is_safe);
++    if (!target) {
++      throw nav2_core::PlannerException("No collision-free commanded segment on the current path");
++    }
++    carrot_pose = targets[*target];
++  }
+   carrot_pub_->publish(createCarrotMsg(carrot_pose));
+ 
+-  double lin_dist = hypot(carrot_pose.pose.position.x, carrot_pose.pose.position.y);
++  // Limit steering at bends without changing legacy speed and rotation regulation.
++  double lin_dist = hypot(
++    nominal_carrot_pose.pose.position.x, nominal_carrot_pose.pose.position.y);
+   double theta_dist = atan2(carrot_pose.pose.position.y, carrot_pose.pose.position.x);
+-  double angle_to_goal = tf2::getYaw(carrot_pose.pose.orientation);
++  double angle_to_goal = tf2::getYaw(nominal_carrot_pose.pose.orientation);
+ 
+   if (use_rotate_to_heading_) {
+     angle_to_goal = tf2::getYaw(transformed_plan.poses.back().pose.orientation);
+@@ -248,9 +312,15 @@ geometry_msgs::msg::TwistStamped OmniPidPursuitController::computeVelocityComman
+   auto lin_vel = move_pid_->calculate(lin_dist, 0);
+   auto angular_vel = enable_rotation_ ? heading_pid_->calculate(angle_to_goal, 0) : 0.0;
+ 
+-  applyCurvatureLimitation(transformed_plan, carrot_pose, lin_vel);
++  applyCurvatureLimitation(transformed_plan, nominal_carrot_pose, lin_vel);
+ 
+   applyApproachVelocityScaling(transformed_plan, lin_vel);
++  if (use_collision_checked_lookahead_) {
++    const double reaction_time = tf2::durationToSec(transform_tolerance_) + 3.0 * control_duration_;
++    const double limit = shortTargetSpeedLimit(
++      std::hypot(carrot_pose.pose.position.x, carrot_pose.pose.position.y), reaction_time);
++    lin_vel = std::copysign(std::min(std::abs(lin_vel), limit), lin_vel);
++  }
+ 
+   // Transform local frame to global frame to use in collision checking
+   nav_msgs::msg::Path costmap_frame_local_plan;
+@@ -749,6 +819,10 @@ rcl_interfaces::msg::SetParametersResult OmniPidPursuitController::dynamicParame
+         use_velocity_scaled_lookahead_dist_ = parameter.as_bool();
+       } else if (name == plugin_name_ + ".use_interpolation") {
+         use_interpolation_ = parameter.as_bool();
++      } else if (name == plugin_name_ + ".use_path_corner_lookahead") {
++        use_path_corner_lookahead_ = parameter.as_bool();
++      } else if (name == plugin_name_ + ".use_collision_checked_lookahead") {
++        use_collision_checked_lookahead_ = parameter.as_bool();
+       } else if (name == plugin_name_ + ".use_rotate_to_heading") {
+         use_rotate_to_heading_ = parameter.as_bool();
+       }
+diff --git a/include/pb_omni_pid_pursuit_controller/collision_checked_lookahead.hpp b/include/pb_omni_pid_pursuit_controller/collision_checked_lookahead.hpp
+new file mode 100644
+index 0000000..24107dc
+--- /dev/null
++++ b/include/pb_omni_pid_pursuit_controller/collision_checked_lookahead.hpp
+@@ -0,0 +1,49 @@
++// Copyright 2026 HardyYip contributors
++// SPDX-License-Identifier: Apache-2.0
++#ifndef PB_OMNI_PID_PURSUIT_CONTROLLER__COLLISION_CHECKED_LOOKAHEAD_HPP_
++#define PB_OMNI_PID_PURSUIT_CONTROLLER__COLLISION_CHECKED_LOOKAHEAD_HPP_
++#include <algorithm>
++#include <cmath>
++#include <cstddef>
++#include <optional>
++#include <utility>
++#include <vector>
++namespace pb_omni_pid_pursuit_controller
++{
++template<class IsSafe>
++bool collisionFreeSegment(
++  double x0, double y0, double x1, double y1, double resolution, IsSafe is_safe)
++{
++  if (!std::isfinite(x0) || !std::isfinite(y0) || !std::isfinite(x1) ||
++    !std::isfinite(y1) || !std::isfinite(resolution) || resolution <= 0.0)
++  {return false;}
++  const auto count = std::max<std::size_t>(
++    1, static_cast<std::size_t>(std::ceil(std::hypot(x1 - x0, y1 - y0) / (0.5 * resolution))));
++  for (std::size_t i = 0; i <= count; ++i) {
++    const double fraction = static_cast<double>(i) / count;
++    if (!is_safe(x0 + fraction * (x1 - x0), y0 + fraction * (y1 - y0))) {return false;}
++  }
++  return true;
++}
++template<class IsSafe>
++std::optional<std::size_t> collisionCheckedTarget(
++  const std::vector<std::pair<double, double>> & targets, double x0, double y0,
++  double resolution, IsSafe is_safe)
++{
++  for (std::size_t i = targets.size(); i > 0; --i) {
++    const auto & target = targets[i - 1];
++    if (std::hypot(target.first - x0, target.second - y0) < 0.5 * resolution) {continue;}
++    if (collisionFreeSegment(x0, y0, target.first, target.second, resolution, is_safe)) {
++      return i - 1;
++    }
++  }
++  return std::nullopt;
++}
++inline double shortTargetSpeedLimit(double target_distance, double reaction_time)
++{
++  if (!std::isfinite(target_distance) || !std::isfinite(reaction_time) ||
++    target_distance <= 0.0 || reaction_time <= 0.0) {return 0.0;}
++  return target_distance / reaction_time;
++}
++}  // namespace pb_omni_pid_pursuit_controller
++#endif  // PB_OMNI_PID_PURSUIT_CONTROLLER__COLLISION_CHECKED_LOOKAHEAD_HPP_
+diff --git a/include/pb_omni_pid_pursuit_controller/geodesic_goal_field.hpp b/include/pb_omni_pid_pursuit_controller/geodesic_goal_field.hpp
+new file mode 100644
+index 0000000..8b9a781
+--- /dev/null
++++ b/include/pb_omni_pid_pursuit_controller/geodesic_goal_field.hpp
+@@ -0,0 +1,188 @@
++#ifndef PB_OMNI_GEODESIC_GOAL_FIELD_HPP_
++#define PB_OMNI_GEODESIC_GOAL_FIELD_HPP_
++#include "pb_omni_pid_pursuit_controller/spin_coverage.hpp"
++#include <algorithm>
++#include <cmath>
++#include <cstddef>
++#include <limits>
++#include <vector>
++#include <queue>
++#include <functional>
++#include <utility>
++namespace pb_omni_pid_pursuit_controller::goal_field
++{
++struct Point {double x, y;};
++class Potential
++{
++  c041_spin::GridView grid_;
++  double radius_{0.0}, unreachable_{1.0};
++  std::vector<unsigned char> safe_;
++  std::vector<double> values_, travel_cost_;
++  int target_plan_index_{-1};
++  static void transformLine(const std::vector<double> & f, std::vector<double> & out)
++  {
++    const int n = static_cast<int>(f.size());
++    std::vector<int> v(n);
++    std::vector<double> z(n + 1);
++    int k = -1;
++    for (int q = 0; q < n; ++q) {
++      if (f[q] >= 1.0e11) {continue;}
++      double s = -std::numeric_limits<double>::infinity();
++      while (k >= 0) {
++        s = ((f[q] + q * q) - (f[v[k]] + v[k] * v[k])) / (2.0 * (q - v[k]));
++        if (s > z[k]) {break;}
++        --k;
++      }
++      ++k; v[k] = q;
++      z[k] = k == 0 ? -std::numeric_limits<double>::infinity() : s;
++      z[k + 1] = std::numeric_limits<double>::infinity();
++    }
++    out.assign(n, 1.0e12);
++    if (k < 0) {return;}
++    k = 0;
++    for (int q = 0; q < n; ++q) {
++      while (z[k + 1] < q) {++k;}
++      const double delta = q - v[k];
++      out[q] = delta * delta + f[v[k]];
++    }
++  }
++  Point center(int index) const
++  {
++    return {grid_.origin_x + (index % grid_.width + 0.5) * grid_.resolution,
++      grid_.origin_y + (index / grid_.width + 0.5) * grid_.resolution};
++  }
++  bool connected(Point a, Point b) const
++  {
++    const int steps = std::max(1, static_cast<int>(std::ceil(
++      std::hypot(b.x - a.x, b.y - a.y) / (0.5 * grid_.resolution))));
++    for (int i = 0; i <= steps; ++i) {
++      const double t = static_cast<double>(i) / steps;
++      if (!c041_spin::circleClear(grid_, a.x + t * (b.x - a.x),
++        a.y + t * (b.y - a.y), radius_)) {return false;}
++    }
++    return true;
++  }
++  std::vector<int> anchors(Point p) const
++  {
++    std::vector<int> result;
++    if (!std::isfinite(p.x) || !std::isfinite(p.y) ||
++      !c041_spin::circleClear(grid_, p.x, p.y, radius_)) {return result;}
++    const int mx = static_cast<int>(std::floor((p.x - grid_.origin_x) / grid_.resolution));
++    const int my = static_cast<int>(std::floor((p.y - grid_.origin_y) / grid_.resolution));
++    for (int y = my - 1; y <= my + 1; ++y) {
++      for (int x = mx - 1; x <= mx + 1; ++x) {
++        if (x < 0 || y < 0 || x >= grid_.width || y >= grid_.height) {continue;}
++        const int i = y * grid_.width + x;
++        if (safe_[i] && connected(p, center(i))) {result.push_back(i);}
++      }
++    }
++    std::sort(result.begin(), result.end(), [&](int a, int b) {
++      const auto u = center(a), v = center(b);
++      return std::hypot(u.x - p.x, u.y - p.y) < std::hypot(v.x - p.x, v.y - p.y);
++    });
++    return result;
++  }
++  template<class F> void neighbors(int i, F function) const
++  {
++    const int x = i % grid_.width, y = i / grid_.width;
++    if (x > 0) {function(i - 1);}
++    if (x + 1 < grid_.width) {function(i + 1);}
++    if (y > 0) {function(i - grid_.width);}
++    if (y + 1 < grid_.height) {function(i + grid_.width);}
++  }
++public:
++  bool prepare(const c041_spin::GridView & grid, Point pose,
++    const std::vector<Point> & plan, double radius)
++  {
++    grid_ = grid; radius_ = radius; target_plan_index_ = -1;
++    const int n = std::max(0, grid.width) * std::max(0, grid.height);
++    unreachable_ = 2.0 * n + 1.0;
++    safe_.assign(n, 0); values_.assign(n, unreachable_); travel_cost_.assign(n, 1.0);
++    if (!grid.data || grid.width < 2 || grid.height < 2 ||
++      !std::isfinite(grid.resolution) || grid.resolution <= 0.0 ||
++      !std::isfinite(radius) || radius < 0.0) {return false;}
++    std::vector<double> squared(n), line, transformed;
++    for (int y = 0; y < grid.height; ++y) {
++      line.resize(grid.width);
++      for (int x = 0; x < grid.width; ++x) {
++        line[x] = c041_spin::hardCost(c041_spin::at(grid, x, y)) ? 0.0 : 1.0e12;
++      }
++      transformLine(line, transformed);
++      for (int x = 0; x < grid.width; ++x) {squared[y * grid.width + x] = transformed[x];}
++    }
++    for (int x = 0; x < grid.width; ++x) {
++      line.resize(grid.height);
++      for (int y = 0; y < grid.height; ++y) {line[y] = squared[y * grid.width + x];}
++      transformLine(line, transformed);
++      for (int y = 0; y < grid.height; ++y) {
++        const int i = y * grid.width + x;
++        const auto p = center(i);
++        const int min_x = static_cast<int>(std::floor((p.x - radius - grid.origin_x) / grid.resolution));
++        const int max_x = static_cast<int>(std::ceil((p.x + radius - grid.origin_x) / grid.resolution));
++        const int min_y = static_cast<int>(std::floor((p.y - radius - grid.origin_y) / grid.resolution));
++        const int max_y = static_cast<int>(std::ceil((p.y + radius - grid.origin_y) / grid.resolution));
++        safe_[i] = min_x >= 0 && min_y >= 0 && max_x < grid.width && max_y < grid.height &&
++          transformed[y] * grid.resolution * grid.resolution > radius * radius;
++        const double clearance = std::min({std::sqrt(transformed[y]) * grid.resolution,
++          p.x - grid.origin_x, p.y - grid.origin_y,
++          grid.origin_x + grid.width * grid.resolution - p.x,
++          grid.origin_y + grid.height * grid.resolution - p.y});
++        const double reserve = 2.0 * grid.resolution;
++        const double factor = std::clamp((radius + reserve - clearance) / reserve, 0.0, 1.0);
++        travel_cost_[i] = 1.0 + factor * factor;
++      }
++    }
++    auto seeds = anchors(pose);
++    if (seeds.empty()) {return false;}
++    std::vector<unsigned char> reachable(n, 0);
++    std::vector<int> queue; queue.reserve(n);
++    for (int i : seeds) {reachable[i] = 1; queue.push_back(i);}
++    for (std::size_t head = 0; head < queue.size(); ++head) {
++      neighbors(queue[head], [&](int j) {
++        if (safe_[j] && !reachable[j]) {reachable[j] = 1; queue.push_back(j);}
++      });
++    }
++    int target = -1;
++    for (int k = static_cast<int>(plan.size()) - 1; k >= 0 && target < 0; --k) {
++      for (int i : anchors(plan[k])) {
++        if (reachable[i]) {target = i; target_plan_index_ = k; break;}
++      }
++    }
++    if (target < 0) {return false;}
++    using Entry = std::pair<double, int>;
++    std::priority_queue<Entry, std::vector<Entry>, std::greater<Entry>> pending;
++    values_[target] = 0.0; pending.push({0.0, target});
++    while (!pending.empty()) {
++      const auto [distance, i] = pending.top(); pending.pop();
++      if (distance > values_[i]) {continue;}
++      neighbors(i, [&](int j) {
++        const double next = distance + 0.5 * (travel_cost_[i] + travel_cost_[j]);
++        if (safe_[j] && next < values_[j]) {
++          values_[j] = next; pending.push({next, j});
++        }
++      });
++    }
++    return true;
++  }
++  double score(double x, double y) const
++  {
++    if (values_.empty() || !std::isfinite(x) || !std::isfinite(y) || grid_.resolution <= 0.0) {
++      return unreachable_;
++    }
++    const double gx = (x - grid_.origin_x) / grid_.resolution - 0.5;
++    const double gy = (y - grid_.origin_y) / grid_.resolution - 0.5;
++    const int ix = static_cast<int>(std::floor(gx)), iy = static_cast<int>(std::floor(gy));
++    if (ix < 0 || iy < 0 || ix + 1 >= grid_.width || iy + 1 >= grid_.height) {
++      return unreachable_;
++    }
++    const double fx = gx - ix, fy = gy - iy;
++    const int i = iy * grid_.width + ix;
++    return (1.0 - fy) * ((1.0 - fx) * values_[i] + fx * values_[i + 1]) +
++      fy * ((1.0 - fx) * values_[i + grid_.width] + fx * values_[i + grid_.width + 1]);
++  }
++  bool safeCell(int x, int y) const {return safe_.at(y * grid_.width + x) != 0;}
++  int targetPlanIndex() const {return target_plan_index_;}
++  double unreachableScore() const {return unreachable_;}
++};
++}
++#endif
+diff --git a/include/pb_omni_pid_pursuit_controller/path_corner_lookahead.hpp b/include/pb_omni_pid_pursuit_controller/path_corner_lookahead.hpp
+new file mode 100644
+index 0000000..93ded85
+--- /dev/null
++++ b/include/pb_omni_pid_pursuit_controller/path_corner_lookahead.hpp
+@@ -0,0 +1,53 @@
++// Copyright 2026 HardyYip contributors
++// SPDX-License-Identifier: Apache-2.0
++#ifndef PB_OMNI_PID_PURSUIT_CONTROLLER__PATH_CORNER_LOOKAHEAD_HPP_
++#define PB_OMNI_PID_PURSUIT_CONTROLLER__PATH_CORNER_LOOKAHEAD_HPP_
++#include <cmath>
++#include <cstddef>
++#include <optional>
++#include <utility>
++#include <vector>
++namespace pb_omni_pid_pursuit_controller
++{
++// Return the first unreached bend before the ordinary lookahead target.
++// A reached bend must be skipped so tracking can continue onto its next segment.
++inline std::optional<std::size_t> firstPathCorner(
++  const std::vector<std::pair<double, double>> & points, double lookahead,
++  double reached_distance)
++{
++  if (points.size() < 3 || !std::isfinite(lookahead) || lookahead <= 0.0) {
++    return std::nullopt;
++  }
++  std::size_t target = points.size() - 1;
++  for (std::size_t i = 0; i < points.size(); ++i) {
++    if (std::hypot(points[i].first, points[i].second) >= lookahead) {
++      target = i;
++      break;
++    }
++  }
++  constexpr double epsilon = 1e-8;
++  const double cosine_threshold = std::cos(3.14159265358979323846 / 8.0);
++  std::size_t previous = 0;
++  for (std::size_t i = 1; i < target && i + 1 < points.size(); ++i) {
++    const double ax = points[i].first - points[previous].first;
++    const double ay = points[i].second - points[previous].second;
++    const double before = std::hypot(ax, ay);
++    if (before <= epsilon) {continue;}
++    std::size_t next = i + 1;
++    while (next < points.size() &&
++      std::hypot(points[next].first - points[i].first,
++      points[next].second - points[i].second) <= epsilon)
++    {++next;}
++    if (next == points.size()) {break;}
++    const double bx = points[next].first - points[i].first;
++    const double by = points[next].second - points[i].second;
++    const double after = std::hypot(bx, by);
++    if (std::hypot(points[i].first, points[i].second) > reached_distance &&
++      (ax * bx + ay * by) / (before * after) < cosine_threshold)
++    {return i;}
++    previous = i;
++  }
++  return std::nullopt;
++}
++}  // namespace pb_omni_pid_pursuit_controller
++#endif  // PB_OMNI_PID_PURSUIT_CONTROLLER__PATH_CORNER_LOOKAHEAD_HPP_
+diff --git a/include/pb_omni_pid_pursuit_controller/pose_velocity_estimator.hpp b/include/pb_omni_pid_pursuit_controller/pose_velocity_estimator.hpp
+new file mode 100644
+index 0000000..010cbd4
+--- /dev/null
++++ b/include/pb_omni_pid_pursuit_controller/pose_velocity_estimator.hpp
+@@ -0,0 +1,46 @@
++// Copyright 2026 HardyYip contributors
++// SPDX-License-Identifier: Apache-2.0
++#ifndef PB_OMNI_PID_PURSUIT_CONTROLLER__POSE_VELOCITY_ESTIMATOR_HPP_
++#define PB_OMNI_PID_PURSUIT_CONTROLLER__POSE_VELOCITY_ESTIMATOR_HPP_
++#include <cmath>
++#include <deque>
++#include <utility>
++namespace pb_omni_pid_pursuit_controller
++{
++class PoseVelocityEstimator
++{
++  struct Sample {double t, x, y;};
++  std::deque<Sample> samples_;
++  double vx_{0.0}, vy_{0.0};
++public:
++  void reset() {samples_.clear(); vx_ = 0.0; vy_ = 0.0;}
++  std::pair<double, double> update(double stamp, double x, double y, double yaw)
++  {
++    if (!std::isfinite(stamp) || !std::isfinite(x) || !std::isfinite(y) || !std::isfinite(yaw)) {
++      reset(); return {0.0, 0.0};
++    }
++    if (!samples_.empty() && (stamp < samples_.back().t || stamp - samples_.back().t > 0.5)) {
++      reset();
++    }
++    if (samples_.empty() || stamp > samples_.back().t + 1e-6) {
++      samples_.push_back({stamp, x, y});
++      while (samples_.size() > 2 && stamp - samples_.front().t > 0.15) {samples_.pop_front();}
++      if (samples_.size() > 1) {
++        double mt = 0.0, mx = 0.0, my = 0.0;
++        const double origin = samples_.front().t;
++        for (const auto & s : samples_) {mt += s.t - origin; mx += s.x; my += s.y;}
++        mt /= samples_.size(); mx /= samples_.size(); my /= samples_.size();
++        double tt = 0.0, tx = 0.0, ty = 0.0;
++        for (const auto & s : samples_) {
++          const double dt = s.t - origin - mt;
++          tt += dt * dt; tx += dt * (s.x - mx); ty += dt * (s.y - my);
++        }
++        if (tt > 1e-12) {vx_ = tx / tt; vy_ = ty / tt;}
++      }
++    }
++    return {std::cos(yaw) * vx_ + std::sin(yaw) * vy_,
++      -std::sin(yaw) * vx_ + std::cos(yaw) * vy_};
++  }
++};
++}  // namespace pb_omni_pid_pursuit_controller
++#endif  // PB_OMNI_PID_PURSUIT_CONTROLLER__POSE_VELOCITY_ESTIMATOR_HPP_
+diff --git a/include/pb_omni_pid_pursuit_controller/spin_coverage.hpp b/include/pb_omni_pid_pursuit_controller/spin_coverage.hpp
+new file mode 100755
+index 0000000..89385cb
+--- /dev/null
++++ b/include/pb_omni_pid_pursuit_controller/spin_coverage.hpp
+@@ -0,0 +1,96 @@
++// Minimal geometry kernel for spin-sweep clearance tests (no ROS deps).
++#ifndef C041_SPIN_COVERAGE_HPP_
++#define C041_SPIN_COVERAGE_HPP_
++#include <cmath>
++#include <cstddef>
++#include <algorithm>
++
++namespace c041_spin
++{
++struct GridView
++{
++  double origin_x{0.0};
++  double origin_y{0.0};
++  double resolution{0.05};
++  int width{0};
++  int height{0};
++  const unsigned char * data{nullptr};
++};
++
++inline unsigned char at(const GridView & grid, int mx, int my)
++{
++  return grid.data[static_cast<std::size_t>(my) * grid.width + mx];
++}
++
++// Lethal or unknown: 254 lethal, 255 unknown/no-information. 253 is inscribed
++// inflation and is intentionally not a hard collision here; it is not silently
++// treated as free either: the caller keeps the full spinning envelope.
++inline bool hardCost(unsigned char c) {return c >= 254;}
++
++inline bool circleClear(
++  const GridView & grid, double x, double y, double radius)
++{
++  const double r2 = radius * radius;
++  const int min_x = static_cast<int>(std::floor((x - radius - grid.origin_x) / grid.resolution));
++  const int max_x = static_cast<int>(std::ceil((x + radius - grid.origin_x) / grid.resolution));
++  const int min_y = static_cast<int>(std::floor((y - radius - grid.origin_y) / grid.resolution));
++  const int max_y = static_cast<int>(std::ceil((y + radius - grid.origin_y) / grid.resolution));
++  if (min_x < 0 || min_y < 0 || max_x >= grid.width || max_y >= grid.height) {
++    return false;
++  }
++  for (int my = min_y; my <= max_y; ++my) {
++    for (int mx = min_x; mx <= max_x; ++mx) {
++      const double cx = grid.origin_x + (mx + 0.5) * grid.resolution;
++      const double cy = grid.origin_y + (my + 0.5) * grid.resolution;
++      const double dx = cx - x, dy = cy - y;
++      if (dx * dx + dy * dy <= r2 && hardCost(at(grid, mx, my))) {
++        return false;
++      }
++    }
++  }
++  return true;
++}
++
++inline double nearestHardDistance(
++  const GridView & grid, double x, double y, double cap)
++{
++  double best = std::min({cap, x - grid.origin_x, y - grid.origin_y,
++    grid.origin_x + grid.width * grid.resolution - x,
++    grid.origin_y + grid.height * grid.resolution - y});
++  const int min_x = std::max(0, static_cast<int>(std::floor((x - cap - grid.origin_x) / grid.resolution)));
++  const int max_x = std::min(grid.width - 1, static_cast<int>(std::ceil((x + cap - grid.origin_x) / grid.resolution)));
++  const int min_y = std::max(0, static_cast<int>(std::floor((y - cap - grid.origin_y) / grid.resolution)));
++  const int max_y = std::min(grid.height - 1, static_cast<int>(std::ceil((y + cap - grid.origin_y) / grid.resolution)));
++  double squared = best * best;
++  for (int my = min_y; my <= max_y; ++my) {
++    for (int mx = min_x; mx <= max_x; ++mx) {
++      if (!hardCost(at(grid, mx, my))) {continue;}
++      const double dx = grid.origin_x + (mx + 0.5) * grid.resolution - x;
++      const double dy = grid.origin_y + (my + 0.5) * grid.resolution - y;
++      squared = std::min(squared, dx * dx + dy * dy);
++    }
++  }
++  return std::sqrt(squared);
++}
++
++// The old fixed rectangle check, in the non-spinning fake frame. It treats
++// inscribed inflation (253) as collision and does not rotate with the chassis.
++inline bool fixedRectangleClear(
++  const GridView & grid, double x, double y, double yaw,
++  double half_x, double half_y, double padding)
++{
++  const double c = std::cos(yaw), s = std::sin(yaw);
++  const double hx = half_x + padding, hy = half_y + padding;
++  const double local[5][2] = {{0, 0}, {hx, hy}, {hx, -hy}, {-hx, -hy}, {-hx, hy}};
++  for (const auto & p : local) {
++    const double wx = x + c * p[0] - s * p[1];
++    const double wy = y + s * p[0] + c * p[1];
++    const int mx = static_cast<int>(std::floor((wx - grid.origin_x) / grid.resolution));
++    const int my = static_cast<int>(std::floor((wy - grid.origin_y) / grid.resolution));
++    if (mx < 0 || my < 0 || mx >= grid.width || my >= grid.height) {return false;}
++    if (at(grid, mx, my) >= 253) {return false;}
++  }
++  return true;
++}
++}  // namespace c041_spin
++#endif
+diff --git a/src/collision_aware_omni_controller.cpp b/src/collision_aware_omni_controller.cpp
+new file mode 100644
+index 0000000..1998a73
+--- /dev/null
++++ b/src/collision_aware_omni_controller.cpp
+@@ -0,0 +1,220 @@
++// Copyright 2026 HardyYip contributors
++// SPDX-License-Identifier: Apache-2.0
++#include "dwb_core/dwb_local_planner.hpp"
++#include "dwb_core/exceptions.hpp"
++#include "dwb_core/trajectory_critic.hpp"
++#include "pb_omni_pid_pursuit_controller/pose_velocity_estimator.hpp"
++#include "pb_omni_pid_pursuit_controller/spin_coverage.hpp"
++#include "pb_omni_pid_pursuit_controller/geodesic_goal_field.hpp"
++#include "pluginlib/class_list_macros.hpp"
++#include "tf2/utils.h"
++#include "tf2_geometry_msgs/tf2_geometry_msgs.hpp"
++#include "nav2_core/exceptions.hpp"
++#include <cmath>
++#include <algorithm>
++#include <memory>
++namespace pb_omni_pid_pursuit_controller
++{
++class GoalAwareObstacleScore : public dwb_core::TrajectoryCritic
++{
++  dwb_core::TrajectoryCritic::Ptr original_;
++  dwb_core::TrajectoryCritic::Ptr path_distance_;
++  double resolution_;
++  double factor_{1.0};
++  double path_blend_{0.0};
++public:
++  GoalAwareObstacleScore(dwb_core::TrajectoryCritic::Ptr original,
++    dwb_core::TrajectoryCritic::Ptr path_distance, double resolution)
++  : original_(std::move(original)), path_distance_(std::move(path_distance)),
++    resolution_(resolution) {}
++  bool prepare(
++    const geometry_msgs::msg::Pose2D & pose,
++    const nav_2d_msgs::msg::Twist2D & velocity,
++    const geometry_msgs::msg::Pose2D & goal,
++    const nav_2d_msgs::msg::Path2D & plan) override
++  {
++    const double distance = std::hypot(goal.x - pose.x, goal.y - pose.y);
++    if (!std::isfinite(distance)) {
++      throw dwb_core::IllegalTrajectoryException(name_, "Nonfinite goal scoring distance");
++    }
++    factor_ = 0.1 + 0.9 * std::clamp(distance - 0.5, 0.0, 1.0);
++    path_blend_ = std::clamp((distance - 1.5) / 0.5, 0.0, 1.0);
++    return original_->prepare(pose, velocity, goal, plan);
++  }
++  double getScale() const override {return original_->getScale() * factor_;}
++  double scoreTrajectory(const dwb_msgs::msg::Trajectory2D & traj) override
++  {
++    const double obstacle_score = original_->scoreTrajectory(traj);
++    double maximum_distance = 0.0;
++    dwb_msgs::msg::Trajectory2D sample;
++    sample.poses.resize(1);
++    for (const auto & pose : traj.poses) {
++      sample.poses[0] = pose;
++      const double cells = path_distance_->scoreTrajectory(sample);
++      if (!std::isfinite(cells) || cells < 0.0) {
++        throw dwb_core::IllegalTrajectoryException(name_, "Invalid path distance score");
++      }
++      maximum_distance = std::max(maximum_distance, cells * resolution_);
++    }
++    const double alignment_factor = 0.1 + 0.9 *
++      std::clamp((maximum_distance - 0.1) / 0.2, 0.0, 1.0);
++    return obstacle_score * (1.0 - path_blend_ + path_blend_ * alignment_factor);
++  }
++  void reset() override {original_->reset();}
++  void debrief(const nav_2d_msgs::msg::Twist2D & velocity) override
++  {original_->debrief(velocity);}
++};
++
++class GeodesicGoalScore : public dwb_core::TrajectoryCritic
++{
++  dwb_core::TrajectoryCritic::Ptr original_;
++  goal_field::Potential potential_;
++public:
++  explicit GeodesicGoalScore(dwb_core::TrajectoryCritic::Ptr original)
++  : original_(std::move(original)) {}
++  bool prepare(const geometry_msgs::msg::Pose2D & pose,
++    const nav_2d_msgs::msg::Twist2D & velocity,
++    const geometry_msgs::msg::Pose2D & goal, const nav_2d_msgs::msg::Path2D & plan) override
++  {
++    const bool prepared = original_->prepare(pose, velocity, goal, plan);
++    auto * map = costmap_ros_->getCostmap();
++    const c041_spin::GridView grid{map->getOriginX(), map->getOriginY(), map->getResolution(),
++      static_cast<int>(map->getSizeInCellsX()), static_cast<int>(map->getSizeInCellsY()),
++      map->getCharMap()};
++    std::vector<goal_field::Point> points;
++    points.reserve(plan.poses.size());
++    for (const auto & p : plan.poses) {points.push_back({p.x, p.y});}
++    const bool reachable = potential_.prepare(grid, {pose.x, pose.y}, points, 0.382883794 + 0.05);
++    return prepared && reachable;
++  }
++  double getScale() const override {return original_->getScale();}
++  double scoreTrajectory(const dwb_msgs::msg::Trajectory2D & traj) override
++  {
++    original_->scoreTrajectory(traj);
++    if (traj.poses.empty()) {throw dwb_core::IllegalTrajectoryException(name_, "Empty trajectory");}
++    return potential_.score(traj.poses.back().x, traj.poses.back().y);
++  }
++  void reset() override {original_->reset(); potential_ = goal_field::Potential{};}
++  void debrief(const nav_2d_msgs::msg::Twist2D & velocity) override {original_->debrief(velocity);}
++};
++
++class SpinCoverageCritic : public dwb_core::TrajectoryCritic
++{
++public:
++  double getScale() const override {return 1.0;}
++
++  double scoreTrajectory(const dwb_msgs::msg::Trajectory2D & traj) override
++  {
++    auto * costmap = costmap_ros_->getCostmap();
++    if (costmap == nullptr) {
++      throw dwb_core::IllegalTrajectoryException(name_, "SpinCoverage costmap unavailable");
++    }
++    const c041_spin::GridView grid{
++      costmap->getOriginX(), costmap->getOriginY(), costmap->getResolution(),
++      static_cast<int>(costmap->getSizeInCellsX()),
++      static_cast<int>(costmap->getSizeInCellsY()), costmap->getCharMap()};
++    constexpr double kSpinRadius = 0.382883794 + 0.05;
++    for (const auto & pose : traj.poses) {
++      const double wx = pose.x;
++      const double wy = pose.y;
++      const bool clear = c041_spin::circleClear(grid, wx, wy, kSpinRadius);
++      RCLCPP_INFO_ONCE(
++        rclcpp::get_logger("SpinCoverageCritic"),
++        "SpinCoverage sample world=(%.3f,%.3f) radius=%.3f clear=%d",
++        wx, wy, kSpinRadius, static_cast<int>(clear));
++      if (!clear) {
++        throw dwb_core::IllegalTrajectoryException(name_, "SpinCoverage hits lethal/unknown");
++      }
++    }
++    return 0.0;
++  }
++};
++
++class CollisionAwareOmniController : public dwb_core::DWBLocalPlanner
++{
++  PoseVelocityEstimator estimator_;
++  std::string pose_frame_;
++  rclcpp_lifecycle::LifecyclePublisher<geometry_msgs::msg::TwistStamped>::SharedPtr velocity_pub_;
++
++protected:
++  void loadCritics() override
++  {
++    dwb_core::DWBLocalPlanner::loadCritics();
++    auto node = node_.lock();
++    if (!node) {return;}
++    dwb_core::TrajectoryCritic::Ptr path_distance;
++    for (const auto & existing : critics_) {
++      if (existing->getName() == "PathDist") {path_distance = existing;}
++    }
++    if (!path_distance || !costmap_ros_ || !costmap_ros_->getCostmap()) {
++      throw nav2_core::PlannerException("Path distance and costmap required for obstacle scoring");
++    }
++    for (auto & existing : critics_) {
++      if (existing->getName() == "BaseObstacle") {
++        auto scored = std::make_shared<GoalAwareObstacleScore>(
++          existing, path_distance, costmap_ros_->getCostmap()->getResolution());
++        scored->initialize(node, "BaseObstacle", dwb_plugin_name_, costmap_ros_);
++        existing = scored;
++      } else if (existing->getName() == "GoalDist") {
++        auto scored = std::make_shared<GeodesicGoalScore>(existing);
++        scored->initialize(node, "GoalDist", dwb_plugin_name_, costmap_ros_);
++        existing = scored;
++      }
++    }
++    auto critic = std::make_shared<SpinCoverageCritic>();
++    critic->initialize(node, "SpinCoverage", dwb_plugin_name_, costmap_ros_);
++    critics_.push_back(critic);
++    RCLCPP_INFO(
++      logger_, "Added SpinCoverage critic: full physical spin circle vs lethal/unknown cells");
++  }
++
++public:
++  void configure(
++    const rclcpp_lifecycle::LifecycleNode::WeakPtr & parent, std::string name,
++    std::shared_ptr<tf2_ros::Buffer> tf,
++    std::shared_ptr<nav2_costmap_2d::Costmap2DROS> costmap_ros) override
++  {
++    dwb_core::DWBLocalPlanner::configure(parent, name, tf, costmap_ros);
++    auto node = parent.lock();
++    if (!node) {throw nav2_core::PlannerException("Cannot lock DWB parent");}
++    double angular_max = 1.0;
++    node->get_parameter(name + ".max_vel_theta", angular_max);
++    if (angular_max != 0.0) {
++      throw nav2_core::PlannerException("CollisionAwareOmniController requires max_vel_theta=0");
++    }
++    velocity_pub_ = node->create_publisher<geometry_msgs::msg::TwistStamped>(
++      name + "/estimated_velocity", rclcpp::SystemDefaultsQoS());
++    RCLCPP_INFO(logger_, "Omni DWB uses estimated pose velocity in the nonspinning command frame");
++  }
++  void activate() override
++  {
++    estimator_.reset(); pose_frame_.clear();
++    dwb_core::DWBLocalPlanner::activate(); velocity_pub_->on_activate();
++  }
++  void deactivate() override
++  {
++    velocity_pub_->on_deactivate(); dwb_core::DWBLocalPlanner::deactivate();
++  }
++  void cleanup() override
++  {
++    velocity_pub_.reset(); estimator_.reset(); dwb_core::DWBLocalPlanner::cleanup();
++  }
++  geometry_msgs::msg::TwistStamped computeVelocityCommands(
++    const geometry_msgs::msg::PoseStamped & pose, const geometry_msgs::msg::Twist &,
++    nav2_core::GoalChecker * goal_checker) override
++  {
++    if (pose_frame_ != pose.header.frame_id) {estimator_.reset(); pose_frame_ = pose.header.frame_id;}
++    const auto v = estimator_.update(
++      rclcpp::Time(pose.header.stamp).seconds(), pose.pose.position.x,
++      pose.pose.position.y, tf2::getYaw(pose.pose.orientation));
++    geometry_msgs::msg::Twist velocity;
++    velocity.linear.x = v.first; velocity.linear.y = v.second;
++    geometry_msgs::msg::TwistStamped observed;
++    observed.header = pose.header; observed.header.frame_id = costmap_ros_->getBaseFrameID();
++    observed.twist = velocity; velocity_pub_->publish(observed);
++    return dwb_core::DWBLocalPlanner::computeVelocityCommands(pose, velocity, goal_checker);
++  }
++};
++}  // namespace pb_omni_pid_pursuit_controller
++PLUGINLIB_EXPORT_CLASS(
++  pb_omni_pid_pursuit_controller::CollisionAwareOmniController, nav2_core::Controller)
+diff --git a/test/test_collision_checked_lookahead.cpp b/test/test_collision_checked_lookahead.cpp
+new file mode 100644
+index 0000000..ad7bbf3
+--- /dev/null
++++ b/test/test_collision_checked_lookahead.cpp
+@@ -0,0 +1,47 @@
++// Copyright 2026 HardyYip contributors
++// SPDX-License-Identifier: Apache-2.0
++#include "pb_omni_pid_pursuit_controller/collision_checked_lookahead.hpp"
++#include <cassert>
++#include <fstream>
++#include <iostream>
++#include <limits>
++using namespace pb_omni_pid_pursuit_controller;
++int main(int argc, char ** argv)
++{
++  auto clear = [](double, double) {return true;};
++  auto wall = [](double x, double y) {return !(x > 0.2 && x < 0.25 && y < 0.1);};
++  assert(!collisionFreeSegment(0, 0, 0.5, 0, 0.05, wall));
++  assert(collisionFreeSegment(0, 0, 0.5, 0.5, 0.05, wall));
++  auto straight = collisionCheckedTarget({{0.1, 0}, {0.3, 0}, {0.5, 0}}, 0, 0, 0.05, clear);
++  assert(straight && *straight == 2);
++  auto bent = collisionCheckedTarget({{0.1, 0.3}, {0.5, 0}}, 0, 0, 0.05, wall);
++  assert(bent && *bent == 0);
++  auto known = [](double x, double) {return x <= 0.3;};
++  auto unknown = collisionCheckedTarget({{0.1, 0}, {0.5, 0}}, 0, 0, 0.05, known);
++  assert(unknown && *unknown == 0);
++  assert(!collisionCheckedTarget({{0.3, 0}}, 0, 0, 0.05, [](double, double) {return false;}));
++  assert(!collisionFreeSegment(0, 0, std::numeric_limits<double>::quiet_NaN(), 0, 0.05, clear));
++  assert(!collisionCheckedTarget({{0.001, 0}}, 0, 0, 0.05, clear));
++  assert(std::abs(shortTargetSpeedLimit(0.05, 0.25) - 0.2) < 1e-12);
++  assert(shortTargetSpeedLimit(0.05, 0) == 0);
++  assert(argc == 2);
++  std::ifstream input(argv[1]);
++  int width, height; double resolution, ox, oy, x0, y0; std::size_t count;
++  input >> width >> height >> resolution >> ox >> oy >> x0 >> y0;
++  std::vector<int> grid(width * height);
++  for (auto & value : grid) {input >> value;}
++  input >> count;
++  std::vector<std::pair<double, double>> points(count);
++  for (auto & point : points) {input >> point.first >> point.second;}
++  assert(input.good());
++  auto safe = [&](double x, double y) {
++      const int mx = std::floor((x - ox) / resolution);
++      const int my = std::floor((y - oy) / resolution);
++      return mx >= 0 && my >= 0 && mx < width && my < height && grid[my * width + mx] < 253;
++    };
++  assert(!collisionFreeSegment(x0, y0, points.back().first, points.back().second, resolution, safe));
++  auto replay = collisionCheckedTarget(points, x0, y0, resolution, safe);
++  assert(replay && *replay < count - 1);
++  std::cout << "9 collision-check contracts passed; recorded blocked target " << count - 1
++            << " shortened to " << *replay << '\n';
++}
+diff --git a/test/test_geodesic_goal_field.cpp b/test/test_geodesic_goal_field.cpp
+new file mode 100644
+index 0000000..ab7b20f
+--- /dev/null
++++ b/test/test_geodesic_goal_field.cpp
+@@ -0,0 +1,87 @@
++#include "pb_omni_pid_pursuit_controller/geodesic_goal_field.hpp"
++#include <gtest/gtest.h>
++#include <random>
++#include <chrono>
++using pb_omni_pid_pursuit_controller::goal_field::Potential;
++using pb_omni_pid_pursuit_controller::goal_field::Point;
++struct FieldFixture : testing::Test
++{
++  std::vector<unsigned char> data = std::vector<unsigned char>(10000, 0);
++  c041_spin::GridView grid{0, 0, .05, 100, 100, data.data()};
++  Potential field;
++  double radius = .382883794 + .05;
++  bool prepare(Point start = {2.025, 2.025}, std::vector<Point> plan = {{3.025, 2.025}})
++  {return field.prepare(grid, start, plan, radius);}
++};
++TEST_F(FieldFixture, OpenFloorUsesOriginalCellUnits)
++{ASSERT_TRUE(prepare()); EXPECT_NEAR(field.score(2.025, 2.025), 20., 1.e-8); EXPECT_NEAR(field.score(3.025, 2.025), 0., 1.e-8);}
++TEST_F(FieldFixture, WallRequiresMovingAwayFromEuclideanGoal)
++{
++  for (int y = 0; y <= 60; ++y) {data[y * 100 + 50] = 254;}
++  ASSERT_TRUE(prepare());
++  EXPECT_GT(field.score(2.025, 2.025), 20.);
++  EXPECT_LT(field.score(2.025, 2.125), field.score(2.025, 2.025));
++}
++TEST_F(FieldFixture, UnreachableFinalGoalSelectsLastReachablePlanPoint)
++{
++  for (int y = 0; y < 100; ++y) {data[y * 100 + 50] = 254;}
++  ASSERT_TRUE(prepare({2.025, 2.025}, {{2.025, 2.025}, {3.025, 2.025}}));
++  EXPECT_EQ(field.targetPlanIndex(), 0);
++}
++TEST_F(FieldFixture, NoReachablePlanHasPositiveBoundedPenalty)
++{
++  for (int y = 0; y < 100; ++y) {data[y * 100 + 50] = 255;}
++  EXPECT_FALSE(prepare()); EXPECT_DOUBLE_EQ(field.score(2.025, 2.025), field.unreachableScore());
++}
++TEST_F(FieldFixture, UnknownAndLethalHaveSameSafetyMeaning)
++{
++  data[40 * 100 + 50] = 255; ASSERT_TRUE(prepare({1.025, 1.025}, {{1.025, 1.025}}));
++  EXPECT_FALSE(field.safeCell(50, 40));
++  data[40 * 100 + 50] = 254; ASSERT_TRUE(prepare({1.025, 1.025}, {{1.025, 1.025}}));
++  EXPECT_FALSE(field.safeCell(50, 40));
++}
++TEST_F(FieldFixture, InscribedCostKeepsExistingSpinKernelSemantics)
++{data[40 * 100 + 40] = 253; ASSERT_TRUE(prepare()); EXPECT_TRUE(field.safeCell(40, 40));}
++TEST_F(FieldFixture, DoesNotForceEscapeFromInvalidFirstPose)
++{data[40 * 100 + 40] = 254; EXPECT_FALSE(prepare()); EXPECT_EQ(field.targetPlanIndex(), -1);}
++TEST_F(FieldFixture, MapEdgeRetainsOriginalRejection)
++{EXPECT_FALSE(prepare({.1, .1})); EXPECT_FALSE(field.safeCell(0, 0));}
++TEST_F(FieldFixture, ContinuousAcrossCellCenterBoundary)
++{
++  ASSERT_TRUE(prepare()); EXPECT_LT(std::abs(field.score(2.025 - 1.e-7, 2.123) - field.score(2.025 + 1.e-7, 2.123)), 1.e-4);
++}
++TEST_F(FieldFixture, TranslationInvariant)
++{
++  ASSERT_TRUE(prepare()); double before = field.score(2.125, 2.125);
++  grid.origin_x = 10.; grid.origin_y = -20.; ASSERT_TRUE(prepare({12.025, -17.975}, {{13.025, -17.975}}));
++  EXPECT_NEAR(field.score(12.125, -17.875), before, 1.e-8);
++}
++TEST_F(FieldFixture, ResolutionScalingRetainsCellUnitScore)
++{grid.resolution = .1; radius *= 2.; ASSERT_TRUE(prepare({4.05, 4.05}, {{6.05, 4.05}})); EXPECT_NEAR(field.score(4.05, 4.05), 20., 1.e-8);}
++TEST_F(FieldFixture, PrepareClearsUnreachableState)
++{
++  ASSERT_TRUE(prepare()); for (int y = 0; y < 100; ++y) {data[y * 100 + 50] = 254;}
++  EXPECT_FALSE(prepare()); std::fill(data.begin(), data.end(), 0); ASSERT_TRUE(prepare()); EXPECT_NEAR(field.score(2.025, 2.025), 20., 1.e-8);
++}
++TEST_F(FieldFixture, DistanceTransformMatchesActualHardCircleAtEveryCell)
++{
++  std::mt19937 random(42);
++  for (int repeat = 0; repeat < 3; ++repeat) {
++    std::fill(data.begin(), data.end(), 0);
++    for (int i = 0; i < 10000; ++i) {
++      double x = (i % 100 + .5) * .05, y = (i / 100 + .5) * .05;
++      if (std::hypot(x - 1.025, y - 1.025) > .8 && random() % 150 == 0) {data[i] = random() % 2 ? 254 : 255;}
++    }
++    ASSERT_TRUE(prepare({1.025, 1.025}, {{1.025, 1.025}}));
++    for (int y = 0; y < 100; ++y) {for (int x = 0; x < 100; ++x) {
++      ASSERT_EQ(field.safeCell(x, y), c041_spin::circleClear(grid, (x + .5) * .05, (y + .5) * .05, radius)) << x << "," << y;
++    }}
++  }
++}
++
++TEST_F(FieldFixture, ClearanceDistancePrefersRoomOverGrazingWall)
++{
++  for (int y = 0; y <= 60; ++y) {data[y * 100 + 50] = 254;}
++  ASSERT_TRUE(prepare());
++  EXPECT_GT(field.score(2.075, 2.025), field.score(1.975, 2.025));
++}
+diff --git a/test/test_path_corner_lookahead.cpp b/test/test_path_corner_lookahead.cpp
+new file mode 100644
+index 0000000..72bb9ae
+--- /dev/null
++++ b/test/test_path_corner_lookahead.cpp
+@@ -0,0 +1,25 @@
++// Regression paths are from C041 baseline-01 and candidate-envelope-01 failures.
++#include "pb_omni_pid_pursuit_controller/path_corner_lookahead.hpp"
++#include <iostream>
++#include <stdexcept>
++using pb_omni_pid_pursuit_controller::firstPathCorner;
++using Points = std::vector<std::pair<double, double>>;
++void require(bool condition, const char * message)
++{if (!condition) {throw std::runtime_error(message);}}
++int main()
++{
++  const Points recorded0 = {{0.040814778153198006,-0.008273852914137625},{0.09084791425421379,-0.05824067338404271},{0.09088106282604436,-0.10824065226242319},{0.09091421139787492,-0.15824063114080367},{0.04094737244052027,-0.20827376842765954},{0.0056154817793192535,-0.24365253908723272},{-0.029716408881885314,-0.2790313097468061},{-0.06504829954308633,-0.3144100804063793},{-0.10038019020428735,-0.3497888510659528},{-0.1357120808654919,-0.385167621725526},{-0.1710439715266947,-0.42054639238509917},{-0.20888682234625833,-0.4584394548619388},{-0.25362299523401255,-0.43610844231496704},{-0.29835916812176677,-0.41377742976799503},{-0.34309534100952277,-0.39144641722102347},{-0.4089530696066621,-0.35857213073907923},{-0.4589862057076797,-0.30860531026917426}};
++  const auto turn0 = firstPathCorner(recorded0, 0.5, 0.05);
++  require(turn0.has_value() && recorded0[*turn0].first > 0.0, "recorded obstacle detour must first steer right");
++  const Points recorded1 = {{-0.008240748980052004,0.03733075542371944},{0.041776854701822685,-0.012651562990557585},{0.09179445838369915,-0.06263388140483472},{0.0918120674740841,-0.11263383268588045},{0.041829681972979316,-0.162651416833695},{-0.008152703528125471,-0.21266900098150943},{-0.05813508902923026,-0.26268658512932386},{-0.10811747453033504,-0.3127041692771383},{-0.15809986003143806,-0.36272175342495283},{-0.20281333971929172,-0.38509818272766505},{-0.2580822401240326,-0.4127569704395361},{-0.2934500268661875,-0.3774141341493754},{-0.35811744748778196,-0.3127923336109818},{-0.40813505116965487,-0.26281001519670477}};
++  const auto turn1 = firstPathCorner(recorded1, 0.5, 0.05);
++  require(turn1.has_value() && recorded1[*turn1].first > 0.0, "recorded obstacle detour must first steer right");
++  require(!firstPathCorner(Points{{0,0},{0.1,0},{0.3,0},{0.6,0}}, 0.5, 0.05), "straight path unchanged");
++  const Points duplicates{{0,0},{0.15,0},{0.15,0},{0.15,0.2},{0.15,0.6}};
++  const auto duplicate_turn = firstPathCorner(duplicates, 0.5, 0.05);
++  require(duplicate_turn && duplicates[*duplicate_turn].first == 0.15 && duplicates[*duplicate_turn].second == 0.0, "duplicate vertices must not hide a turn");
++  require(!firstPathCorner(Points{{-0.1,0.01},{0,0.01},{0,0.2},{0,0.6}}, 0.5, 0.05), "reached turn must not be chased again");
++  require(!firstPathCorner(Points{{0,0},{0.1,0.1}}, 0.5, 0.05), "short final segment unchanged");
++  require(!firstPathCorner(Points{{0,0},{0,0},{0,0}}, 0.5, 0.05), "degenerate path has no artificial turn");
++  std::cout << "path corner contracts: 7 passed\n";
++}
+diff --git a/test/test_pose_velocity_estimator.cpp b/test/test_pose_velocity_estimator.cpp
+new file mode 100644
+index 0000000..6766498
+--- /dev/null
++++ b/test/test_pose_velocity_estimator.cpp
+@@ -0,0 +1,28 @@
++// Copyright 2026 HardyYip contributors
++// SPDX-License-Identifier: Apache-2.0
++#include "pb_omni_pid_pursuit_controller/pose_velocity_estimator.hpp"
++#include <cassert>
++#include <cmath>
++#include <iostream>
++#include <limits>
++using pb_omni_pid_pursuit_controller::PoseVelocityEstimator;
++int main()
++{
++  PoseVelocityEstimator estimator;
++  auto v = estimator.update(1.0, 0.0, 0.0, 0.0);
++  assert(v.first == 0.0 && v.second == 0.0);
++  for (int i = 1; i <= 20; ++i) {v = estimator.update(1.0 + i * .05, i * .015, i * .02, 0.0);}
++  assert(std::abs(v.first - .3) < 1e-10 && std::abs(v.second - .4) < 1e-10);
++  v = estimator.update(2.0, .3, .4, 3.14159265358979323846 / 2.0);
++  assert(std::abs(v.first - .4) < 1e-10 && std::abs(v.second + .3) < 1e-10);
++  v = estimator.update(2.0, 100.0, 100.0, 0.0);
++  assert(std::abs(v.first - .3) < 1e-10 && std::abs(v.second - .4) < 1e-10);
++  v = estimator.update(.5, 1.0, 2.0, 0.0);
++  assert(v.first == 0.0 && v.second == 0.0);
++  estimator.update(.55, 1.02, 2.0, 0.0);
++  v = estimator.update(2.0, 3.0, 2.0, 0.0);
++  assert(v.first == 0.0 && v.second == 0.0);
++  v = estimator.update(std::numeric_limits<double>::quiet_NaN(), 0, 0, 0);
++  assert(v.first == 0.0 && v.second == 0.0);
++  std::cout << "7 pose-velocity contracts passed\n";
++}

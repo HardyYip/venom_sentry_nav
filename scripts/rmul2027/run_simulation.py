@@ -75,10 +75,23 @@ runtime_paths = [workspace/'install/point_lio/lib/point_lio/pointlio_mapping',
                  workspace/'install/fake_vel_transform/lib/libfake_vel_transform.so',
                  workspace/'install/rmoss_gz_base/lib/librmoss_gz_base.so',
                  workspace/'install/rmoss_gz_plugins/plugins/libMecanumDrive2.so',
-                 workspace/'install/pb_nav2_plugins/lib/libpb_pose_fresh_condition_bt_node.so']
-(logs/'dependency-runtime.json').write_text(json.dumps({
-    str(p.relative_to(workspace)): {'resolved':str(p.resolve()),'sha256':hashlib.sha256(p.read_bytes()).hexdigest()}
-    for p in runtime_paths if p.is_file()},indent=2)+'\n')
+                 workspace/'install/pb_nav2_plugins/lib/libpb_pose_fresh_condition_bt_node.so',
+                 workspace/'install/pb_omni_pid_pursuit_controller/lib/libpb_omni_pid_pursuit_controller.so',
+                 folder.parents[1]/'pb_omni_pid_pursuit_controller/src/collision_aware_omni_controller.cpp',
+                 folder.parents[1]/'pb_omni_pid_pursuit_controller/include/pb_omni_pid_pursuit_controller/spin_coverage.hpp',
+                 folder.parents[1]/'pb_omni_pid_pursuit_controller/include/pb_omni_pid_pursuit_controller/geodesic_goal_field.hpp',
+                 folder.parents[1]/'pb_omni_pid_pursuit_controller/package.xml',
+                 folder/'actors/scripted_obstacle_actor.cpp',logs/'nav2_params.yaml']
+for key in ['default_nav_to_pose_bt_xml','default_nav_through_poses_bt_xml']:
+    value=yaml.safe_load(source_params).get('bt_navigator',{}).get('ros__parameters',{}).get(key)
+    if value:runtime_paths.append(Path(value))
+def runtime_snapshot():
+    captured_at=datetime.datetime.now().astimezone().isoformat()
+    return {(str(p.relative_to(workspace)) if p.is_relative_to(workspace) else str(p)): {
+        'resolved':str(p.resolve()),'sha256':hashlib.sha256(p.read_bytes()).hexdigest(),
+        'captured_at':captured_at,'size':p.stat().st_size,'mtime_ns':p.stat().st_mtime_ns}
+        for p in runtime_paths if p.is_file()}
+(logs/'dependency-runtime.json').write_text(json.dumps(runtime_snapshot(),indent=2)+'\n')
 resources=[world_sdf,selected_gz_world,selected_manifest,logs/'nav2_params.yaml',maps/'rmul_2027_3v3.pcd',maps/'rmul_2027_3v3.yaml',maps/'rmul_2027_3v3.pgm']
 if 'rplidar_obstacles' in source_params:resources.append(folder/'rplidar_obstacle_cloud.py')
 resources.append(folder/'dds_shm_cleanup.py')
@@ -212,6 +225,10 @@ finally:
     signal.signal(signal.SIGINT, signal.SIG_IGN)
     signal.signal(signal.SIGTERM, signal.SIG_IGN)
     shm_scope.capture()
+    try:
+        (logs/'dependency-runtime-end.json').write_text(json.dumps(runtime_snapshot(),indent=2)+'\n')
+    except OSError as error:
+        print('Runtime identity capture failed: '+repr(error),flush=True)
     for child in auxiliary:
         if child.poll() is None:
             child.send_signal(signal.SIGINT)
