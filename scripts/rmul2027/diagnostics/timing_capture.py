@@ -85,9 +85,31 @@ class Window:
                 "limits":{"pre_seconds":self.pre,"post_seconds":self.post,"ring_bytes":self.ring_limit,"event_bytes":self.max_bytes}}
 
 def active_owned_goal(root):
-    # Stop snapshots are written by the original verifier only after the goal has terminated.
-    # Old ownership files remain on disk; they must not keep shutdown traffic armed.
-    return any(not (owner.parent/"stop-state.json").exists() for owner in root.rglob("goal-ownership.json"))
+    for owner in root.rglob("goal-ownership.json"):
+        if (owner.parent/"stop-state.json").exists():
+            continue
+        terminal=False
+        try:
+            identifier=json.loads(owner.read_text()).get("goal_uuid")
+            trace=owner.parent/"verify.jsonl"
+            with trace.open("rb") as stream:
+                stream.seek(0,2)
+                stream.seek(max(0,stream.tell()-65536))
+                lines=stream.read().splitlines()
+            accepted=False
+            for line in lines:
+                try:row=json.loads(line)
+                except (ValueError,TypeError):continue
+                if row.get("event")=="goal_accepted":
+                    accepted=bool(identifier and row.get("goal_uuid")==identifier)
+                    terminal=False
+                elif accepted and row.get("event")=="invalid_result" and row.get("mode")=="nav" and row.get("status")==6:
+                    terminal=True
+        except (OSError,ValueError,TypeError,AttributeError):
+            pass
+        if not terminal:
+            return True
+    return False
 
 def trigger_for(row, armed):
     failures=row.get("failures",[])
@@ -102,13 +124,21 @@ def trigger_for(row, armed):
         return {"reason":"source_progress_warning","progress_age_s":stalls,"causality":"not_determined"}
     return None
 
+def observed_process(command):
+    if command.startswith(("ign gazebo ","ruby /usr/bin/ign gazebo ")):
+        return True
+    words=command.split()
+    return bool(words and Path(words[0]).name in {
+        "parameter_bridge","component_container","component_container_isolated",
+        "pointlio_mapping","timing_chain_observer"})
+
 def resource_snapshot():
     begin=time.monotonic();rows=[];clipped=False
     for p in Path("/proc").iterdir():
         if not p.name.isdigit():continue
         try:
             cmd=(p/"cmdline").read_bytes().replace(b"\0",b" ").decode(errors="replace")
-            if not any(x in cmd for x in ["ruby /usr/bin/ign gazebo","/parameter_bridge ","/component_container","/pointlio_mapping ","/timing_chain_observer "]):continue
+            if not observed_process(cmd):continue
             stat=(p/"stat").read_text().rsplit(")",1)[1].split()
             threads=[];thread_read_errors=0
             for k,d in enumerate((p/"task").iterdir()):

@@ -33,7 +33,10 @@ def execute(name,command=None,interrupt=False,gap=False,close_goal=False):
   proc=subprocess.Popen(args,stdout=log,stderr=subprocess.STDOUT)
   if close_goal:
    time.sleep(2.)
-   (armed/"stop-state.json").write_text('{"original_1s_stop_passed":true}')
+   if close_goal=="invalid":
+    (armed/"verify.jsonl").write_text('{"event":"goal_accepted","mode":"nav","goal_uuid":"00000000000000000000000000000001"}\n{"event":"invalid_result","mode":"nav","status":6}\n')
+   else:
+    (armed/"stop-state.json").write_text('{"original_1s_stop_passed":true}')
   if interrupt or gap:
    deadline=time.monotonic()+5
    while not (out/"processes.json").exists() and time.monotonic()<deadline:time.sleep(.05)
@@ -44,7 +47,7 @@ def execute(name,command=None,interrupt=False,gap=False,close_goal=False):
    else:proc.send_signal(signal.SIGTERM)
   code=proc.wait(timeout=20)
  s=json.loads((out/"summary.json").read_text())
- if name in ["healthy","closed_goal"]:
+ if name in ["healthy","closed_goal","rejected_goal"]:
   assert code==0 and s["trigger"] is None and not (out/"event.jsonl").exists(),s
   assert all(s["last_chain"]["streams"].get(k,{}).get("count",0)>0 for k in ["native_clock","native_imu","native_odometry","ros_clock","tf:map->odom","tf:odom->base_footprint"])
  elif name in ["tf_freeze","bridge_freeze","rosout","observer_gap","early_then_failure"]:
@@ -85,6 +88,7 @@ def execute(name,command=None,interrupt=False,gap=False,close_goal=False):
 for mode in ["healthy","tf_freeze","bridge_freeze","rosout","early_then_failure"]:
  execute(mode,[str(FIX),mode])
 execute("closed_goal",[str(FIX),"tf_freeze"],close_goal=True)
+execute("rejected_goal",[str(FIX),"tf_freeze"],close_goal="invalid")
 execute("observer_gap",[str(FIX),"healthy"],gap=True)
 execute("interrupted",[str(FIX),"healthy"],interrupt=True)
 orphan="import subprocess,pathlib,time; p=subprocess.Popen(['sleep','120'],start_new_session=True); pathlib.Path("+repr(str(P/"detached-grandchild.pid"))+").write_text(str(p.pid))"

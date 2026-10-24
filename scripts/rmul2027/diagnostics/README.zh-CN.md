@@ -25,4 +25,13 @@ identity JSON是字段名到实际文件绝对路径的映射，最多64项。�
 可移植的隔离端到端契约在tests目录。其C++夹具会发布合成时钟/TF，必须使用ROS_DOMAIN_ID=91、IGN_PARTITION=codex_c054_fixture、原容量guard，且采用无共享内存的回环DDS profile。夹具在任何其他域中拒绝启动，避免影响导航。先独立CMake构建tests中的fixture，再在同一个guard内调用：
     python3 diagnostics/tests/run_live_contract.py --record-dir <E盘新目录>/contracts --observer <观察器可执行文件> --fixture <fixture可执行文件> --identity <身份路径JSON>
 
-9项端到端覆盖健康流、冻TF、ROS钟停顿、正式日志、早预警后晚失败、目标结束后不再预警、观察器空档、SIGTERM、另建session的孤儿清理。工具始终自动冻结实际观察器二进制和自身Python源码，即使调用者未在identity映射中列出。
+10项端到端覆盖健康流、冻TF、ROS钟停顿、正式日志、早预警后晚失败、目标结束后不再预警、占用拒绝终态、观察器空档、SIGTERM、另建session的孤儿清理。工具始终自动冻结实际观察器二进制和自身Python源码，即使调用者未在identity映射中列出。
+
+
+## C056：终态与进程覆盖补充
+
+占用目标可能按预期产生invalid_result/status6而不写stop-state.json。取证布防现在还读取同目录verify.jsonl尾部最多64KiB，只有goal_accepted的UUID与本次ownership一致、随后出现该导航拒绝终态时才解除预警布防。未知、缺失、截断或无匹配UUID继续保守布防。正式PoseFresh日志触发不依赖布防状态，因此不会因为目标结束而丢弃正式错误。
+
+资源采样按实际可执行进程识别，覆盖进程标题为ign gazebo的引擎，不再用启动shell代替引擎线程。原每进程128线程、32进程上限和缺测标记保留。资源计数仍是1Hz快照，不是阻塞栈或连续调度证明。
+
+对应回归增加真实占用拒绝终态、不同UUID、半写记录及实际Gazebo标题反例；隔离端到端增加rejected_goal场景。普通导航、PoseFresh的0.5秒墙钟保护、IMU缺口锁止和停车门槛均未修改。修正采集缺口不代表历史stamp_stalled根因已确定；本轮结果见[本轮报告](../reports/C056-RESULTS.zh-CN.md)。

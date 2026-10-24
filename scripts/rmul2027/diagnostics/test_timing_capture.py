@@ -77,4 +77,41 @@ class CaptureContract(unittest.TestCase):
    for thread in process["threads"]:
     self.assertEqual(len(thread["schedstat"]),3)
     self.assertGreater(thread["start_ticks"],0)
+ def test_rejected_occupied_goal_is_terminal_without_stop_snapshot(self):
+  with tempfile.TemporaryDirectory() as p:
+   root=Path(p);goal=root/'occupied';goal.mkdir()
+   identifier='00000000000000000000000000000001'
+   (goal/'goal-ownership.json').write_text(json.dumps({'goal_uuid':identifier}))
+   trace=goal/'verify.jsonl'
+   trace.write_text(json.dumps({'event':'goal_accepted','mode':'nav','goal_uuid':identifier})+'\n')
+   self.assertTrue(m.active_owned_goal(root))
+   with trace.open('a') as out:out.write(json.dumps({'event':'invalid_result','mode':'nav','status':6})+'\n')
+   self.assertFalse(m.active_owned_goal(root))
+   second=root/'next';second.mkdir();(second/'goal-ownership.json').write_text('{}')
+   self.assertTrue(m.active_owned_goal(root))
+ def test_unrelated_terminal_cannot_disarm_owned_goal(self):
+  with tempfile.TemporaryDirectory() as p:
+   goal=Path(p);(goal/'goal-ownership.json').write_text('{"goal_uuid":"owned"}')
+   (goal/'verify.jsonl').write_text('{"event":"goal_accepted","mode":"nav","goal_uuid":"other"}\n{"event":"invalid_result","mode":"nav","status":6}\n')
+   self.assertTrue(m.active_owned_goal(goal))
+ def test_partial_terminal_record_does_not_disarm(self):
+  with tempfile.TemporaryDirectory() as p:
+   goal=Path(p);(goal/'goal-ownership.json').write_text('{"goal_uuid":"owned"}')
+   (goal/'verify.jsonl').write_text('{"event":"goal_accepted","mode":"nav","goal_uuid":"owned"}\n{"event":"invalid_result"')
+   self.assertTrue(m.active_owned_goal(goal))
+ def test_real_occupied_verifier_fixture_disarms(self):
+  with tempfile.TemporaryDirectory() as p:
+   goal=Path(p);identifier='30cca3e0eb2d46d59b93f4db06a7953d'
+   (goal/'goal-ownership.json').write_text(json.dumps({'goal_uuid':identifier}))
+   (goal/'verify.jsonl').write_text('\n'.join(json.dumps(x) for x in [
+    {'event':'invalid_goal','mode':'nav','xy':[9.175,1.025],'occupancy':100},
+    {'event':'goal_accepted','mode':'nav','goal_uuid':identifier},
+    {'event':'invalid_result','mode':'nav','status':6,'path_points':0,'ground_truth_moved':.00002599,'nonzero_commands':0},
+    {'event':'PASS','mode':'nav','scenario':'invalid'}])+'\n')
+   self.assertFalse(m.active_owned_goal(goal))
+ def test_actual_gazebo_process_title_is_sampled_instead_of_launcher(self):
+  self.assertTrue(m.observed_process("ign gazebo -r -s --headless-rendering /project/world.sdf   "))
+  self.assertFalse(m.observed_process("/bin/sh -c ruby /usr/bin/ign gazebo -r -s"))
+  self.assertFalse(m.observed_process("python3 capture.py --observer /project/timing_chain_observer --identity files.json"))
+  self.assertTrue(m.observed_process("/opt/ros/humble/lib/ros_gz_bridge/parameter_bridge --ros-args"))
 if __name__=="__main__":unittest.main(verbosity=2)
