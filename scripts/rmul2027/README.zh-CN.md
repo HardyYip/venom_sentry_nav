@@ -1,4 +1,6 @@
-# 北极熊 × RMUL 2027 3V3 基础导航仿真
+#> C067当前更新：T4已完成本轮确认阻塞路径的修复及2027低速有限验收。普通项目helper采用UDPv4/4MiB；fast显式保持旧64MiB配置且未运行。恢复输入/源钟独立消费，原安全门槛保持。结果与失败边界见[C067报告](reports/C067-RESULTS.zh-CN.md)。历史六份stamp_stalled不能逐例归因；本轮不承诺任意点位自动恢复。
+
+ 北极熊 × RMUL 2027 3V3 基础导航仿真
 
 最新交付：C062 独立基础决策、C063 跨场低速最小覆盖、C064 受控 IMU 恢复。见 [C066 总览](reports/C066-DELIVERY.zh-CN.md)、[决策说明](../../rmul2027_decision/README.zh-CN.md)及[恢复说明](../../rmul2027_decision/recovery/README.zh-CN.md)。下述普通导航入口保持 C052；C063/C064 使用各自显式入口，不能混用资格。用户已结束 C065 演示编排，本次不再启动 RViz。
 
@@ -45,7 +47,7 @@ bash scripts/rmul2027/start_rmul2027_test.sh
 bash scripts/rmul2027/start_rmul2027_fast.sh
 ```
 
-两入口与RViz共用项目局部FastDDS64MiB传输，系统ROS／全局DDS不变。底层start_rmul2027.sh保留历史默认，不能与这些入口混用当作同一验收配置。RMUL2027_DDS_PROFILE可显式覆盖，但其他机器须核对点云体积、频率、传输及保护状态，不能照抄64MiB当通用标定。
+C067起普通helper/RViz默认采用项目局部UDPv4/4MiB传输；fast入口显式保持原64MiB SHM/UDP配置，fast未运行验收。系统ROS/全局DDS不改。底层start_rmul2027.sh保留历史默认，不能与这些入口混用当作同一验收配置。RMUL2027_DDS_PROFILE仍可显式覆盖；其他机器必须重新核对点云、频率、传输和保护，不能把本机缓冲值当通用标定。
 
 终端B，在同一仓库运行单个轻量RViz：
 

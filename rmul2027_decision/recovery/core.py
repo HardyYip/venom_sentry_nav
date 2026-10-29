@@ -29,22 +29,21 @@ class Recovery:
     def trigger_fault(self,why,t):
         if self.state!='RUNNING':return
         self.trigger=why;self.state='TERMINAL';self.since=t;self.quality=[]
-    def tick(self,t,*,healthy=False,terminal=False,stationary=False,external=False,pose=False):
+    def tick(self,t,*,healthy=False,terminal=False,stationary=False,external=False,pose=False,health_reason="imu_or_odometry_unhealthy"):
         self.quality=[v for v in self.quality if 0<=t-v<2.]
         if self.state=='FAILED':return None
         if self.state=='RUNNING':
-            if not healthy:self.trigger_fault('imu_or_odometry_unhealthy',t)
+            if not healthy:self.trigger_fault(health_reason,t)
         elif self.state=='TERMINAL':
             if terminal:
                 self.state='STATIC';self.since=t
             elif t-self.since>self.limits.terminal_timeout:self.fail('old_goal_terminal_unconfirmed',t)
         elif self.state=='STATIC':
-            if terminal and stationary and external:
-                if self.attempts>=self.limits.max_recoveries:self.fail('recovery_budget_exhausted',t)
-                else:
-                    self.attempts+=1;self.epoch+=1;self.state='RESTARTING';self.since=t
-                    self.quality=[];self.last_sequence=0;self.last_source=-math.inf
-                    return 'restart'
+            if self.attempts>=self.limits.max_recoveries:self.fail('recovery_budget_exhausted',t)
+            elif terminal and stationary and external:
+                self.attempts+=1;self.epoch+=1;self.state='RESTARTING';self.since=t
+                self.quality=[];self.last_sequence=0;self.last_source=-math.inf
+                return 'restart'
             elif t-self.since>self.limits.static_timeout:self.fail('stationary_or_external_not_confirmed',t)
         elif self.state=='RESTARTING':
             if t-self.since>self.limits.restart_timeout:self.fail('restart_timeout',t)

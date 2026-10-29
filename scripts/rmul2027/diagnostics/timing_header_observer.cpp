@@ -21,7 +21,7 @@
 #include <mutex>
 #include <string>
 #include <thread>
-struct Stream {double stamp=-1,received=-1,progress=-1;unsigned long count=0,backwards=0;};
+struct Stream {double stamp=-1,received=-1,progress=-1;unsigned long count=0,backwards=0; nlohmann::json input_gaps=nlohmann::json::array();};
 std::atomic<bool> running{true};
 void finish(int){running=false;}
 double steady(){return std::chrono::duration<double>(std::chrono::steady_clock::now().time_since_epoch()).count();}
@@ -37,6 +37,11 @@ int main(int argc,char**argv){
  auto receive=[&](const std::string &name,double value){
   if(name.size()>256||(streams.count(name)==0&&streams.size()>=128)){++stream_overflow;return;}
   auto &s=streams[name];const double t=steady();
+  if(s.count && (name=="native_imu" || name=="imu") && value-s.stamp>.09){
+   s.input_gaps.push_back({{"steady",t},{"from_stamp",s.stamp},{"to_stamp",value},
+                           {"delta_s",value-s.stamp},{"receipt_gap_s",t-s.received}});
+   if(s.input_gaps.size()>16)s.input_gaps.erase(s.input_gaps.begin());
+  }
   if(s.count==0||value>s.stamp)s.progress=t;
   if(s.count&&value<s.stamp-1.e-6)++s.backwards;
   s.stamp=value;s.received=t;++s.count;
@@ -46,6 +51,9 @@ int main(int argc,char**argv){
   std::lock_guard<std::mutex> lock(mutex);
   receive("native_clock",m.sim().sec()+m.sim().nsec()*1.e-9);
   native_real=m.real().sec()+m.real().nsec()*1.e-9;native_system=m.system().sec()+m.system().nsec()*1.e-9;
+ }));
+ gz.Subscribe("/clock",std::function<void(const ignition::msgs::Clock &)>([&](const auto&m){
+  std::lock_guard<std::mutex> lock(mutex);receive("native_global_clock",m.sim().sec()+m.sim().nsec()*1.e-9);
  }));
  gz.Subscribe("/world/default/model/red_standard_robot1/link/front_mid360/sensor/front_mid360_imu/imu",std::function<void(const ignition::msgs::IMU &)>([&](const auto&m){
   std::lock_guard<std::mutex> lock(mutex);receive("native_imu",m.header().stamp().sec()+m.header().stamp().nsec()*1.e-9);
@@ -91,11 +99,11 @@ int main(int argc,char**argv){
    bool first=true;
    for(const auto &[name,s]:streams){
     if(!first)out<<",";first=false;
-    out<<"\""<<name<<"\":{\"stamp\":"<<s.stamp<<",\"received\":"<<s.received<<",\"progress\":"<<s.progress<<",\"count\":"<<s.count<<",\"backwards\":"<<s.backwards<<"}";
+    out<<"\""<<name<<"\":{\"stamp\":"<<s.stamp<<",\"received\":"<<s.received<<",\"progress\":"<<s.progress<<",\"count\":"<<s.count<<",\"backwards\":"<<s.backwards<<",\"input_gaps\":"<<s.input_gaps.dump()<<"}";
    }
    out<<"},\"failures\":"<<nlohmann::json(failures).dump()<<",\"stream_overflow\":"<<stream_overflow<<",\"event_overflow\":"<<event_overflow<<"}\n";out.flush();failures.clear();
   }
   previous=t;std::this_thread::sleep_until(next);
  }
- executor.cancel();ros.join();gz.Unsubscribe("/world/default/clock");gz.Unsubscribe("/world/default/model/red_standard_robot1/link/front_mid360/sensor/front_mid360_imu/imu");gz.Unsubscribe("/red_standard_robot1/odometry");rclcpp::shutdown();return 0;
+ executor.cancel();ros.join();gz.Unsubscribe("/world/default/clock");gz.Unsubscribe("/clock");gz.Unsubscribe("/world/default/model/red_standard_robot1/link/front_mid360/sensor/front_mid360_imu/imu");gz.Unsubscribe("/red_standard_robot1/odometry");rclcpp::shutdown();return 0;
 }

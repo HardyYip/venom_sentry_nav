@@ -124,6 +124,29 @@ def trigger_for(row, armed):
         return {"reason":"source_progress_warning","progress_age_s":stalls,"causality":"not_determined"}
     return None
 
+def clock_divergence_for(row):
+    """Independent diagnostic window; no active-goal or root-cause assertion."""
+    streams=row.get("streams",{});now=row.get("steady")
+    has_global=streams.get("native_global_clock",{}).get("count",0)>0
+    pairs=[("native_global_clock" if has_global else "native_clock","ros_clock","native_to_ros")]
+    if has_global:pairs.insert(0,("native_clock","native_global_clock","native_world_to_global"))
+    for left,right,stage in pairs:
+        a=streams.get(left,{});b=streams.get(right,{})
+        try:
+            values=(now,a["stamp"],b["stamp"],a["received"],b["received"])
+            if not all(math.isfinite(v) for v in values):continue
+            if min(a.get("count",0),b.get("count",0))<20:continue
+            if min(a["stamp"],b["stamp"])<=0:continue
+            if not (0<=now-a["received"]<=.2 and 0<=now-b["received"]<=.2):continue
+            delta=a["stamp"]-b["stamp"]
+            if abs(delta)<=.100000001:continue
+            return {"reason":"clock_source_divergence","reference":left,"stage":stage,
+                    "left_stream":left,"right_stream":right,"delta_s":delta,
+                    "left_stamp":a["stamp"],"right_stamp":b["stamp"],
+                    "causality":"not_determined","scope":"clock observation; no active-goal assertion"}
+        except (KeyError,TypeError):continue
+    return None
+
 def observed_process(command):
     if command.startswith(("ign gazebo ","ruby /usr/bin/ign gazebo ")):
         return True
@@ -213,10 +236,12 @@ def run(args):
     write_json(output/"identity-start.json",{"at":datetime.datetime.now().astimezone().isoformat(),"files":before})
     window=Window(output,pre=args.pre,post=args.post)
     warning=Window(output,pre=args.pre,post=args.post,ring_bytes=4*2**20,max_bytes=8*2**20,filename="warning.jsonl")
+    clock_window=Window(output,pre=args.pre,post=args.post,ring_bytes=4*2**20,max_bytes=8*2**20,filename="clock-divergence.jsonl")
     def accept(row,trigger=None):
         fatal=bool(trigger and trigger["reason"]=="PoseFresh_FAILURE")
         window.accept(row,trigger if fatal else None)
         warning.accept(row,trigger if trigger and not fatal else None)
+        clock_window.accept(row,clock_divergence_for(row))
     def interrupt(sig,frame):stop.set()
     old_handlers={s:signal.signal(s,interrupt) for s in (signal.SIGINT,signal.SIGTERM)}
     def reader(stream):
@@ -269,18 +294,19 @@ def run(args):
         stop_group(child);stop_group(observer)
         if observer:
             read_thread.join(timeout=1);err_thread.join(timeout=1)
-        fatal_result=window.finish();warning_result=warning.finish()
+        fatal_result=window.finish();warning_result=warning.finish();clock_result=clock_window.finish()
         result=dict(fatal_result if fatal_result["trigger"] else warning_result)
         result["primary_window_kind"]="failure" if fatal_result["trigger"] else ("warning" if warning_result["trigger"] else "none")
         result["warning_window"]=warning_result.copy()
+        result["clock_window"]=clock_result.copy()
         result["event_file"]="event.jsonl" if fatal_result["trigger"] else ("warning.jsonl" if warning_result["trigger"] else None)
-        result["total_event_bytes"]=fatal_result["saved_bytes"]+warning_result["saved_bytes"]
+        result["total_event_bytes"]=fatal_result["saved_bytes"]+warning_result["saved_bytes"]+clock_result["saved_bytes"]
         missing=[k for k in REQUIRED if not last_chain or last_chain.get("streams",{}).get(k,{}).get("count",0)==0]
         if not failure and missing:
             failure="incomplete_required_header_coverage";final_code=2
         result["required_streams_missing"]=missing
         result["last_chain_age_at_end_s"]=None if not last_chain else time.monotonic()-last_chain["steady"]
-        result["data_quality_complete"]=not missing and not result["observation_gaps"] and not result["invalid_records"] and not result["truncated"] and not dropped[0] and not (last_chain and (last_chain.get("stream_overflow",0) or last_chain.get("event_overflow",0)))
+        result["data_quality_complete"]=not missing and not result["observation_gaps"] and not result["invalid_records"] and not result["truncated"] and not dropped[0] and not clock_result["truncated"] and not clock_result["invalid_records"] and not (last_chain and (last_chain.get("stream_overflow",0) or last_chain.get("event_overflow",0)))
         after=identity(paths)
         write_json(output/"identity-end.json",{"at":datetime.datetime.now().astimezone().isoformat(),"files":after})
         runtime=[]
@@ -304,6 +330,7 @@ def run(args):
          "no_event_means":"No event observed in this bounded run; no proof of historical fix",
          "causality_limit":"Native receipt gaps may be publisher/transport/observer scheduling; thread samples are1Hz snapshots, not continuous scheduling traces"})
         if result["event_file"]:result["event_sha256"]=sha(output/result["event_file"])
+        if clock_result["trigger"]:result["clock_event_sha256"]=sha(output/"clock-divergence.jsonl")
         write_json(output/"summary.json",result)
         for sig,handler in old_handlers.items():signal.signal(sig,handler)
     return final_code

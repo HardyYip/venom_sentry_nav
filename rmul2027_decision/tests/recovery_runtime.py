@@ -1,5 +1,5 @@
 """Read actual loaded libraries and RPC parameters while the harness holds an epoch."""
-import hashlib,json,time
+import hashlib,json,time,os
 from pathlib import Path
 from rcl_interfaces.srv import GetParameters
 
@@ -10,6 +10,7 @@ def sha(path):
     return digest.hexdigest()
 def audit_runtime(node,record,epoch):
     W=Path('/home/hardy/pb2025_nav_ws');B=W/'artifacts/rmul_2027_3v3/imu-recovery-C064'
+    D=Path(os.environ.get('RMUL_DECISION_BUILD_ROOT',str(B)))
     out=dict(passed=False,epoch=epoch,processes=[],parameters={})
     path=record/f'runtime-epoch-{epoch}.json'
     try:
@@ -23,7 +24,7 @@ def audit_runtime(node,record,epoch):
             item=dict(pid=int(p.name),command=[x.decode(errors='replace') for x in args if x],
                       exe_sha256=sha(p/'exe'),libraries={x:sha(x) for x in paths})
             if args[0].endswith(b'/decision_node'):
-                assert str(B/'install/rmul2027_decision/lib/rmul2027_decision/decision_node')==args[0].decode()
+                assert str(D/'install/rmul2027_decision/lib/rmul2027_decision/decision_node')==args[0].decode()
                 assert '/decision-C062/bt4/lib/libbehaviortree_cpp.so' in maps and 'libbehaviortree_cpp_v3.so' not in maps
             if args[0].endswith(b'/component_container_isolated'):
                 for lib in [B/'safety-install/fake_vel_transform/lib/libfake_vel_transform.so',B/'localization-install/small_gicp_relocalization/lib/libsmall_gicp_relocalization.so']:
@@ -50,6 +51,12 @@ def audit_runtime(node,record,epoch):
         assert v['controller_server']['FollowPath.max_speed_xy']['double']==.5
         assert v['controller_server']['FollowPath.discretize_by_time']['boolean']
         assert v['controller_server']['FollowPath.time_granularity']['double']==.05
+        inputs=node.get_subscriptions_info_by_topic('/red_standard_robot1/recovery/test_imu')
+        supervised=[x for x in inputs if x.node_name=='imu_recovery_input_reader']
+        assert len(supervised)==1
+        out['imu_supervisor_qos']=dict(configured_depth=node.recovery[-1]['imu_qos_depth'],
+            discovered_depth=supervised[0].qos_profile.depth,discovery_limit='Remote history depth may be unknown (0) in Humble')
+        assert out['imu_supervisor_qos']['configured_depth']==400
         assert node.recovery[-1]['epoch']==epoch and node.recovery[-1]['state']=='RUNNING'
         out['passed']=True
     finally:path.write_text(json.dumps(out,indent=2))

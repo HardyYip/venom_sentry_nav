@@ -97,3 +97,10 @@ C062原版后端没有独立定位质量/重定位 epoch 协议。C064新增显�
 长回路可在上述手动闭环的决策命令中使用config/test_crossfield_policy.yaml。它是TEST策略，八个跨场路点、驻留4秒、旧目标终态后停车等待3秒再做已有第二次尝试；保持最多两次、原180秒/0.35m/1秒停车门槛。旧短策略test_policy.yaml仍保留。正式赛季阈值/协议、真车和微小障碍不在本轮资格内。
 
 实际移除障碍恢复、持续障碍有限失败停车、实体绕行/清除及采用后的22项回归通过。详细指标和全部失败见../scripts/rmul2027/reports/C063-RESULTS.zh-CN.md（从本包回到仓库后为scripts/rmul2027/reports）。IMU缺口仍需静止重新初始化；长测成功不是任意路径/无限运行保证。
+
+
+## C067 时序修复后的入口
+
+完整验收、失败与边界见[结果报告](../scripts/rmul2027/reports/C067-RESULTS.zh-CN.md)。原策略/BT和普通不自动恢复行为保持；项目DDS默认改为UDPv4/4MiB，fast入口保留旧传输。显式恢复入口还检查TF源时间/墙钟推进，并独立消费IMU/源钟，原门槛不变。
+
+先设置固定RMUL_TEST_ARTIFACT_ROOT，再执行tools/build_timing.sh独立构建。现有C062基础及C064安全/重定位私有安装保留；C067决策安装在artifacts/rmul_2027_3v3/timing-C067。恢复启动说明见[恢复说明](recovery/README.zh-CN.md)。本轮没有新增正式赛季策略、真车或fast资格。

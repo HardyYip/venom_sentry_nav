@@ -7,6 +7,38 @@ spec=importlib.util.spec_from_file_location("capture",Path(__file__).with_name("
 m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
 entry_spec=importlib.util.spec_from_file_location("capture_entry",Path(__file__).resolve().parents[1]/"run_timing_capture.py")
 entry=importlib.util.module_from_spec(entry_spec);entry_spec.loader.exec_module(entry)
+class ClockDivergenceContract(unittest.TestCase):
+ def row(self,native=10.,ros=10.):
+  return {"steady":5.,"streams":{k:{"count":30,"stamp":v,"received":4.99} for k,v in [("native_clock",native),("ros_clock",ros)]}}
+ def test_synchronized_clock_does_not_trigger(self):
+  self.assertIsNone(m.clock_divergence_for(self.row()))
+ def test_progressing_but_delayed_ros_clock_triggers(self):
+  v=m.clock_divergence_for(self.row(10.,9.))
+  self.assertEqual(v["reason"],"clock_source_divergence");self.assertEqual(v["delta_s"],1.)
+  self.assertEqual(v["causality"],"not_determined")
+ def test_separates_upstream_native_clock_difference(self):
+  r=self.row(10.,9.);r["streams"]["native_global_clock"]={"count":30,"stamp":9.,"received":4.99}
+  self.assertEqual(m.clock_divergence_for(r)["stage"],"native_world_to_global")
+ def test_native_global_reference_is_explicit(self):
+  r=self.row(10.,9.);r["streams"]["native_global_clock"]={"count":30,"stamp":10.,"received":4.99}
+  self.assertEqual(m.clock_divergence_for(r)["reference"],"native_global_clock")
+ def test_shutdown_or_observer_missing_receipt_not_causal_event(self):
+  r=self.row(10.,9.);r["streams"]["ros_clock"]["received"]=4.
+  self.assertIsNone(m.clock_divergence_for(r))
+ def test_missing_and_nan_not_evidence(self):
+  self.assertIsNone(m.clock_divergence_for({"steady":5.,"streams":{}}))
+  self.assertIsNone(m.clock_divergence_for(self.row(float("nan"),9.)))
+ def test_clock_window_survives_first_expected_tf_failure(self):
+  with tempfile.TemporaryDirectory() as p:
+   a=m.Window(p,filename="tf.jsonl");b=m.Window(p,filename="clock.jsonl")
+   for i in range(200):
+    row=self.row(10+i*.01,10+i*.01-(.3 if i>=100 else 0));row["steady"]=i*.05
+    for v in row["streams"].values():v["received"]=row["steady"]-.01
+    a.accept(row,{"reason":"PoseFresh_FAILURE"} if i==20 else None)
+    b.accept(row,m.clock_divergence_for(row))
+   self.assertTrue(a.finish()["post_complete"]);self.assertTrue(b.finish()["post_complete"])
+   self.assertTrue((Path(p)/"clock.jsonl").exists())
+
 class CaptureContract(unittest.TestCase):
  def test_guarded_entry_preserves_child_output_arguments(self):
   argv=["entry","--output","capture","--","python3","child.py","--output","child-output"]

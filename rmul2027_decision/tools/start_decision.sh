@@ -7,4 +7,5 @@ if [ -z "${RMUL_STORAGE_RUN_ID:-}" ]; then
 fi
 source /opt/ros/humble/setup.bash
 source "$task_build/install/local_setup.bash"
+source "$task_ws/src/pb2025_sentry_nav/scripts/rmul2027/configure_dds.sh"
 exec "$task_build/install/rmul2027_decision/lib/rmul2027_decision/decision_node" "$@"

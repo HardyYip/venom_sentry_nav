@@ -5,7 +5,7 @@ case "${RMW_IMPLEMENTATION:-rmw_fastrtps_cpp}" in
   *) printf 'The RMUL point-cloud transport profile requires rmw_fastrtps_cpp\n' >&2; return 2 ;;
 esac
 export RMW_IMPLEMENTATION=rmw_fastrtps_cpp
-export FASTRTPS_DEFAULT_PROFILES_FILE="${RMUL2027_DDS_PROFILE:-$task_dds_dir/config/fastdds_local_64m.xml}"
+export FASTRTPS_DEFAULT_PROFILES_FILE="${RMUL2027_DDS_PROFILE:-$task_dds_dir/config/fastdds_local_udp_4m.xml}"
 if [ ! -r "$FASTRTPS_DEFAULT_PROFILES_FILE" ]; then
   printf 'Missing local DDS profile: %s\n' "$FASTRTPS_DEFAULT_PROFILES_FILE" >&2
   return 1

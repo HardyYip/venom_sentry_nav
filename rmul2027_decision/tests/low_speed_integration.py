@@ -28,6 +28,7 @@ parser=argparse.ArgumentParser();parser.add_argument('--record-dir',type=Path,re
 record=args.record_dir;record.mkdir(parents=True,exist_ok=False)
 ws=Path('/home/hardy/pb2025_nav_ws');repo=ws/'src/pb2025_sentry_nav'
 folder=repo/'scripts/rmul2027';package=repo/'rmul2027_decision';build=ws/'artifacts/rmul_2027_3v3/decision-C062'
+decision_build=Path(os.environ.get('RMUL_DECISION_BUILD_ROOT',str(build)))
 meta=dict(passed=False,scope='one C052 low-speed simulation, test strategy; no real-robot claim',checks=[],processes={})
 children={};streams=[];node=None;lio=None;paused=False
 
@@ -125,7 +126,8 @@ def runtime_identity():
     decision=children['decision'];maps=Path('/proc',str(decision.pid),'maps').read_text()
     assert str(build/'bt4/lib/libbehaviortree_cpp.so') in maps
     assert 'libbehaviortree_cpp_v3.so' not in maps
-    paths['decision_bt4']=dict(pid=decision.pid,path=str(build/'bt4/lib/libbehaviortree_cpp.so'),library_sha256=hashlib.sha256((build/'bt4/lib/libbehaviortree_cpp.so').read_bytes()).hexdigest(),binary_sha256=hashlib.sha256((build/'install/rmul2027_decision/lib/rmul2027_decision/decision_node').read_bytes()).hexdigest())
+    paths['decision_bt4']=dict(pid=decision.pid,path=str(build/'bt4/lib/libbehaviortree_cpp.so'),library_sha256=hashlib.sha256((build/'bt4/lib/libbehaviortree_cpp.so').read_bytes()).hexdigest(),binary_sha256=hashlib.sha256(Path('/proc',str(decision.pid),'exe').read_bytes()).hexdigest())
+    assert paths['decision_bt4']['binary_sha256']==hashlib.sha256((decision_build/'install/rmul2027_decision/lib/rmul2027_decision/decision_node').read_bytes()).hexdigest()
     navpid=paths['libpb_omni_pid_pursuit_controller.so']['pid']
     navmaps=Path('/proc',str(navpid),'maps').read_text()
     assert 'libbehaviortree_cpp_v3.so' in navmaps and '/bt4/' not in navmaps

@@ -43,4 +43,23 @@ GICP门槛：至少200点/内点、内点率≥0.5、平均GICP代价≤0.5、He
 
 底盘recovery_stop_timeout和决策recovery_permit_timeout默认都是0，以保持已有普通入口行为。C064入口底盘显式设0.3；监督器还核实决策报告0.3，缺少正确配置不会放行。故障FAILED不提供自动清除按钮；需结束自有测试并重新启动，不能反复重置凑通过。
 
-真车、正式裁判协议、场地对称误匹配、动态物体占主导时的自动恢复、fast、T4及新定位移植均另行验收。失败记录保留，不能以静止判定取代真实急停或物理停车测试。
+真车、正式裁判协议、场地对称误匹配、动态物体占主导时的自动恢复、fast及新定位移植仍另行验收；T4最新有限范围见下文C067。失败记录保留，不能以静止判定取代真实急停或物理停车测试。
+
+
+## C067 当前已验时序入口
+
+结果见[C067报告](../../scripts/rmul2027/reports/C067-RESULTS.zh-CN.md)。除原IMU/odom外，TF源戳过期/停滞也触发同一受控协议。IMU和真实ROS源钟由同进程独立Node/执行线程接收；400条有界队列不改变0.1秒源时效/缺口检查。主流程只读不可变快照，失去实际输入或心跳仍停车。固定release_verified记录释放瞬间实际4次匹配与门禁；后来滚动quality_count变小不代表当时未通过，也不能拿历史释放证据替代当前permit。
+
+已用满两次恢复后仍先确认旧Action终态，再立即FAILED；不再等待只为重启服务的静止检查。任何允许重启的情况仍必须经过原始输入、2秒独立静止、外部门禁、真实新epoch质量和生命周期检查。出生区0.2m质量不足超时案例保留为安全锁止，不保证所有点位都自动恢复。
+
+在同一个固定容量会话中设置：
+
+    export RMUL_TEST_ARTIFACT_ROOT=/mnt/e/RMULArtifacts/pb2025_nav_ws-timing-C067-20261029
+    export RMUL_DECISION_BUILD_ROOT=/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/timing-C067
+    export RMUL_NAV_BASE_BUILD_ROOT=/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/decision-C062
+    export RMUL_RECOVERY_BUILD_ROOT=/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/imu-recovery-C064
+    bash /home/hardy/pb2025_nav_ws/src/pb2025_sentry_nav/rmul2027_decision/tools/build_timing.sh
+
+手动导航仍用tools/start_recovery.sh；决策用tools/start_decision.sh，显式传recovery_permit_timeout:=0.3及所需TEST策略/事件路径。只能运行一套导航及一份TEST输入。
+
+自动时序验收：tools/test_timing.sh --record-dir <固定根下新目录> --fault-min-distance 1.2；持续质量缺失负向追加--mode persistent。原IMU完整回归用tools/test_recovery.sh；它保留原消息与真实停流/后端暂停注入，转发Node独立于记录和TEST心跳。先确认没有其他导航或输入馈送；目录必须全新。真值只用于测试触发/验收，不参与产品恢复门禁。普通入口保持不自动恢复。

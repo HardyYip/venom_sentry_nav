@@ -40,6 +40,8 @@ params['bt_navigator']['ros__parameters']['plugin_lib_names']=[
 if os.environ.get('RMUL_IMU_RECOVERY')=='1':
  params['fake_vel_transform']['ros__parameters']['recovery_stop_timeout']=0.3
  params['point_lio']['ros__parameters']['max_imu_gap']=0.1
+ if os.environ.get('RMUL_RECOVERY_GICP_TOPIC'):
+  params['small_gicp_relocalization']['ros__parameters']['input_cloud_topic']=os.environ['RMUL_RECOVERY_GICP_TOPIC']
  if os.environ.get('RMUL_RECOVERY_IMU_TOPIC'):
   params['point_lio']['ros__parameters']['common']['imu_topic']=os.environ['RMUL_RECOVERY_IMU_TOPIC']
 Path(sys.argv[2]).write_text(yaml.safe_dump(params,sort_keys=False))

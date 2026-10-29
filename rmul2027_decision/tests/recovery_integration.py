@@ -13,11 +13,12 @@ from sensor_msgs.msg import Imu
 from recovery_runtime import audit_runtime
 from tf2_ros import Buffer,TransformListener
 from source_feed import Feed
+from imu_relay import ImuRelay
 
 parser=argparse.ArgumentParser();parser.add_argument('--record-dir',type=Path,required=True);args=parser.parse_args()
 record=args.record_dir;record.mkdir(parents=True,exist_ok=False)
 W=Path('/home/hardy/pb2025_nav_ws');P=W/'src/pb2025_sentry_nav';package=P/'rmul2027_decision'
-B=W/'artifacts/rmul_2027_3v3/imu-recovery-C064'
+B=Path(os.environ.get('RMUL_DECISION_BUILD_ROOT',str(W/'artifacts/rmul_2027_3v3/imu-recovery-C064')))
 children={};streams=[];node=None;paused=None
 result=dict(passed=False,scope='C064 TEST 2027 CAD-flat-floor C052 low-speed; GT evaluation only',checks=[])
 def save():(record/'result.json').write_text(json.dumps(result,indent=2))
@@ -31,31 +32,36 @@ class Monitor(Feed):
     def __init__(self):
         super().__init__('/red_standard_robot1',synthetic=False)
         self.set_parameters([Parameter('use_sim_time',value=True)])
-        self.truth=[];self.commands=[];self.recovery=[];self.relay_enabled=True;self.imu_relay_trace=[]
-        self.imu_relay=self.create_publisher(Imu,'recovery/test_imu',qos_profile_sensor_data)
+        self.truth=[];self.commands=[];self.recovery=[];self.imu_relay_trace=[]
+        self.imu_bridge=ImuRelay(self.get_namespace())
         self.buffer=Buffer();self.listener=TransformListener(self.buffer,self)
-        self.extra=[self.create_subscription(Imu,'livox/imu',self.relay_imu,qos_profile_sensor_data),
-                    self.create_subscription(Odometry,'chassis_odometry_gt',self.ontruth,qos_profile_sensor_data),
+        self.extra=[self.create_subscription(Odometry,'chassis_odometry_gt',self.ontruth,qos_profile_sensor_data),
                     self.create_subscription(Twist,'cmd_vel',self.oncmd,100),
                     self.create_subscription(String,'recovery/status',lambda m:self.recovery.append(json.loads(m.data)),100)]
-    def relay_imu(self,m):
-        if self.relay_enabled:self.imu_relay.publish(m)
+    @property
+    def relay_enabled(self):return self.imu_bridge.enabled
+    @relay_enabled.setter
+    def relay_enabled(self,value):self.imu_bridge.enabled=value
+    def cleanup(self):
+        (record/'imu-relay-provenance.json').write_text(json.dumps(self.imu_bridge.snapshot(),indent=2))
+        self.imu_bridge.close()
+        super().cleanup()
     def sim(self):return self.get_clock().now().nanoseconds*1e-9
     def ontruth(self,m):
         p=m.pose.pose.position;v=m.twist.twist
         self.truth.append(dict(t=time.monotonic(),ros=self.sim(),xy=[p.x+4.8,p.y-3.],speed=[v.linear.x,v.linear.y,v.angular.z]))
     def oncmd(self,m):self.commands.append(dict(t=time.monotonic(),ros=self.sim(),speed=[m.linear.x,m.linear.y,m.angular.z]))
-    def wait(self,pred,timeout=10):
+    def wait(self,pred,timeout=10,allow_failed=False):
         end=time.monotonic()+timeout
         while not pred() and time.monotonic()<end:
             self.pump(.02)
             if self.status and self.status[-1]['fault']:raise RuntimeError('decision fault: '+self.status[-1]['fault'])
-            if self.recovery and self.recovery[-1]['state']=='FAILED' and not pred():raise RuntimeError('recovery failed: '+self.recovery[-1]['fault'])
+            if self.recovery and self.recovery[-1]['state']=='FAILED' and not pred() and not allow_failed:raise RuntimeError('recovery failed: '+self.recovery[-1]['fault'])
         assert pred(),'timeout; decision='+repr(self.status[-1:])+' recovery='+repr(self.recovery[-1:])
     def moving(self):
         return self.truth and math.hypot(*self.truth[-1]['speed'][:2])>.1 and self.status and self.status[-1]['state']=='active'
     def stop_check(self,name,t,s):
-        self.wait(lambda:self.sim()>s+1.05 and self.truth[-1]['ros']>=s+1. and self.commands[-1]['ros']>=s+1.,8)
+        self.wait(lambda:self.sim()>s+1.05 and self.truth[-1]['ros']>=s+1. and self.commands[-1]['ros']>=s+1.,8,allow_failed=True)
         truth=[x for x in self.truth if x['ros']<=s+1.][-1];cmd=[x for x in self.commands if x['ros']<=s+1.][-1]
         assert s+1.-truth['ros']<.1 and s+1.-cmd['ros']<.1
         assert max(abs(v) for v in truth['speed'])<.03 and max(abs(v) for v in cmd['speed'])<.03,(truth,cmd)
@@ -123,13 +129,16 @@ def inject(epoch,allow=True,estop_during_verify=False,raw_imu=False):
     assert new['steady']>terminal['steady']
     recovered=next(e for e in node.recovery if e['epoch']==epoch and e['state']=='RUNNING')
     assert new['steady']>=recovered['steady']-.03
+    release=recovered['release']
+    assert release['epoch']==epoch and release['quality_count']>=4
+    assert all(release['gates'].values()) and release['steady']<=new['steady']
     trace=[json.loads(l) for l in (navlogs/'events.jsonl').read_text().splitlines()]
     restart=next(e for e in trace if e['kind']=='restart_authorized' and e['epoch']==epoch)
     assert restart['terminal'] and restart['stationary'] and restart['steady']>terminal['steady']
     audits=[e for e in trace if e['kind']=='owned_tree_audit']
     assert audits and all(not e['remaining'] for e in audits)
     check('controlled_recovery_'+str(epoch),old_uuid=terminal['uuid'],old_terminal=terminal['code'],new_token=new['token'],
-          recovery_wall_s=recovered['steady']-t,epoch=epoch,actual_alignment_count=recovered['quality_count'])
+          recovery_wall_s=recovered['steady']-t,epoch=epoch,actual_alignment_count=release['quality_count'],release=release)
     audit_runtime(node,record,epoch)
 
 try:

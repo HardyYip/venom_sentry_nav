@@ -24,11 +24,13 @@ from tf2_ros import Buffer,TransformListener
 from scipy.spatial.transform import Rotation
 from core import Recovery,Limits
 from stationary import Stillness
+from timing import PoseTiming
+from inputs import InputReader
 
 class Supervisor(Node):
     def __init__(self,command,params,record):
         super().__init__('imu_recovery_supervisor',namespace='/red_standard_robot1')
-        self.set_parameters([Parameter('use_sim_time',value=True)])
+        self.set_parameters([Parameter('use_sim_time',value=False)])
         self.command=command;self.params=params;self.record=record;record.mkdir(exist_ok=False)
         configured=yaml.safe_load(params.read_text())
         root=configured.get('/red_standard_robot1',configured.get('red_standard_robot1',configured))
@@ -45,6 +47,10 @@ class Supervisor(Node):
         self.status_at=-1e20;self.decision={};self.goals=[];self.goals_at=-1e20
         self.seed=None;self.saved_seed=None;self.registration_seed=None;self.saved_registration_seed=None;self.pose_history=deque()
         self.seed_acked=False;self.seed_requests=set();self.seed_request_at=0.
+        self.pose_timing=PoseTiming();self.timing_reason="tf_missing"
+        self.imu_diagnostic={};self.imu_invalid=deque(maxlen=16)
+        self.input_reader=InputReader(self.imu_topic)
+        self.release_evidence=None
         self.core=Recovery(time.monotonic());self.core.since+=60. # Startup allowance incl. map loading, bounded.
         self.buffer=Buffer();self.listener=TransformListener(self.buffer,self)
         self.lifecycle={};self.lifecycle_pending={};self.lifecycle_query=0.
@@ -54,17 +60,16 @@ class Supervisor(Node):
         self.permit_pub=self.create_publisher(Bool,'recovery/permit',1)
         self.status_pub=self.create_publisher(String,'recovery/status',10)
         self.subs=[
-            self.create_subscription(Imu,self.imu_topic,self.onimu,qos_profile_sensor_data),
             self.create_subscription(PointCloud2,'velodyne_points',lambda m:setattr(self,'cloud',m),qos_profile_sensor_data),
             self.create_subscription(Odometry,'odometry',self.onodom,qos_profile_sensor_data),
             self.create_subscription(Twist,'cmd_vel',self.oncommand,10),
             self.create_subscription(String,'decision/status',self.ondecision,10),
             self.create_subscription(String,'recovery/registration',self.onquality,10),
             self.create_subscription(GoalStatusArray,'navigate_to_pose/_action/status',self.ongoals,10)]
-        self.write('created',command=command,params=str(params),limits=vars(self.core.limits),imu_topic=self.imu_topic)
+        self.write('created',command=command,params=str(params),limits=vars(self.core.limits),imu_topic=self.imu_topic,imu_qos_depth=400)
         self.start_navigation(0,None)
         self.timer=self.create_timer(.02,self.tick,clock=rclpy.clock.Clock(clock_type=rclpy.clock.ClockType.STEADY_TIME))
-    def ros(self):return self.get_clock().now().nanoseconds*1e-9
+    def ros(self):return self.input_reader.ros()
     def write(self,kind,**kw):
         self.file.write(json.dumps(dict(kind=kind,steady=time.monotonic(),ros=self.ros(),epoch=self.core.epoch,**kw),allow_nan=False)+'\n')
     def start_navigation(self,epoch,seed):
@@ -110,16 +115,10 @@ class Supervisor(Node):
             if not self.stop_navigation() or self.closing:return False
             self.start_navigation(self.core.epoch,self.saved_registration_seed);return True
         except Exception as e:self.write('restart_exception',error=str(e));return False
-    def onimu(self,m):
-        t=time.monotonic();stamp=m.header.stamp.sec+m.header.stamp.nanosec*1e-9
-        values=[m.angular_velocity.x,m.angular_velocity.y,m.angular_velocity.z,
-                m.linear_acceleration.x,m.linear_acceleration.y,m.linear_acceleration.z]
-        valid=all(math.isfinite(v) for v in values) and -.1<=self.ros()-stamp<=.1
-        valid=valid and (not self.imu_stamp or 0<stamp-self.imu_stamp<=.1)
-        if not valid:self.imu_since=None;self.imu.clear()
-        elif self.imu_since is None:self.imu_since=t
-        self.imu_stamp=stamp;self.imu_at=t;self.imu.append((t,values,valid))
-        while self.imu and t-self.imu[0][0]>2.5:self.imu.popleft()
+    def refresh_input_snapshot(self):
+        snapshot=self.input_reader.window.snapshot()
+        self.imu=snapshot['samples'];self.imu_at=snapshot['at'];self.imu_stamp=snapshot['stamp']
+        self.imu_since=snapshot['since'];self.imu_diagnostic=snapshot['report'];self.imu_invalid=snapshot['invalid']
     def onodom(self,m):
         t=time.monotonic();s=m.header.stamp.sec+m.header.stamp.nanosec*1e-9
         p=m.pose.pose.position;q=m.pose.pose.orientation
@@ -163,6 +162,20 @@ class Supervisor(Node):
             ok=self.still.observe(points,t)
             return ok,t,self.still.report
         except Exception as e:self.still.reset();return False,t,dict(error=str(e))
+    def pose_timing_health(self,t):
+        try:
+            tf=self.buffer.lookup_transform('map','base_footprint',rclpy.time.Time())
+            p=tf.transform.translation;q=tf.transform.rotation
+            values=[p.x,p.y,p.z,q.x,q.y,q.z,q.w]
+            if not all(math.isfinite(v) for v in values) or abs(sum(v*v for v in values[3:])-1)>.01:
+                self.pose_timing.report={"reason":"tf_invalid_pose"}
+                return "tf_invalid_pose"
+            stamp=tf.header.stamp.sec+tf.header.stamp.nanosec*1e-9
+            return self.pose_timing.observe(stamp,self.ros(),t)
+        except Exception as error:
+            reason=self.pose_timing.missing(t)
+            self.pose_timing.report["detail"]=str(error)
+            return reason
     def pose_good(self,t):
         self.pose_report={}
         try:
@@ -222,7 +235,7 @@ class Supervisor(Node):
             if stamp<=self.core.restart_stamp or self.odom_stamp<=self.core.restart_stamp:return False
             if not -.1<=self.ros()-stamp<=.5:return False
             if self.count_subscribers('initialpose')<1 or self.count_publishers('initialpose')!=1:return False
-            pose=PoseWithCovarianceStamped();pose.header.frame_id='map';pose.header.stamp=self.get_clock().now().to_msg()
+            pose=PoseWithCovarianceStamped();pose.header.frame_id='map';pose.header.stamp=self.input_reader.get_clock().now().to_msg()
             seed=self.saved_registration_seed
             pose.pose.pose.position.x,pose.pose.pose.position.y,pose.pose.pose.position.z=seed[:3]
             q=Rotation.from_euler('xyz',seed[3:]).as_quat()
@@ -264,6 +277,7 @@ class Supervisor(Node):
     def tick(self):
         t=time.monotonic()
         if self.closing:return
+        self.refresh_input_snapshot()
         if self.child and self.child.poll() is not None and self.core.state!='RESTARTING':self.core.fail('owned_navigation_exited',t)
         if self.scan_future and self.scan_future.done():
             ok,observed,report=self.scan_future.result();self.scan_future=None
@@ -279,22 +293,32 @@ class Supervisor(Node):
                       'odometry_source_age','tf_stale_or_stalled','tf_missing',''))
         terminal=(fresh and d.get('inhibited') is True and d.get('goal')=='' and not d.get('fault')
                   and not any(1<=s<=3 for s in self.goals))
-        healthy=(self.raw_healthy(t) and t-self.odom_at<=.5 and t-self.odom_progress<=.5
-                 and -.1<=self.ros()-self.odom_stamp<=.5)
+        input_healthy=(self.raw_healthy(t) and t-self.odom_at<=.5 and t-self.odom_progress<=.5
+                       and -.1<=self.ros()-self.odom_stamp<=.5)
+        self.timing_reason=self.pose_timing_health(t)
+        healthy=input_healthy and not self.timing_reason
+        health_reason=self.timing_reason if input_healthy else "imu_or_odometry_unhealthy"
         navigation_active=self.lifecycle_check(t)
         seed_confirmed=self.request_seed(t)
-        pose=self.pose_good(t) and navigation_active and seed_confirmed
+        # Do not overwrite the pre-fault seed with a stalled/invalid TF.
+        pose=(self.pose_good(t) if not self.timing_reason else False) and navigation_active and seed_confirmed
         before=self.core.state
         if self.future and self.future.done():
             success=self.future.result();self.future=None
             self.core.restarted(t,self.ros(),success)
-            self.pose_history.clear();self.still.reset();self.still_at=-1e20;self.lifecycle.clear();self.seed_acked=False;self.seed_requests.clear()
+            self.pose_history.clear();self.pose_timing.reset();self.still.reset();self.still_at=-1e20;self.lifecycle.clear();self.seed_acked=False;self.seed_requests.clear()
             for client in self.lifecycle_clients.values():self.destroy_client(client)
             self.lifecycle_clients={name:self.create_client(GetState,name+"/get_state") for name in ("bt_navigator","controller_server")}
-            self.lifecycle_pending.clear()
+            self.lifecycle_pending.clear();self.release_evidence=None
         stationary=self.independent_stationary(t)
         effect=self.core.tick(t,healthy=healthy,terminal=terminal,
-            stationary=stationary,external=external,pose=pose)
+            stationary=stationary,external=external,pose=pose,health_reason=health_reason)
+        if before=='VERIFY' and self.core.state=='RUNNING':
+            self.release_evidence=dict(epoch=self.core.epoch,steady=t,ros=self.ros(),
+                quality_count=len(self.core.quality),registration_sequence=self.core.last_sequence,
+                last_source=self.core.last_source,
+                gates=dict(healthy=bool(healthy),stationary=bool(stationary),external=bool(external),pose=bool(pose)))
+            self.write('release_verified',evidence=self.release_evidence)
         if before=='RUNNING' and self.core.state!='RUNNING':
             self.saved_seed=self.seed;self.saved_registration_seed=self.registration_seed
             self.still.reset();self.still_at=-1e20
@@ -305,13 +329,18 @@ class Supervisor(Node):
             self.future=self.pool.submit(self.restart)
         stop=Bool();stop.data=not self.core.permit;self.stop_pub.publish(stop)
         permit=Bool();permit.data=self.core.permit;self.permit_pub.publish(permit)
-        if before!=self.core.state:self.write('transition',previous=before,state=self.core.state,fault=self.core.fault)
+        if before!=self.core.state:
+            self.write('transition',previous=before,state=self.core.state,fault=self.core.fault,
+                       input_detail=dict(imu=self.imu_diagnostic,invalid_imu=list(self.imu_invalid),
+                           imu_receipt_age_s=t-self.imu_at,imu_valid_since=self.imu_since,
+                           odom_stamp=self.odom_stamp,odom_receipt_age_s=t-self.odom_at,
+                           odom_progress_age_s=t-self.odom_progress))
         if t-getattr(self,'last_status',0)>.1:
             self.last_status=t
             status=dict(state=self.core.state,epoch=self.core.epoch,attempts=self.core.attempts,
                 permit=self.core.permit,fault=self.core.fault,trigger=self.core.trigger,
-                steady=t,ros=self.ros(),quality_count=len(self.core.quality),
-                gates=dict(healthy=bool(healthy),terminal=bool(terminal),stationary=bool(stationary),external=bool(external),pose=bool(pose),navigation_active=bool(navigation_active)),pose_detail=getattr(self,'pose_report',{}))
+                steady=t,ros=self.ros(),quality_count=len(self.core.quality),imu_qos_depth=self.input_reader.subscription.qos_profile.depth,release=self.release_evidence,
+                gates=dict(healthy=bool(healthy),terminal=bool(terminal),stationary=bool(stationary),external=bool(external),pose=bool(pose),navigation_active=bool(navigation_active)),pose_detail=getattr(self,'pose_report',{}),timing_detail=self.pose_timing.report)
             self.status_pub.publish(String(data=json.dumps(status)))
             self.write('gate_status',status=status)
     def close(self):
@@ -323,6 +352,7 @@ class Supervisor(Node):
         self.write('shutdown',state=self.core.state,fault=self.core.fault)
         for s in self.streams:s.close()
         self.file.close()
+        self.input_reader.close()
 
 def main():
     parser=argparse.ArgumentParser()
