@@ -65,6 +65,32 @@ FakeVelTransform::FakeVelTransform(const rclcpp::NodeOptions & options)
   max_sync_skew_ = declare_parameter<double>("max_sync_stamp_skew", 0.2);
   diagnostics_period_ = declare_parameter<double>("diagnostics_period", 1.0);
   const auto stop_topic = declare_parameter<std::string>("safety_stop_topic", "safety_stop");
+  decision_timeout_ = declare_parameter<double>("decision_stop_timeout", 0.0);
+  if (!std::isfinite(decision_timeout_) || decision_timeout_ < 0.0) {
+    throw std::invalid_argument("Invalid decision stop timeout");
+  }
+  if (decision_timeout_ > 0.0) {
+    decision_stop_sub_ = create_subscription<example_interfaces::msg::Bool>(
+      "decision_stop", 1, [this](example_interfaces::msg::Bool::ConstSharedPtr msg) {
+        std::lock_guard<std::mutex> lock(mutex_);
+        decision_stop_ = msg->data;
+        last_decision_ = Steady::now();
+        publishCommandLocked(false);
+      });
+  }
+  recovery_timeout_ = declare_parameter<double>("recovery_stop_timeout", 0.0);
+  if (!std::isfinite(recovery_timeout_) || recovery_timeout_ < 0.0) {
+    throw std::invalid_argument("Invalid recovery stop timeout");
+  }
+  if (recovery_timeout_ > 0.0) {
+    recovery_stop_sub_ = create_subscription<example_interfaces::msg::Bool>(
+      "recovery/stop", 1, [this](example_interfaces::msg::Bool::ConstSharedPtr msg) {
+        std::lock_guard<std::mutex> lock(mutex_);
+        recovery_stop_ = msg->data;
+        last_recovery_ = Steady::now();
+        publishCommandLocked(false);
+      });
+  }
   const auto status_topic = declare_parameter<std::string>("safety_status_topic", "safety_status");
   for (const auto value : {command_timeout_, pose_timeout_, sync_timeout_, max_sync_skew_, diagnostics_period_}) {
     if (!std::isfinite(value) || value <= 0.0) {
@@ -110,6 +136,14 @@ bool FakeVelTransform::controllerActiveLocked(Tick now) const
 std::string FakeVelTransform::faultReasonLocked(Tick now, double ros_now) const
 {
   if (software_stop_) {return "software_stop";}
+  if (decision_timeout_ > 0.0) {
+    if (decision_stop_) {return "decision_stop";}
+    if (age(now, last_decision_) > decision_timeout_) {return "decision_heartbeat_timeout";}
+  }
+  if (recovery_timeout_ > 0.0) {
+    if (recovery_stop_) {return "recovery_stop";}
+    if (age(now, last_recovery_) > recovery_timeout_) {return "recovery_heartbeat_timeout";}
+  }
   if (!safety_enabled_) {return "";}
   if (!spin_valid_) {return "invalid_spin";}
   if (!pose_valid_) {return "pose_missing_or_invalid";}

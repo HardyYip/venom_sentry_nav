@@ -1,0 +1,22 @@
+{
+  "pb2025_sentry_behavior": {
+    "repository": "https://github.com/SMBU-PolarBear-Robotics-Team/pb2025_sentry_behavior",
+    "commit": "d111b635d326775c6c19aa12500a0bbd6a27a588",
+    "reuse": "RMUL check_game_start/check_robot_status/reactive tree decomposition; retained reference XML and Apache license"
+  },
+  "BehaviorTree.CPP": {
+    "repository": "https://github.com/BehaviorTree/BehaviorTree.CPP",
+    "version": "4.6.2",
+    "commit": "2a8a226fbbd99f524f0796e0d8a3145773c61c06",
+    "scope": "private prefix, decision executable only",
+    "build_mode": "standalone; CMAKE_DISABLE_FIND_PACKAGE_ament_cmake=ON"
+  },
+  "navigation": {
+    "ros": "humble",
+    "behaviortree_cpp_v3": "3.8.7",
+    "profile": "C052 0.5m/s"
+  },
+  "cod2026": {
+    "role": "strategy reference only; no second runtime framework imported"
+  }
+}

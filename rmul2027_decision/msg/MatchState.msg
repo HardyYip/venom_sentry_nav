@@ -1,0 +1,11 @@
+uint8 WAITING=0
+uint8 RUNNING=1
+uint8 FINISHED=2
+builtin_interfaces/Time stamp
+uint64 sequence
+uint8 phase
+float64 hp
+float64 ammo
+float64 heat
+bool valid
+string source

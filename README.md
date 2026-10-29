@@ -6,6 +6,8 @@
 
 深圳北理莫斯科大学 北极熊战队 2025 赛季哨兵导航仿真/实车包
 
+本分支包含 RMUL2027 的 C052 低速导航、独立基础决策、跨场策略及受控 IMU 恢复。当前有限验收与未验边界见 [C066 交付总览](scripts/rmul2027/reports/C066-DELIVERY.zh-CN.md)；[导航恢复与构建](scripts/rmul2027/README.zh-CN.md)、[决策入口](rmul2027_decision/README.zh-CN.md)、[受控恢复入口](rmul2027_decision/recovery/README.zh-CN.md)。决策 BT4 必须隔离构建，Nav2 保持 BT3。
+
 ![PolarBear Logo](https://raw.githubusercontent.com/SMBU-PolarBear-Robotics-Team/.github/main/.docs/image/polarbear_logo_text.png)
 
 [BiliBili: 谁说在家不能调车！？更适合新手宝宝的 RM 导航仿真](https://www.bilibili.com/video/BV12qcXeHETR)
@@ -128,7 +130,7 @@ rosdep install -r --from-paths src --ignore-src --rosdistro $ROS_DISTRO -y
 ```
 
 ```bash
-colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release
+colcon build --symlink-install --packages-skip rmul2027_decision --cmake-args -DCMAKE_BUILD_TYPE=Release
 ```
 
 > [!NOTE]

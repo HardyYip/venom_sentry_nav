@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="4" main_tree_to_execute="rmul_2027">
+  <BehaviorTree ID="check_game_start">
+    <IsGameStatus/>
+  </BehaviorTree>
+  <BehaviorTree ID="check_robot_status">
+    <Fallback>
+      <Sequence><IsStatusOK/><ExecuteMission/></Sequence>
+      <ExecuteMission/>
+    </Fallback>
+  </BehaviorTree>
+  <BehaviorTree ID="rmul_2027">
+    <ReactiveFallback>
+      <ReactiveSequence>
+        <SafetyHealthy/>
+        <SubTree ID="check_game_start"/>
+        <SubTree ID="check_robot_status"/>
+      </ReactiveSequence>
+      <StopMission/>
+    </ReactiveFallback>
+  </BehaviorTree>
+</root>

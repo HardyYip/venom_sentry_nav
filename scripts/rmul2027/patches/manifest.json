@@ -29,6 +29,12 @@
       "base_commit": "b542c5794b91fba2bb3fe2cbdc72fcf854fedb1a",
       "patch": "pb_omni_pid_pursuit_controller.patch",
       "sha256": "33f069c088be30d86c9911c0cd30c06c04757cd51636da9dad4767122cfcbdd5"
+    },
+    {
+      "path": "src/pb2025_sentry_nav/small_gicp_relocalization",
+      "base_commit": "1df063ee6f67b592e1da47e2a21ded00321c0906",
+      "patch": "small_gicp_relocalization.patch",
+      "sha256": "2e397449a17d75281a1378bb6ffa49e0d07a922a1c674cccb01c63483a05c3c2"
     }
   ]
 }

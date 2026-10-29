@@ -37,6 +37,7 @@ parser.add_argument('--record-dir', required=True, type=Path)
 parser.add_argument('--spin-mode',action='store_true',help='Allow translation-only stop for successful spinning arrival; safety stops remain all-zero')
 parser.add_argument('--scenario', required=True, choices=['control', 'parked', 'blocked'])
 parser.add_argument('--params-file', required=True, type=Path)
+parser.add_argument('--launcher', type=Path, help='Explicit navigation launcher for an isolated overlay; default keeps the ordinary launcher')
 parser.add_argument('--actor', required=True, type=Path)
 parser.add_argument('--obstacle-model', type=Path)
 parser.add_argument('--obstacle-size', nargs=3, type=float, default=[.58,.50,.50])
@@ -283,7 +284,7 @@ def interrupt(signum,frame):raise KeyboardInterrupt
 
 signal.signal(signal.SIGTERM,interrupt)
 try:
-    command=['bash',str(folder/'start_rmul2027.sh'),'nav','--params-file',str(args.params_file.resolve()),
+    command=['bash',str(args.launcher.resolve() if args.launcher else folder/'start_rmul2027.sh'),'nav','--params-file',str(args.params_file.resolve()),
              '--gz-world-path',str(folder/'config/gz_world_test.yaml'),'--field-contact','cad-flat-floor','--render-mode','gpu',
              '--tf2-library-dir',str(workspace/'artifacts/rmul_2027_3v3/runtime/tf2-0.25.24/lib')]
     wrapper=launch('launcher',command)
@@ -313,6 +314,9 @@ try:
     meta['recorded_topics']=topics if args.record_bag else [];save()
     if args.record_bag:
         launch('recorder',['ros2','bag','record','--include-hidden-topics','--max-cache-size','67108864','--max-bag-size','33554432','-o',str(record/'inputs'),*topics])
+    # Wait for lifecycle activation before the baseline observer's strict fresh-data gate.
+    startup_ready=launch('startup-ready',[sys.executable,str(folder/'verify_simulation.py'),'--mode','ready','--record-dir',str(record/'startup-ready'),'--startup-timeout','90','--stability-seconds','2'])
+    if startup_ready.wait(timeout=120)!=0:raise RuntimeError('Startup readiness verification failed')
     check=launch('ready',[sys.executable,str(folder/'run_baseline_audit.py'),'--record-dir',str(record/'ready'),'--last-case','ready','--navigation-log',str(navlog)])
     if check.wait(timeout=180)!=0:raise RuntimeError('Ready verification failed')
     ready_meta=json.loads((record/'ready/run.json').read_text());oid=ready_meta.get('observer_pid')

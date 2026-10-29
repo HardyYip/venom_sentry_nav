@@ -1,0 +1,6 @@
+phase: waiting
+hp: 400.0
+ammo: 100.0
+heat: 0.0
+estop: true
+localization_trusted: false

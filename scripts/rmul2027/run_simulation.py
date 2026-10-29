@@ -25,6 +25,7 @@ parser.add_argument('--wheel-contact',choices=('original','rounded'),default='ro
 parser.add_argument('--field-contact',choices=('cad','cad-flat-marking','cad-flat-floor','seam-ramps'),default='seam-ramps')
 parser.add_argument('--params-file', default=str(Path(__file__).resolve().parent/'config/nav2_params.yaml'))
 parser.add_argument('--gz-world-path')
+parser.add_argument('--controlled-imu-recovery',action='store_true',help='C064 owned navigation restart under independent stop/permit')
 parser.add_argument('--tf2-library-dir', help='Optional TF2 core library directory for 2027 navigation only')
 options = parser.parse_args()
 selected_tf2_dir = None
@@ -201,14 +202,18 @@ try:
         print('Robot and IMU settled; starting navigation.', flush=True)
         stream = (logs / 'navigation.log').open('w')
         streams.append(stream)
-        launches.append(subprocess.Popen(
-            ['ros2', 'launch', 'pb2025_nav_bringup', 'rm_navigation_simulation_launch.py',
+        nav_command=['ros2', 'launch', 'pb2025_nav_bringup', 'rm_navigation_simulation_launch.py',
              'world:=rmul_2027_3v3', 'namespace:=red_standard_robot1',
              'slam:=' + ('True' if options.mode == 'mapping' else 'False'),
              'use_rviz:=False', 'use_sim_time:=True',
              'params_file:=' + str(logs/'nav2_params.yaml'),
              'map:=' + str(maps / 'rmul_2027_3v3.yaml'),
-             'prior_pcd_file:=' + str(maps / 'rmul_2027_3v3.pcd')],
+             'prior_pcd_file:=' + str(maps / 'rmul_2027_3v3.pcd')]
+        if options.controlled_imu_recovery:
+            nav_command=['python3',str(folder.parents[1]/'rmul2027_decision/recovery/supervisor.py'),
+                         '--command',json.dumps(nav_command),'--params',str(logs/'nav2_params.yaml'),
+                         '--record-dir',str(logs/'imu-recovery')]
+        launches.append(subprocess.Popen(nav_command,
             stdout=stream, stderr=subprocess.STDOUT, env=navigation_environment,
             start_new_session=True, pass_fds=(lock.fileno(),)))
     (logs / 'launches.json').write_text(json.dumps({'wrapper_pid': os.getpid(),
@@ -241,6 +246,15 @@ finally:
                 except subprocess.TimeoutExpired:
                     child.kill()
                     child.wait(timeout=3)
+    if options.controlled_imu_recovery:
+        for p in launches:
+            if p.poll() is None:
+                try:
+                    command=Path('/proc',str(p.pid),'cmdline').read_bytes()
+                    if b'recovery/supervisor.py' in command:
+                        p.send_signal(signal.SIGINT)
+                        p.wait(timeout=70)
+                except (FileNotFoundError,subprocess.TimeoutExpired):pass
     alive = [str(p.pid) for p in launches if p.poll() is None]
     if alive:
         subprocess.run(['python3', str(folder.parent / 'venom' / 'stop_launches.py'), *alive],

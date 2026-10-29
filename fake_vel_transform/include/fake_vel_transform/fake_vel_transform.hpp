@@ -65,7 +65,7 @@ private:
 
   rclcpp::Subscription<geometry_msgs::msg::Twist>::SharedPtr cmd_vel_sub_;
   rclcpp::Subscription<example_interfaces::msg::Float32>::SharedPtr cmd_spin_sub_;
-  rclcpp::Subscription<example_interfaces::msg::Bool>::SharedPtr stop_sub_;
+  rclcpp::Subscription<example_interfaces::msg::Bool>::SharedPtr stop_sub_, decision_stop_sub_, recovery_stop_sub_;
   message_filters::Subscriber<nav_msgs::msg::Odometry> odom_sub_filter_;
   message_filters::Subscriber<nav_msgs::msg::Path> local_plan_sub_filter_;
   std::unique_ptr<message_filters::Synchronizer<SyncPolicy>> sync_;
@@ -81,6 +81,9 @@ private:
   bool spin_on_zero_command_{true};
   double current_robot_base_angle_{0.0}, synchronized_angle_{0.0};
   bool safety_enabled_{true}, software_stop_{false}, controller_active_{false};
+  bool decision_stop_{true};
+  double decision_timeout_{0.0};
+  Tick last_decision_{};
   bool pose_valid_{false}, plan_valid_{true}, spin_valid_{true}, command_valid_{true};
   bool faulted_{true}, recovery_pending_{false}, pair_valid_{false};
   double command_timeout_{0.5}, pose_timeout_{0.5}, sync_timeout_{0.5};
@@ -90,6 +93,9 @@ private:
   builtin_interfaces::msg::Time odom_header_stamp_;
   Tick last_command_{}, last_odom_{}, last_pose_progress_{}, last_plan_{}, last_sync_{};
   Tick last_diagnostic_{};
+  double recovery_timeout_{0.0};
+  bool recovery_stop_{true};
+  Tick last_recovery_{};
   uint64_t command_sequence_{0}, recovery_sequence_{0};
   std::string last_status_;
   std::mutex mutex_;

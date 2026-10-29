@@ -1,0 +1,113 @@
+diff --git a/include/small_gicp_relocalization/small_gicp_relocalization.hpp b/include/small_gicp_relocalization/small_gicp_relocalization.hpp
+index 391a137..536cf8e 100644
+--- a/include/small_gicp_relocalization/small_gicp_relocalization.hpp
++++ b/include/small_gicp_relocalization/small_gicp_relocalization.hpp
+@@ -18,6 +18,7 @@
+ #include <memory>
+ #include <string>
+ #include <vector>
++#include "std_msgs/msg/string.hpp"
+ 
+ #include "geometry_msgs/msg/pose_with_covariance_stamped.hpp"
+ #include "pcl/io/pcd_io.h"
+@@ -50,6 +51,10 @@ private:
+   rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr pcd_sub_;
+   rclcpp::Subscription<geometry_msgs::msg::PoseWithCovarianceStamped>::SharedPtr initial_pose_sub_;
+ 
++  rclcpp::Publisher<std_msgs::msg::String>::SharedPtr quality_pub_;
++  int recovery_epoch_{0};
++  uint64_t quality_sequence_{0};
++  double recovery_seed_stamp_{0.0};
+   int num_threads_;
+   int num_neighbors_;
+   float global_leaf_size_;
+diff --git a/package.xml b/package.xml
+index acdd425..7b56247 100644
+--- a/package.xml
++++ b/package.xml
+@@ -13,6 +13,7 @@
+   <depend>rclcpp</depend>
+   <depend>rclcpp_components</depend>
+   <depend>sensor_msgs</depend>
++  <depend>std_msgs</depend>
+   <depend>geometry_msgs</depend>
+   <depend>tf2</depend>
+   <depend>tf2_eigen</depend>
+diff --git a/src/small_gicp_relocalization.cpp b/src/small_gicp_relocalization.cpp
+index 44e499d..8bd2114 100644
+--- a/src/small_gicp_relocalization.cpp
++++ b/src/small_gicp_relocalization.cpp
+@@ -15,6 +15,9 @@
+ #include "small_gicp_relocalization/small_gicp_relocalization.hpp"
+ 
+ #include "pcl/common/transforms.h"
++#include <sstream>
++#include <iomanip>
++#include <Eigen/Eigenvalues>
+ #include "pcl_conversions/pcl_conversions.h"
+ #include "small_gicp/pcl/pcl_registration.hpp"
+ #include "small_gicp/util/downsampling_omp.hpp"
+@@ -28,6 +31,8 @@ SmallGicpRelocalizationNode::SmallGicpRelocalizationNode(const rclcpp::NodeOptio
+   result_t_(Eigen::Isometry3d::Identity()),
+   previous_result_t_(Eigen::Isometry3d::Identity())
+ {
++  recovery_epoch_ = this->declare_parameter<int>("recovery_epoch", 0);
++  quality_pub_ = this->create_publisher<std_msgs::msg::String>("recovery/registration", 10);
+   this->declare_parameter("num_threads", 4);
+   this->declare_parameter("num_neighbors", 20);
+   this->declare_parameter("global_leaf_size", 0.25);
+@@ -171,6 +176,23 @@ void SmallGicpRelocalizationNode::performRegistration()
+ 
+   auto result = register_->align(*target_, *source_, *target_tree_, previous_result_t_);
+ 
++  // An actual alignment result; the seed and TF timer cannot certify recovery.
++  Eigen::SelfAdjointEigenSolver<Eigen::Matrix<double, 6, 6>> eigen(result.H);
++  const auto values = eigen.eigenvalues();
++  const bool finite = result.T_target_source.matrix().allFinite() && result.H.allFinite() &&
++    std::isfinite(result.error) && values.allFinite() && eigen.info() == Eigen::Success;
++  const double ratio = finite && values(5) > 0 ? std::max(0.0, values(0) / values(5)) : 0.0;
++  std::ostringstream row;
++  row << std::setprecision(17) << "{\"epoch\":" << recovery_epoch_
++      << ",\"seed_stamp\":" << recovery_seed_stamp_
++      << ",\"sequence\":" << ++quality_sequence_
++      << ",\"stamp\":" << last_scan_time_.seconds()
++      << ",\"converged\":" << (result.converged && finite ? "true" : "false")
++      << ",\"source_points\":" << source_->size() << ",\"inliers\":" << result.num_inliers
++      << ",\"error_per_inlier\":" << (finite ? result.error / std::max<size_t>(1, result.num_inliers) : -1.0)
++      << ",\"hessian_ratio\":" << ratio << "}";
++  std_msgs::msg::String quality; quality.data = row.str(); quality_pub_->publish(quality);
++
+   if (result.converged) {
+     result_t_ = previous_result_t_ = result.T_target_source;
+   } else {
+@@ -209,6 +231,17 @@ void SmallGicpRelocalizationNode::publishTransform()
+ void SmallGicpRelocalizationNode::initialPoseCallback(
+   const geometry_msgs::msg::PoseWithCovarianceStamped::SharedPtr msg)
+ {
++  const auto & p = msg->pose.pose.position;
++  const auto & q = msg->pose.pose.orientation;
++  const double source = rclcpp::Time(msg->header.stamp).seconds();
++  const double age = this->now().seconds() - source;
++  const double norm = q.x*q.x + q.y*q.y + q.z*q.z + q.w*q.w;
++  if (msg->header.frame_id != map_frame_ || !std::isfinite(age) || age < -0.1 || age > 0.5 ||
++      !std::isfinite(p.x) || !std::isfinite(p.y) || !std::isfinite(p.z) ||
++      !std::isfinite(norm) || std::abs(norm-1.0) > 0.01) {
++    RCLCPP_WARN(this->get_logger(), "Rejected invalid/stale initial pose");
++    return;
++  }
+   RCLCPP_INFO(
+     this->get_logger(), "Received initial pose: [x: %f, y: %f, z: %f]", msg->pose.pose.position.x,
+     msg->pose.pose.position.y, msg->pose.pose.position.z);
+@@ -228,6 +261,12 @@ void SmallGicpRelocalizationNode::initialPoseCallback(
+     Eigen::Isometry3d map_to_odom = map_to_robot_base * robot_base_to_odom;
+ 
+     previous_result_t_ = result_t_ = map_to_odom;
++    recovery_seed_stamp_ = source;
++    accumulated_cloud_->clear();
++    std::ostringstream row;
++    row << std::setprecision(17) << "{\"kind\":\"seed_ack\",\"epoch\":" << recovery_epoch_
++        << ",\"stamp\":" << source << "}";
++    std_msgs::msg::String ack; ack.data = row.str(); quality_pub_->publish(ack);
+   } catch (tf2::TransformException & ex) {
+     RCLCPP_WARN(
+       this->get_logger(), "Could not transform initial pose from %s to %s: %s",

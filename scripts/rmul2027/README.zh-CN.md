@@ -1,5 +1,7 @@
 # 北极熊 × RMUL 2027 3V3 基础导航仿真
 
+最新交付：C062 独立基础决策、C063 跨场低速最小覆盖、C064 受控 IMU 恢复。见 [C066 总览](reports/C066-DELIVERY.zh-CN.md)、[决策说明](../../rmul2027_decision/README.zh-CN.md)及[恢复说明](../../rmul2027_decision/recovery/README.zh-CN.md)。下述普通导航入口保持 C052；C063/C064 使用各自显式入口，不能混用资格。用户已结束 C065 演示编排，本次不再启动 RViz。
+
 目标是验证北极熊机器人在2027场地中的基础定位、规划、控制，以及规定的固定障碍和单个同速对向移动物体避让。场地来源为官方RMUL2027_3V3_V1.0.0.stp；不扩展到Venom实车、多车或比赛战术。
 
 C024/C025补齐独立下游停车、Nav2位姿时效门控和Point-LIO点时间链路；两次全新快速完整路线及普通完整路线、静态绕障、封路停车/移除后恢复、2025旧图近点回归已通过。普通与fast入口采用已验证的instantaneous秒单位快照、IMU队列400及真实IMU缺口锁止。定位基线见[C025报告](reports/C025-RESULTS.zh-CN.md)；历史C022未采用快照的失败仍保留，不能混为当前结果。
@@ -25,7 +27,7 @@ rosdep install --from-paths ../../src --ignore-src --rosdistro humble -y
 bash scripts/rmul2027/build_rmul2027.sh
 ```
 
-prepare按已发布依赖基准与patches/manifest.json恢复源码及完整补丁，校验资源并只在项目内解包TF2。重复运行识别已应用状态，遇到已有冲突停止，不覆盖用户修改。--source-cache可提供固定Git对象缓存，但不得作为运行overlay；2027不依赖原2025的121MB点云。做旧地图回归才需要按原文档获取该点云，并用--legacy-pcd导入校验。
+prepare按已发布依赖基准与patches/manifest.json恢复源码及完整补丁（含C064重定位诊断补丁），校验资源并只在项目内解包TF2。重复运行识别已应用状态，遇到已有冲突停止，不覆盖用户修改。--source-cache可提供固定Git对象缓存，但不得作为运行overlay；2027不依赖原2025的121MB点云。做旧地图回归才需要按原文档获取该点云，并用--legacy-pcd导入校验。
 
 ## 启动与手动测试
 

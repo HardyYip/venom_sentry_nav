@@ -1,0 +1,29 @@
+/**:
+  ros__parameters:
+    use_sim_time: true
+    strategy_label: "TEST ONLY: framework thresholds and points, not RMUL2027 rules"
+    match_topic: "decision/match"
+    referee_timeout: 0.4
+    referee_source_timeout: 0.4
+    localization_timeout: 0.5
+    input_timeout: 0.4
+    recovery_hold: 0.5
+    hp_low: 100.0
+    hp_recover: 200.0
+    ammo_low: 10.0
+    ammo_recover: 50.0
+    heat_high: 80.0
+    heat_recover: 40.0
+    patrol: true
+    dwell_seconds: 1.0
+    waypoint_x: [0.0, 0.0]
+    waypoint_y: [-1.0, -2.2]
+    waypoint_yaw: [0.0, 0.0]
+    retreat: [0.0, 0.2, 0.0]
+    accept_timeout: 2.0
+    navigation_timeout: 180.0
+    feedback_timeout: 2.0
+    cancel_timeout: 2.0
+    retry_delay: 0.3
+    max_attempts: 2
+    event_file: ""
