@@ -48,4 +48,7 @@ Path(sys.argv[2]).write_text(yaml.safe_dump(params,sort_keys=False))
 PY
 task_recovery_args=()
 if [ "${RMUL_IMU_RECOVERY:-0}" = 1 ]; then task_recovery_args+=(--controlled-imu-recovery); fi
+if [ "${RMUL_SENSOR_PROFILE:-original}" = dual-mid360 ]; then
+  exec bash "$task_repo/scripts/rmul2027/start_dual_mid360.sh" --params-file "$task_params"
+fi
 exec python3 "$task_repo/scripts/rmul2027/run_simulation.py" nav "${task_recovery_args[@]}" --render-mode auto --field-contact cad-flat-floor --gz-world-path "$task_repo/scripts/rmul2027/config/gz_world_test.yaml" --params-file "$task_params" --tf2-library-dir "$task_ws/artifacts/rmul_2027_3v3/runtime/tf2-0.25.24/lib"

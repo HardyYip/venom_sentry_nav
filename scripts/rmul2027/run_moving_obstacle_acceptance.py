@@ -24,6 +24,8 @@ WS=FOLDER.parents[3]
 parser=argparse.ArgumentParser()
 parser.add_argument('--record-dir',type=Path,required=True)
 parser.add_argument('--spin-mode',action=argparse.BooleanOptionalAction,default=False)
+parser.add_argument('--test-decision-permit',action='store_true',help='TEST ONLY direct Action fixture owns decision_stop heartbeat; refuses an existing decision publisher')
+parser.add_argument('--launcher',type=Path,help='Optional isolated sensor-profile launcher')
 parser.add_argument('--params-file',type=Path,default=FOLDER/'config/nav2_test.yaml')
 parser.add_argument('--fixed-acceptance',type=Path,required=True)
 options=parser.parse_args()
@@ -34,7 +36,7 @@ PARAMS=options.params_file.expanduser().resolve()
 flags=subprocess.check_output(['pkg-config','--cflags','--libs','ignition-transport11','ignition-msgs8'],text=True).split()
 subprocess.run(['g++','-std=c++17','-O2',str(FOLDER/'actors/scripted_obstacle_actor.cpp'),'-o',str(ROOT/'moving_actor'),*flags],check=True)
 SCENE={'label':'headon','start':(4.5,-.2),'goal':(9.3,-.2),'opponent_start':(8.0,-.2),'opponent_end':(4.5,-.2),'speed':0.5}
-STATE={'owner':'Codex C032','navigation_changes':False,'record_bag':False,'spin_mode':options.spin_mode,'cases':[],'started_at':datetime.datetime.now().astimezone().isoformat()}
+STATE={'owner':'Codex C032','navigation_changes':False,'record_bag':False,'spin_mode':options.spin_mode,'test_decision_permit':options.test_decision_permit,'cases':[],'started_at':datetime.datetime.now().astimezone().isoformat()}
 def write(p,v):p.write_text(json.dumps(v,ensure_ascii=False,indent=2)+'\n')
 def stop_state(p):
  return {'mode':'spin-mode' if options.spin_mode else 'strict-stop',
@@ -102,8 +104,14 @@ class Probe(Node):
   self.motion_rows=[]
   sensor=QoSProfile(depth=1,reliability=ReliabilityPolicy.BEST_EFFORT);latched=QoSProfile(depth=1,durability=DurabilityPolicy.TRANSIENT_LOCAL)
   self.stop_pub=self.create_publisher(Bool,'safety_stop',10);self.pending_lasers=collections.deque(maxlen=60)
+  self.test_decision_permit=None
+  if options.test_decision_permit:
+   if self.count_publishers('decision_stop')!=0:raise RuntimeError('Existing decision_stop owner; direct Action test refuses to compete')
+   self.test_decision_permit=self.create_publisher(Bool,'decision_stop',1)
+   self.test_permit_timer=self.create_timer(.05,lambda:self.test_decision_permit.publish(Bool(data=self.fault is not None)))
+
   self.subs=[self.create_subscription(LaserScan,'rplidar_a2/scan',lambda m:self.pending_lasers.append((time.monotonic(),m)),sensor)]
-  for name in ['livox/lidar','velodyne_points','cloud_registered','registered_scan','terrain_map','terrain_map_ext','rplidar_obstacles']:
+  for name in ['livox/lidar','velodyne_points','cloud_registered','registered_scan','terrain_map','terrain_map_ext','rplidar_obstacles','auxiliary/livox/lidar','auxiliary/obstacles']:
    self.subs.append(self.create_subscription(PointCloud2,name,lambda m,k=name:self.cloud(k,m),sensor))
   self.subs += [self.create_subscription(Odometry,'chassis_odometry_gt',self.pose,sensor),self.create_subscription(Twist,'cmd_vel',self.command,10),self.create_subscription(Twist,'cmd_vel_controller',lambda m:self.record_command('cmd_vel_controller',m),10),self.create_subscription(NavPath,'plan',self.plan,10),self.create_subscription(NavPath,'local_plan',lambda m:self.path_record('local_plan',m),10)]
   for name in ['global_costmap','local_costmap']:
@@ -323,7 +331,7 @@ def run_case(label,repeat):
   meta['cancelled_owned_goal']=owner['goal_uuid']
  try:
   STATE['current_case']=name;STATE['phase']='starting';write(ROOT/'status.json',STATE)
-  wrapper=launch('launcher',['bash',str(FOLDER/'start_rmul2027.sh'),'nav','--render-mode','gpu','--field-contact','cad-flat-floor','--gz-world-path',str(FOLDER/'config/gz_world_test.yaml'),'--params-file',str(PARAMS),'--tf2-library-dir',str(WS/'artifacts/rmul_2027_3v3/runtime/tf2-0.25.24/lib')]);deadline=time.monotonic()+180
+  wrapper=launch('launcher',['bash',str(options.launcher.resolve() if options.launcher else FOLDER/'start_rmul2027.sh'),'nav','--render-mode','gpu','--field-contact','cad-flat-floor','--gz-world-path',str(FOLDER/'config/gz_world_test.yaml'),'--params-file',str(PARAMS),'--tf2-library-dir',str(WS/'artifacts/rmul_2027_3v3/runtime/tf2-0.25.24/lib')]);deadline=time.monotonic()+180
   while time.monotonic()<deadline:
    if wrapper.poll() is not None:raise RuntimeError('Launcher stopped before ready')
    for line in (record/'launcher.log').read_text(errors='replace').splitlines():

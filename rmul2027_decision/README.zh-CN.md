@@ -1,5 +1,7 @@
 # RMUL2027 基础决策（C062，含C063/C064扩展）
 
+> C070（2026-10-30）：当前新增可选双MID360仿真，主MID/IMU定位不改，副MID替换旧RPLidar。规定有限验收通过，首轮恢复后路径失败仍保留未关闭；启动/回退及实际范围见 [C070说明](../scripts/rmul2027/reports/C070-DUAL-MID360.zh-CN.md) 和 [结果](../scripts/rmul2027/reports/C070-RESULTS.zh-CN.md)。旧默认配置保留，仅做仿真，不代表实机或副雷达掉线互锁已验。
+
 当前交付总览见 [C066](../scripts/rmul2027/reports/C066-DELIVERY.zh-CN.md)；[C063跨场结果](../scripts/rmul2027/reports/C063-RESULTS.zh-CN.md)与[C064恢复结果](recovery/RESULTS.zh-CN.md)分别记录通过范围及失败。
 
 PB2025 的 RMUL 行为树是开发基础，COD2026 仅作策略参考。当前交付是测试比赛输入驱动的基础闭环，不代表已实现或核验 2027 裁判协议、赛季阈值和实车策略。

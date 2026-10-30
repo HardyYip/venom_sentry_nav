@@ -95,6 +95,17 @@ def runtime_snapshot():
 (logs/'dependency-runtime.json').write_text(json.dumps(runtime_snapshot(),indent=2)+'\n')
 resources=[world_sdf,selected_gz_world,selected_manifest,logs/'nav2_params.yaml',maps/'rmul_2027_3v3.pcd',maps/'rmul_2027_3v3.yaml',maps/'rmul_2027_3v3.pgm']
 if 'rplidar_obstacles' in source_params:resources.append(folder/'rplidar_obstacle_cloud.py')
+if 'aux_mid_obstacle_cloud' in yaml.safe_load(source_params):
+    resources.append(folder/'aux_mid_obstacle_cloud.py')
+profile_manifest = os.environ.get('RMUL_SENSOR_PROFILE_MANIFEST')
+if profile_manifest:
+    profile_data = json.loads(Path(profile_manifest).read_text())
+    for name, digest in profile_data['files'].items():
+        path = Path(name)
+        if hashlib.sha256(path.read_bytes()).hexdigest() != digest:
+            raise SystemExit('Sensor profile changed before launch: '+name)
+        resources.append(path)
+    shutil.copyfile(profile_manifest, logs/'sensor-profile.json')
 resources.append(folder/'dds_shm_cleanup.py')
 models=[]
 for uri in ET.parse(world_sdf).findall('.//include/uri'):
@@ -195,6 +206,18 @@ try:
             streams.append(stream)
             auxiliary.append(subprocess.Popen(
                 ['python3',str(folder/'rplidar_obstacle_cloud.py'),'--ros-args',
+                 '-r','__ns:=/red_standard_robot1','-r','/tf:=tf','-r','/tf_static:=tf_static',
+                 '--params-file',str(cloud_params_path),'-p','use_sim_time:=true'],
+                stdout=stream,stderr=subprocess.STDOUT,env=environment,
+                start_new_session=True,pass_fds=(lock.fileno(),)))
+        if 'aux_mid_obstacle_cloud' in yaml.safe_load(source_params):
+            cloud_params = yaml.safe_load(source_params)['aux_mid_obstacle_cloud']
+            cloud_params_path = logs/'aux-mid-obstacle-cloud-params.yaml'
+            cloud_params_path.write_text(yaml.safe_dump({'/red_standard_robot1/aux_mid_obstacle_cloud': cloud_params}))
+            stream = (logs/'aux-mid-obstacle-cloud.log').open('w')
+            streams.append(stream)
+            auxiliary.append(subprocess.Popen(
+                ['python3',str(folder/'aux_mid_obstacle_cloud.py'),'--ros-args',
                  '-r','__ns:=/red_standard_robot1','-r','/tf:=tf','-r','/tf_static:=tf_static',
                  '--params-file',str(cloud_params_path),'-p','use_sim_time:=true'],
                 stdout=stream,stderr=subprocess.STDOUT,env=environment,
