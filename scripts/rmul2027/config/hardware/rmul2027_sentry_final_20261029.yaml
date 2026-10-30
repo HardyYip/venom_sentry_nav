@@ -1,0 +1,210 @@
+schema: 1
+profile_id: rmul2027_sentry_final_20261029
+source:
+  report_title: 机械组技术路线报告
+  report_file: 机械组技术报告1029.pdf
+  sha256: 680b82bb24eea3d10c64084c26c9c4a8cc3723620a9bea05c3b1d148ff7d0424
+  reviewed_pages:
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  - 6
+  - 7
+  - 8
+  - 9
+  - 10
+  applicable_sentry_pages:
+  - 5
+  - 6
+  - 7
+  final_configuration_authority: user_20261030
+baseline:
+  git_branch: sim/rmul2027-3v3
+  git_commit: 79db2b63297be8b96d8d362a66cf5d0c734b63c1
+  current_sim_lidars:
+  - MID360
+  - RPLidar_A2
+  current_sim_chassis: MecanumDrive2
+  qualification_is_final_hardware_equivalent: false
+  excluded_experiment: single_mid_C068
+sensors:
+  lidars:
+  - id: primary
+    model: MID-360
+    manufacturer: Livox
+    role: primary_lio_and_obstacle_perception
+    frame: front_mid360
+    cloud_topic: livox/lidar
+    imu_topic: livox/imu
+    connection:
+      device_id: null
+      ip_address: null
+    extrinsics:
+      calibrated: false
+      parent_frame: null
+      xyz_m: null
+      rpy_rad: null
+  - id: auxiliary
+    model: MID-360
+    manufacturer: Livox
+    role: complementary_obstacle_perception
+    frame: aux_mid360
+    cloud_topic: auxiliary/livox/lidar
+    imu_topic: auxiliary/livox/imu
+    connection:
+      device_id: null
+      ip_address: null
+    extrinsics:
+      calibrated: false
+      parent_frame: null
+      xyz_m: null
+      rpy_rad: null
+  imu:
+    present_from_previous_user_confirmation: true
+    report_specifies_separate_external_imu: false
+    lio_input_topic: livox/imu
+    additional_imu_policy: diagnostic_only_until_time_and_extrinsic_calibration
+  camera:
+    quantity: 1
+    type: industrial_camera
+    model: null
+    transport: null
+    frame: industrial_camera_optical
+    required_fixed_relation: camera_to_firing_mechanism
+    calibration:
+      ready: false
+      intrinsics: null
+      camera_to_shooter: null
+compute:
+  quantity: 1
+  platform: Jetson_Orin
+  exact_sku: null
+  architecture_target: aarch64
+  real_device_built: false
+  real_device_timing_verified: false
+power:
+  supercapacitor:
+    present: true
+    capacity: null
+    telemetry_protocol: null
+  battery:
+    model: null
+    telemetry_protocol: null
+  chassis_speed_bench:
+    supercapacitor_discharge_enabled: false
+    chassis_power_limit_w: 100
+chassis:
+  drivetrain: omni_wheel
+  suspension: independent
+  wheel_motor: DJI_M3508
+  reduction: planetary
+  wheel_count_installed: null
+  wheel_radius_m: null
+  gear_ratio: null
+  suspension_travel_m: null
+  full_vehicle_footprint_m: null
+  full_vehicle_mass_kg: null
+  mass_inertia: null
+  supported_motion:
+  - omnidirectional_translation
+  - stationary_spin
+  - translating_spin
+  mechanical_target_peak_speed_mps: 3.6
+  adopted_test_speed_mps: 0.5
+  automatically_enable_fast: false
+  physical_spin_endurance:
+    minutes_per_round: 10
+    rounds: 3
+    verified: false
+gimbal:
+  architecture: big_yaw_small_yaw
+  big_yaw:
+    continuous_rotation: true
+    rotation_degrees: 360
+    zero_calibrated: false
+  small_yaw:
+    limited_rotation: true
+    limits_degrees: null
+    zero_calibrated: false
+  coordination: big_yaw_recenter_small_yaw_near_limit
+  pitch_target_degrees:
+  - -20
+  - 25
+  actual_pitch_limits_calibrated: false
+  joint_state_protocol: null
+  cable_and_feeder_follow_motion_verified: false
+feeder_and_shooter:
+  projectile_diameter_mm: 17
+  feed_type: central
+  magazine_capacity_rounds: 500
+  bench_min_rate_hz: 18
+  competition_rate_source: referee_heat_and_projectile_budget
+  jam_recovery_requirement: reverse_feed
+  loaded_states_to_test:
+  - full
+  - half
+  - tail_rounds
+  operating_states_to_test:
+  - stationary
+  - omnidirectional_translation
+  - spin
+  static_dispersion_target:
+    distance_m: 7
+    target: small_armor_plate
+  real_firing_verified: false
+  interfaces_implemented: false
+  actual_firing_enabled_by_this_profile: false
+electrical_bridge:
+  controller_board_model: null
+  transport_protocol: null
+  command_ack_protocol: null
+  required_feedback:
+  - chassis_velocity
+  - hardware_estop
+  - battery_and_supercapacitor_state
+  - available_power
+  - big_yaw_joint_state
+  - small_yaw_joint_state
+  - pitch_joint_state
+  - feeder_and_jam_state
+integration:
+  decision_framework: isolated_BT4
+  navigation_framework: existing_Nav2_BT3
+  action_interface: NavigateToPose
+  primary_lio: existing_PointLIO_and_GICP
+  multi_lidar_raw_fusion_enabled: false
+  simultaneous_imu_inputs_to_lio: 1
+  secondary_lidar_initial_path: source_stamped_independent_obstacle_input
+  required_navigation_lidars:
+  - primary
+  - auxiliary
+  stale_required_sensor_policy: cancel_confirm_and_stop
+  missing_or_uncalibrated_tf_policy: refuse_hardware_start
+  moving_mount_policy: source_time_dynamic_tf_required
+  hardware_deployment_enabled: false
+  dual_mid_runtime_implemented: false
+  dual_sensor_health_implemented: false
+acceptance:
+  map: RMUL2027_3v3
+  integrated_rounds: 3
+  minutes_per_round: 5
+  round_clock_must_be_recorded: true
+  required_tasks:
+  - navigation
+  - obstacle_avoidance
+  - patrol
+  - hold_position
+  vision_and_firing: separately_required_but_not_implemented_in_navigation_scope
+  fault_records:
+  - localization_loss
+  - collision
+  - feeder_jam
+  - loose_structure
+  - device_fault
+  old_short_tests_do_not_satisfy_five_minute_rounds: true
+scope_exclusions:
+- infantry_555x555x240mm_envelope_is_not_sentry_geometry
+- infantry_folding_or_tunnel_mechanism_not_inherited
+- heavy_robot_mecanum_chassis_and_six_dof_arm_not_inherited

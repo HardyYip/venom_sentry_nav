@@ -1,0 +1,73 @@
+kind: NON_DEPLOYABLE_INTERFACE_TEMPLATE
+hardware_ready: false
+profile_id: rmul2027_sentry_final_20261029
+driver_policy:
+  existing_driver: livox_ros_driver2
+  multi_topic: 1
+  frame_binding: per_device_frame_binding_required; shared launch frame_id is insufficient
+  extrinsic_owner: source-time TF; do not transform in SDK and TF twice
+lidars:
+- id: primary
+  model: MID-360
+  manufacturer: Livox
+  role: primary_lio_and_obstacle_perception
+  frame: front_mid360
+  cloud_topic: livox/lidar
+  imu_topic: livox/imu
+  connection:
+    device_id: null
+    ip_address: null
+  extrinsics:
+    calibrated: false
+    parent_frame: null
+    xyz_m: null
+    rpy_rad: null
+- id: auxiliary
+  model: MID-360
+  manufacturer: Livox
+  role: complementary_obstacle_perception
+  frame: aux_mid360
+  cloud_topic: auxiliary/livox/lidar
+  imu_topic: auxiliary/livox/imu
+  connection:
+    device_id: null
+    ip_address: null
+  extrinsics:
+    calibrated: false
+    parent_frame: null
+    xyz_m: null
+    rpy_rad: null
+lio:
+  cloud_input: livox/lidar
+  imu_input: livox/imu
+  secondary_cloud_is_not_raw_fused: true
+  secondary_imu_not_fused: true
+auxiliary_obstacle_input:
+  cloud_topic: auxiliary/livox/lidar
+  frame: aux_mid360
+  source_stamp_required: true
+  measured_tf_required: true
+  ground_and_vehicle_self_filter_required: true
+  filter_calibration: null
+readiness:
+  required_lidars:
+  - primary
+  - auxiliary
+  failure_action: cancel active NavigateToPose, confirm terminal and physical stop
+  deployment_gaps:
+  - hardware deployment is not enabled
+  - dual-MID runtime and per-device health integration not implemented
+  - 'primary: measured device ID and network binding missing'
+  - 'primary: measured parent/pose calibration missing; zero is not a substitute'
+  - 'auxiliary: measured device ID and network binding missing'
+  - 'auxiliary: measured parent/pose calibration missing; zero is not a substitute'
+  - 'chassis: full_vehicle_footprint_m not measured'
+  - 'chassis: full_vehicle_mass_kg not measured'
+  - 'chassis: wheel_radius_m not measured'
+  - 'chassis: gear_ratio not measured'
+  - 'chassis: suspension_travel_m not measured'
+  - Orin SKU, native build and timing qualification missing
+  - electrical command/feedback/ack protocol missing
+  - industrial camera identity and camera-to-shooter calibration missing
+  - gimbal zeros, small-Yaw limits and measured pitch limits missing
+  - feeder/shooter feedback and physical qualification missing
