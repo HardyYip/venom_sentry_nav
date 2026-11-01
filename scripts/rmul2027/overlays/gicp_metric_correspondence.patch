@@ -1,0 +1,82 @@
+--- a/include/small_gicp_relocalization/small_gicp_relocalization.hpp
++++ b/include/small_gicp_relocalization/small_gicp_relocalization.hpp
+@@ -26,6 +26,7 @@
+ #include "sensor_msgs/msg/point_cloud2.hpp"
+ #include "small_gicp/ann/kdtree_omp.hpp"
+ #include "small_gicp/factors/gicp_factor.hpp"
++#include "small_gicp_relocalization/metric_correspondence.hpp"
+ #include "small_gicp/pcl/pcl_point.hpp"
+ #include "small_gicp/registration/reduction_omp.hpp"
+ #include "small_gicp/registration/registration.hpp"
+@@ -55,6 +56,7 @@
+   int recovery_epoch_{0};
+   int registration_max_iterations_{10};
+   bool deterministic_global_sampling_{false};
++  bool metric_correspondences_{false};
+   uint64_t quality_sequence_{0};
+   double recovery_seed_stamp_{0.0};
+   int num_threads_;
+@@ -87,6 +89,8 @@
+   std::shared_ptr<
+     small_gicp::Registration<small_gicp::GICPFactor, small_gicp::ParallelReductionOMP>>
+     register_;
++  std::shared_ptr<small_gicp::Registration<MetricCorrespondenceFactor,
++    small_gicp::ParallelReductionOMP>> metric_register_;
+ 
+   rclcpp::TimerBase::SharedPtr transform_timer_;
+   rclcpp::TimerBase::SharedPtr register_timer_;
+--- a/src/small_gicp_relocalization.cpp
++++ b/src/small_gicp_relocalization.cpp
+@@ -37,6 +37,7 @@
+   recovery_epoch_ = this->declare_parameter<int>("recovery_epoch", 0);
+   registration_max_iterations_ = checkedRegistrationBudget(
+     this->declare_parameter<int>("registration_max_iterations", 10));
++  metric_correspondences_ = this->declare_parameter<bool>("metric_correspondences", false);
+   deterministic_global_sampling_ = this->declare_parameter<bool>(
+     "deterministic_global_sampling", false);
+   quality_pub_ = this->create_publisher<std_msgs::msg::String>("recovery/registration", 10);
+@@ -82,6 +83,13 @@
+   global_map_ = std::make_shared<pcl::PointCloud<pcl::PointXYZ>>();
+   register_ = std::make_shared<
+     small_gicp::Registration<small_gicp::GICPFactor, small_gicp::ParallelReductionOMP>>();
++  if (metric_correspondences_) {
++    metric_register_ = std::make_shared<
++      small_gicp::Registration<MetricCorrespondenceFactor, small_gicp::ParallelReductionOMP>>();
++  }
++  RCLCPP_INFO(this->get_logger(),
++    "GICP_METRIC_CORRESPONDENCES enabled=%s neighbor_cap=8 extra_distance_m=0.025",
++    metric_correspondences_ ? "true" : "false");
+ 
+   tf_buffer_ = std::make_unique<tf2_ros::Buffer>(this->get_clock());
+   tf_listener_ = std::make_unique<tf2_ros::TransformListener>(*tf_buffer_);
+@@ -199,9 +207,16 @@
+   register_->reduction.num_threads = num_threads_;
+   register_->rejector.max_dist_sq = max_dist_sq_;
+   register_->optimizer.max_iterations = registration_max_iterations_;
++  if (metric_register_) {
++    metric_register_->reduction.num_threads = num_threads_;
++    metric_register_->rejector.max_dist_sq = max_dist_sq_;
++    metric_register_->optimizer.max_iterations = registration_max_iterations_;
++  }
+ 
+   const auto registration_begin = std::chrono::steady_clock::now();
+-  auto result = register_->align(*target_, *source_, *target_tree_, previous_result_t_);
++  auto result = metric_register_ ?
++    metric_register_->align(*target_, *source_, *target_tree_, previous_result_t_) :
++    register_->align(*target_, *source_, *target_tree_, previous_result_t_);
+   const double registration_wall_s = std::chrono::duration<double>(
+     std::chrono::steady_clock::now() - registration_begin).count();
+ 
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -57,6 +57,10 @@
+   target_compile_features(test_global_sampling PRIVATE cxx_std_17)
+   target_include_directories(test_global_sampling PRIVATE ${PCL_INCLUDE_DIRS})
+   target_link_libraries(test_global_sampling small_gicp ${PCL_LIBRARIES})
++  ament_add_gtest(test_metric_correspondence test/test_metric_correspondence.cpp)
++  target_compile_features(test_metric_correspondence PRIVATE cxx_std_17)
++  target_include_directories(test_metric_correspondence PRIVATE include ${PCL_INCLUDE_DIRS})
++  target_link_libraries(test_metric_correspondence small_gicp ${PCL_LIBRARIES} OpenMP::OpenMP_CXX)
+   set(ament_cmake_clang_format_CONFIG_FILE "${CMAKE_SOURCE_DIR}/.clang-format")
+   set(ament_cmake_clang_tidy_CONFIG_FILE "${CMAKE_SOURCE_DIR}/.clang-tidy")
+   find_package(ament_lint_auto REQUIRED)

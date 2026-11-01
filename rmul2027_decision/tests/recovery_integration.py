@@ -15,7 +15,7 @@ from tf2_ros import Buffer,TransformListener
 from source_feed import Feed
 from imu_relay import ImuRelay
 
-parser=argparse.ArgumentParser();parser.add_argument('--record-dir',type=Path,required=True);args=parser.parse_args()
+parser=argparse.ArgumentParser();parser.add_argument('--record-dir',type=Path,required=True);parser.add_argument('--launcher',type=Path,help='Explicit isolated recovery launcher; default retains the adopted entry');args=parser.parse_args()
 record=args.record_dir;record.mkdir(parents=True,exist_ok=False)
 W=Path('/home/hardy/pb2025_nav_ws');P=W/'src/pb2025_sentry_nav';package=P/'rmul2027_decision'
 B=Path(os.environ.get('RMUL_DECISION_BUILD_ROOT',str(W/'artifacts/rmul_2027_3v3/imu-recovery-C064')))
@@ -151,7 +151,7 @@ try:
         '-r','/tf:=tf','-r','/tf_static:=tf_static','-p','recovery_permit_timeout:=0.3',
         '-p','event_file:='+str(record/'decision-events.jsonl')],env)
     node.child=decision
-    wrapper=launch('launcher',['bash',str(package/'tools/start_recovery.sh')],env)
+    wrapper=launch('launcher',['bash',str(args.launcher or package/'tools/start_recovery.sh')],env)
     navlogs=None
     deadline=time.monotonic()+70
     while time.monotonic()<deadline and navlogs is None:

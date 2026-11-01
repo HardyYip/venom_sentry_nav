@@ -1,0 +1,67 @@
+--- a/src/small_gicp_relocalization.cpp
++++ b/src/small_gicp_relocalization.cpp
+@@ -17,6 +17,8 @@
+ #include "pcl/common/transforms.h"
+ #include <sstream>
+ #include <iomanip>
++#include <chrono>
++#include "small_gicp_relocalization/registration_budget.hpp"
+ #include <Eigen/Eigenvalues>
+ #include "pcl_conversions/pcl_conversions.h"
+ #include "small_gicp/pcl/pcl_registration.hpp"
+@@ -32,6 +34,8 @@
+   previous_result_t_(Eigen::Isometry3d::Identity())
+ {
+   recovery_epoch_ = this->declare_parameter<int>("recovery_epoch", 0);
++  registration_max_iterations_ = checkedRegistrationBudget(
++    this->declare_parameter<int>("registration_max_iterations", 10));
+   quality_pub_ = this->create_publisher<std_msgs::msg::String>("recovery/registration", 10);
+   this->declare_parameter("num_threads", 4);
+   this->declare_parameter("num_neighbors", 20);
+@@ -172,9 +176,12 @@
+ 
+   register_->reduction.num_threads = num_threads_;
+   register_->rejector.max_dist_sq = max_dist_sq_;
+-  register_->optimizer.max_iterations = 10;
+-
++  register_->optimizer.max_iterations = registration_max_iterations_;
++
++  const auto registration_begin = std::chrono::steady_clock::now();
+   auto result = register_->align(*target_, *source_, *target_tree_, previous_result_t_);
++  const double registration_wall_s = std::chrono::duration<double>(
++    std::chrono::steady_clock::now() - registration_begin).count();
+ 
+   // An actual alignment result; the seed and TF timer cannot certify recovery.
+   Eigen::SelfAdjointEigenSolver<Eigen::Matrix<double, 6, 6>> eigen(result.H);
+@@ -188,6 +195,9 @@
+       << ",\"sequence\":" << ++quality_sequence_
+       << ",\"stamp\":" << last_scan_time_.seconds()
+       << ",\"converged\":" << (result.converged && finite ? "true" : "false")
++      << ",\"optimizer_iterations\":" << result.iterations + 1
++      << ",\"optimizer_max_iterations\":" << registration_max_iterations_
++      << ",\"registration_wall_s\":" << registration_wall_s
+       << ",\"source_points\":" << source_->size() << ",\"inliers\":" << result.num_inliers
+       << ",\"error_per_inlier\":" << (finite ? result.error / std::max<size_t>(1, result.num_inliers) : -1.0)
+       << ",\"hessian_ratio\":" << ratio << "}";
+--- a/include/small_gicp_relocalization/small_gicp_relocalization.hpp
++++ b/include/small_gicp_relocalization/small_gicp_relocalization.hpp
+@@ -53,6 +53,7 @@
+ 
+   rclcpp::Publisher<std_msgs::msg::String>::SharedPtr quality_pub_;
+   int recovery_epoch_{0};
++  int registration_max_iterations_{10};
+   uint64_t quality_sequence_{0};
+   double recovery_seed_stamp_{0.0};
+   int num_threads_;
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -49,6 +49,9 @@
+ #############
+ 
+ if(BUILD_TESTING)
++  find_package(ament_cmake_gtest REQUIRED)
++  ament_add_gtest(test_registration_budget test/test_registration_budget.cpp)
++  target_include_directories(test_registration_budget PRIVATE include)
+   set(ament_cmake_clang_format_CONFIG_FILE "${CMAKE_SOURCE_DIR}/.clang-format")
+   set(ament_cmake_clang_tidy_CONFIG_FILE "${CMAKE_SOURCE_DIR}/.clang-tidy")
+   find_package(ament_lint_auto REQUIRED)

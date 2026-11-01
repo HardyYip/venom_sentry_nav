@@ -1,0 +1,16 @@
+{
+  "original_read_only": "/home/hardy/pb2025_nav_ws/src/pb2025_sentry_nav/pb_omni_pid_pursuit_controller",
+  "isolated_copy": "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/cad-dual-mid-C072/controller-source/pb_omni_pid_pursuit_controller",
+  "original_unchanged": true,
+  "source_sha256": {
+    "CMakeLists.txt": "f58597cbe8580232b0247e475d6ad62d0819a2b3827a2cc73a7f90ad0be17bad",
+    "package.xml": "f1060e19db2aa5dd0783036a86e271af92aeb7680926b5a6c12f53d6a7edb1db",
+    "pb_omni_pid_pursuit_controller.xml": "037b9dd8ace21f09568e977d42d70ac76194849cc23f57aea2508d242e27c931",
+    "src/collision_aware_omni_controller.cpp": "2e308daa6a8ff9396c8b80d94409c7f9fdd5924d7e8db009c232aa5cf23fd69d",
+    "include/pb_omni_pid_pursuit_controller/spin_coverage.hpp": "87fab136045f7b73315211c07bf70c809fd6399a53b75ea379972b2f60cca0b8",
+    "include/pb_omni_pid_pursuit_controller/geodesic_goal_field.hpp": "db57c76d7b395b4c708f57786e2b571185ef99a1115a464f6ec9a0241788d9cc",
+    "include/pb_omni_pid_pursuit_controller/pose_velocity_estimator.hpp": "0861db5a14e41ef954038508735f2df45cf95e3e5a68bc1c27b0b9012fa3c510"
+  },
+  "runtime_baseline": "d193ac3061946e20f9cdfd5481ea27cb2e87ca2a",
+  "original_library_sha256": "bf6b4c496aa4713f4615e38d41ded64bb6fbc13c035678aa8cb02fc3abdbb611"
+}

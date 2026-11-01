@@ -1,0 +1,114 @@
+{
+  "schema": 1,
+  "simulation_only": true,
+  "source_step_sha256": "c02c13b30b563d35024a92506443c967c37872bd663062b6b874fdd99422eca0",
+  "parent_frame": "gimbal_yaw",
+  "parent_role": "big-Yaw coarse proxy; user confirmed both devices on big Yaw",
+  "cad_to_base_rotation": [
+    [
+      -1,
+      0,
+      0
+    ],
+    [
+      0,
+      1,
+      0
+    ],
+    [
+      0,
+      0,
+      -1
+    ]
+  ],
+  "cad_to_base_translation_mm": [
+    0,
+    0,
+    82.7650284628852
+  ],
+  "base_convention": "CAD present assembly is zero big-Yaw angle; X=-CAD X,Y=CAD Y; wheel plane is virtual base ground",
+  "registration": "fit original simulation cover sphere, align CAD housing axes; preserve native scan/IMU local offsets; not physical calibration",
+  "native_cover_geometry_id": "meshes_0_-mesh",
+  "native_cover_min_y_mm": 15.0,
+  "raw_mesh_to_sensor_rotation": [
+    [
+      -1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      1
+    ],
+    [
+      0,
+      1,
+      0
+    ]
+  ],
+  "radars": [
+    {
+      "role": "primary",
+      "cad_cover_sphere_center_mm": [
+        27.154784255050906,
+        130.2730337151288,
+        -347.98315206764096
+      ],
+      "cad_housing_rotation": [
+        [
+          -0.10825903512457329,
+          0.1875101492141462,
+          0.976278610467107
+        ],
+        [
+          -0.4881393052335483,
+          0.8454820778358898,
+          -0.216518070249148
+        ],
+        [
+          -0.8660254037844417,
+          -0.4999999999999948,
+          -4.9960036108132e-16
+        ]
+      ],
+      "expected_aperture_axis_cad": [
+        0.1875101492141472,
+        0.8454820778358898,
+        -0.4999999999999949
+      ]
+    },
+    {
+      "role": "auxiliary",
+      "cad_cover_sphere_center_mm": [
+        -24.776089228374783,
+        -130.746284013811,
+        -347.98315206764187
+      ],
+      "cad_housing_rotation": [
+        [
+          0.08682408883346392,
+          -0.15038373318043566,
+          -0.9848077530122081
+        ],
+        [
+          0.49240387650609707,
+          -0.8528685319524474,
+          0.17364817766693003
+        ],
+        [
+          -0.8660254037844428,
+          -0.49999999999999295,
+          -1.6653345369377402e-16
+        ]
+      ],
+      "expected_aperture_axis_cad": [
+        -0.15038373318043644,
+        -0.8528685319524473,
+        -0.49999999999999284
+      ]
+    }
+  ],
+  "pose_projection_horizon_s": 0.1,
+  "planning_clearance_radius_m": 0.5
+}

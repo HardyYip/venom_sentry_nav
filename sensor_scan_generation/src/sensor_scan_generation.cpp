@@ -31,6 +31,8 @@ SensorScanGenerationNode::SensorScanGenerationNode(const rclcpp::NodeOptions & o
   this->get_parameter("base_frame", base_frame_);
   this->get_parameter("robot_base_frame", robot_base_frame_);
 
+  require_valid_tf_ = this->declare_parameter<bool>("require_valid_tf", false);
+
   tf_buffer_ = std::make_unique<tf2_ros::Buffer>(this->get_clock());
   tf_listener_ = std::make_unique<tf2_ros::TransformListener>(*tf_buffer_);
   br_ = std::make_unique<tf2_ros::TransformBroadcaster>(*this);
@@ -70,8 +72,12 @@ void SensorScanGenerationNode::laserCloudAndOdometryHandler(
   tf2::Transform tf_odom_to_lidar;
 
   tf2::fromMsg(odometry_msg->pose.pose, tf_odom_to_lidar);
-  tf_lidar_to_robot_base_ = getTransform(lidar_frame_, robot_base_frame_, pcd_msg->header.stamp);
-  tf_lidar_to_chassis = getTransform(lidar_frame_, base_frame_, pcd_msg->header.stamp);
+  if (!getTransform(
+      lidar_frame_, robot_base_frame_, pcd_msg->header.stamp, tf_lidar_to_robot_base_) ||
+    !getTransform(lidar_frame_, base_frame_, pcd_msg->header.stamp, tf_lidar_to_chassis))
+  {
+    return;
+  }
 
   tf_odom_to_chassis = tf_odom_to_lidar * tf_lidar_to_chassis;
   tf_odom_to_robot_base = tf_odom_to_lidar * tf_lidar_to_robot_base_;
@@ -86,18 +92,25 @@ void SensorScanGenerationNode::laserCloudAndOdometryHandler(
   pub_laser_cloud_->publish(out);
 }
 
-tf2::Transform SensorScanGenerationNode::getTransform(
-  const std::string & target_frame, const std::string & source_frame, const rclcpp::Time & time)
+bool SensorScanGenerationNode::getTransform(
+  const std::string & target_frame, const std::string & source_frame,
+  const rclcpp::Time & time, tf2::Transform & transform)
 {
   try {
     auto transform_stamped = tf_buffer_->lookupTransform(
       target_frame, source_frame, time, rclcpp::Duration::from_seconds(0.5));
-    tf2::Transform transform;
     tf2::fromMsg(transform_stamped.transform, transform);
-    return transform;
+    return true;
   } catch (tf2::TransformException & ex) {
+    if (require_valid_tf_) {
+      RCLCPP_WARN_THROTTLE(
+        this->get_logger(), *this->get_clock(), 1000,
+        "TF lookup failed: %s. Dropping scan/odometry pair.", ex.what());
+      return false;
+    }
     RCLCPP_WARN(this->get_logger(), "TF lookup failed: %s. Returning identity.", ex.what());
-    return tf2::Transform::getIdentity();
+    transform = tf2::Transform::getIdentity();
+    return true;
   }
 }
 

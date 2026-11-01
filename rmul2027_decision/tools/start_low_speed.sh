@@ -48,6 +48,9 @@ Path(sys.argv[2]).write_text(yaml.safe_dump(params,sort_keys=False))
 PY
 task_recovery_args=()
 if [ "${RMUL_IMU_RECOVERY:-0}" = 1 ]; then task_recovery_args+=(--controlled-imu-recovery); fi
+if [ "${RMUL_SENSOR_PROFILE:-original}" = cad-dual-mid360 ]; then
+  exec bash "$task_repo/scripts/rmul2027/start_cad_dual_mid360.sh" --params-file "$task_params"
+fi
 if [ "${RMUL_SENSOR_PROFILE:-original}" = dual-mid360 ]; then
   exec bash "$task_repo/scripts/rmul2027/start_dual_mid360.sh" --params-file "$task_params"
 fi

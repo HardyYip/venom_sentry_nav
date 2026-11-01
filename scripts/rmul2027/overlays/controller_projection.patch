@@ -1,0 +1,177 @@
+--- a/src/collision_aware_omni_controller.cpp
++++ b/src/collision_aware_omni_controller.cpp
+@@ -4,6 +4,7 @@
+ #include "dwb_core/exceptions.hpp"
+ #include "dwb_core/trajectory_critic.hpp"
+ #include "pb_omni_pid_pursuit_controller/pose_velocity_estimator.hpp"
++#include "pb_omni_pid_pursuit_controller/pose_projection.hpp"
+ #include "pb_omni_pid_pursuit_controller/spin_coverage.hpp"
+ #include "pb_omni_pid_pursuit_controller/geodesic_goal_field.hpp"
+ #include "pluginlib/class_list_macros.hpp"
+@@ -134,6 +135,8 @@
+ {
+   PoseVelocityEstimator estimator_;
+   std::string pose_frame_;
++  double projection_horizon_{0.0};
++  rclcpp_lifecycle::LifecyclePublisher<geometry_msgs::msg::PoseStamped>::SharedPtr planning_seed_pub_;
+   rclcpp_lifecycle::LifecyclePublisher<geometry_msgs::msg::TwistStamped>::SharedPtr velocity_pub_;
+ 
+ protected:
+@@ -182,6 +185,12 @@
+     if (angular_max != 0.0) {
+       throw nav2_core::PlannerException("CollisionAwareOmniController requires max_vel_theta=0");
+     }
++    const std::string parameter=name+".pose_projection_horizon";
++    if (!node->has_parameter(parameter)) {node->declare_parameter(parameter,0.0);}
++    node->get_parameter(parameter,projection_horizon_);
++    planningPoseShift(0.0,0.0,0.0,0.0,projection_horizon_);
++    planning_seed_pub_=node->create_publisher<geometry_msgs::msg::PoseStamped>(
++      name+"/planning_seed",rclcpp::SystemDefaultsQoS());
+     velocity_pub_ = node->create_publisher<geometry_msgs::msg::TwistStamped>(
+       name + "/estimated_velocity", rclcpp::SystemDefaultsQoS());
+     RCLCPP_INFO(logger_, "Omni DWB uses estimated pose velocity in the nonspinning command frame");
+@@ -189,15 +198,15 @@
+   void activate() override
+   {
+     estimator_.reset(); pose_frame_.clear();
+-    dwb_core::DWBLocalPlanner::activate(); velocity_pub_->on_activate();
++    dwb_core::DWBLocalPlanner::activate(); velocity_pub_->on_activate(); planning_seed_pub_->on_activate();
+   }
+   void deactivate() override
+   {
+-    velocity_pub_->on_deactivate(); dwb_core::DWBLocalPlanner::deactivate();
++    velocity_pub_->on_deactivate(); planning_seed_pub_->on_deactivate(); dwb_core::DWBLocalPlanner::deactivate();
+   }
+   void cleanup() override
+   {
+-    velocity_pub_.reset(); estimator_.reset(); dwb_core::DWBLocalPlanner::cleanup();
++    velocity_pub_.reset(); planning_seed_pub_.reset(); estimator_.reset(); dwb_core::DWBLocalPlanner::cleanup();
+   }
+   geometry_msgs::msg::TwistStamped computeVelocityCommands(
+     const geometry_msgs::msg::PoseStamped & pose, const geometry_msgs::msg::Twist &,
+@@ -212,7 +221,17 @@
+     geometry_msgs::msg::TwistStamped observed;
+     observed.header = pose.header; observed.header.frame_id = costmap_ros_->getBaseFrameID();
+     observed.twist = velocity; velocity_pub_->publish(observed);
+-    return dwb_core::DWBLocalPlanner::computeVelocityCommands(pose, velocity, goal_checker);
++    auto planning_pose=pose;
++    auto node=node_.lock();
++    if (!node) {throw nav2_core::PlannerException("Planning clock unavailable");}
++    const double source_age=(node->now()-rclcpp::Time(pose.header.stamp)).seconds();
++    const auto shift=planningPoseShift(v.first,v.second,tf2::getYaw(pose.pose.orientation),
++                                      source_age,projection_horizon_);
++    planning_pose.pose.position.x+=shift.first;
++    planning_pose.pose.position.y+=shift.second;
++    // Internal planning seed only: retain original header/stamp; never publish TF or odometry.
++    planning_seed_pub_->publish(planning_pose);
++    return dwb_core::DWBLocalPlanner::computeVelocityCommands(planning_pose, velocity, goal_checker);
+   }
+ };
+ }  // namespace pb_omni_pid_pursuit_controller
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -23,6 +23,8 @@
+   find_package(ament_cmake_gtest REQUIRED)
+   ament_add_gtest(test_geodesic_goal_field test/test_geodesic_goal_field.cpp)
+   target_include_directories(test_geodesic_goal_field PRIVATE include)
++  ament_add_gtest(test_pose_projection test/test_pose_projection.cpp)
++  target_include_directories(test_pose_projection PRIVATE include)
+   find_package(ament_lint_auto REQUIRED)
+     ament_lint_auto_find_test_dependencies()
+ endif()
+--- a/src/collision_aware_omni_controller.cpp
++++ b/src/collision_aware_omni_controller.cpp
+@@ -5,6 +5,7 @@
+ #include "dwb_core/trajectory_critic.hpp"
+ #include "pb_omni_pid_pursuit_controller/pose_velocity_estimator.hpp"
+ #include "pb_omni_pid_pursuit_controller/pose_projection.hpp"
++#include "pb_omni_pid_pursuit_controller/planning_clearance.hpp"
+ #include "pb_omni_pid_pursuit_controller/spin_coverage.hpp"
+ #include "pb_omni_pid_pursuit_controller/geodesic_goal_field.hpp"
+ #include "pluginlib/class_list_macros.hpp"
+@@ -70,9 +71,10 @@
+ {
+   dwb_core::TrajectoryCritic::Ptr original_;
+   goal_field::Potential potential_;
+-public:
+-  explicit GeodesicGoalScore(dwb_core::TrajectoryCritic::Ptr original)
+-  : original_(std::move(original)) {}
++  double planning_radius_;
++public:
++  GeodesicGoalScore(dwb_core::TrajectoryCritic::Ptr original, double radius)
++  : original_(std::move(original)), planning_radius_(checkedPlanningRadius(radius)) {}
+   bool prepare(const geometry_msgs::msg::Pose2D & pose,
+     const nav_2d_msgs::msg::Twist2D & velocity,
+     const geometry_msgs::msg::Pose2D & goal, const nav_2d_msgs::msg::Path2D & plan) override
+@@ -85,7 +87,7 @@
+     std::vector<goal_field::Point> points;
+     points.reserve(plan.poses.size());
+     for (const auto & p : plan.poses) {points.push_back({p.x, p.y});}
+-    const bool reachable = potential_.prepare(grid, {pose.x, pose.y}, points, 0.382883794 + 0.05);
++    const bool reachable = potential_.prepare(grid, {pose.x, pose.y}, points, planning_radius_);
+     return prepared && reachable;
+   }
+   double getScale() const override {return original_->getScale();}
+@@ -101,7 +103,10 @@
+ 
+ class SpinCoverageCritic : public dwb_core::TrajectoryCritic
+ {
+-public:
++  double planning_radius_;
++public:
++  explicit SpinCoverageCritic(double radius)
++  : planning_radius_(checkedPlanningRadius(radius)) {}
+   double getScale() const override {return 1.0;}
+ 
+   double scoreTrajectory(const dwb_msgs::msg::Trajectory2D & traj) override
+@@ -114,7 +119,7 @@
+       costmap->getOriginX(), costmap->getOriginY(), costmap->getResolution(),
+       static_cast<int>(costmap->getSizeInCellsX()),
+       static_cast<int>(costmap->getSizeInCellsY()), costmap->getCharMap()};
+-    constexpr double kSpinRadius = 0.382883794 + 0.05;
++    const double kSpinRadius = planning_radius_;
+     for (const auto & pose : traj.poses) {
+       const double wx = pose.x;
+       const double wy = pose.y;
+@@ -145,6 +150,15 @@
+     dwb_core::DWBLocalPlanner::loadCritics();
+     auto node = node_.lock();
+     if (!node) {return;}
++    const std::string radius_parameter=dwb_plugin_name_+".planning_clearance_radius";
++    if (!node->has_parameter(radius_parameter)) {
++      node->declare_parameter(radius_parameter,kPhysicalSafetyRadius);
++    }
++    double planning_radius=kPhysicalSafetyRadius;
++    node->get_parameter(radius_parameter,planning_radius);
++    checkedPlanningRadius(planning_radius);
++    RCLCPP_INFO(logger_,"Shared trajectory/goal-field planning radius %.6f, physical floor %.6f",
++      planning_radius,kPhysicalSafetyRadius);
+     dwb_core::TrajectoryCritic::Ptr path_distance;
+     for (const auto & existing : critics_) {
+       if (existing->getName() == "PathDist") {path_distance = existing;}
+@@ -159,12 +173,12 @@
+         scored->initialize(node, "BaseObstacle", dwb_plugin_name_, costmap_ros_);
+         existing = scored;
+       } else if (existing->getName() == "GoalDist") {
+-        auto scored = std::make_shared<GeodesicGoalScore>(existing);
++        auto scored = std::make_shared<GeodesicGoalScore>(existing,planning_radius);
+         scored->initialize(node, "GoalDist", dwb_plugin_name_, costmap_ros_);
+         existing = scored;
+       }
+     }
+-    auto critic = std::make_shared<SpinCoverageCritic>();
++    auto critic = std::make_shared<SpinCoverageCritic>(planning_radius);
+     critic->initialize(node, "SpinCoverage", dwb_plugin_name_, costmap_ros_);
+     critics_.push_back(critic);
+     RCLCPP_INFO(
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -25,6 +25,8 @@
+   target_include_directories(test_geodesic_goal_field PRIVATE include)
+   ament_add_gtest(test_pose_projection test/test_pose_projection.cpp)
+   target_include_directories(test_pose_projection PRIVATE include)
++  ament_add_gtest(test_planning_clearance test/test_planning_clearance.cpp)
++  target_include_directories(test_planning_clearance PRIVATE include)
+   find_package(ament_lint_auto REQUIRED)
+     ament_lint_auto_find_test_dependencies()
+ endif()

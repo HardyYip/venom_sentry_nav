@@ -1,0 +1,191 @@
+--- a/include/pb_omni_pid_pursuit_controller/geodesic_goal_field.hpp
++++ b/include/pb_omni_pid_pursuit_controller/geodesic_goal_field.hpp
+@@ -12,6 +12,43 @@
+ namespace pb_omni_pid_pursuit_controller::goal_field
+ {
+ struct Point {double x, y;};
++// Enforce the same complete-cell reserve along the continuous trajectory.
++// A physically clear start inside the reserve may move outward, never inward.
++inline bool trajectoryReserveClear(
++  const c041_spin::GridView & grid, const std::vector<Point> & points, double radius)
++{
++  if (points.empty() || !grid.data || grid.width < 2 || grid.height < 2 ||
++    !std::isfinite(grid.resolution) || grid.resolution <= 0.0 ||
++    !std::isfinite(radius) || radius < 0.0) {return false;}
++  const double reserve = std::hypot(grid.resolution, grid.resolution) / 2.0;
++  const double required = radius + reserve;
++  double previous = 0.0;
++  bool first = true, established = false;
++  const auto check = [&](Point p) {
++    if (!std::isfinite(p.x) || !std::isfinite(p.y) ||
++      !c041_spin::circleClear(grid, p.x, p.y, radius)) {return false;}
++    const double distance = c041_spin::nearestHardDistance(grid, p.x, p.y, required);
++    if (!first && ((established && distance < required - 1.0e-9) ||
++      (!established && distance < previous - 1.0e-9))) {return false;}
++    first = false; established = established || distance >= required - 1.0e-9;
++    previous = distance;
++    return true;
++  };
++  if (!check(points.front())) {return false;}
++  for (std::size_t k = 1; k < points.size(); ++k) {
++    const Point a = points[k - 1], b = points[k];
++    if (!std::isfinite(b.x) || !std::isfinite(b.y) ||
++      !c041_spin::circleClear(grid, b.x, b.y, radius)) {return false;}
++    const int steps = std::max(1, static_cast<int>(std::ceil(
++      std::hypot(b.x - a.x, b.y - a.y) / (0.5 * grid.resolution))));
++    for (int j = 1; j <= steps; ++j) {
++      const double t = static_cast<double>(j) / steps;
++      if (!check({a.x + t * (b.x - a.x), a.y + t * (b.y - a.y)})) {return false;}
++    }
++  }
++  return true;
++}
++
+ class Potential
+ {
+   c041_spin::GridView grid_;
+@@ -92,7 +129,7 @@
+   }
+ public:
+   bool prepare(const c041_spin::GridView & grid, Point pose,
+-    const std::vector<Point> & plan, double radius)
++    const std::vector<Point> & plan, double radius, bool cover_cells = false)
+   {
+     grid_ = grid; radius_ = radius; target_plan_index_ = -1;
+     const int n = std::max(0, grid.width) * std::max(0, grid.height);
+@@ -101,6 +138,8 @@
+     if (!grid.data || grid.width < 2 || grid.height < 2 ||
+       !std::isfinite(grid.resolution) || grid.resolution <= 0.0 ||
+       !std::isfinite(radius) || radius < 0.0) {return false;}
++    // Cover every continuous point in each accepted square, not just its center.
++    const double cell_radius = radius + (cover_cells ? std::hypot(grid.resolution, grid.resolution) / 2.0 : 0.0);
+     std::vector<double> squared(n), line, transformed;
+     for (int y = 0; y < grid.height; ++y) {
+       line.resize(grid.width);
+@@ -117,12 +156,12 @@
+       for (int y = 0; y < grid.height; ++y) {
+         const int i = y * grid.width + x;
+         const auto p = center(i);
+-        const int min_x = static_cast<int>(std::floor((p.x - radius - grid.origin_x) / grid.resolution));
+-        const int max_x = static_cast<int>(std::ceil((p.x + radius - grid.origin_x) / grid.resolution));
+-        const int min_y = static_cast<int>(std::floor((p.y - radius - grid.origin_y) / grid.resolution));
+-        const int max_y = static_cast<int>(std::ceil((p.y + radius - grid.origin_y) / grid.resolution));
++        const int min_x = static_cast<int>(std::floor((p.x - cell_radius - grid.origin_x) / grid.resolution));
++        const int max_x = static_cast<int>(std::ceil((p.x + cell_radius - grid.origin_x) / grid.resolution));
++        const int min_y = static_cast<int>(std::floor((p.y - cell_radius - grid.origin_y) / grid.resolution));
++        const int max_y = static_cast<int>(std::ceil((p.y + cell_radius - grid.origin_y) / grid.resolution));
+         safe_[i] = min_x >= 0 && min_y >= 0 && max_x < grid.width && max_y < grid.height &&
+-          transformed[y] * grid.resolution * grid.resolution > radius * radius;
++          transformed[y] * grid.resolution * grid.resolution > cell_radius * cell_radius;
+         const double clearance = std::min({std::sqrt(transformed[y]) * grid.resolution,
+           p.x - grid.origin_x, p.y - grid.origin_y,
+           grid.origin_x + grid.width * grid.resolution - p.x,
+--- a/src/collision_aware_omni_controller.cpp
++++ b/src/collision_aware_omni_controller.cpp
+@@ -72,9 +72,10 @@
+   dwb_core::TrajectoryCritic::Ptr original_;
+   goal_field::Potential potential_;
+   double planning_radius_;
+-public:
+-  GeodesicGoalScore(dwb_core::TrajectoryCritic::Ptr original, double radius)
+-  : original_(std::move(original)), planning_radius_(checkedPlanningRadius(radius)) {}
++  bool cover_cells_;
++public:
++  GeodesicGoalScore(dwb_core::TrajectoryCritic::Ptr original, double radius, bool cover_cells)
++  : original_(std::move(original)), planning_radius_(checkedPlanningRadius(radius)), cover_cells_(cover_cells) {}
+   bool prepare(const geometry_msgs::msg::Pose2D & pose,
+     const nav_2d_msgs::msg::Twist2D & velocity,
+     const geometry_msgs::msg::Pose2D & goal, const nav_2d_msgs::msg::Path2D & plan) override
+@@ -87,7 +88,7 @@
+     std::vector<goal_field::Point> points;
+     points.reserve(plan.poses.size());
+     for (const auto & p : plan.poses) {points.push_back({p.x, p.y});}
+-    const bool reachable = potential_.prepare(grid, {pose.x, pose.y}, points, planning_radius_);
++    const bool reachable = potential_.prepare(grid, {pose.x, pose.y}, points, planning_radius_, cover_cells_);
+     return prepared && reachable;
+   }
+   double getScale() const override {return original_->getScale();}
+@@ -104,9 +105,10 @@
+ class SpinCoverageCritic : public dwb_core::TrajectoryCritic
+ {
+   double planning_radius_;
+-public:
+-  explicit SpinCoverageCritic(double radius)
+-  : planning_radius_(checkedPlanningRadius(radius)) {}
++  bool cover_cells_;
++public:
++  explicit SpinCoverageCritic(double radius, bool cover_cells)
++  : planning_radius_(checkedPlanningRadius(radius)), cover_cells_(cover_cells) {}
+   double getScale() const override {return 1.0;}
+ 
+   double scoreTrajectory(const dwb_msgs::msg::Trajectory2D & traj) override
+@@ -120,6 +122,15 @@
+       static_cast<int>(costmap->getSizeInCellsX()),
+       static_cast<int>(costmap->getSizeInCellsY()), costmap->getCharMap()};
+     const double kSpinRadius = planning_radius_;
++    if (cover_cells_) {
++      std::vector<goal_field::Point> points;
++      points.reserve(traj.poses.size());
++      for (const auto & p : traj.poses) {points.push_back({p.x, p.y});}
++      if (!goal_field::trajectoryReserveClear(grid, points, planning_radius_)) {
++        throw dwb_core::IllegalTrajectoryException(name_,
++          "SpinCoverage trajectory violates cell reserve or moves inward from reserve");
++      }
++    }
+     for (const auto & pose : traj.poses) {
+       const double wx = pose.x;
+       const double wy = pose.y;
+@@ -157,6 +168,10 @@
+     double planning_radius=kPhysicalSafetyRadius;
+     node->get_parameter(radius_parameter,planning_radius);
+     checkedPlanningRadius(planning_radius);
++    const std::string coverage_parameter=dwb_plugin_name_+".planning_cell_coverage";
++    if (!node->has_parameter(coverage_parameter)) {node->declare_parameter(coverage_parameter,false);}
++    bool cover_cells=false;
++    node->get_parameter(coverage_parameter,cover_cells);
+     RCLCPP_INFO(logger_,"Shared trajectory/goal-field planning radius %.6f, physical floor %.6f",
+       planning_radius,kPhysicalSafetyRadius);
+     dwb_core::TrajectoryCritic::Ptr path_distance;
+@@ -166,6 +181,10 @@
+     if (!path_distance || !costmap_ros_ || !costmap_ros_->getCostmap()) {
+       throw nav2_core::PlannerException("Path distance and costmap required for obstacle scoring");
+     }
++    RCLCPP_INFO(logger_,"Goal-field complete cell coverage %s, half-diagonal reserve %.6f m",
++      cover_cells ? "enabled" : "disabled",
++      cover_cells ? std::hypot(costmap_ros_->getCostmap()->getResolution(),
++      costmap_ros_->getCostmap()->getResolution()) / 2.0 : 0.0);
+     for (auto & existing : critics_) {
+       if (existing->getName() == "BaseObstacle") {
+         auto scored = std::make_shared<GoalAwareObstacleScore>(
+@@ -173,16 +192,18 @@
+         scored->initialize(node, "BaseObstacle", dwb_plugin_name_, costmap_ros_);
+         existing = scored;
+       } else if (existing->getName() == "GoalDist") {
+-        auto scored = std::make_shared<GeodesicGoalScore>(existing,planning_radius);
++        auto scored = std::make_shared<GeodesicGoalScore>(existing,planning_radius,cover_cells);
+         scored->initialize(node, "GoalDist", dwb_plugin_name_, costmap_ros_);
+         existing = scored;
+       }
+     }
+-    auto critic = std::make_shared<SpinCoverageCritic>(planning_radius);
++    auto critic = std::make_shared<SpinCoverageCritic>(planning_radius,cover_cells);
+     critic->initialize(node, "SpinCoverage", dwb_plugin_name_, costmap_ros_);
+     critics_.push_back(critic);
+     RCLCPP_INFO(
+       logger_, "Added SpinCoverage critic: full physical spin circle vs lethal/unknown cells");
++    RCLCPP_INFO(logger_, "Continuous trajectory cell reserve %s; inward motion from reserve forbidden",
++      cover_cells ? "enabled" : "disabled");
+   }
+ 
+ public:
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -27,6 +27,8 @@
+   target_include_directories(test_pose_projection PRIVATE include)
+   ament_add_gtest(test_planning_clearance test/test_planning_clearance.cpp)
+   target_include_directories(test_planning_clearance PRIVATE include)
++  ament_add_gtest(test_goal_field_cell_coverage test/test_goal_field_cell_coverage.cpp)
++  target_include_directories(test_goal_field_cell_coverage PRIVATE include)
+   find_package(ament_lint_auto REQUIRED)
+     ament_lint_auto_find_test_dependencies()
+ endif()

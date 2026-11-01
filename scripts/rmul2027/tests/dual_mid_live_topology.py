@@ -14,6 +14,8 @@ from sensor_msgs.msg import PointCloud2
 
 parser=argparse.ArgumentParser()
 parser.add_argument('--output',type=Path,required=True)
+parser.add_argument('--aux-frame',default='aux_mid360')
+parser.add_argument('--main-frame',default='front_mid360')
 args=parser.parse_args()
 rclpy.init()
 node=Node('dual_mid_topology_observer',namespace='/red_standard_robot1',parameter_overrides=[Parameter('use_sim_time',value=True)])
@@ -31,7 +33,7 @@ def pump(seconds):
  end=time.monotonic()+seconds
  while time.monotonic()<end:rclpy.spin_once(node,timeout_sec=.02)
 try:
- params={}
+ params={};checks=[]
  for name in ['local_costmap','global_costmap']:
   c=node.create_client(GetParameters,name+'/'+name+'/get_parameters')
   assert c.wait_for_service(timeout_sec=50),name
@@ -41,15 +43,20 @@ try:
   vals=future.result().values
   assert 'aux_mid_obstacle_layer' in vals[0].string_array_value
   assert 'rplidar_obstacle_layer' not in vals[0].string_array_value
-  assert vals[1].string_value.endswith('/auxiliary/obstacles') and vals[2].string_value=='aux_mid360' and vals[3].double_value==2.
+  assert vals[1].string_value.endswith('/auxiliary/obstacles') and vals[2].string_value==args.aux_frame and vals[3].double_value==2.
   params[name]=dict(plugins=list(vals[0].string_array_value),topic=vals[1].string_value,frame=vals[2].string_value,persistence=vals[3].double_value)
+  checks.append(name+'_parameters')
  pump(8.)
  assert all(counts[k]>10 and last[k]>first[k] for k in ['livox/lidar','auxiliary/livox/lidar','auxiliary/obstacles']),dict(counts)
- assert frames['auxiliary/livox/lidar']==frames['auxiliary/obstacles']=='aux_mid360',frames
+ checks.append('three_source_stamps_advance')
+ assert frames['auxiliary/livox/lidar']==frames['auxiliary/obstacles']==args.aux_frame and frames['livox/lidar']==args.main_frame,frames
+ checks.append('declared_frames_match_sources')
  assert not bad,bad
+ checks.append('finite_occupancy_one')
  old={n:node.count_publishers(n) for n in ['rplidar_a2/scan','rplidar_obstacles']}
  assert all(v==0 for v in old.values()),old
- args.output.write_text(json.dumps(dict(passed=True,counts=dict(counts),first_stamp=first,last_stamp=last,frames=frames,maps=params,old_publishers=old),indent=2))
+ checks.append('no_legacy_lidar_publishers')
+ args.output.write_text(json.dumps(dict(passed=True,checks=checks,counts=dict(counts),first_stamp=first,last_stamp=last,frames=frames,maps=params,old_publishers=old),indent=2))
  print('LIVE_TOPOLOGY_PASSED',json.dumps(dict(counts)),flush=True)
 finally:
  node.destroy_node();rclpy.shutdown()

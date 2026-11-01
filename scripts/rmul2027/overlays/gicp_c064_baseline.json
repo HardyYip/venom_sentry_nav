@@ -1,0 +1,24 @@
+{
+  "source_sha256": {
+    "package.xml": "9fc9114fb74a741897f17654376eef7f09b143b92580fb561104d81c0d385d7d",
+    "CONTRIBUTING.md": "a12f05a2deffbd0692fe206bb0b325d7b8eeac37c6aa0cb763550978a2706dbc",
+    "LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    ".clang-tidy": "dd6960f5e4722bfbe1087c0c7c8fd6f4929a2684f693e64724675686bc306f2f",
+    "CMakeLists.txt": "c184a96b01dec4d21026917479573253d38dc0b7c06321652e4017897864f18c",
+    ".clang-format": "39d316067e73187125a7f222d954478052f55cd25e2831c3a44578f5f173d5c3",
+    ".pre-commit-config.yaml": "7e370122a71728743bae060dbe9377773db7a96a307d7bbc37067e2a618127ab",
+    "README.md": "ee47afc69de97eca30191a926a3f911f3acb5352e1c1db6c0b0725c06c7e293c",
+    ".gitignore": "2655d13d77df97cbf61f400d9af18da1f7e618d6c8f825b3175176793d406ea3",
+    ".github/mergify.yml": "13c429af91734d5a9c84335fa0221db2ea2ccbef2ae8c05d585c3b380a6db65c",
+    ".github/dependabot.yml": "eb1e4538873d0e2f9ad45cf0ff677e8a45163f88f0dc58c2893ee844b42c6eb3",
+    ".github/workflows/build_and_test.yml": "d3b834b45a5464629d8437c17ef051178729d7c686df1faa6db1f6c80de7b3c9",
+    "src/small_gicp_relocalization.cpp": "93ee96ff47515ac63b20873be85bbaade552341bf03b3c97634ea98a8be292a0",
+    "include/small_gicp_relocalization/small_gicp_relocalization.hpp": "cc01b7f4608c52f951c3f1c6383d5c8048c94d154062f460c1ea51020bf35a89",
+    "launch/small_gicp_relocalization_launch.py": "670dc69cd1d478fc37b20527519d8fcbccc5a1091e4f9a29896fe80a7da4b07e"
+  },
+  "original_recovery_library": "/home/hardy/pb2025_nav_ws/artifacts/rmul_2027_3v3/imu-recovery-C064/localization-install/small_gicp_relocalization/lib/libsmall_gicp_relocalization.so",
+  "original_recovery_library_sha256": "8481ba72642d5d82f9f40614c48a8e59738010f708b788a7e92b09a7684cdc27",
+  "small_gicp_dependency": "/home/hardy/pb2025_nav_ws/deps/small_gicp",
+  "small_gicp_git_sha": "fa0cfc983417c044b6036f71dfa448038bb9c820",
+  "normal_sources_26_unchanged": true
+}

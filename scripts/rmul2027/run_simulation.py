@@ -25,6 +25,8 @@ parser.add_argument('--wheel-contact',choices=('original','rounded'),default='ro
 parser.add_argument('--field-contact',choices=('cad','cad-flat-marking','cad-flat-floor','seam-ramps'),default='seam-ramps')
 parser.add_argument('--params-file', default=str(Path(__file__).resolve().parent/'config/nav2_params.yaml'))
 parser.add_argument('--gz-world-path')
+parser.add_argument('--map-file', help='Optional private occupancy YAML; original map set retained')
+parser.add_argument('--prior-pcd-file', help='Optional private prior pointcloud; occupancy map unchanged')
 parser.add_argument('--controlled-imu-recovery',action='store_true',help='C064 owned navigation restart under independent stop/permit')
 parser.add_argument('--tf2-library-dir', help='Optional TF2 core library directory for 2027 navigation only')
 options = parser.parse_args()
@@ -44,7 +46,18 @@ selected_gz_world = Path(options.gz_world_path).expanduser().resolve() if option
 if not selected_gz_world.is_file():
     raise SystemExit(f'Missing robot spawn configuration: {selected_gz_world}')
 maps = workspace / 'artifacts' / 'rmul_2027_3v3' / ('maps-cad' if options.mode=='nav' and options.map_set=='cad' else 'maps')
+selected_prior_pcd = Path(options.prior_pcd_file).expanduser().resolve() if options.prior_pcd_file else maps/'rmul_2027_3v3.pcd'
+selected_map_yaml = Path(options.map_file).expanduser().resolve() if options.map_file else maps/'rmul_2027_3v3.yaml'
+if options.map_file and options.mode != 'nav':
+    parser.error('--map-file is supported only in nav mode')
+selected_map_image = (selected_map_yaml.parent/yaml.safe_load(selected_map_yaml.read_text())['image']).resolve()
+if not selected_map_image.is_file():
+    raise SystemExit('Missing selected occupancy image: '+str(selected_map_image))
+if options.prior_pcd_file and options.mode != 'nav':
+    parser.error('--prior-pcd-file is supported only in nav mode')
 if options.mode == 'nav':
+    if not selected_prior_pcd.is_file():
+        raise SystemExit('Missing selected prior PCD: '+str(selected_prior_pcd))
     for suffix in ('.pcd', '.yaml'):
         path = maps / ('rmul_2027_3v3' + suffix)
         if not path.is_file() or path.stat().st_size == 0:
@@ -64,6 +77,10 @@ if not world_sdf.is_file():raise SystemExit('Missing selected world: '+str(world
 selected_manifest=folder/'scene'/({'cad-flat-marking':'flat-marking-contact-manifest.json','cad-flat-floor':'flat-floor-contact-manifest.json'}.get(options.field_contact,'navigation-contact-manifest.json'))
 if not selected_manifest.is_file():raise SystemExit('Missing contact manifest: '+str(selected_manifest))
 shutil.copyfile(world_sdf,logs/'world.sdf')
+(logs/'selected-map.json').write_text(json.dumps(dict(yaml=str(selected_map_yaml),image=str(selected_map_image),
+    yaml_sha256=hashlib.sha256(selected_map_yaml.read_bytes()).hexdigest(),
+    image_sha256=hashlib.sha256(selected_map_image.read_bytes()).hexdigest(),
+    prior_pcd=str(selected_prior_pcd),original_map_set=str(maps)),indent=2))
 shutil.copyfile(selected_manifest,logs/selected_manifest.name)
 source_params=selected_params.read_text()
 source_params=source_params.replace('/home/hardy/pb2025_nav_ws/src/pb2025_sentry_nav/scripts/rmul2027',str(folder))
@@ -93,7 +110,7 @@ def runtime_snapshot():
         'captured_at':captured_at,'size':p.stat().st_size,'mtime_ns':p.stat().st_mtime_ns}
         for p in runtime_paths if p.is_file()}
 (logs/'dependency-runtime.json').write_text(json.dumps(runtime_snapshot(),indent=2)+'\n')
-resources=[world_sdf,selected_gz_world,selected_manifest,logs/'nav2_params.yaml',maps/'rmul_2027_3v3.pcd',maps/'rmul_2027_3v3.yaml',maps/'rmul_2027_3v3.pgm']
+resources=[world_sdf,selected_gz_world,selected_manifest,logs/'nav2_params.yaml',selected_prior_pcd,selected_map_yaml,selected_map_image]
 if 'rplidar_obstacles' in source_params:resources.append(folder/'rplidar_obstacle_cloud.py')
 if 'aux_mid_obstacle_cloud' in yaml.safe_load(source_params):
     resources.append(folder/'aux_mid_obstacle_cloud.py')
@@ -230,8 +247,8 @@ try:
              'slam:=' + ('True' if options.mode == 'mapping' else 'False'),
              'use_rviz:=False', 'use_sim_time:=True',
              'params_file:=' + str(logs/'nav2_params.yaml'),
-             'map:=' + str(maps / 'rmul_2027_3v3.yaml'),
-             'prior_pcd_file:=' + str(maps / 'rmul_2027_3v3.pcd')]
+             'map:=' + str(selected_map_yaml),
+             'prior_pcd_file:=' + str(selected_prior_pcd)]
         if options.controlled_imu_recovery:
             nav_command=['python3',str(folder.parents[1]/'rmul2027_decision/recovery/supervisor.py'),
                          '--command',json.dumps(nav_command),'--params',str(logs/'nav2_params.yaml'),

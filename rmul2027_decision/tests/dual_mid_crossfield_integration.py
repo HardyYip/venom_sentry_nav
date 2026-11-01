@@ -127,7 +127,7 @@ class Monitor(Feed):
 
 def runtime_identity():
     expected={
-      'libpb_omni_pid_pursuit_controller.so':ws/'install/pb_omni_pid_pursuit_controller/lib/libpb_omni_pid_pursuit_controller.so',
+      'libpb_omni_pid_pursuit_controller.so':(ws/'artifacts/rmul_2027_3v3/cad-dual-mid-C072/controller-trajectory4-install/pb_omni_pid_pursuit_controller/lib/libpb_omni_pid_pursuit_controller.so' if os.environ.get('RMUL_SENSOR_PROFILE')=='cad-dual-mid360' else ws/'install/pb_omni_pid_pursuit_controller/lib/libpb_omni_pid_pursuit_controller.so'),
       'librmul_pose_fresh_condition_bt_node.so':build/'nav-safety-install/rmul2027_nav_safety/lib/librmul_pose_fresh_condition_bt_node.so',
       'libfake_vel_transform.so':build/'safety-install/fake_vel_transform/lib/libfake_vel_transform.so',
       'libtf2.so':ws/'artifacts/rmul_2027_3v3/runtime/tf2-0.25.24/lib/libtf2.so'}
