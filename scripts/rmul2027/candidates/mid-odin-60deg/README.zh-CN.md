@@ -9,3 +9,7 @@
 ## 0.85 m/s 同版提速
 
 固定 12/12、对向 3/3，零接触。本车对向实测最高 0.85034 m/s，最低物理净距 0.17676 m。[高速复跑方法](speeds/0.85mps/TEST-METHOD.zh-CN.md) · [逐场结果](speeds/0.85mps/qualification-summary.json)
+
+## 1.10 m/s 同版提速
+
+固定 12/12、对向 3/3，零接触。本车对向实测最高 1.01916 m/s，最低物理净距 0.21373 m。[高速复跑方法](speeds/1.10mps/TEST-METHOD.zh-CN.md) · [逐场结果](speeds/1.10mps/qualification-summary.json)

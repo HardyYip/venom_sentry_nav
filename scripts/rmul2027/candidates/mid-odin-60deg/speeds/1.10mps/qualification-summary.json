@@ -1,0 +1,2602 @@
+{
+  "time": "2026-11-21T05:22:10.886540+08:00",
+  "configured_params_sha256": "825db3aa85056324ddb2fe5b16dd3e4ae4159aa89c350d21815f3cbddfcbd09a",
+  "completed_standard_round": true,
+  "qualified_standard_round": true,
+  "stages": {
+    "fixed-tf-diagnostic-residual": {
+      "completed": 3,
+      "passed": 3,
+      "results": [
+        {
+          "case": "left-far-01",
+          "status": "passed",
+          "error": null,
+          "actions": {
+            "preposition": {
+              "accepted": true,
+              "fixture_passed": true,
+              "ros_status": 4,
+              "truth_error_m": 0.05348926771425574,
+              "strict_one_second_stop_passed": true,
+              "stable_stop_confirmed": true
+            },
+            "goal": {
+              "accepted": true,
+              "fixture_passed": true,
+              "ros_status": 4,
+              "truth_error_m": 0.05913035456142873,
+              "strict_one_second_stop_passed": true,
+              "stable_stop_confirmed": true
+            }
+          },
+          "obstacle_goal_started": true,
+          "opponent_movement_started": false,
+          "opponent_fitted_speed_mps": null,
+          "contacts": 0,
+          "minimum_gap_m": 0.14310651798163487,
+          "goal_robot_speed_peak_mps": null,
+          "topology_passed": true,
+          "params_match": true,
+          "gate_state_transition_counts": {
+            "external_stop": 2,
+            "no_single_active_goal": 3,
+            "ready": 6,
+            "odin_obstacle_source_unmatched": 4
+          },
+          "configuration_checks": {
+            "original_robot_sdf": true,
+            "c072_3hz_tree_with_map_refresh": true,
+            "c072_base_obstacle_04": true,
+            "c072_local_clearance_05": true,
+            "global_plugin": true,
+            "controller_speed": true,
+            "smoother_speed": true,
+            "velocity_sampling": true,
+            "goal_checker": true,
+            "local_prediction": true,
+            "swept_clearance": true,
+            "controlled_recovery": true
+          },
+          "recovery_events": [
+            {
+              "kind": "release_verified",
+              "steady": 144822.290615764,
+              "ros": 5.938000000000001,
+              "epoch": 0,
+              "evidence": {
+                "epoch": 0,
+                "steady": 144822.289387519,
+                "ros": 5.938000000000001,
+                "quality_count": 4,
+                "registration_sequence": 4,
+                "last_source": 5.849999999,
+                "gates": {
+                  "healthy": true,
+                  "stationary": true,
+                  "external": true,
+                  "pose": true
+                }
+              }
+            },
+            {
+              "kind": "transition",
+              "steady": 144822.290725939,
+              "ros": 5.938000000000001,
+              "epoch": 0,
+              "previous": "VERIFY",
+              "state": "RUNNING",
+              "fault": "",
+              "input_detail": {
+                "imu": {
+                  "steady": 144822.287542033,
+                  "ros": 5.9350000000000005,
+                  "stamp": 5.9350000000000005,
+                  "source_age_s": 0.0,
+                  "stamp_delta_s": 0.005000000000000782,
+                  "receipt_gap_s": 0.004777132999151945,
+                  "valid": true
+                },
+                "invalid_imu": [],
+                "imu_receipt_age_s": 0.0018454859964549541,
+                "imu_valid_since": 144818.328683533,
+                "odom_stamp": 5.9,
+                "odom_receipt_age_s": 0.012446586013538763,
+                "odom_progress_age_s": 0.012446586013538763
+              }
+            },
+            {
+              "kind": "owned_tree_audit",
+              "steady": 144899.273958544,
+              "ros": 82.423,
+              "epoch": 0,
+              "remaining": []
+            }
+          ],
+          "process_remaining": [],
+          "started_at": "2026-11-21T04:49:49.644524+08:00",
+          "ended_at": "2026-11-21T04:51:24.905505+08:00"
+        },
+        {
+          "case": "left-far-02",
+          "status": "passed",
+          "error": null,
+          "actions": {
+            "preposition": {
+              "accepted": true,
+              "fixture_passed": true,
+              "ros_status": 4,
+              "truth_error_m": 0.02291663069282831,
+              "strict_one_second_stop_passed": true,
+              "stable_stop_confirmed": true
+            },
+            "goal": {
+              "accepted": true,
+              "fixture_passed": true,
+              "ros_status": 4,
+              "truth_error_m": 0.062389193406714415,
+              "strict_one_second_stop_passed": true,
+              "stable_stop_confirmed": true
+            }
+          },
+          "obstacle_goal_started": true,
+          "opponent_movement_started": false,
+          "opponent_fitted_speed_mps": null,
+          "contacts": 0,
+          "minimum_gap_m": 0.1646441792105824,
+          "goal_robot_speed_peak_mps": null,
+          "topology_passed": true,
+          "params_match": true,
+          "gate_state_transition_counts": {
+            "external_stop": 2,
+            "no_single_active_goal": 3,
+            "ready": 3,
+            "odin_obstacle_source_unmatched": 1
+          },
+          "configuration_checks": {
+            "original_robot_sdf": true,
+            "c072_3hz_tree_with_map_refresh": true,
+            "c072_base_obstacle_04": true,
+            "c072_local_clearance_05": true,
+            "global_plugin": true,
+            "controller_speed": true,
+            "smoother_speed": true,
+            "velocity_sampling": true,
+            "goal_checker": true,
+            "local_prediction": true,
+            "swept_clearance": true,
+            "controlled_recovery": true
+          },
+          "recovery_events": [
+            {
+              "kind": "release_verified",
+              "steady": 144916.98310588,
+              "ros": 5.322,
+              "epoch": 0,
+              "evidence": {
+                "epoch": 0,
+                "steady": 144916.982223482,
+                "ros": 5.322,
+                "quality_count": 4,
+                "registration_sequence": 4,
+                "last_source": 5.25,
+                "gates": {
+                  "healthy": true,
+                  "stationary": true,
+                  "external": true,
+                  "pose": true
+                }
+              }
+            },
+            {
+              "kind": "transition",
+              "steady": 144916.983199986,
+              "ros": 5.322,
+              "epoch": 0,
+              "previous": "VERIFY",
+              "state": "RUNNING",
+              "fault": "",
+              "input_detail": {
+                "imu": {
+                  "steady": 144916.980554645,
+                  "ros": 5.32,
+                  "stamp": 5.32,
+                  "source_age_s": 0.0,
+                  "stamp_delta_s": 0.004999999999999893,
+                  "receipt_gap_s": 0.005014505994040519,
+                  "valid": true
+                },
+                "invalid_imu": [],
+                "imu_receipt_age_s": 0.0016688369796611369,
+                "imu_valid_since": 144913.626500388,
+                "odom_stamp": 5.25,
+                "odom_receipt_age_s": 0.04787932097679004,
+                "odom_progress_age_s": 0.04787932097679004
+              }
+            },
+            {
+              "kind": "owned_tree_audit",
+              "steady": 144991.444843491,
+              "ros": 79.284,
+              "epoch": 0,
+              "remaining": []
+            }
+          ],
+          "process_remaining": [],
+          "started_at": "2026-11-21T04:51:24.907608+08:00",
+          "ended_at": "2026-11-21T04:52:57.068660+08:00"
+        },
+        {
+          "case": "left-far-03",
+          "status": "passed",
+          "error": null,
+          "actions": {
+            "preposition": {
+              "accepted": true,
+              "fixture_passed": true,
+              "ros_status": 4,
+              "truth_error_m": 0.02546325415779661,
+              "strict_one_second_stop_passed": true,
+              "stable_stop_confirmed": true
+            },
+            "goal": {
+              "accepted": true,
+              "fixture_passed": true,
+              "ros_status": 4,
+              "truth_error_m": 0.07399197755257161,
+              "strict_one_second_stop_passed": true,
+              "stable_stop_confirmed": true
+            }
+          },
+          "obstacle_goal_started": true,
+          "opponent_movement_started": false,
+          "opponent_fitted_speed_mps": null,
+          "contacts": 0,
+          "minimum_gap_m": 0.18434543636170142,
+          "goal_robot_speed_peak_mps": null,
+          "topology_passed": true,
+          "params_match": true,
+          "gate_state_transition_counts": {
+            "no_single_active_goal": 4,
+            "external_stop": 2,
+            "ready": 6,
+            "odin_obstacle_source_unmatched": 4
+          },
+          "configuration_checks": {
+            "original_robot_sdf": true,
+            "c072_3hz_tree_with_map_refresh": true,
+            "c072_base_obstacle_04": true,
+            "c072_local_clearance_05": true,
+            "global_plugin": true,
+            "controller_speed": true,
+            "smoother_speed": true,
+            "velocity_sampling": true,
+            "goal_checker": true,
+            "local_prediction": true,
+            "swept_clearance": true,
+            "controlled_recovery": true
+          },
+          "recovery_events": [
+            {
+              "kind": "release_verified",
+              "steady": 145009.787955889,
+              "ros": 5.922000000000001,
+              "epoch": 0,
+              "evidence": {
+                "epoch": 0,
+                "steady": 145009.786997048,
+                "ros": 5.922000000000001,
+                "quality_count": 4,
+                "registration_sequence": 4,
+                "last_source": 5.849999999,
+                "gates": {
+                  "healthy": true,
+                  "stationary": true,
+                  "external": true,
+                  "pose": true
+                }
+              }
+            },
+            {
+              "kind": "transition",
+              "steady": 145009.788052138,
+              "ros": 5.922000000000001,
+              "epoch": 0,
+              "previous": "VERIFY",
+              "state": "RUNNING",
+              "fault": "",
+              "input_detail": {
+                "imu": {
+                  "steady": 145009.785477609,
+                  "ros": 5.92,
+                  "stamp": 5.92,
+                  "source_age_s": 0.0,
+                  "stamp_delta_s": 0.004999999999999893,
+                  "receipt_gap_s": 0.004957350000040606,
+                  "valid": true
+                },
+                "invalid_imu": [],
+                "imu_receipt_age_s": 0.0015194390143733472,
+                "imu_valid_since": 145005.83229127,
+                "odom_stamp": 5.849999999,
+                "odom_receipt_age_s": 0.05027016400708817,
+                "odom_progress_age_s": 0.05027016400708817
+              }
+            },
+            {
+              "kind": "owned_tree_audit",
+              "steady": 145099.03694492,
+              "ros": 94.643,
+              "epoch": 0,
+              "remaining": []
+            }
+          ],
+          "process_remaining": [],
+          "started_at": "2026-11-21T04:52:57.072613+08:00",
+          "ended_at": "2026-11-21T04:54:44.668903+08:00"
+        }
+      ]
+    },
+    "fixed-left": {
+      "completed": 6,
+      "passed": 6,
+      "results": [
+        {
+          "case": "left-far-01",
+          "status": "passed",
+          "error": null,
+          "actions": {
+            "preposition": {
+              "accepted": true,
+              "fixture_passed": true,
+              "ros_status": 4,
+              "truth_error_m": 0.04011542491607145,
+              "strict_one_second_stop_passed": true,
+              "stable_stop_confirmed": true
+            },
+            "goal": {
+              "accepted": true,
+              "fixture_passed": true,
+              "ros_status": 4,
+              "truth_error_m": 0.06947095987375725,
+              "strict_one_second_stop_passed": true,
+              "stable_stop_confirmed": true
+            }
+          },
+          "obstacle_goal_started": true,
+          "opponent_movement_started": false,
+          "opponent_fitted_speed_mps": null,
+          "contacts": 0,
+          "minimum_gap_m": 0.17964165233765297,
+          "goal_robot_speed_peak_mps": null,
+          "topology_passed": true,
+          "params_match": true,
+          "gate_state_transition_counts": {
+            "no_single_active_goal": 4,
+            "external_stop": 2,
+            "ready": 10,
+            "odin_obstacle_source_unmatched": 8
+          },
+          "configuration_checks": {
+            "original_robot_sdf": true,
+            "c072_3hz_tree_with_map_refresh": true,
+            "c072_base_obstacle_04": true,
+            "c072_local_clearance_05": true,
+            "global_plugin": true,
+            "controller_speed": true,
+            "smoother_speed": true,
+            "velocity_sampling": true,
+            "goal_checker": true,
+            "local_prediction": true,
+            "swept_clearance": true,
+            "controlled_recovery": true
+          },
+          "recovery_events": [
+            {
+              "kind": "release_verified",
+              "steady": 145416.910896576,
+              "ros": 5.902,
+              "epoch": 0,
+              "evidence": {
+                "epoch": 0,
+                "steady": 145416.909841234,
+                "ros": 5.902,
+                "quality_count": 4,
+                "registration_sequence": 4,
+                "last_source": 5.75,
+                "gates": {
+                  "healthy": true,
+                  "stationary": true,
+                  "external": true,
+                  "pose": true
+                }
+              }
+            },
+            {
+              "kind": "transition",
+              "steady": 145416.911013364,
+              "ros": 5.902,
+              "epoch": 0,
+              "previous": "VERIFY",
+              "state": "RUNNING",
+              "fault": "",
+              "input_detail": {
+                "imu": {
+                  "steady": 145416.908472617,
+                  "ros": 5.9,
+                  "stamp": 5.9,
+                  "source_age_s": 0.0,
+                  "stamp_delta_s": 0.005000000000000782,
+                  "receipt_gap_s": 0.0050573680200614035,
+                  "valid": true
+                },
+                "invalid_imu": [],
+                "imu_receipt_age_s": 0.0013686169986613095,
+                "imu_valid_since": 145412.973206794,
+                "odom_stamp": 5.849999999,
+                "odom_receipt_age_s": 0.024976333021186292,
+                "odom_progress_age_s": 0.024976333021186292
+              }
+            },
+            {
+              "kind": "owned_tree_audit",
+              "steady": 145490.817079311,
+              "ros": 79.29,
+              "epoch": 0,
+              "remaining": []
+            }
+          ],
+          "process_remaining": [],
+          "started_at": "2026-11-21T04:59:44.141454+08:00",
+          "ended_at": "2026-11-21T05:01:16.440391+08:00"
+        },
+        {
+          "case": "left-far-02",
+          "status": "passed",
+          "error": null,
+          "actions": {
+            "preposition": {
+              "accepted": true,
+              "fixture_passed": true,
+              "ros_status": 4,
+              "truth_error_m": 0.01733273794380331,
+              "strict_one_second_stop_passed": true,
+              "stable_stop_confirmed": true
+            },
+            "goal": {
+              "accepted": true,
+              "fixture_passed": true,
+              "ros_status": 4,
+              "truth_error_m": 0.06591629247815459,
+              "strict_one_second_stop_passed": true,
+              "stable_stop_confirmed": true
+            }
+          },
+          "obstacle_goal_started": true,
+          "opponent_movement_started": false,
+          "opponent_fitted_speed_mps": null,
+          "contacts": 0,
+          "minimum_gap_m": 0.13196137153751325,
+          "goal_robot_speed_peak_mps": null,
+          "topology_passed": true,
+          "params_match": true,
+          "gate_state_transition_counts": {
+            "no_single_active_goal": 4,
+            "external_stop": 2,
+            "ready": 5,
+            "odin_obstacle_source_unmatched": 3
+          },
+          "configuration_checks": {
+            "original_robot_sdf": true,
+            "c072_3hz_tree_with_map_refresh": true,
+            "c072_base_obstacle_04": true,
+            "c072_local_clearance_05": true,
+            "global_plugin": true,
+            "controller_speed": true,
+            "smoother_speed": true,
+            "velocity_sampling": true,
+            "goal_checker": true,
+            "local_prediction": true,
+            "swept_clearance": true,
+            "controlled_recovery": true
+          },
+          "recovery_events": [
+            {
+              "kind": "release_verified",
+              "steady": 145511.058361464,
+              "ros": 7.767,
+              "epoch": 0,
+              "evidence": {
+                "epoch": 0,
+                "steady": 145511.056707133,
+                "ros": 7.767,
+                "quality_count": 4,
+                "registration_sequence": 7,
+                "last_source": 7.4,
+                "gates": {
+                  "healthy": true,
+                  "stationary": true,
+                  "external": true,
+                  "pose": true
+                }
+              }
+            },
+            {
+              "kind": "transition",
+              "steady": 145511.058506244,
+              "ros": 7.767,
+              "epoch": 0,
+              "previous": "VERIFY",
+              "state": "RUNNING",
+              "fault": "",
+              "input_detail": {
+                "imu": {
+                  "steady": 145511.055645169,
+                  "ros": 7.765000000000001,
+                  "stamp": 7.765,
+                  "source_age_s": 8.881784197001252e-16,
+                  "stamp_delta_s": 0.004999999999999893,
+                  "receipt_gap_s": 0.00412787200184539,
+                  "valid": true
+                },
+                "invalid_imu": [],
+                "imu_receipt_age_s": 0.001061963994288817,
+                "imu_valid_since": 145505.277812194,
+                "odom_stamp": 7.7,
+                "odom_receipt_age_s": 0.04065969699877314,
+                "odom_progress_age_s": 0.04065969699877314
+              }
+            },
+            {
+              "kind": "owned_tree_audit",
+              "steady": 145587.573114684,
+              "ros": 83.787,
+              "epoch": 0,
+              "remaining": []
+            }
+          ],
+          "process_remaining": [],
+          "started_at": "2026-11-21T05:01:16.446154+08:00",
+          "ended_at": "2026-11-21T05:02:53.208190+08:00"
+        },
+        {
+          "case": "left-far-03",
+          "status": "passed",
+          "error": null,
+          "actions": {
+            "preposition": {
+              "accepted": true,
+              "fixture_passed": true,
+              "ros_status": 4,
+              "truth_error_m": 0.06259258856063982,
+              "strict_one_second_stop_passed": true,
+              "stable_stop_confirmed": true
+            },
+            "goal": {
+              "accepted": true,
+              "fixture_passed": true,
+              "ros_status": 4,
+              "truth_error_m": 0.06284600552846516,
+              "strict_one_second_stop_passed": true,
+              "stable_stop_confirmed": true
+            }
+          },
+          "obstacle_goal_started": true,
+          "opponent_movement_started": false,
+          "opponent_fitted_speed_mps": null,
+          "contacts": 0,
+          "minimum_gap_m": 0.15193258254453124,
+          "goal_robot_speed_peak_mps": null,
+          "topology_passed": true,
+          "params_match": true,
+          "gate_state_transition_counts": {
+            "no_single_active_goal": 4,
+            "external_stop": 2,
+            "ready": 3,
+            "odin_obstacle_source_unmatched": 1
+          },
+          "configuration_checks": {
+            "original_robot_sdf": true,
+            "c072_3hz_tree_with_map_refresh": true,
+            "c072_base_obstacle_04": true,
+            "c072_local_clearance_05": true,
+            "global_plugin": true,
+            "controller_speed": true,
+            "smoother_speed": true,
+            "velocity_sampling": true,
+            "goal_checker": true,
+            "local_prediction": true,
+            "swept_clearance": true,
+            "controlled_recovery": true
+          },
+          "recovery_events": [
+            {
+              "kind": "release_verified",
+              "steady": 145607.482880684,
+              "ros": 7.478000000000001,
+              "epoch": 0,
+              "evidence": {
+                "epoch": 0,
+                "steady": 145607.48173323,
+                "ros": 7.478000000000001,
+                "quality_count": 4,
+                "registration_sequence": 7,
+                "last_source": 7.25,
+                "gates": {
+                  "healthy": true,
+                  "stationary": true,
+                  "external": true,
+                  "pose": true
+                }
+              }
+            },
+            {
+              "kind": "transition",
+              "steady": 145607.483146621,
+              "ros": 7.479,
+              "epoch": 0,
+              "previous": "VERIFY",
+              "state": "RUNNING",
+              "fault": "",
+              "input_detail": {
+                "imu": {
+                  "steady": 145607.479200167,
+                  "ros": 7.4750000000000005,
+                  "stamp": 7.475,
+                  "source_age_s": 8.881784197001252e-16,
+                  "stamp_delta_s": 0.004999999999999893,
+                  "receipt_gap_s": 0.004940771003020927,
+                  "valid": true
+                },
+                "invalid_imu": [],
+                "imu_receipt_age_s": 0.0025330630014650524,
+                "imu_valid_since": 145601.983862132,
+                "odom_stamp": 7.45,
+                "odom_receipt_age_s": 0.005391804006649181,
+                "odom_progress_age_s": 0.005391804006649181
+              }
+            },
+            {
+              "kind": "owned_tree_audit",
+              "steady": 145697.96319796,
+              "ros": 97.44000000000001,
+              "epoch": 0,
+              "remaining": []
+            }
+          ],
+          "process_remaining": [],
+          "started_at": "2026-11-21T05:02:53.213151+08:00",
+          "ended_at": "2026-11-21T05:04:43.580655+08:00"
+        },
+        {
+          "case": "left-near-01",
+          "status": "passed",
+          "error": null,
+          "actions": {
+            "preposition": {
+              "accepted": true,
+              "fixture_passed": true,
+              "ros_status": 4,
+              "truth_error_m": 0.017805141395487247,
+              "strict_one_second_stop_passed": true,
+              "stable_stop_confirmed": true
+            },
+            "goal": {
+              "accepted": true,
+              "fixture_passed": true,
+              "ros_status": 4,
+              "truth_error_m": 0.059913345759926705,
+              "strict_one_second_stop_passed": true,
+              "stable_stop_confirmed": true
+            }
+          },
+          "obstacle_goal_started": true,
+          "opponent_movement_started": false,
+          "opponent_fitted_speed_mps": null,
+          "contacts": 0,
+          "minimum_gap_m": 0.21843650003046708,
+          "goal_robot_speed_peak_mps": null,
+          "topology_passed": true,
+          "params_match": true,
+          "gate_state_transition_counts": {
+            "no_single_active_goal": 5,
+            "external_stop": 4,
+            "ready": 7,
+            "odin_obstacle_source_unmatched": 5
+          },
+          "configuration_checks": {
+            "original_robot_sdf": true,
+            "c072_3hz_tree_with_map_refresh": true,
+            "c072_base_obstacle_04": true,
+            "c072_local_clearance_05": true,
+            "global_plugin": true,
+            "controller_speed": true,
+            "smoother_speed": true,
+            "velocity_sampling": true,
+            "goal_checker": true,
+            "local_prediction": true,
+            "swept_clearance": true,
+            "controlled_recovery": true
+          },
+          "recovery_events": [
+            {
+              "kind": "release_verified",
+              "steady": 145122.420468907,
+              "ros": 5.348000000000001,
+              "epoch": 0,
+              "evidence": {
+                "epoch": 0,
+                "steady": 145122.419687768,
+                "ros": 5.348000000000001,
+                "quality_count": 4,
+                "registration_sequence": 4,
+                "last_source": 5.299999999,
+                "gates": {
+                  "healthy": true,
+                  "stationary": true,
+                  "external": true,
+                  "pose": true
+                }
+              }
+            },
+            {
+              "kind": "transition",
+              "steady": 145122.420528338,
+              "ros": 5.348000000000001,
+              "epoch": 0,
+              "previous": "VERIFY",
+              "state": "RUNNING",
+              "fault": "",
+              "input_detail": {
+                "imu": {
+                  "steady": 145122.41721585,
+                  "ros": 5.345000000000001,
+                  "stamp": 5.345,
+                  "source_age_s": 8.881784197001252e-16,
+                  "stamp_delta_s": 0.004999999999999893,
+                  "receipt_gap_s": 0.004951740003889427,
+                  "valid": true
+                },
+                "invalid_imu": [],
+                "imu_receipt_age_s": 0.0024719180073589087,
+                "imu_valid_since": 145119.003994013,
+                "odom_stamp": 5.299999999,
+                "odom_receipt_age_s": 0.022746272006770596,
+                "odom_progress_age_s": 0.022746272006770596
+              }
+            },
+            {
+              "kind": "transition",
+              "steady": 145135.700175219,
+              "ros": 18.46,
+              "epoch": 0,
+              "previous": "RUNNING",
+              "state": "TERMINAL",
+              "fault": "",
+              "input_detail": {
+                "imu": {
+                  "steady": 145135.531654384,
+                  "ros": 18.455000000000002,
+                  "stamp": 18.455,
+                  "source_age_s": 3.552713678800501e-15,
+                  "stamp_delta_s": 0.004999999999999005,
+                  "receipt_gap_s": 0.004889723990345374,
+                  "valid": true
+                },
+                "invalid_imu": [],
+                "imu_receipt_age_s": 0.1679229480214417,
+                "imu_valid_since": 145119.003994013,
+                "odom_stamp": 18.399999999,
+                "odom_receipt_age_s": 0.1954650490079075,
+                "odom_progress_age_s": 0.1954650490079075
+              }
+            },
+            {
+              "kind": "transition",
+              "steady": 145135.720205507,
+              "ros": 18.46,
+              "epoch": 0,
+              "previous": "TERMINAL",
+              "state": "STATIC",
+              "fault": "",
+              "input_detail": {
+                "imu": {
+                  "steady": 145135.531654384,
+                  "ros": 18.455000000000002,
+                  "stamp": 18.455,
+                  "source_age_s": 3.552713678800501e-15,
+                  "stamp_delta_s": 0.004999999999999005,
+                  "receipt_gap_s": 0.004889723990345374,
+                  "valid": true
+                },
+                "invalid_imu": [],
+                "imu_receipt_age_s": 0.18793732600170188,
+                "imu_valid_since": 145119.003994013,
+                "odom_stamp": 18.399999999,
+                "odom_receipt_age_s": 0.2154794269881677,
+                "odom_progress_age_s": 0.2154794269881677
+              }
+            },
+            {
+              "kind": "restart_authorized",
+              "steady": 145137.941784565,
+              "ros": 20.841,
+              "epoch": 1,
+              "terminal": true,
+              "stationary": true,
+              "seed": [
+                0.00025557250652174043,
+                0.0034572399653832503,
+                0.0009961841339637557,
+                0.001452278193423916,
+                -0.0005329619951515152,
+                -0.0009636202474932541
+              ]
+            },
+            {
+              "kind": "transition",
+              "steady": 145137.941978889,
+              "ros": 20.841,
+              "epoch": 1,
+              "previous": "STATIC",
+              "state": "RESTARTING",
+              "fault": "",
+              "input_detail": {
+                "imu": {
+                  "steady": 145137.935529781,
+                  "ros": 20.835,
+                  "stamp": 20.835,
+                  "source_age_s": 0.0,
+                  "stamp_delta_s": 0.005000000000002558,
+                  "receipt_gap_s": 0.005028013023547828,
+                  "valid": true
+                },
+                "invalid_imu": [
+                  {
+                    "steady": 145135.911310601,
+                    "ros": 18.827,
+                    "stamp": 18.665,
+                    "source_age_s": 0.1620000000000026,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.0007824519998393953,
+                    "valid": false
+                  },
+                  {
+                    "steady": 145135.911855659,
+                    "ros": 18.828,
+                    "stamp": 18.67,
+                    "source_age_s": 0.1579999999999977,
+                    "stamp_delta_s": 0.005000000000002558,
+                    "receipt_gap_s": 0.0005450580210890621,
+                    "valid": false
+                  },
+                  {
+                    "steady": 145135.912096158,
+                    "ros": 18.829,
+                    "stamp": 18.675,
+                    "source_age_s": 0.15399999999999991,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.00024049897911027074,
+                    "valid": false
+                  },
+                  {
+                    "steady": 145135.912213878,
+                    "ros": 18.829,
+                    "stamp": 18.68,
+                    "source_age_s": 0.1490000000000009,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.00011772001744247973,
+                    "valid": false
+                  },
+                  {
+                    "steady": 145135.912323954,
+                    "ros": 18.829,
+                    "stamp": 18.685,
+                    "source_age_s": 0.1440000000000019,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.00011007598368450999,
+                    "valid": false
+                  },
+                  {
+                    "steady": 145135.912433278,
+                    "ros": 18.829,
+                    "stamp": 18.69,
+                    "source_age_s": 0.13899999999999935,
+                    "stamp_delta_s": 0.005000000000002558,
+                    "receipt_gap_s": 0.00010932399891316891,
+                    "valid": false
+                  },
+                  {
+                    "steady": 145135.912545087,
+                    "ros": 18.829,
+                    "stamp": 18.695,
+                    "source_age_s": 0.13400000000000034,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.00011180900037288666,
+                    "valid": false
+                  },
+                  {
+                    "steady": 145135.912650123,
+                    "ros": 18.829,
+                    "stamp": 18.7,
+                    "source_age_s": 0.12900000000000134,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.0001050360151566565,
+                    "valid": false
+                  },
+                  {
+                    "steady": 145135.912757223,
+                    "ros": 18.829,
+                    "stamp": 18.705,
+                    "source_age_s": 0.12400000000000233,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.00010710000060498714,
+                    "valid": false
+                  },
+                  {
+                    "steady": 145135.912888178,
+                    "ros": 18.830000000000002,
+                    "stamp": 18.71,
+                    "source_age_s": 0.120000000000001,
+                    "stamp_delta_s": 0.005000000000002558,
+                    "receipt_gap_s": 0.00013095498434267938,
+                    "valid": false
+                  },
+                  {
+                    "steady": 145135.924020975,
+                    "ros": 18.84,
+                    "stamp": 18.715,
+                    "source_age_s": 0.125,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.011132797022582963,
+                    "valid": false
+                  },
+                  {
+                    "steady": 145135.924536839,
+                    "ros": 18.841,
+                    "stamp": 18.72,
+                    "source_age_s": 0.12100000000000222,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.000515863997861743,
+                    "valid": false
+                  },
+                  {
+                    "steady": 145135.92472468,
+                    "ros": 18.841,
+                    "stamp": 18.725,
+                    "source_age_s": 0.11599999999999966,
+                    "stamp_delta_s": 0.005000000000002558,
+                    "receipt_gap_s": 0.0001878409821074456,
+                    "valid": false
+                  },
+                  {
+                    "steady": 145135.924940854,
+                    "ros": 18.842000000000002,
+                    "stamp": 18.73,
+                    "source_age_s": 0.11200000000000188,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.0002161739976145327,
+                    "valid": false
+                  },
+                  {
+                    "steady": 145135.925096204,
+                    "ros": 18.842000000000002,
+                    "stamp": 18.735,
+                    "source_age_s": 0.10700000000000287,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.00015535001875832677,
+                    "valid": false
+                  },
+                  {
+                    "steady": 145135.925246825,
+                    "ros": 18.842000000000002,
+                    "stamp": 18.74,
+                    "source_age_s": 0.10200000000000387,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.00015062099555507302,
+                    "valid": false
+                  }
+                ],
+                "imu_receipt_age_s": 0.004122801998164505,
+                "imu_valid_since": 145135.925372129,
+                "odom_stamp": 20.8,
+                "odom_receipt_age_s": 0.014377339015481994,
+                "odom_progress_age_s": 0.014377339015481994
+              }
+            },
+            {
+              "kind": "owned_tree_audit",
+              "steady": 145143.380766764,
+              "ros": 26.277,
+              "epoch": 1,
+              "remaining": []
+            },
+            {
+              "kind": "transition",
+              "steady": 145143.441213335,
+              "ros": 26.336000000000002,
+              "epoch": 1,
+              "previous": "RESTARTING",
+              "state": "VERIFY",
+              "fault": "",
+              "input_detail": {
+                "imu": {
+                  "steady": 145143.438408776,
+                  "ros": 26.335,
+                  "stamp": 26.335,
+                  "source_age_s": 0.0,
+                  "stamp_delta_s": 0.005000000000002558,
+                  "receipt_gap_s": 0.004344496002886444,
+                  "valid": true
+                },
+                "invalid_imu": [
+                  {
+                    "steady": 145135.911310601,
+                    "ros": 18.827,
+                    "stamp": 18.665,
+                    "source_age_s": 0.1620000000000026,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.0007824519998393953,
+                    "valid": false
+                  },
+                  {
+                    "steady": 145135.911855659,
+                    "ros": 18.828,
+                    "stamp": 18.67,
+                    "source_age_s": 0.1579999999999977,
+                    "stamp_delta_s": 0.005000000000002558,
+                    "receipt_gap_s": 0.0005450580210890621,
+                    "valid": false
+                  },
+                  {
+                    "steady": 145135.912096158,
+                    "ros": 18.829,
+                    "stamp": 18.675,
+                    "source_age_s": 0.15399999999999991,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.00024049897911027074,
+                    "valid": false
+                  },
+                  {
+                    "steady": 145135.912213878,
+                    "ros": 18.829,
+                    "stamp": 18.68,
+                    "source_age_s": 0.1490000000000009,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.00011772001744247973,
+                    "valid": false
+                  },
+                  {
+                    "steady": 145135.912323954,
+                    "ros": 18.829,
+                    "stamp": 18.685,
+                    "source_age_s": 0.1440000000000019,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.00011007598368450999,
+                    "valid": false
+                  },
+                  {
+                    "steady": 145135.912433278,
+                    "ros": 18.829,
+                    "stamp": 18.69,
+                    "source_age_s": 0.13899999999999935,
+                    "stamp_delta_s": 0.005000000000002558,
+                    "receipt_gap_s": 0.00010932399891316891,
+                    "valid": false
+                  },
+                  {
+                    "steady": 145135.912545087,
+                    "ros": 18.829,
+                    "stamp": 18.695,
+                    "source_age_s": 0.13400000000000034,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.00011180900037288666,
+                    "valid": false
+                  },
+                  {
+                    "steady": 145135.912650123,
+                    "ros": 18.829,
+                    "stamp": 18.7,
+                    "source_age_s": 0.12900000000000134,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.0001050360151566565,
+                    "valid": false
+                  },
+                  {
+                    "steady": 145135.912757223,
+                    "ros": 18.829,
+                    "stamp": 18.705,
+                    "source_age_s": 0.12400000000000233,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.00010710000060498714,
+                    "valid": false
+                  },
+                  {
+                    "steady": 145135.912888178,
+                    "ros": 18.830000000000002,
+                    "stamp": 18.71,
+                    "source_age_s": 0.120000000000001,
+                    "stamp_delta_s": 0.005000000000002558,
+                    "receipt_gap_s": 0.00013095498434267938,
+                    "valid": false
+                  },
+                  {
+                    "steady": 145135.924020975,
+                    "ros": 18.84,
+                    "stamp": 18.715,
+                    "source_age_s": 0.125,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.011132797022582963,
+                    "valid": false
+                  },
+                  {
+                    "steady": 145135.924536839,
+                    "ros": 18.841,
+                    "stamp": 18.72,
+                    "source_age_s": 0.12100000000000222,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.000515863997861743,
+                    "valid": false
+                  },
+                  {
+                    "steady": 145135.92472468,
+                    "ros": 18.841,
+                    "stamp": 18.725,
+                    "source_age_s": 0.11599999999999966,
+                    "stamp_delta_s": 0.005000000000002558,
+                    "receipt_gap_s": 0.0001878409821074456,
+                    "valid": false
+                  },
+                  {
+                    "steady": 145135.924940854,
+                    "ros": 18.842000000000002,
+                    "stamp": 18.73,
+                    "source_age_s": 0.11200000000000188,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.0002161739976145327,
+                    "valid": false
+                  },
+                  {
+                    "steady": 145135.925096204,
+                    "ros": 18.842000000000002,
+                    "stamp": 18.735,
+                    "source_age_s": 0.10700000000000287,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.00015535001875832677,
+                    "valid": false
+                  },
+                  {
+                    "steady": 145135.925246825,
+                    "ros": 18.842000000000002,
+                    "stamp": 18.74,
+                    "source_age_s": 0.10200000000000387,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.00015062099555507302,
+                    "valid": false
+                  }
+                ],
+                "imu_receipt_age_s": 0.0010678449762053788,
+                "imu_valid_since": 145135.925372129,
+                "odom_stamp": 21.8,
+                "odom_receipt_age_s": 4.510090802999912,
+                "odom_progress_age_s": 4.510090802999912
+              }
+            },
+            {
+              "kind": "release_verified",
+              "steady": 145146.901929276,
+              "ros": 29.755000000000003,
+              "epoch": 1,
+              "evidence": {
+                "epoch": 1,
+                "steady": 145146.899690764,
+                "ros": 29.755000000000003,
+                "quality_count": 4,
+                "registration_sequence": 4,
+                "last_source": 29.6,
+                "gates": {
+                  "healthy": true,
+                  "stationary": true,
+                  "external": true,
+                  "pose": true
+                }
+              }
+            },
+            {
+              "kind": "transition",
+              "steady": 145146.902074838,
+              "ros": 29.755000000000003,
+              "epoch": 1,
+              "previous": "VERIFY",
+              "state": "RUNNING",
+              "fault": "",
+              "input_detail": {
+                "imu": {
+                  "steady": 145146.896662137,
+                  "ros": 29.750000000000004,
+                  "stamp": 29.75,
+                  "source_age_s": 3.552713678800501e-15,
+                  "stamp_delta_s": 0.004999999999999005,
+                  "receipt_gap_s": 0.004983649996574968,
+                  "valid": true
+                },
+                "invalid_imu": [
+                  {
+                    "steady": 145135.911310601,
+                    "ros": 18.827,
+                    "stamp": 18.665,
+                    "source_age_s": 0.1620000000000026,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.0007824519998393953,
+                    "valid": false
+                  },
+                  {
+                    "steady": 145135.911855659,
+                    "ros": 18.828,
+                    "stamp": 18.67,
+                    "source_age_s": 0.1579999999999977,
+                    "stamp_delta_s": 0.005000000000002558,
+                    "receipt_gap_s": 0.0005450580210890621,
+                    "valid": false
+                  },
+                  {
+                    "steady": 145135.912096158,
+                    "ros": 18.829,
+                    "stamp": 18.675,
+                    "source_age_s": 0.15399999999999991,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.00024049897911027074,
+                    "valid": false
+                  },
+                  {
+                    "steady": 145135.912213878,
+                    "ros": 18.829,
+                    "stamp": 18.68,
+                    "source_age_s": 0.1490000000000009,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.00011772001744247973,
+                    "valid": false
+                  },
+                  {
+                    "steady": 145135.912323954,
+                    "ros": 18.829,
+                    "stamp": 18.685,
+                    "source_age_s": 0.1440000000000019,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.00011007598368450999,
+                    "valid": false
+                  },
+                  {
+                    "steady": 145135.912433278,
+                    "ros": 18.829,
+                    "stamp": 18.69,
+                    "source_age_s": 0.13899999999999935,
+                    "stamp_delta_s": 0.005000000000002558,
+                    "receipt_gap_s": 0.00010932399891316891,
+                    "valid": false
+                  },
+                  {
+                    "steady": 145135.912545087,
+                    "ros": 18.829,
+                    "stamp": 18.695,
+                    "source_age_s": 0.13400000000000034,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.00011180900037288666,
+                    "valid": false
+                  },
+                  {
+                    "steady": 145135.912650123,
+                    "ros": 18.829,
+                    "stamp": 18.7,
+                    "source_age_s": 0.12900000000000134,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.0001050360151566565,
+                    "valid": false
+                  },
+                  {
+                    "steady": 145135.912757223,
+                    "ros": 18.829,
+                    "stamp": 18.705,
+                    "source_age_s": 0.12400000000000233,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.00010710000060498714,
+                    "valid": false
+                  },
+                  {
+                    "steady": 145135.912888178,
+                    "ros": 18.830000000000002,
+                    "stamp": 18.71,
+                    "source_age_s": 0.120000000000001,
+                    "stamp_delta_s": 0.005000000000002558,
+                    "receipt_gap_s": 0.00013095498434267938,
+                    "valid": false
+                  },
+                  {
+                    "steady": 145135.924020975,
+                    "ros": 18.84,
+                    "stamp": 18.715,
+                    "source_age_s": 0.125,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.011132797022582963,
+                    "valid": false
+                  },
+                  {
+                    "steady": 145135.924536839,
+                    "ros": 18.841,
+                    "stamp": 18.72,
+                    "source_age_s": 0.12100000000000222,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.000515863997861743,
+                    "valid": false
+                  },
+                  {
+                    "steady": 145135.92472468,
+                    "ros": 18.841,
+                    "stamp": 18.725,
+                    "source_age_s": 0.11599999999999966,
+                    "stamp_delta_s": 0.005000000000002558,
+                    "receipt_gap_s": 0.0001878409821074456,
+                    "valid": false
+                  },
+                  {
+                    "steady": 145135.924940854,
+                    "ros": 18.842000000000002,
+                    "stamp": 18.73,
+                    "source_age_s": 0.11200000000000188,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.0002161739976145327,
+                    "valid": false
+                  },
+                  {
+                    "steady": 145135.925096204,
+                    "ros": 18.842000000000002,
+                    "stamp": 18.735,
+                    "source_age_s": 0.10700000000000287,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.00015535001875832677,
+                    "valid": false
+                  },
+                  {
+                    "steady": 145135.925246825,
+                    "ros": 18.842000000000002,
+                    "stamp": 18.74,
+                    "source_age_s": 0.10200000000000387,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.00015062099555507302,
+                    "valid": false
+                  }
+                ],
+                "imu_receipt_age_s": 0.003028626990271732,
+                "imu_valid_since": 145135.925372129,
+                "odom_stamp": 29.699999999,
+                "odom_receipt_age_s": 0.024802091997116804,
+                "odom_progress_age_s": 0.024802091997116804
+              }
+            },
+            {
+              "kind": "owned_tree_audit",
+              "steady": 145200.135561324,
+              "ros": 82.54100000000001,
+              "epoch": 1,
+              "remaining": []
+            }
+          ],
+          "process_remaining": [],
+          "started_at": "2026-11-21T04:54:50.329178+08:00",
+          "ended_at": "2026-11-21T04:56:25.761051+08:00"
+        },
+        {
+          "case": "left-near-02",
+          "status": "passed",
+          "error": null,
+          "actions": {
+            "preposition": {
+              "accepted": true,
+              "fixture_passed": true,
+              "ros_status": 4,
+              "truth_error_m": 0.07422207811772412,
+              "strict_one_second_stop_passed": true,
+              "stable_stop_confirmed": true
+            },
+            "goal": {
+              "accepted": true,
+              "fixture_passed": true,
+              "ros_status": 4,
+              "truth_error_m": 0.06572062617155164,
+              "strict_one_second_stop_passed": true,
+              "stable_stop_confirmed": true
+            }
+          },
+          "obstacle_goal_started": true,
+          "opponent_movement_started": false,
+          "opponent_fitted_speed_mps": null,
+          "contacts": 0,
+          "minimum_gap_m": 0.14647266309325158,
+          "goal_robot_speed_peak_mps": null,
+          "topology_passed": true,
+          "params_match": true,
+          "gate_state_transition_counts": {
+            "no_single_active_goal": 4,
+            "external_stop": 2,
+            "ready": 6,
+            "odin_obstacle_source_unmatched": 4
+          },
+          "configuration_checks": {
+            "original_robot_sdf": true,
+            "c072_3hz_tree_with_map_refresh": true,
+            "c072_base_obstacle_04": true,
+            "c072_local_clearance_05": true,
+            "global_plugin": true,
+            "controller_speed": true,
+            "smoother_speed": true,
+            "velocity_sampling": true,
+            "goal_checker": true,
+            "local_prediction": true,
+            "swept_clearance": true,
+            "controlled_recovery": true
+          },
+          "recovery_events": [
+            {
+              "kind": "release_verified",
+              "steady": 145219.266420091,
+              "ros": 6.6770000000000005,
+              "epoch": 0,
+              "evidence": {
+                "epoch": 0,
+                "steady": 145219.265051434,
+                "ros": 6.6770000000000005,
+                "quality_count": 4,
+                "registration_sequence": 5,
+                "last_source": 6.599999999,
+                "gates": {
+                  "healthy": true,
+                  "stationary": true,
+                  "external": true,
+                  "pose": true
+                }
+              }
+            },
+            {
+              "kind": "transition",
+              "steady": 145219.266561235,
+              "ros": 6.6770000000000005,
+              "epoch": 0,
+              "previous": "VERIFY",
+              "state": "RUNNING",
+              "fault": "",
+              "input_detail": {
+                "imu": {
+                  "steady": 145219.264083917,
+                  "ros": 6.675000000000001,
+                  "stamp": 6.675,
+                  "source_age_s": 8.881784197001252e-16,
+                  "stamp_delta_s": 0.004999999999999893,
+                  "receipt_gap_s": 0.0050137569778598845,
+                  "valid": true
+                },
+                "invalid_imu": [],
+                "imu_receipt_age_s": 0.0009675170003902167,
+                "imu_valid_since": 145214.549211879,
+                "odom_stamp": 6.599999999,
+                "odom_receipt_age_s": 0.05105340600130148,
+                "odom_progress_age_s": 0.05105340600130148
+              }
+            },
+            {
+              "kind": "owned_tree_audit",
+              "steady": 145299.889683751,
+              "ros": 86.82400000000001,
+              "epoch": 0,
+              "remaining": []
+            }
+          ],
+          "process_remaining": [],
+          "started_at": "2026-11-21T04:56:25.763900+08:00",
+          "ended_at": "2026-11-21T04:58:05.520508+08:00"
+        },
+        {
+          "case": "left-near-03",
+          "status": "passed",
+          "error": null,
+          "actions": {
+            "preposition": {
+              "accepted": true,
+              "fixture_passed": true,
+              "ros_status": 4,
+              "truth_error_m": 0.07609044161266193,
+              "strict_one_second_stop_passed": true,
+              "stable_stop_confirmed": true
+            },
+            "goal": {
+              "accepted": true,
+              "fixture_passed": true,
+              "ros_status": 4,
+              "truth_error_m": 0.0773240247590103,
+              "strict_one_second_stop_passed": true,
+              "stable_stop_confirmed": true
+            }
+          },
+          "obstacle_goal_started": true,
+          "opponent_movement_started": false,
+          "opponent_fitted_speed_mps": null,
+          "contacts": 0,
+          "minimum_gap_m": 0.15214815320409691,
+          "goal_robot_speed_peak_mps": null,
+          "topology_passed": true,
+          "params_match": true,
+          "gate_state_transition_counts": {
+            "no_single_active_goal": 4,
+            "external_stop": 2,
+            "ready": 4,
+            "odin_obstacle_source_unmatched": 2
+          },
+          "configuration_checks": {
+            "original_robot_sdf": true,
+            "c072_3hz_tree_with_map_refresh": true,
+            "c072_base_obstacle_04": true,
+            "c072_local_clearance_05": true,
+            "global_plugin": true,
+            "controller_speed": true,
+            "smoother_speed": true,
+            "velocity_sampling": true,
+            "goal_checker": true,
+            "local_prediction": true,
+            "swept_clearance": true,
+            "controlled_recovery": true
+          },
+          "recovery_events": [
+            {
+              "kind": "release_verified",
+              "steady": 145318.853798275,
+              "ros": 6.4750000000000005,
+              "epoch": 0,
+              "evidence": {
+                "epoch": 0,
+                "steady": 145318.852511441,
+                "ros": 6.4750000000000005,
+                "quality_count": 4,
+                "registration_sequence": 6,
+                "last_source": 6.25,
+                "gates": {
+                  "healthy": true,
+                  "stationary": true,
+                  "external": true,
+                  "pose": true
+                }
+              }
+            },
+            {
+              "kind": "transition",
+              "steady": 145318.853933909,
+              "ros": 6.4750000000000005,
+              "epoch": 0,
+              "previous": "VERIFY",
+              "state": "RUNNING",
+              "fault": "",
+              "input_detail": {
+                "imu": {
+                  "steady": 145318.852108799,
+                  "ros": 6.472,
+                  "stamp": 6.47,
+                  "source_age_s": 0.002000000000000668,
+                  "stamp_delta_s": 0.004999999999999893,
+                  "receipt_gap_s": 0.008519587019691244,
+                  "valid": true
+                },
+                "invalid_imu": [],
+                "imu_receipt_age_s": 0.00040264197741635144,
+                "imu_valid_since": 145314.335169271,
+                "odom_stamp": 6.4,
+                "odom_receipt_age_s": 0.04968481298419647,
+                "odom_progress_age_s": 0.04968481298419647
+              }
+            },
+            {
+              "kind": "owned_tree_audit",
+              "steady": 145398.504344889,
+              "ros": 85.682,
+              "epoch": 0,
+              "remaining": []
+            }
+          ],
+          "process_remaining": [],
+          "started_at": "2026-11-21T04:58:05.524438+08:00",
+          "ended_at": "2026-11-21T04:59:44.136499+08:00"
+        }
+      ]
+    },
+    "fixed-reverse-right": {
+      "completed": 6,
+      "passed": 6,
+      "results": [
+        {
+          "case": "left-reverse-01",
+          "status": "passed",
+          "error": null,
+          "actions": {
+            "preposition": {
+              "accepted": true,
+              "fixture_passed": true,
+              "ros_status": 4,
+              "truth_error_m": 0.07352653849173806,
+              "strict_one_second_stop_passed": true,
+              "stable_stop_confirmed": true
+            },
+            "goal": {
+              "accepted": true,
+              "fixture_passed": true,
+              "ros_status": 4,
+              "truth_error_m": 0.07195909447994481,
+              "strict_one_second_stop_passed": true,
+              "stable_stop_confirmed": true
+            }
+          },
+          "obstacle_goal_started": true,
+          "opponent_movement_started": false,
+          "opponent_fitted_speed_mps": null,
+          "contacts": 0,
+          "minimum_gap_m": 0.14291566877110018,
+          "goal_robot_speed_peak_mps": null,
+          "topology_passed": true,
+          "params_match": true,
+          "gate_state_transition_counts": {
+            "external_stop": 2,
+            "no_single_active_goal": 3,
+            "ready": 5,
+            "odin_obstacle_source_unmatched": 3
+          },
+          "configuration_checks": {
+            "original_robot_sdf": true,
+            "c072_3hz_tree_with_map_refresh": true,
+            "c072_base_obstacle_04": true,
+            "c072_local_clearance_05": true,
+            "global_plugin": true,
+            "controller_speed": true,
+            "smoother_speed": true,
+            "velocity_sampling": true,
+            "goal_checker": true,
+            "local_prediction": true,
+            "swept_clearance": true,
+            "controlled_recovery": true
+          },
+          "recovery_events": [
+            {
+              "kind": "release_verified",
+              "steady": 145720.383783961,
+              "ros": 5.412,
+              "epoch": 0,
+              "evidence": {
+                "epoch": 0,
+                "steady": 145720.380857032,
+                "ros": 5.412,
+                "quality_count": 4,
+                "registration_sequence": 4,
+                "last_source": 5.299999999,
+                "gates": {
+                  "healthy": true,
+                  "stationary": true,
+                  "external": true,
+                  "pose": true
+                }
+              }
+            },
+            {
+              "kind": "transition",
+              "steady": 145720.384124186,
+              "ros": 5.412,
+              "epoch": 0,
+              "previous": "VERIFY",
+              "state": "RUNNING",
+              "fault": "",
+              "input_detail": {
+                "imu": {
+                  "steady": 145720.3797212,
+                  "ros": 5.408,
+                  "stamp": 5.405,
+                  "source_age_s": 0.0030000000000001137,
+                  "stamp_delta_s": 0.004999999999999893,
+                  "receipt_gap_s": 0.008056393009610474,
+                  "valid": true
+                },
+                "invalid_imu": [],
+                "imu_receipt_age_s": 0.001135831989813596,
+                "imu_valid_since": 145716.920824965,
+                "odom_stamp": 5.349999999,
+                "odom_receipt_age_s": 0.03505716199288145,
+                "odom_progress_age_s": 0.03505716199288145
+              }
+            },
+            {
+              "kind": "owned_tree_audit",
+              "steady": 145812.654168277,
+              "ros": 97.18,
+              "epoch": 0,
+              "remaining": []
+            }
+          ],
+          "process_remaining": [],
+          "started_at": "2026-11-21T05:04:48.338770+08:00",
+          "ended_at": "2026-11-21T05:06:38.282321+08:00"
+        },
+        {
+          "case": "left-reverse-02",
+          "status": "passed",
+          "error": null,
+          "actions": {
+            "preposition": {
+              "accepted": true,
+              "fixture_passed": true,
+              "ros_status": 4,
+              "truth_error_m": 0.0726637073252259,
+              "strict_one_second_stop_passed": true,
+              "stable_stop_confirmed": true
+            },
+            "goal": {
+              "accepted": true,
+              "fixture_passed": true,
+              "ros_status": 4,
+              "truth_error_m": 0.07796793900797608,
+              "strict_one_second_stop_passed": true,
+              "stable_stop_confirmed": true
+            }
+          },
+          "obstacle_goal_started": true,
+          "opponent_movement_started": false,
+          "opponent_fitted_speed_mps": null,
+          "contacts": 0,
+          "minimum_gap_m": 0.1572593177014161,
+          "goal_robot_speed_peak_mps": null,
+          "topology_passed": true,
+          "params_match": true,
+          "gate_state_transition_counts": {
+            "external_stop": 2,
+            "no_single_active_goal": 3,
+            "ready": 9,
+            "odin_obstacle_source_unmatched": 7
+          },
+          "configuration_checks": {
+            "original_robot_sdf": true,
+            "c072_3hz_tree_with_map_refresh": true,
+            "c072_base_obstacle_04": true,
+            "c072_local_clearance_05": true,
+            "global_plugin": true,
+            "controller_speed": true,
+            "smoother_speed": true,
+            "velocity_sampling": true,
+            "goal_checker": true,
+            "local_prediction": true,
+            "swept_clearance": true,
+            "controlled_recovery": true
+          },
+          "recovery_events": [
+            {
+              "kind": "release_verified",
+              "steady": 145830.785103785,
+              "ros": 5.655,
+              "epoch": 0,
+              "evidence": {
+                "epoch": 0,
+                "steady": 145830.784136006,
+                "ros": 5.655,
+                "quality_count": 4,
+                "registration_sequence": 4,
+                "last_source": 5.349999999,
+                "gates": {
+                  "healthy": true,
+                  "stationary": true,
+                  "external": true,
+                  "pose": true
+                }
+              }
+            },
+            {
+              "kind": "transition",
+              "steady": 145830.785323956,
+              "ros": 5.656000000000001,
+              "epoch": 0,
+              "previous": "VERIFY",
+              "state": "RUNNING",
+              "fault": "",
+              "input_detail": {
+                "imu": {
+                  "steady": 145830.779630758,
+                  "ros": 5.65,
+                  "stamp": 5.65,
+                  "source_age_s": 0.0,
+                  "stamp_delta_s": 0.005000000000000782,
+                  "receipt_gap_s": 0.005089449026854709,
+                  "valid": true
+                },
+                "invalid_imu": [],
+                "imu_receipt_age_s": 0.0045052479836158454,
+                "imu_valid_since": 145827.089269886,
+                "odom_stamp": 5.599999999,
+                "odom_receipt_age_s": 0.0294983169878833,
+                "odom_progress_age_s": 0.0294983169878833
+              }
+            },
+            {
+              "kind": "owned_tree_audit",
+              "steady": 145920.829301722,
+              "ros": 95.17500000000001,
+              "epoch": 0,
+              "remaining": []
+            }
+          ],
+          "process_remaining": [],
+          "started_at": "2026-11-21T05:06:38.284932+08:00",
+          "ended_at": "2026-11-21T05:08:26.458094+08:00"
+        },
+        {
+          "case": "left-reverse-03",
+          "status": "passed",
+          "error": null,
+          "actions": {
+            "preposition": {
+              "accepted": true,
+              "fixture_passed": true,
+              "ros_status": 4,
+              "truth_error_m": 0.02884730984578704,
+              "strict_one_second_stop_passed": true,
+              "stable_stop_confirmed": true
+            },
+            "goal": {
+              "accepted": true,
+              "fixture_passed": true,
+              "ros_status": 4,
+              "truth_error_m": 0.07272887213462496,
+              "strict_one_second_stop_passed": true,
+              "stable_stop_confirmed": true
+            }
+          },
+          "obstacle_goal_started": true,
+          "opponent_movement_started": false,
+          "opponent_fitted_speed_mps": null,
+          "contacts": 0,
+          "minimum_gap_m": 0.12953021144124133,
+          "goal_robot_speed_peak_mps": null,
+          "topology_passed": true,
+          "params_match": true,
+          "gate_state_transition_counts": {
+            "no_single_active_goal": 4,
+            "external_stop": 2,
+            "ready": 5,
+            "odin_obstacle_source_unmatched": 3
+          },
+          "configuration_checks": {
+            "original_robot_sdf": true,
+            "c072_3hz_tree_with_map_refresh": true,
+            "c072_base_obstacle_04": true,
+            "c072_local_clearance_05": true,
+            "global_plugin": true,
+            "controller_speed": true,
+            "smoother_speed": true,
+            "velocity_sampling": true,
+            "goal_checker": true,
+            "local_prediction": true,
+            "swept_clearance": true,
+            "controlled_recovery": true
+          },
+          "recovery_events": [
+            {
+              "kind": "release_verified",
+              "steady": 145939.738051555,
+              "ros": 6.474,
+              "epoch": 0,
+              "evidence": {
+                "epoch": 0,
+                "steady": 145939.737188823,
+                "ros": 6.474,
+                "quality_count": 4,
+                "registration_sequence": 5,
+                "last_source": 6.349999999,
+                "gates": {
+                  "healthy": true,
+                  "stationary": true,
+                  "external": true,
+                  "pose": true
+                }
+              }
+            },
+            {
+              "kind": "transition",
+              "steady": 145939.738125062,
+              "ros": 6.474,
+              "epoch": 0,
+              "previous": "VERIFY",
+              "state": "RUNNING",
+              "fault": "",
+              "input_detail": {
+                "imu": {
+                  "steady": 145939.733898746,
+                  "ros": 6.470000000000001,
+                  "stamp": 6.47,
+                  "source_age_s": 8.881784197001252e-16,
+                  "stamp_delta_s": 0.004999999999999893,
+                  "receipt_gap_s": 0.004257925989804789,
+                  "valid": true
+                },
+                "invalid_imu": [],
+                "imu_receipt_age_s": 0.0032900770020205528,
+                "imu_valid_since": 145935.220843551,
+                "odom_stamp": 6.45,
+                "odom_receipt_age_s": 0.001752965006744489,
+                "odom_progress_age_s": 0.001752965006744489
+              }
+            },
+            {
+              "kind": "owned_tree_audit",
+              "steady": 146023.20296004,
+              "ros": 89.44800000000001,
+              "epoch": 0,
+              "remaining": []
+            }
+          ],
+          "process_remaining": [],
+          "started_at": "2026-11-21T05:08:26.459519+08:00",
+          "ended_at": "2026-11-21T05:10:08.828434+08:00"
+        },
+        {
+          "case": "right-control-01",
+          "status": "passed",
+          "error": null,
+          "actions": {
+            "preposition": {
+              "accepted": true,
+              "fixture_passed": true,
+              "ros_status": 4,
+              "truth_error_m": 0.06520550346115683,
+              "strict_one_second_stop_passed": true,
+              "stable_stop_confirmed": true
+            },
+            "goal": {
+              "accepted": true,
+              "fixture_passed": true,
+              "ros_status": 4,
+              "truth_error_m": 0.07547536694955541,
+              "strict_one_second_stop_passed": true,
+              "stable_stop_confirmed": true
+            }
+          },
+          "obstacle_goal_started": true,
+          "opponent_movement_started": false,
+          "opponent_fitted_speed_mps": null,
+          "contacts": 0,
+          "minimum_gap_m": 0.185549519601708,
+          "goal_robot_speed_peak_mps": null,
+          "topology_passed": true,
+          "params_match": true,
+          "gate_state_transition_counts": {
+            "no_single_active_goal": 4,
+            "external_stop": 2,
+            "ready": 7,
+            "odin_obstacle_source_unmatched": 5
+          },
+          "configuration_checks": {
+            "original_robot_sdf": true,
+            "c072_3hz_tree_with_map_refresh": true,
+            "c072_base_obstacle_04": true,
+            "c072_local_clearance_05": true,
+            "global_plugin": true,
+            "controller_speed": true,
+            "smoother_speed": true,
+            "velocity_sampling": true,
+            "goal_checker": true,
+            "local_prediction": true,
+            "swept_clearance": true,
+            "controlled_recovery": true
+          },
+          "recovery_events": [
+            {
+              "kind": "release_verified",
+              "steady": 146043.405874505,
+              "ros": 7.746,
+              "epoch": 0,
+              "evidence": {
+                "epoch": 0,
+                "steady": 146043.40498585,
+                "ros": 7.746,
+                "quality_count": 4,
+                "registration_sequence": 7,
+                "last_source": 7.349999999,
+                "gates": {
+                  "healthy": true,
+                  "stationary": true,
+                  "external": true,
+                  "pose": true
+                }
+              }
+            },
+            {
+              "kind": "transition",
+              "steady": 146043.405980787,
+              "ros": 7.746,
+              "epoch": 0,
+              "previous": "VERIFY",
+              "state": "RUNNING",
+              "fault": "",
+              "input_detail": {
+                "imu": {
+                  "steady": 146043.40451708,
+                  "ros": 7.745,
+                  "stamp": 7.745,
+                  "source_age_s": 0.0,
+                  "stamp_delta_s": 0.004999999999999893,
+                  "receipt_gap_s": 0.005049878003774211,
+                  "valid": true
+                },
+                "invalid_imu": [],
+                "imu_receipt_age_s": 0.00046877001295797527,
+                "imu_valid_since": 146037.652928882,
+                "odom_stamp": 7.7,
+                "odom_receipt_age_s": 0.01834023802075535,
+                "odom_progress_age_s": 0.01834023802075535
+              }
+            },
+            {
+              "kind": "owned_tree_audit",
+              "steady": 146125.957730918,
+              "ros": 89.81800000000001,
+              "epoch": 0,
+              "remaining": []
+            }
+          ],
+          "process_remaining": [],
+          "started_at": "2026-11-21T05:10:08.833013+08:00",
+          "ended_at": "2026-11-21T05:11:51.586242+08:00"
+        },
+        {
+          "case": "right-control-02",
+          "status": "passed",
+          "error": null,
+          "actions": {
+            "preposition": {
+              "accepted": true,
+              "fixture_passed": true,
+              "ros_status": 4,
+              "truth_error_m": 0.03285247374697969,
+              "strict_one_second_stop_passed": true,
+              "stable_stop_confirmed": true
+            },
+            "goal": {
+              "accepted": true,
+              "fixture_passed": true,
+              "ros_status": 4,
+              "truth_error_m": 0.06648163335150649,
+              "strict_one_second_stop_passed": true,
+              "stable_stop_confirmed": true
+            }
+          },
+          "obstacle_goal_started": true,
+          "opponent_movement_started": false,
+          "opponent_fitted_speed_mps": null,
+          "contacts": 0,
+          "minimum_gap_m": 0.16245111475720425,
+          "goal_robot_speed_peak_mps": null,
+          "topology_passed": true,
+          "params_match": true,
+          "gate_state_transition_counts": {
+            "no_single_active_goal": 4,
+            "external_stop": 2,
+            "ready": 4,
+            "odin_obstacle_source_unmatched": 2
+          },
+          "configuration_checks": {
+            "original_robot_sdf": true,
+            "c072_3hz_tree_with_map_refresh": true,
+            "c072_base_obstacle_04": true,
+            "c072_local_clearance_05": true,
+            "global_plugin": true,
+            "controller_speed": true,
+            "smoother_speed": true,
+            "velocity_sampling": true,
+            "goal_checker": true,
+            "local_prediction": true,
+            "swept_clearance": true,
+            "controlled_recovery": true
+          },
+          "recovery_events": [
+            {
+              "kind": "release_verified",
+              "steady": 146145.839047212,
+              "ros": 7.4590000000000005,
+              "epoch": 0,
+              "evidence": {
+                "epoch": 0,
+                "steady": 146145.838003227,
+                "ros": 7.4590000000000005,
+                "quality_count": 4,
+                "registration_sequence": 4,
+                "last_source": 7.4,
+                "gates": {
+                  "healthy": true,
+                  "stationary": true,
+                  "external": true,
+                  "pose": true
+                }
+              }
+            },
+            {
+              "kind": "transition",
+              "steady": 146145.839425859,
+              "ros": 7.460000000000001,
+              "epoch": 0,
+              "previous": "VERIFY",
+              "state": "RUNNING",
+              "fault": "",
+              "input_detail": {
+                "imu": {
+                  "steady": 146145.829452586,
+                  "ros": 7.45,
+                  "stamp": 7.45,
+                  "source_age_s": 0.0,
+                  "stamp_delta_s": 0.004999999999999893,
+                  "receipt_gap_s": 0.00497054701554589,
+                  "valid": true
+                },
+                "invalid_imu": [],
+                "imu_receipt_age_s": 0.008550640981411561,
+                "imu_valid_since": 146140.348531406,
+                "odom_stamp": 7.4,
+                "odom_receipt_age_s": 0.032870944996830076,
+                "odom_progress_age_s": 0.032870944996830076
+              }
+            },
+            {
+              "kind": "owned_tree_audit",
+              "steady": 146225.491887499,
+              "ros": 86.634,
+              "epoch": 0,
+              "remaining": []
+            }
+          ],
+          "process_remaining": [],
+          "started_at": "2026-11-21T05:11:51.592445+08:00",
+          "ended_at": "2026-11-21T05:13:31.116469+08:00"
+        },
+        {
+          "case": "right-control-03",
+          "status": "passed",
+          "error": null,
+          "actions": {
+            "preposition": {
+              "accepted": true,
+              "fixture_passed": true,
+              "ros_status": 4,
+              "truth_error_m": 0.07424403868302806,
+              "strict_one_second_stop_passed": true,
+              "stable_stop_confirmed": true
+            },
+            "goal": {
+              "accepted": true,
+              "fixture_passed": true,
+              "ros_status": 4,
+              "truth_error_m": 0.06834841912599894,
+              "strict_one_second_stop_passed": true,
+              "stable_stop_confirmed": true
+            }
+          },
+          "obstacle_goal_started": true,
+          "opponent_movement_started": false,
+          "opponent_fitted_speed_mps": null,
+          "contacts": 0,
+          "minimum_gap_m": 0.16287137842946137,
+          "goal_robot_speed_peak_mps": null,
+          "topology_passed": true,
+          "params_match": true,
+          "gate_state_transition_counts": {
+            "external_stop": 2,
+            "no_single_active_goal": 3,
+            "ready": 5,
+            "odin_obstacle_source_unmatched": 3
+          },
+          "configuration_checks": {
+            "original_robot_sdf": true,
+            "c072_3hz_tree_with_map_refresh": true,
+            "c072_base_obstacle_04": true,
+            "c072_local_clearance_05": true,
+            "global_plugin": true,
+            "controller_speed": true,
+            "smoother_speed": true,
+            "velocity_sampling": true,
+            "goal_checker": true,
+            "local_prediction": true,
+            "swept_clearance": true,
+            "controlled_recovery": true
+          },
+          "recovery_events": [
+            {
+              "kind": "release_verified",
+              "steady": 146243.377198722,
+              "ros": 5.418,
+              "epoch": 0,
+              "evidence": {
+                "epoch": 0,
+                "steady": 146243.373334282,
+                "ros": 5.418,
+                "quality_count": 4,
+                "registration_sequence": 4,
+                "last_source": 5.349999999,
+                "gates": {
+                  "healthy": true,
+                  "stationary": true,
+                  "external": true,
+                  "pose": true
+                }
+              }
+            },
+            {
+              "kind": "transition",
+              "steady": 146243.377874578,
+              "ros": 5.4190000000000005,
+              "epoch": 0,
+              "previous": "VERIFY",
+              "state": "RUNNING",
+              "fault": "",
+              "input_detail": {
+                "imu": {
+                  "steady": 146243.372973921,
+                  "ros": 5.415,
+                  "stamp": 5.415,
+                  "source_age_s": 0.0,
+                  "stamp_delta_s": 0.004999999999999893,
+                  "receipt_gap_s": 0.00018669202108867466,
+                  "valid": true
+                },
+                "invalid_imu": [],
+                "imu_receipt_age_s": 0.00036036098026670516,
+                "imu_valid_since": 146239.96222323,
+                "odom_stamp": 5.349999999,
+                "odom_receipt_age_s": 0.04335087299114093,
+                "odom_progress_age_s": 0.04335087299114093
+              }
+            },
+            {
+              "kind": "owned_tree_audit",
+              "steady": 146339.923394536,
+              "ros": 101.47600000000001,
+              "epoch": 0,
+              "remaining": []
+            }
+          ],
+          "process_remaining": [],
+          "started_at": "2026-11-21T05:13:31.123456+08:00",
+          "ended_at": "2026-11-21T05:15:25.559650+08:00"
+        }
+      ]
+    },
+    "moving-standard": {
+      "completed": 3,
+      "passed": 3,
+      "results": [
+        {
+          "case": "headon-01",
+          "status": "passed",
+          "error": null,
+          "actions": {
+            "preposition": {
+              "accepted": true,
+              "fixture_passed": true,
+              "ros_status": 4,
+              "truth_error_m": 0.07804975094251765,
+              "strict_one_second_stop_passed": true,
+              "stable_stop_confirmed": true
+            },
+            "goal": {
+              "accepted": true,
+              "fixture_passed": true,
+              "ros_status": 4,
+              "truth_error_m": 0.07070389752981755,
+              "strict_one_second_stop_passed": true,
+              "stable_stop_confirmed": true
+            }
+          },
+          "obstacle_goal_started": true,
+          "opponent_movement_started": true,
+          "opponent_fitted_speed_mps": 0.4999108674565454,
+          "contacts": 0,
+          "minimum_gap_m": 0.5263917721672,
+          "goal_robot_speed_peak_mps": 0.9409509508804739,
+          "topology_passed": true,
+          "params_match": true,
+          "gate_state_transition_counts": {
+            "no_single_active_goal": 4,
+            "external_stop": 2,
+            "ready": 5,
+            "odin_obstacle_source_unmatched": 3
+          },
+          "configuration_checks": {
+            "original_robot_sdf": true,
+            "c072_3hz_tree_with_map_refresh": true,
+            "c072_base_obstacle_04": true,
+            "c072_local_clearance_05": true,
+            "global_plugin": true,
+            "controller_speed": true,
+            "smoother_speed": true,
+            "velocity_sampling": true,
+            "goal_checker": true,
+            "local_prediction": true,
+            "swept_clearance": true,
+            "controlled_recovery": true
+          },
+          "recovery_events": [
+            {
+              "kind": "release_verified",
+              "steady": 146362.758975914,
+              "ros": 5.837000000000001,
+              "epoch": 0,
+              "evidence": {
+                "epoch": 0,
+                "steady": 146362.757984004,
+                "ros": 5.837000000000001,
+                "quality_count": 4,
+                "registration_sequence": 4,
+                "last_source": 5.7,
+                "gates": {
+                  "healthy": true,
+                  "stationary": true,
+                  "external": true,
+                  "pose": true
+                }
+              }
+            },
+            {
+              "kind": "transition",
+              "steady": 146362.759061816,
+              "ros": 5.837000000000001,
+              "epoch": 0,
+              "previous": "VERIFY",
+              "state": "RUNNING",
+              "fault": "",
+              "input_detail": {
+                "imu": {
+                  "steady": 146362.756484316,
+                  "ros": 5.835,
+                  "stamp": 5.835,
+                  "source_age_s": 0.0,
+                  "stamp_delta_s": 0.004999999999999893,
+                  "receipt_gap_s": 0.004826129006687552,
+                  "valid": true
+                },
+                "invalid_imu": [],
+                "imu_receipt_age_s": 0.0014996880199760199,
+                "imu_valid_since": 146358.898935934,
+                "odom_stamp": 5.799999999,
+                "odom_receipt_age_s": 0.007901257020421326,
+                "odom_progress_age_s": 0.007901257020421326
+              }
+            },
+            {
+              "kind": "owned_tree_audit",
+              "steady": 146464.836860496,
+              "ros": 107.417,
+              "epoch": 0,
+              "remaining": []
+            }
+          ],
+          "process_remaining": [],
+          "started_at": "2026-11-21T05:15:30.199052+08:00",
+          "ended_at": "2026-11-21T05:17:30.462747+08:00"
+        },
+        {
+          "case": "headon-02",
+          "status": "passed",
+          "error": null,
+          "actions": {
+            "preposition": {
+              "accepted": true,
+              "fixture_passed": true,
+              "ros_status": 4,
+              "truth_error_m": 0.030075453204394986,
+              "strict_one_second_stop_passed": true,
+              "stable_stop_confirmed": true
+            },
+            "goal": {
+              "accepted": true,
+              "fixture_passed": true,
+              "ros_status": 4,
+              "truth_error_m": 0.06169624270829087,
+              "strict_one_second_stop_passed": true,
+              "stable_stop_confirmed": true
+            }
+          },
+          "obstacle_goal_started": true,
+          "opponent_movement_started": true,
+          "opponent_fitted_speed_mps": 0.5000056843594692,
+          "contacts": 0,
+          "minimum_gap_m": 0.213730258485609,
+          "goal_robot_speed_peak_mps": 0.9187961702239018,
+          "topology_passed": true,
+          "params_match": true,
+          "gate_state_transition_counts": {
+            "external_stop": 2,
+            "no_single_active_goal": 3,
+            "ready": 9,
+            "odin_obstacle_source_unmatched": 7
+          },
+          "configuration_checks": {
+            "original_robot_sdf": true,
+            "c072_3hz_tree_with_map_refresh": true,
+            "c072_base_obstacle_04": true,
+            "c072_local_clearance_05": true,
+            "global_plugin": true,
+            "controller_speed": true,
+            "smoother_speed": true,
+            "velocity_sampling": true,
+            "goal_checker": true,
+            "local_prediction": true,
+            "swept_clearance": true,
+            "controlled_recovery": true
+          },
+          "recovery_events": [
+            {
+              "kind": "release_verified",
+              "steady": 146482.692047279,
+              "ros": 5.429,
+              "epoch": 0,
+              "evidence": {
+                "epoch": 0,
+                "steady": 146482.690959191,
+                "ros": 5.429,
+                "quality_count": 4,
+                "registration_sequence": 4,
+                "last_source": 5.349999999,
+                "gates": {
+                  "healthy": true,
+                  "stationary": true,
+                  "external": true,
+                  "pose": true
+                }
+              }
+            },
+            {
+              "kind": "transition",
+              "steady": 146482.692419771,
+              "ros": 5.429,
+              "epoch": 0,
+              "previous": "VERIFY",
+              "state": "RUNNING",
+              "fault": "",
+              "input_detail": {
+                "imu": {
+                  "steady": 146482.687891235,
+                  "ros": 5.425000000000001,
+                  "stamp": 5.425,
+                  "source_age_s": 8.881784197001252e-16,
+                  "stamp_delta_s": 0.004999999999999893,
+                  "receipt_gap_s": 0.004408198990859091,
+                  "valid": true
+                },
+                "invalid_imu": [],
+                "imu_receipt_age_s": 0.0030679560150019825,
+                "imu_valid_since": 146479.255319947,
+                "odom_stamp": 5.4,
+                "odom_receipt_age_s": 0.003821996011538431,
+                "odom_progress_age_s": 0.003821996011538431
+              }
+            },
+            {
+              "kind": "owned_tree_audit",
+              "steady": 146568.88379134,
+              "ros": 91.129,
+              "epoch": 0,
+              "remaining": []
+            }
+          ],
+          "process_remaining": [],
+          "started_at": "2026-11-21T05:17:30.464731+08:00",
+          "ended_at": "2026-11-21T05:19:14.508991+08:00"
+        },
+        {
+          "case": "headon-03",
+          "status": "passed",
+          "error": null,
+          "actions": {
+            "preposition": {
+              "accepted": true,
+              "fixture_passed": true,
+              "ros_status": 4,
+              "truth_error_m": 0.06595169522220524,
+              "strict_one_second_stop_passed": true,
+              "stable_stop_confirmed": true
+            },
+            "goal": {
+              "accepted": true,
+              "fixture_passed": true,
+              "ros_status": 4,
+              "truth_error_m": 0.056496053988514594,
+              "strict_one_second_stop_passed": true,
+              "stable_stop_confirmed": true
+            }
+          },
+          "obstacle_goal_started": true,
+          "opponent_movement_started": true,
+          "opponent_fitted_speed_mps": 0.4999506005879927,
+          "contacts": 0,
+          "minimum_gap_m": 0.25513358736397374,
+          "goal_robot_speed_peak_mps": 1.0191582255479072,
+          "topology_passed": true,
+          "params_match": true,
+          "gate_state_transition_counts": {
+            "external_stop": 2,
+            "no_single_active_goal": 3,
+            "ready": 8,
+            "odin_obstacle_source_unmatched": 6
+          },
+          "configuration_checks": {
+            "original_robot_sdf": true,
+            "c072_3hz_tree_with_map_refresh": true,
+            "c072_base_obstacle_04": true,
+            "c072_local_clearance_05": true,
+            "global_plugin": true,
+            "controller_speed": true,
+            "smoother_speed": true,
+            "velocity_sampling": true,
+            "goal_checker": true,
+            "local_prediction": true,
+            "swept_clearance": true,
+            "controlled_recovery": true
+          },
+          "recovery_events": [
+            {
+              "kind": "release_verified",
+              "steady": 146586.616799964,
+              "ros": 5.378,
+              "epoch": 0,
+              "evidence": {
+                "epoch": 0,
+                "steady": 146586.616063369,
+                "ros": 5.378,
+                "quality_count": 4,
+                "registration_sequence": 4,
+                "last_source": 5.299999999,
+                "gates": {
+                  "healthy": true,
+                  "stationary": true,
+                  "external": true,
+                  "pose": true
+                }
+              }
+            },
+            {
+              "kind": "transition",
+              "steady": 146586.617134012,
+              "ros": 5.3790000000000004,
+              "epoch": 0,
+              "previous": "VERIFY",
+              "state": "RUNNING",
+              "fault": "",
+              "input_detail": {
+                "imu": {
+                  "steady": 146586.613270566,
+                  "ros": 5.375,
+                  "stamp": 5.375,
+                  "source_age_s": 0.0,
+                  "stamp_delta_s": 0.004999999999999893,
+                  "receipt_gap_s": 0.004994403017917648,
+                  "valid": true
+                },
+                "invalid_imu": [],
+                "imu_receipt_age_s": 0.002792802988551557,
+                "imu_valid_since": 146583.211504158,
+                "odom_stamp": 5.349999999,
+                "odom_receipt_age_s": 0.006440983997890726,
+                "odom_progress_age_s": 0.006440983997890726
+              }
+            },
+            {
+              "kind": "owned_tree_audit",
+              "steady": 146678.423470193,
+              "ros": 96.69300000000001,
+              "epoch": 0,
+              "remaining": []
+            }
+          ],
+          "process_remaining": [],
+          "started_at": "2026-11-21T05:19:14.511562+08:00",
+          "ended_at": "2026-11-21T05:21:04.054545+08:00"
+        }
+      ]
+    }
+  }
+}
