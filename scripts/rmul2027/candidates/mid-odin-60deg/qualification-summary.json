@@ -1,0 +1,586 @@
+{
+  "qualification_time": "2026-11-21T01:46:44.577382+08:00",
+  "command_speed_cap_mps": 0.5,
+  "params_sha256": "0d03f3ae260eef47ea1aca95e08f49ebb4dfcf3d6b17f2186dd44a75a48aef66",
+  "formal_passed": 15,
+  "formal_cases": 15,
+  "simulation_only": true,
+  "stages": {
+    "fixed-left": [
+      {
+        "case": "left-far-01",
+        "status": "passed",
+        "minimum_gap_m": 0.18986446668752255,
+        "contacts": 0,
+        "opponent_fitted_speed_mps": null,
+        "goal_robot_speed_peak_mps": null,
+        "actions": {
+          "preposition": {
+            "accepted": true,
+            "fixture_passed": true,
+            "ros_status": 4,
+            "truth_error_m": 0.11270254680017298,
+            "strict_one_second_stop_passed": true,
+            "stable_stop_confirmed": true
+          },
+          "goal": {
+            "accepted": true,
+            "fixture_passed": true,
+            "ros_status": 4,
+            "truth_error_m": 0.12974887751476924,
+            "strict_one_second_stop_passed": true,
+            "stable_stop_confirmed": true
+          }
+        },
+        "configuration_checks": {
+          "original_robot_sdf": true,
+          "c072_3hz_tree_with_map_refresh": true,
+          "c072_base_obstacle_04": true,
+          "c072_local_clearance_05": true,
+          "global_plugin": true,
+          "local_prediction": true,
+          "swept_clearance": true,
+          "controlled_recovery": true
+        },
+        "started_at": "2026-11-21T01:24:09.677734+08:00",
+        "ended_at": "2026-11-21T01:25:45.858454+08:00"
+      },
+      {
+        "case": "left-far-02",
+        "status": "passed",
+        "minimum_gap_m": 0.164016837763036,
+        "contacts": 0,
+        "opponent_fitted_speed_mps": null,
+        "goal_robot_speed_peak_mps": null,
+        "actions": {
+          "preposition": {
+            "accepted": true,
+            "fixture_passed": true,
+            "ros_status": 4,
+            "truth_error_m": 0.11561064765186665,
+            "strict_one_second_stop_passed": true,
+            "stable_stop_confirmed": true
+          },
+          "goal": {
+            "accepted": true,
+            "fixture_passed": true,
+            "ros_status": 4,
+            "truth_error_m": 0.1351337729560067,
+            "strict_one_second_stop_passed": true,
+            "stable_stop_confirmed": true
+          }
+        },
+        "configuration_checks": {
+          "original_robot_sdf": true,
+          "c072_3hz_tree_with_map_refresh": true,
+          "c072_base_obstacle_04": true,
+          "c072_local_clearance_05": true,
+          "global_plugin": true,
+          "local_prediction": true,
+          "swept_clearance": true,
+          "controlled_recovery": true
+        },
+        "started_at": "2026-11-21T01:25:45.862741+08:00",
+        "ended_at": "2026-11-21T01:27:28.277646+08:00"
+      },
+      {
+        "case": "left-far-03",
+        "status": "passed",
+        "minimum_gap_m": 0.18451116395408285,
+        "contacts": 0,
+        "opponent_fitted_speed_mps": null,
+        "goal_robot_speed_peak_mps": null,
+        "actions": {
+          "preposition": {
+            "accepted": true,
+            "fixture_passed": true,
+            "ros_status": 4,
+            "truth_error_m": 0.14153390963027607,
+            "strict_one_second_stop_passed": true,
+            "stable_stop_confirmed": true
+          },
+          "goal": {
+            "accepted": true,
+            "fixture_passed": true,
+            "ros_status": 4,
+            "truth_error_m": 0.1337537871675524,
+            "strict_one_second_stop_passed": true,
+            "stable_stop_confirmed": true
+          }
+        },
+        "configuration_checks": {
+          "original_robot_sdf": true,
+          "c072_3hz_tree_with_map_refresh": true,
+          "c072_base_obstacle_04": true,
+          "c072_local_clearance_05": true,
+          "global_plugin": true,
+          "local_prediction": true,
+          "swept_clearance": true,
+          "controlled_recovery": true
+        },
+        "started_at": "2026-11-21T01:27:28.284411+08:00",
+        "ended_at": "2026-11-21T01:29:07.427066+08:00"
+      },
+      {
+        "case": "left-near-01",
+        "status": "passed",
+        "minimum_gap_m": 0.1531212841574932,
+        "contacts": 0,
+        "opponent_fitted_speed_mps": null,
+        "goal_robot_speed_peak_mps": null,
+        "actions": {
+          "preposition": {
+            "accepted": true,
+            "fixture_passed": true,
+            "ros_status": 4,
+            "truth_error_m": 0.13629442520751706,
+            "strict_one_second_stop_passed": true,
+            "stable_stop_confirmed": true
+          },
+          "goal": {
+            "accepted": true,
+            "fixture_passed": true,
+            "ros_status": 4,
+            "truth_error_m": 0.1350195852523133,
+            "strict_one_second_stop_passed": true,
+            "stable_stop_confirmed": true
+          }
+        },
+        "configuration_checks": {
+          "original_robot_sdf": true,
+          "c072_3hz_tree_with_map_refresh": true,
+          "c072_base_obstacle_04": true,
+          "c072_local_clearance_05": true,
+          "global_plugin": true,
+          "local_prediction": true,
+          "swept_clearance": true,
+          "controlled_recovery": true
+        },
+        "started_at": "2026-11-21T01:19:02.385068+08:00",
+        "ended_at": "2026-11-21T01:20:43.539258+08:00"
+      },
+      {
+        "case": "left-near-02",
+        "status": "passed",
+        "minimum_gap_m": 0.18344706227828134,
+        "contacts": 0,
+        "opponent_fitted_speed_mps": null,
+        "goal_robot_speed_peak_mps": null,
+        "actions": {
+          "preposition": {
+            "accepted": true,
+            "fixture_passed": true,
+            "ros_status": 4,
+            "truth_error_m": 0.13276046202269454,
+            "strict_one_second_stop_passed": true,
+            "stable_stop_confirmed": true
+          },
+          "goal": {
+            "accepted": true,
+            "fixture_passed": true,
+            "ros_status": 4,
+            "truth_error_m": 0.13704679371916526,
+            "strict_one_second_stop_passed": true,
+            "stable_stop_confirmed": true
+          }
+        },
+        "configuration_checks": {
+          "original_robot_sdf": true,
+          "c072_3hz_tree_with_map_refresh": true,
+          "c072_base_obstacle_04": true,
+          "c072_local_clearance_05": true,
+          "global_plugin": true,
+          "local_prediction": true,
+          "swept_clearance": true,
+          "controlled_recovery": true
+        },
+        "started_at": "2026-11-21T01:20:43.542163+08:00",
+        "ended_at": "2026-11-21T01:22:26.963977+08:00"
+      },
+      {
+        "case": "left-near-03",
+        "status": "passed",
+        "minimum_gap_m": 0.15966818547539655,
+        "contacts": 0,
+        "opponent_fitted_speed_mps": null,
+        "goal_robot_speed_peak_mps": null,
+        "actions": {
+          "preposition": {
+            "accepted": true,
+            "fixture_passed": true,
+            "ros_status": 4,
+            "truth_error_m": 0.13372553125480913,
+            "strict_one_second_stop_passed": true,
+            "stable_stop_confirmed": true
+          },
+          "goal": {
+            "accepted": true,
+            "fixture_passed": true,
+            "ros_status": 4,
+            "truth_error_m": 0.14770219511464275,
+            "strict_one_second_stop_passed": true,
+            "stable_stop_confirmed": true
+          }
+        },
+        "configuration_checks": {
+          "original_robot_sdf": true,
+          "c072_3hz_tree_with_map_refresh": true,
+          "c072_base_obstacle_04": true,
+          "c072_local_clearance_05": true,
+          "global_plugin": true,
+          "local_prediction": true,
+          "swept_clearance": true,
+          "controlled_recovery": true
+        },
+        "started_at": "2026-11-21T01:22:26.967866+08:00",
+        "ended_at": "2026-11-21T01:24:09.675252+08:00"
+      }
+    ],
+    "fixed-reverse-right": [
+      {
+        "case": "left-reverse-01",
+        "status": "passed",
+        "minimum_gap_m": 0.19270504432090885,
+        "contacts": 0,
+        "opponent_fitted_speed_mps": null,
+        "goal_robot_speed_peak_mps": null,
+        "actions": {
+          "preposition": {
+            "accepted": true,
+            "fixture_passed": true,
+            "ros_status": 4,
+            "truth_error_m": 0.12046583419382553,
+            "strict_one_second_stop_passed": true,
+            "stable_stop_confirmed": true
+          },
+          "goal": {
+            "accepted": true,
+            "fixture_passed": true,
+            "ros_status": 4,
+            "truth_error_m": 0.1492332080167316,
+            "strict_one_second_stop_passed": true,
+            "stable_stop_confirmed": true
+          }
+        },
+        "configuration_checks": {
+          "original_robot_sdf": true,
+          "c072_3hz_tree_with_map_refresh": true,
+          "c072_base_obstacle_04": true,
+          "c072_local_clearance_05": true,
+          "global_plugin": true,
+          "local_prediction": true,
+          "swept_clearance": true,
+          "controlled_recovery": true
+        },
+        "started_at": "2026-11-21T01:29:11.979279+08:00",
+        "ended_at": "2026-11-21T01:31:00.035423+08:00"
+      },
+      {
+        "case": "left-reverse-02",
+        "status": "passed",
+        "minimum_gap_m": 0.15491135862701189,
+        "contacts": 0,
+        "opponent_fitted_speed_mps": null,
+        "goal_robot_speed_peak_mps": null,
+        "actions": {
+          "preposition": {
+            "accepted": true,
+            "fixture_passed": true,
+            "ros_status": 4,
+            "truth_error_m": 0.1395559472813353,
+            "strict_one_second_stop_passed": true,
+            "stable_stop_confirmed": true
+          },
+          "goal": {
+            "accepted": true,
+            "fixture_passed": true,
+            "ros_status": 4,
+            "truth_error_m": 0.12178999133946715,
+            "strict_one_second_stop_passed": true,
+            "stable_stop_confirmed": true
+          }
+        },
+        "configuration_checks": {
+          "original_robot_sdf": true,
+          "c072_3hz_tree_with_map_refresh": true,
+          "c072_base_obstacle_04": true,
+          "c072_local_clearance_05": true,
+          "global_plugin": true,
+          "local_prediction": true,
+          "swept_clearance": true,
+          "controlled_recovery": true
+        },
+        "started_at": "2026-11-21T01:31:00.036424+08:00",
+        "ended_at": "2026-11-21T01:32:43.181946+08:00"
+      },
+      {
+        "case": "left-reverse-03",
+        "status": "passed",
+        "minimum_gap_m": 0.18083488146894489,
+        "contacts": 0,
+        "opponent_fitted_speed_mps": null,
+        "goal_robot_speed_peak_mps": null,
+        "actions": {
+          "preposition": {
+            "accepted": true,
+            "fixture_passed": true,
+            "ros_status": 4,
+            "truth_error_m": 0.12616600533694627,
+            "strict_one_second_stop_passed": true,
+            "stable_stop_confirmed": true
+          },
+          "goal": {
+            "accepted": true,
+            "fixture_passed": true,
+            "ros_status": 4,
+            "truth_error_m": 0.14020574359754043,
+            "strict_one_second_stop_passed": true,
+            "stable_stop_confirmed": true
+          }
+        },
+        "configuration_checks": {
+          "original_robot_sdf": true,
+          "c072_3hz_tree_with_map_refresh": true,
+          "c072_base_obstacle_04": true,
+          "c072_local_clearance_05": true,
+          "global_plugin": true,
+          "local_prediction": true,
+          "swept_clearance": true,
+          "controlled_recovery": true
+        },
+        "started_at": "2026-11-21T01:32:43.185953+08:00",
+        "ended_at": "2026-11-21T01:34:26.535326+08:00"
+      },
+      {
+        "case": "right-control-01",
+        "status": "passed",
+        "minimum_gap_m": 0.21510038944211526,
+        "contacts": 0,
+        "opponent_fitted_speed_mps": null,
+        "goal_robot_speed_peak_mps": null,
+        "actions": {
+          "preposition": {
+            "accepted": true,
+            "fixture_passed": true,
+            "ros_status": 4,
+            "truth_error_m": 0.14410773055357343,
+            "strict_one_second_stop_passed": true,
+            "stable_stop_confirmed": true
+          },
+          "goal": {
+            "accepted": true,
+            "fixture_passed": true,
+            "ros_status": 4,
+            "truth_error_m": 0.13632880048131785,
+            "strict_one_second_stop_passed": true,
+            "stable_stop_confirmed": true
+          }
+        },
+        "configuration_checks": {
+          "original_robot_sdf": true,
+          "c072_3hz_tree_with_map_refresh": true,
+          "c072_base_obstacle_04": true,
+          "c072_local_clearance_05": true,
+          "global_plugin": true,
+          "local_prediction": true,
+          "swept_clearance": true,
+          "controlled_recovery": true
+        },
+        "started_at": "2026-11-21T01:34:26.539069+08:00",
+        "ended_at": "2026-11-21T01:36:20.086949+08:00"
+      },
+      {
+        "case": "right-control-02",
+        "status": "passed",
+        "minimum_gap_m": 0.21074575975153442,
+        "contacts": 0,
+        "opponent_fitted_speed_mps": null,
+        "goal_robot_speed_peak_mps": null,
+        "actions": {
+          "preposition": {
+            "accepted": true,
+            "fixture_passed": true,
+            "ros_status": 4,
+            "truth_error_m": 0.14096984431733728,
+            "strict_one_second_stop_passed": true,
+            "stable_stop_confirmed": true
+          },
+          "goal": {
+            "accepted": true,
+            "fixture_passed": true,
+            "ros_status": 4,
+            "truth_error_m": 0.14521199035911503,
+            "strict_one_second_stop_passed": true,
+            "stable_stop_confirmed": true
+          }
+        },
+        "configuration_checks": {
+          "original_robot_sdf": true,
+          "c072_3hz_tree_with_map_refresh": true,
+          "c072_base_obstacle_04": true,
+          "c072_local_clearance_05": true,
+          "global_plugin": true,
+          "local_prediction": true,
+          "swept_clearance": true,
+          "controlled_recovery": true
+        },
+        "started_at": "2026-11-21T01:36:20.092297+08:00",
+        "ended_at": "2026-11-21T01:38:04.853426+08:00"
+      },
+      {
+        "case": "right-control-03",
+        "status": "passed",
+        "minimum_gap_m": 0.1957389076954092,
+        "contacts": 0,
+        "opponent_fitted_speed_mps": null,
+        "goal_robot_speed_peak_mps": null,
+        "actions": {
+          "preposition": {
+            "accepted": true,
+            "fixture_passed": true,
+            "ros_status": 4,
+            "truth_error_m": 0.14516249070491938,
+            "strict_one_second_stop_passed": true,
+            "stable_stop_confirmed": true
+          },
+          "goal": {
+            "accepted": true,
+            "fixture_passed": true,
+            "ros_status": 4,
+            "truth_error_m": 0.13811592848936594,
+            "strict_one_second_stop_passed": true,
+            "stable_stop_confirmed": true
+          }
+        },
+        "configuration_checks": {
+          "original_robot_sdf": true,
+          "c072_3hz_tree_with_map_refresh": true,
+          "c072_base_obstacle_04": true,
+          "c072_local_clearance_05": true,
+          "global_plugin": true,
+          "local_prediction": true,
+          "swept_clearance": true,
+          "controlled_recovery": true
+        },
+        "started_at": "2026-11-21T01:38:04.858802+08:00",
+        "ended_at": "2026-11-21T01:39:51.863143+08:00"
+      }
+    ],
+    "moving-standard": [
+      {
+        "case": "headon-01",
+        "status": "passed",
+        "minimum_gap_m": 0.30015424968293536,
+        "contacts": 0,
+        "opponent_fitted_speed_mps": 0.5002238894415484,
+        "goal_robot_speed_peak_mps": 0.5431835153297327,
+        "actions": {
+          "preposition": {
+            "accepted": true,
+            "fixture_passed": true,
+            "ros_status": 4,
+            "truth_error_m": 0.14685250348739837,
+            "strict_one_second_stop_passed": true,
+            "stable_stop_confirmed": true
+          },
+          "goal": {
+            "accepted": true,
+            "fixture_passed": true,
+            "ros_status": 4,
+            "truth_error_m": 0.11781986868432681,
+            "strict_one_second_stop_passed": true,
+            "stable_stop_confirmed": true
+          }
+        },
+        "configuration_checks": {
+          "original_robot_sdf": true,
+          "c072_3hz_tree_with_map_refresh": true,
+          "c072_base_obstacle_04": true,
+          "c072_local_clearance_05": true,
+          "global_plugin": true,
+          "local_prediction": true,
+          "swept_clearance": true,
+          "controlled_recovery": true
+        },
+        "started_at": "2026-11-21T01:39:57.412025+08:00",
+        "ended_at": "2026-11-21T01:41:53.083153+08:00"
+      },
+      {
+        "case": "headon-02",
+        "status": "passed",
+        "minimum_gap_m": 0.24642093907868445,
+        "contacts": 0,
+        "opponent_fitted_speed_mps": 0.49998968984085346,
+        "goal_robot_speed_peak_mps": 0.5231420625142195,
+        "actions": {
+          "preposition": {
+            "accepted": true,
+            "fixture_passed": true,
+            "ros_status": 4,
+            "truth_error_m": 0.13907533307712985,
+            "strict_one_second_stop_passed": true,
+            "stable_stop_confirmed": true
+          },
+          "goal": {
+            "accepted": true,
+            "fixture_passed": true,
+            "ros_status": 4,
+            "truth_error_m": 0.14874194268794355,
+            "strict_one_second_stop_passed": true,
+            "stable_stop_confirmed": true
+          }
+        },
+        "configuration_checks": {
+          "original_robot_sdf": true,
+          "c072_3hz_tree_with_map_refresh": true,
+          "c072_base_obstacle_04": true,
+          "c072_local_clearance_05": true,
+          "global_plugin": true,
+          "local_prediction": true,
+          "swept_clearance": true,
+          "controlled_recovery": true
+        },
+        "started_at": "2026-11-21T01:41:53.085601+08:00",
+        "ended_at": "2026-11-21T01:43:57.883077+08:00"
+      },
+      {
+        "case": "headon-03",
+        "status": "passed",
+        "minimum_gap_m": 0.3571993345460782,
+        "contacts": 0,
+        "opponent_fitted_speed_mps": 0.4998649861456081,
+        "goal_robot_speed_peak_mps": 0.5688426154702145,
+        "actions": {
+          "preposition": {
+            "accepted": true,
+            "fixture_passed": true,
+            "ros_status": 4,
+            "truth_error_m": 0.12545628449804463,
+            "strict_one_second_stop_passed": true,
+            "stable_stop_confirmed": true
+          },
+          "goal": {
+            "accepted": true,
+            "fixture_passed": true,
+            "ros_status": 4,
+            "truth_error_m": 0.12386669949756147,
+            "strict_one_second_stop_passed": true,
+            "stable_stop_confirmed": true
+          }
+        },
+        "configuration_checks": {
+          "original_robot_sdf": true,
+          "c072_3hz_tree_with_map_refresh": true,
+          "c072_base_obstacle_04": true,
+          "c072_local_clearance_05": true,
+          "global_plugin": true,
+          "local_prediction": true,
+          "swept_clearance": true,
+          "controlled_recovery": true
+        },
+        "started_at": "2026-11-21T01:43:57.883989+08:00",
+        "ended_at": "2026-11-21T01:46:03.328214+08:00"
+      }
+    ]
+  }
+}

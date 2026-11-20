@@ -1,0 +1,249 @@
+{
+  "scope": "Recorded ROI from one actual previous failure; each raw crop retains at most 256 points, angular thinning sees the full scan.",
+  "first_fault": {
+    "reason": "dangerous_approach",
+    "wall": 1795193240.2335405,
+    "sim": 72.418,
+    "gap_m": 0.035068914505872316,
+    "truth_map": [
+      2.2923502568781853,
+      -5.843040911612903,
+      -2.1788928561087317
+    ],
+    "cmd_vel": [
+      -0.023749810573349503,
+      0.06708070250149871,
+      3.14
+    ]
+  },
+  "same_stamp_frames": [
+    {
+      "stamp": 71.0,
+      "truth_map_xy_m": [
+        2.057291842889056,
+        -5.565271540862697
+      ],
+      "odin/points": {
+        "raw_logged_box_height_points": 1560,
+        "sampled_returns_height_06_to_50cm": 185,
+        "nearest_sampled_return_m": 0.6538622454559883,
+        "sampled_5cm_cells": 6
+      },
+      "odin/obstacles": {
+        "raw_logged_box_height_points": 2,
+        "sampled_returns_height_06_to_50cm": 27,
+        "nearest_sampled_return_m": 0.6604338656718399,
+        "sampled_5cm_cells": 5
+      }
+    },
+    {
+      "stamp": 71.1,
+      "truth_map_xy_m": [
+        2.074305470840055,
+        -5.590659583660381
+      ],
+      "odin/points": {
+        "raw_logged_box_height_points": 1508,
+        "sampled_returns_height_06_to_50cm": 185,
+        "nearest_sampled_return_m": 0.6431496349332511,
+        "sampled_5cm_cells": 6
+      },
+      "odin/obstacles": {
+        "raw_logged_box_height_points": 2,
+        "sampled_returns_height_06_to_50cm": 26,
+        "nearest_sampled_return_m": 0.6491854972349544,
+        "sampled_5cm_cells": 5
+      }
+    },
+    {
+      "stamp": 71.3,
+      "truth_map_xy_m": [
+        2.115676422160528,
+        -5.646513730773418
+      ],
+      "odin/points": {
+        "raw_logged_box_height_points": 1407,
+        "sampled_returns_height_06_to_50cm": 182,
+        "nearest_sampled_return_m": 0.6159105710398546,
+        "sampled_5cm_cells": 5
+      },
+      "odin/obstacles": {
+        "raw_logged_box_height_points": 3,
+        "sampled_returns_height_06_to_50cm": 24,
+        "nearest_sampled_return_m": 0.6303383872838146,
+        "sampled_5cm_cells": 4
+      }
+    },
+    {
+      "stamp": 71.4,
+      "truth_map_xy_m": [
+        2.1419426998539195,
+        -5.676064308015867
+      ],
+      "odin/points": {
+        "raw_logged_box_height_points": 1342,
+        "sampled_returns_height_06_to_50cm": 184,
+        "nearest_sampled_return_m": 0.6031489566584987,
+        "sampled_5cm_cells": 6
+      },
+      "odin/obstacles": {
+        "raw_logged_box_height_points": 3,
+        "sampled_returns_height_06_to_50cm": 23,
+        "nearest_sampled_return_m": 0.618927179939398,
+        "sampled_5cm_cells": 5
+      }
+    },
+    {
+      "stamp": 71.5,
+      "truth_map_xy_m": [
+        2.1702000161233337,
+        -5.704927766528678
+      ],
+      "odin/points": {
+        "raw_logged_box_height_points": 1397,
+        "sampled_returns_height_06_to_50cm": 177,
+        "nearest_sampled_return_m": 0.5876799770315475,
+        "sampled_5cm_cells": 6
+      },
+      "odin/obstacles": {
+        "raw_logged_box_height_points": 3,
+        "sampled_returns_height_06_to_50cm": 23,
+        "nearest_sampled_return_m": 0.6040199648399974,
+        "sampled_5cm_cells": 5
+      }
+    },
+    {
+      "stamp": 71.6,
+      "truth_map_xy_m": [
+        2.1980324361883867,
+        -5.735051783444838
+      ],
+      "odin/points": {
+        "raw_logged_box_height_points": 1549,
+        "sampled_returns_height_06_to_50cm": 184,
+        "nearest_sampled_return_m": 0.5556592686113488,
+        "sampled_5cm_cells": 6
+      },
+      "odin/obstacles": {
+        "raw_logged_box_height_points": 2,
+        "sampled_returns_height_06_to_50cm": 25,
+        "nearest_sampled_return_m": 0.5791424343082087,
+        "sampled_5cm_cells": 5
+      }
+    },
+    {
+      "stamp": 71.9,
+      "truth_map_xy_m": [
+        2.279895159943227,
+        -5.82107483470501
+      ],
+      "odin/points": {
+        "raw_logged_box_height_points": 2292,
+        "sampled_returns_height_06_to_50cm": 192,
+        "nearest_sampled_return_m": 0.4881095651415232,
+        "sampled_5cm_cells": 8
+      },
+      "odin/obstacles": {
+        "raw_logged_box_height_points": 2,
+        "sampled_returns_height_06_to_50cm": 34,
+        "nearest_sampled_return_m": 0.5125158810909662,
+        "sampled_5cm_cells": 7
+      }
+    },
+    {
+      "stamp": 72.0,
+      "truth_map_xy_m": [
+        2.281842630030373,
+        -5.822153930586707
+      ],
+      "odin/points": {
+        "raw_logged_box_height_points": 2282,
+        "sampled_returns_height_06_to_50cm": 192,
+        "nearest_sampled_return_m": 0.48914837837642017,
+        "sampled_5cm_cells": 7
+      },
+      "odin/obstacles": {
+        "raw_logged_box_height_points": 1,
+        "sampled_returns_height_06_to_50cm": 34,
+        "nearest_sampled_return_m": 0.5113897353030185,
+        "sampled_5cm_cells": 6
+      }
+    },
+    {
+      "stamp": 72.1,
+      "truth_map_xy_m": [
+        2.281861982261668,
+        -5.822149706562919
+      ],
+      "odin/points": {
+        "raw_logged_box_height_points": 2244,
+        "sampled_returns_height_06_to_50cm": 190,
+        "nearest_sampled_return_m": 0.4968196260459468,
+        "sampled_5cm_cells": 7
+      },
+      "odin/obstacles": {
+        "raw_logged_box_height_points": 2,
+        "sampled_returns_height_06_to_50cm": 33,
+        "nearest_sampled_return_m": 0.5139869778060182,
+        "sampled_5cm_cells": 6
+      }
+    },
+    {
+      "stamp": 72.2,
+      "truth_map_xy_m": [
+        2.2840054979590723,
+        -5.825989481916855
+      ],
+      "odin/points": {
+        "raw_logged_box_height_points": 2242,
+        "sampled_returns_height_06_to_50cm": 188,
+        "nearest_sampled_return_m": 0.4851202893961108,
+        "sampled_5cm_cells": 7
+      },
+      "odin/obstacles": {
+        "raw_logged_box_height_points": 2,
+        "sampled_returns_height_06_to_50cm": 33,
+        "nearest_sampled_return_m": 0.5115784763964056,
+        "sampled_5cm_cells": 6
+      }
+    },
+    {
+      "stamp": 72.3,
+      "truth_map_xy_m": [
+        2.2892130012376306,
+        -5.834821794471845
+      ],
+      "odin/points": {
+        "raw_logged_box_height_points": 2285,
+        "sampled_returns_height_06_to_50cm": 200,
+        "nearest_sampled_return_m": 0.48927010341466626,
+        "sampled_5cm_cells": 7
+      },
+      "odin/obstacles": {
+        "raw_logged_box_height_points": 2,
+        "sampled_returns_height_06_to_50cm": 34,
+        "nearest_sampled_return_m": 0.5064567623637665,
+        "sampled_5cm_cells": 7
+      }
+    },
+    {
+      "stamp": 72.4,
+      "truth_map_xy_m": [
+        2.2923502568781853,
+        -5.843040911612903
+      ],
+      "odin/points": {
+        "raw_logged_box_height_points": 1776,
+        "sampled_returns_height_06_to_50cm": 228,
+        "nearest_sampled_return_m": 0.4902480047845527,
+        "sampled_5cm_cells": 7
+      },
+      "odin/obstacles": {
+        "raw_logged_box_height_points": 1,
+        "sampled_returns_height_06_to_50cm": 35,
+        "nearest_sampled_return_m": 0.504474931239229,
+        "sampled_5cm_cells": 8
+      }
+    }
+  ]
+}

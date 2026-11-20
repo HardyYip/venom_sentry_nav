@@ -1,0 +1,28 @@
+PASS same azimuth retains two actual surfaces and rejects floor, overhead and self
+test_bad_quaternion (__main__.AuxiliaryTests) ... ok
+test_big_endian (__main__.AuxiliaryTests) ... ok
+test_empty (__main__.AuxiliaryTests) ... ok
+test_finite (__main__.AuxiliaryTests) ... ok
+test_floor (__main__.AuxiliaryTests) ... ok
+test_height_edges (__main__.AuxiliaryTests) ... ok
+test_invalid_bins (__main__.AuxiliaryTests) ... ok
+test_invalid_bounds (__main__.AuxiliaryTests) ... ok
+test_invalid_polygon (__main__.AuxiliaryTests) ... ok
+test_invalid_transform (__main__.AuxiliaryTests) ... ok
+test_malformed_layout (__main__.AuxiliaryTests) ... ok
+test_nearest_bin (__main__.AuxiliaryTests) ... ok
+test_padded_zero_reflectivity (__main__.AuxiliaryTests) ... ok
+test_profile_params (__main__.AuxiliaryTests) ... ok
+test_quaternion (__main__.AuxiliaryTests) ... ok
+test_range (__main__.AuxiliaryTests) ... ok
+test_rotated_filter_original_frame_output (__main__.AuxiliaryTests) ... ok
+test_self_boundary (__main__.AuxiliaryTests) ... ok
+test_tall (__main__.AuxiliaryTests) ... ok
+test_translation_floor_filter (__main__.AuxiliaryTests) ... ok
+test_valid_xyz_retained (__main__.AuxiliaryTests) ... ok
+test_wrong_field (__main__.AuxiliaryTests) ... ok
+
+----------------------------------------------------------------------
+Ran 22 tests in 0.065s
+
+OK

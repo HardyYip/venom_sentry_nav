@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="3" main_tree_to_execute="MainTree">
+  <BehaviorTree ID="MainTree">
+    <ReactiveSequence name="FreshLocalizationRequired">
+      <PoseFresh use_sim_time="true" parent="map" child="base_footprint" timeout="0.5" future_tolerance="0.1"/>
+    <PipelineSequence name="NavigateWithReplanning">
+      <RateController hz="3.0">
+        <RecoveryNode name="ComputePathToPose" number_of_retries="1">
+          <ComputePathToPose goal="{goal}" path="{path}" planner_id="GridBased"/>
+          <Sequence name="RefreshGlobalCostmap">
+            <ClearEntireCostmap name="ClearGlobalCostmap" service_name="global_costmap/clear_entirely_global_costmap"/>
+            <!-- A completed clear service does not imply an updated sensor costmap. -->
+            <Wait wait_duration="1"/>
+          </Sequence>
+        </RecoveryNode>
+      </RateController>
+      <RecoveryNode name="FollowPath" number_of_retries="2">
+        <FollowPath path="{path}" controller_id="FollowPath"/>
+        <Sequence name="LimitedControllerRecovery">
+          <ClearEntireCostmap name="ClearLocalCostmap" service_name="local_costmap/clear_entirely_local_costmap"/>
+          <BackUp backup_dist="0.20" backup_speed="0.15" time_allowance="5.0"/>
+        </Sequence>
+      </RecoveryNode>
+    </PipelineSequence>
+    </ReactiveSequence>
+  </BehaviorTree>
+</root>
