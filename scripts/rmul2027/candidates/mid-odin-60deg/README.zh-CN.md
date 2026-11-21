@@ -21,3 +21,7 @@
 ## 1.25 m/s 仿真
 
 固定 12/12、移动对向 3/3，全部零接触、到点并停稳。[本轮结果和实测速率](speeds/1.25mps/revisions/static-clearance-preference-20261121/RESULTS.zh-CN.md) · [检测方法](speeds/1.25mps/revisions/static-clearance-preference-20261121/TEST-METHOD.zh-CN.md)
+
+## 1.50 m/s 仿真
+
+固定 12/12、移动对向 3/3，全部零接触、到点并停稳。[本轮结果和实测速率](speeds/1.50mps/RESULTS.zh-CN.md) · [检测方法](speeds/1.50mps/TEST-METHOD.zh-CN.md)

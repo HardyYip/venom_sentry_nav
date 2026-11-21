@@ -1,0 +1,212 @@
+[
+  {
+    "stage": "fixed-left",
+    "case": "left-far-01",
+    "libraries": {
+      "libc072_navigation_plugins.so": {
+        "prefix": "/evidence/c072-speed150-path-tracking-20261121/planner-install/rmul_c072_planner/lib",
+        "sha256": "2a422b6da5d0162cbcb28268e47fde652cbefe4d00c950f4b87b6f0e4b955c35"
+      },
+      "libsmall_gicp_relocalization.so": {
+        "prefix": "/evidence/c072-speed150-path-tracking-20261121/gicp-install/small_gicp_relocalization/lib",
+        "sha256": "0ccf0682054bf444751b183a9845ac4932a0bb510992623c79a377ab8fec5d68"
+      }
+    }
+  },
+  {
+    "stage": "fixed-left",
+    "case": "left-far-02",
+    "libraries": {
+      "libc072_navigation_plugins.so": {
+        "prefix": "/evidence/c072-speed150-path-tracking-20261121/planner-install/rmul_c072_planner/lib",
+        "sha256": "2a422b6da5d0162cbcb28268e47fde652cbefe4d00c950f4b87b6f0e4b955c35"
+      },
+      "libsmall_gicp_relocalization.so": {
+        "prefix": "/evidence/c072-speed150-path-tracking-20261121/gicp-install/small_gicp_relocalization/lib",
+        "sha256": "0ccf0682054bf444751b183a9845ac4932a0bb510992623c79a377ab8fec5d68"
+      }
+    }
+  },
+  {
+    "stage": "fixed-left",
+    "case": "left-far-03",
+    "libraries": {
+      "libc072_navigation_plugins.so": {
+        "prefix": "/evidence/c072-speed150-path-tracking-20261121/planner-install/rmul_c072_planner/lib",
+        "sha256": "2a422b6da5d0162cbcb28268e47fde652cbefe4d00c950f4b87b6f0e4b955c35"
+      },
+      "libsmall_gicp_relocalization.so": {
+        "prefix": "/evidence/c072-speed150-path-tracking-20261121/gicp-install/small_gicp_relocalization/lib",
+        "sha256": "0ccf0682054bf444751b183a9845ac4932a0bb510992623c79a377ab8fec5d68"
+      }
+    }
+  },
+  {
+    "stage": "fixed-left",
+    "case": "left-near-01",
+    "libraries": {
+      "libc072_navigation_plugins.so": {
+        "prefix": "/evidence/c072-speed150-path-tracking-20261121/planner-install/rmul_c072_planner/lib",
+        "sha256": "2a422b6da5d0162cbcb28268e47fde652cbefe4d00c950f4b87b6f0e4b955c35"
+      },
+      "libsmall_gicp_relocalization.so": {
+        "prefix": "/evidence/c072-speed150-path-tracking-20261121/gicp-install/small_gicp_relocalization/lib",
+        "sha256": "0ccf0682054bf444751b183a9845ac4932a0bb510992623c79a377ab8fec5d68"
+      }
+    }
+  },
+  {
+    "stage": "fixed-left",
+    "case": "left-near-02",
+    "libraries": {
+      "libc072_navigation_plugins.so": {
+        "prefix": "/evidence/c072-speed150-path-tracking-20261121/planner-install/rmul_c072_planner/lib",
+        "sha256": "2a422b6da5d0162cbcb28268e47fde652cbefe4d00c950f4b87b6f0e4b955c35"
+      },
+      "libsmall_gicp_relocalization.so": {
+        "prefix": "/evidence/c072-speed150-path-tracking-20261121/gicp-install/small_gicp_relocalization/lib",
+        "sha256": "0ccf0682054bf444751b183a9845ac4932a0bb510992623c79a377ab8fec5d68"
+      }
+    }
+  },
+  {
+    "stage": "fixed-left",
+    "case": "left-near-03",
+    "libraries": {
+      "libc072_navigation_plugins.so": {
+        "prefix": "/evidence/c072-speed150-path-tracking-20261121/planner-install/rmul_c072_planner/lib",
+        "sha256": "2a422b6da5d0162cbcb28268e47fde652cbefe4d00c950f4b87b6f0e4b955c35"
+      },
+      "libsmall_gicp_relocalization.so": {
+        "prefix": "/evidence/c072-speed150-path-tracking-20261121/gicp-install/small_gicp_relocalization/lib",
+        "sha256": "0ccf0682054bf444751b183a9845ac4932a0bb510992623c79a377ab8fec5d68"
+      }
+    }
+  },
+  {
+    "stage": "fixed-reverse-right",
+    "case": "left-reverse-01",
+    "libraries": {
+      "libc072_navigation_plugins.so": {
+        "prefix": "/evidence/c072-speed150-path-tracking-20261121/planner-install/rmul_c072_planner/lib",
+        "sha256": "2a422b6da5d0162cbcb28268e47fde652cbefe4d00c950f4b87b6f0e4b955c35"
+      },
+      "libsmall_gicp_relocalization.so": {
+        "prefix": "/evidence/c072-speed150-path-tracking-20261121/gicp-install/small_gicp_relocalization/lib",
+        "sha256": "0ccf0682054bf444751b183a9845ac4932a0bb510992623c79a377ab8fec5d68"
+      }
+    }
+  },
+  {
+    "stage": "fixed-reverse-right",
+    "case": "left-reverse-02",
+    "libraries": {
+      "libc072_navigation_plugins.so": {
+        "prefix": "/evidence/c072-speed150-path-tracking-20261121/planner-install/rmul_c072_planner/lib",
+        "sha256": "2a422b6da5d0162cbcb28268e47fde652cbefe4d00c950f4b87b6f0e4b955c35"
+      },
+      "libsmall_gicp_relocalization.so": {
+        "prefix": "/evidence/c072-speed150-path-tracking-20261121/gicp-install/small_gicp_relocalization/lib",
+        "sha256": "0ccf0682054bf444751b183a9845ac4932a0bb510992623c79a377ab8fec5d68"
+      }
+    }
+  },
+  {
+    "stage": "fixed-reverse-right",
+    "case": "left-reverse-03",
+    "libraries": {
+      "libc072_navigation_plugins.so": {
+        "prefix": "/evidence/c072-speed150-path-tracking-20261121/planner-install/rmul_c072_planner/lib",
+        "sha256": "2a422b6da5d0162cbcb28268e47fde652cbefe4d00c950f4b87b6f0e4b955c35"
+      },
+      "libsmall_gicp_relocalization.so": {
+        "prefix": "/evidence/c072-speed150-path-tracking-20261121/gicp-install/small_gicp_relocalization/lib",
+        "sha256": "0ccf0682054bf444751b183a9845ac4932a0bb510992623c79a377ab8fec5d68"
+      }
+    }
+  },
+  {
+    "stage": "fixed-reverse-right",
+    "case": "right-control-01",
+    "libraries": {
+      "libc072_navigation_plugins.so": {
+        "prefix": "/evidence/c072-speed150-path-tracking-20261121/planner-install/rmul_c072_planner/lib",
+        "sha256": "2a422b6da5d0162cbcb28268e47fde652cbefe4d00c950f4b87b6f0e4b955c35"
+      },
+      "libsmall_gicp_relocalization.so": {
+        "prefix": "/evidence/c072-speed150-path-tracking-20261121/gicp-install/small_gicp_relocalization/lib",
+        "sha256": "0ccf0682054bf444751b183a9845ac4932a0bb510992623c79a377ab8fec5d68"
+      }
+    }
+  },
+  {
+    "stage": "fixed-reverse-right",
+    "case": "right-control-02",
+    "libraries": {
+      "libc072_navigation_plugins.so": {
+        "prefix": "/evidence/c072-speed150-path-tracking-20261121/planner-install/rmul_c072_planner/lib",
+        "sha256": "2a422b6da5d0162cbcb28268e47fde652cbefe4d00c950f4b87b6f0e4b955c35"
+      },
+      "libsmall_gicp_relocalization.so": {
+        "prefix": "/evidence/c072-speed150-path-tracking-20261121/gicp-install/small_gicp_relocalization/lib",
+        "sha256": "0ccf0682054bf444751b183a9845ac4932a0bb510992623c79a377ab8fec5d68"
+      }
+    }
+  },
+  {
+    "stage": "fixed-reverse-right",
+    "case": "right-control-03",
+    "libraries": {
+      "libc072_navigation_plugins.so": {
+        "prefix": "/evidence/c072-speed150-path-tracking-20261121/planner-install/rmul_c072_planner/lib",
+        "sha256": "2a422b6da5d0162cbcb28268e47fde652cbefe4d00c950f4b87b6f0e4b955c35"
+      },
+      "libsmall_gicp_relocalization.so": {
+        "prefix": "/evidence/c072-speed150-path-tracking-20261121/gicp-install/small_gicp_relocalization/lib",
+        "sha256": "0ccf0682054bf444751b183a9845ac4932a0bb510992623c79a377ab8fec5d68"
+      }
+    }
+  },
+  {
+    "stage": "moving-standard",
+    "case": "headon-01",
+    "libraries": {
+      "libc072_navigation_plugins.so": {
+        "prefix": "/evidence/c072-speed150-path-tracking-20261121/planner-install/rmul_c072_planner/lib",
+        "sha256": "2a422b6da5d0162cbcb28268e47fde652cbefe4d00c950f4b87b6f0e4b955c35"
+      },
+      "libsmall_gicp_relocalization.so": {
+        "prefix": "/evidence/c072-speed150-path-tracking-20261121/gicp-install/small_gicp_relocalization/lib",
+        "sha256": "0ccf0682054bf444751b183a9845ac4932a0bb510992623c79a377ab8fec5d68"
+      }
+    }
+  },
+  {
+    "stage": "moving-standard",
+    "case": "headon-02",
+    "libraries": {
+      "libc072_navigation_plugins.so": {
+        "prefix": "/evidence/c072-speed150-path-tracking-20261121/planner-install/rmul_c072_planner/lib",
+        "sha256": "2a422b6da5d0162cbcb28268e47fde652cbefe4d00c950f4b87b6f0e4b955c35"
+      },
+      "libsmall_gicp_relocalization.so": {
+        "prefix": "/evidence/c072-speed150-path-tracking-20261121/gicp-install/small_gicp_relocalization/lib",
+        "sha256": "0ccf0682054bf444751b183a9845ac4932a0bb510992623c79a377ab8fec5d68"
+      }
+    }
+  },
+  {
+    "stage": "moving-standard",
+    "case": "headon-03",
+    "libraries": {
+      "libc072_navigation_plugins.so": {
+        "prefix": "/evidence/c072-speed150-path-tracking-20261121/planner-install/rmul_c072_planner/lib",
+        "sha256": "2a422b6da5d0162cbcb28268e47fde652cbefe4d00c950f4b87b6f0e4b955c35"
+      },
+      "libsmall_gicp_relocalization.so": {
+        "prefix": "/evidence/c072-speed150-path-tracking-20261121/gicp-install/small_gicp_relocalization/lib",
+        "sha256": "0ccf0682054bf444751b183a9845ac4932a0bb510992623c79a377ab8fec5d68"
+      }
+    }
+  }
+]
