@@ -1,0 +1,6 @@
+<library path="c072_navigation_plugins">
+  <class name="rmul_c072_planner/ReserveNavfn" type="rmul_c072_planner::ReserveNavfn"
+         base_class_type="nav2_core::GlobalPlanner">
+    <description>NavFn on a private protected snapshot of the current costmap.</description>
+  </class>
+</library>
