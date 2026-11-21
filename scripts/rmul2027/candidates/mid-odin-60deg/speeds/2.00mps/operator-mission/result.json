@@ -1,0 +1,65 @@
+{
+  "passed": true,
+  "mode": "Gazebo operator recall",
+  "navigation_cap_mps": 2,
+  "effective_params_sha256": "5f0f9d64de96cbcaf77ad03f138c2fccd0dcdd0a351f12163720aaeadc16f14b",
+  "leg_results": [
+    {
+      "event": "stop_verified",
+      "sim": 36.392,
+      "leg": "patrol_A",
+      "xy": [
+        2.0742273673891427,
+        -5.4976248881460545
+      ],
+      "error_m": 0.025881842052160462,
+      "dwell_s": 2
+    },
+    {
+      "event": "stop_verified",
+      "sim": 39.662,
+      "leg": "patrol_B",
+      "xy": [
+        2.11792049958791,
+        -5.49656669360789
+      ],
+      "error_m": 2.8820815453918693,
+      "dwell_s": 1
+    },
+    {
+      "event": "stop_verified",
+      "sim": 47.523,
+      "leg": "operator_return_base",
+      "xy": [
+        1.068171828837189,
+        -5.506290016131752
+      ],
+      "error_m": 0.06846139459538277,
+      "dwell_s": 2
+    },
+    {
+      "event": "stop_verified",
+      "sim": 58.0,
+      "leg": "resume_B",
+      "xy": [
+        5.005768333566456,
+        -5.464830949165035
+      ],
+      "error_m": 0.03563896475441283,
+      "dwell_s": 2
+    },
+    {
+      "event": "stop_verified",
+      "sim": 67.734,
+      "leg": "patrol_A_again",
+      "xy": [
+        2.096421874220472,
+        -5.5122040329871975
+      ],
+      "error_m": 0.012717759442870808,
+      "dwell_s": 2
+    }
+  ],
+  "sim_duration_s": 44.559999999999995,
+  "peak_sampled_speed_mps": 1.0191953557052231
+}

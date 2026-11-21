@@ -1,0 +1,150 @@
+[
+  {
+    "event": "goal_accepted",
+    "sim": 23.174,
+    "leg": "patrol_A",
+    "xy": [
+      2.1,
+      -5.5
+    ],
+    "uuid": "c4a8f7d69c6143a59af765fa80af7750"
+  },
+  {
+    "event": "goal_terminal",
+    "sim": 34.364,
+    "leg": "patrol_A",
+    "uuid": "c4a8f7d69c6143a59af765fa80af7750",
+    "status": 4
+  },
+  {
+    "event": "stop_verified",
+    "sim": 36.392,
+    "leg": "patrol_A",
+    "xy": [
+      2.0742273673891427,
+      -5.4976248881460545
+    ],
+    "error_m": 0.025881842052160462,
+    "dwell_s": 2
+  },
+  {
+    "event": "goal_accepted",
+    "sim": 37.973,
+    "leg": "patrol_B",
+    "xy": [
+      5.0,
+      -5.5
+    ],
+    "uuid": "c8a18cf2376d410aaa62756bd14c373c"
+  },
+  {
+    "event": "operator_recall_received",
+    "sim": 38.603
+  },
+  {
+    "event": "goal_terminal",
+    "sim": 38.658,
+    "leg": "patrol_B",
+    "uuid": "c8a18cf2376d410aaa62756bd14c373c",
+    "status": 5
+  },
+  {
+    "event": "stop_verified",
+    "sim": 39.662,
+    "leg": "patrol_B",
+    "xy": [
+      2.11792049958791,
+      -5.49656669360789
+    ],
+    "error_m": 2.8820815453918693,
+    "dwell_s": 1
+  },
+  {
+    "event": "goal_accepted",
+    "sim": 40.42,
+    "leg": "operator_return_base",
+    "xy": [
+      1.0,
+      -5.5
+    ],
+    "uuid": "3e529e983b174c20b390770b9b44b490"
+  },
+  {
+    "event": "goal_terminal",
+    "sim": 45.523,
+    "leg": "operator_return_base",
+    "uuid": "3e529e983b174c20b390770b9b44b490",
+    "status": 4
+  },
+  {
+    "event": "stop_verified",
+    "sim": 47.523,
+    "leg": "operator_return_base",
+    "xy": [
+      1.068171828837189,
+      -5.506290016131752
+    ],
+    "error_m": 0.06846139459538277,
+    "dwell_s": 2
+  },
+  {
+    "event": "goal_accepted",
+    "sim": 48.423,
+    "leg": "resume_B",
+    "xy": [
+      5.0,
+      -5.5
+    ],
+    "uuid": "92e5ad24adee471b895938cfe5980983"
+  },
+  {
+    "event": "goal_terminal",
+    "sim": 55.951,
+    "leg": "resume_B",
+    "uuid": "92e5ad24adee471b895938cfe5980983",
+    "status": 4
+  },
+  {
+    "event": "stop_verified",
+    "sim": 58.0,
+    "leg": "resume_B",
+    "xy": [
+      5.005768333566456,
+      -5.464830949165035
+    ],
+    "error_m": 0.03563896475441283,
+    "dwell_s": 2
+  },
+  {
+    "event": "goal_accepted",
+    "sim": 59.1,
+    "leg": "patrol_A_again",
+    "xy": [
+      2.1,
+      -5.5
+    ],
+    "uuid": "b4637b14d893451b8b6d4113918bbf4d"
+  },
+  {
+    "event": "goal_terminal",
+    "sim": 65.683,
+    "leg": "patrol_A_again",
+    "uuid": "b4637b14d893451b8b6d4113918bbf4d",
+    "status": 4
+  },
+  {
+    "event": "stop_verified",
+    "sim": 67.734,
+    "leg": "patrol_A_again",
+    "xy": [
+      2.096421874220472,
+      -5.5122040329871975
+    ],
+    "error_m": 0.012717759442870808,
+    "dwell_s": 2
+  },
+  {
+    "event": "mission_passed",
+    "sim": 67.734
+  }
+]
