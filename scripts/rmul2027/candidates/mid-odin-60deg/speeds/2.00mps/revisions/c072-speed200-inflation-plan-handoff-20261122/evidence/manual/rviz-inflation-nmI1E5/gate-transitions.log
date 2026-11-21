@@ -1,0 +1,4 @@
+[component_container_isolated-2] [INFO] [1795279162.165461244] [red_standard_robot1.fake_vel_transform]: Velocity safety: STOPPED:empty_or_invalid_plan
+[component_container_isolated-2] [INFO] [1795279162.415629622] [red_standard_robot1.controller_server]: C072 leaving inner inflation at 0.20 m/s after stopped clearance check
+[component_container_isolated-2] [INFO] [1795279162.465418472] [red_standard_robot1.fake_vel_transform]: Velocity safety: ACTIVE:healthy
+[component_container_isolated-2] [INFO] [1795279173.715772235] [red_standard_robot1.fake_vel_transform]: Velocity safety: ACTIVE:healthy

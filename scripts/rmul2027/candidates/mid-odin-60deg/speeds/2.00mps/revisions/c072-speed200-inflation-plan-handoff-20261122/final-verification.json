@@ -1,0 +1,130 @@
+{
+  "verification_time": "2026-11-22T01:05:06+08:00",
+  "params_sha256": "ba99406e46497990fe1e3eb53660f9be6fbc897746c4a0253b8d871f24262a0a",
+  "paths_certified": 15,
+  "fixed_passed": 12,
+  "moving_passed": 3,
+  "contacts": 0,
+  "minimum_gap_m": {
+    "固定": 0.12734434681425633,
+    "对向": 0.1894709887412807
+  },
+  "median_goal_peak_mps": {
+    "固定": {
+      "baseline": 0.7739963274735394,
+      "candidate": 0.8271931268836407
+    },
+    "对向": {
+      "baseline": 1.1064463226996164,
+      "candidate": 1.1212660485640344
+    }
+  },
+  "manual": [
+    {
+      "spawn_map_xy": [
+        3.788,
+        -2.1
+      ],
+      "start_cost": 253,
+      "exit_cost": 171,
+      "escape_controller_peak_mps": 0.2,
+      "first_goal_truth_error_m": 0.06467140160731279,
+      "minimum_raw_clearance_m": 0.43801933802786586,
+      "unsafe_goal_rejected_without_motion": true,
+      "subsequent_goal_stopped": true,
+      "empty_plan_gate_stop_to_healthy_wall_s": 0.2997872829437256,
+      "result": "evidence/manual/rviz-inflation-LSasXa/results.json",
+      "gate_events": "evidence/manual/rviz-inflation-LSasXa/gate-transitions.log"
+    },
+    {
+      "spawn_map_xy": [
+        3.801,
+        -1.942
+      ],
+      "start_cost": 209,
+      "exit_cost": 171,
+      "escape_controller_peak_mps": 0.20000000000000004,
+      "first_goal_truth_error_m": 0.07124529756057281,
+      "minimum_raw_clearance_m": 0.451011569978629,
+      "unsafe_goal_rejected_without_motion": true,
+      "subsequent_goal_stopped": true,
+      "empty_plan_gate_stop_to_healthy_wall_s": 0.2999997138977051,
+      "result": "evidence/manual/rviz-inflation-jQLayP/results.json",
+      "gate_events": "evidence/manual/rviz-inflation-jQLayP/gate-transitions.log"
+    },
+    {
+      "spawn_map_xy": [
+        3.785,
+        -1.942
+      ],
+      "start_cost": 253,
+      "exit_cost": 171,
+      "escape_controller_peak_mps": 0.2,
+      "first_goal_truth_error_m": 0.07289193268049664,
+      "minimum_raw_clearance_m": 0.434954651000357,
+      "unsafe_goal_rejected_without_motion": true,
+      "subsequent_goal_stopped": true,
+      "empty_plan_gate_stop_to_healthy_wall_s": 0.299957275390625,
+      "result": "evidence/manual/rviz-inflation-nmI1E5/results.json",
+      "gate_events": "evidence/manual/rviz-inflation-nmI1E5/gate-transitions.log"
+    }
+  ],
+  "straight_5_2m": {
+    "outbound": {
+      "baseline": {
+        "leg": "outbound",
+        "target": [
+          5.2,
+          -5.5
+        ],
+        "sim_seconds": 11.771000000000004,
+        "goal_error_m": 0.028421981844760216,
+        "stop_verified": true,
+        "truth_peak_mps": 1.0660226545432692,
+        "command_peak_mps": 1.1027559976795278,
+        "output_peak_mps": 1.102755997679528
+      },
+      "candidate": {
+        "leg": "outbound",
+        "target": [
+          5.2,
+          -5.5
+        ],
+        "sim_seconds": 10.586999999999996,
+        "goal_error_m": 0.04496447039380637,
+        "stop_verified": true,
+        "truth_peak_mps": 1.2606278292562487,
+        "command_peak_mps": 1.3046112201116955,
+        "output_peak_mps": 1.3046112201116955
+      }
+    },
+    "return": {
+      "baseline": {
+        "leg": "return",
+        "target": [
+          0.0,
+          -5.5
+        ],
+        "sim_seconds": 9.820999999999998,
+        "goal_error_m": 0.01528596379470376,
+        "stop_verified": true,
+        "truth_peak_mps": 1.0106345435265207,
+        "command_peak_mps": 1.019348559453691,
+        "output_peak_mps": 1.019348559453691
+      },
+      "candidate": {
+        "leg": "return",
+        "target": [
+          0.0,
+          -5.5
+        ],
+        "sim_seconds": 8.111000000000004,
+        "goal_error_m": 0.0469333002023713,
+        "stop_verified": true,
+        "truth_peak_mps": 1.3679833607621463,
+        "command_peak_mps": 1.4069867001255543,
+        "output_peak_mps": 1.4069867001255543
+      }
+    }
+  }
+}

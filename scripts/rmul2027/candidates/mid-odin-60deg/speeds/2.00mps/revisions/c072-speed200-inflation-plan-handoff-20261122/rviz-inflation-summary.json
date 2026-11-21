@@ -1,0 +1,54 @@
+{
+  "standard_params_sha256": "ba99406e46497990fe1e3eb53660f9be6fbc897746c4a0253b8d871f24262a0a",
+  "fixture_difference": "spawn coordinates and matching localization initial pose, one empty local path post goal acceptance",
+  "cases": [
+    {
+      "spawn_map_xy": [
+        3.788,
+        -2.1
+      ],
+      "start_cost": 253,
+      "exit_cost": 171,
+      "escape_controller_peak_mps": 0.2,
+      "first_goal_truth_error_m": 0.06467140160731279,
+      "minimum_raw_clearance_m": 0.43801933802786586,
+      "unsafe_goal_rejected_without_motion": true,
+      "subsequent_goal_stopped": true,
+      "empty_plan_gate_stop_to_healthy_wall_s": 0.2997872829437256,
+      "result": "evidence/manual/rviz-inflation-LSasXa/results.json",
+      "gate_events": "evidence/manual/rviz-inflation-LSasXa/gate-transitions.log"
+    },
+    {
+      "spawn_map_xy": [
+        3.801,
+        -1.942
+      ],
+      "start_cost": 209,
+      "exit_cost": 171,
+      "escape_controller_peak_mps": 0.20000000000000004,
+      "first_goal_truth_error_m": 0.07124529756057281,
+      "minimum_raw_clearance_m": 0.451011569978629,
+      "unsafe_goal_rejected_without_motion": true,
+      "subsequent_goal_stopped": true,
+      "empty_plan_gate_stop_to_healthy_wall_s": 0.2999997138977051,
+      "result": "evidence/manual/rviz-inflation-jQLayP/results.json",
+      "gate_events": "evidence/manual/rviz-inflation-jQLayP/gate-transitions.log"
+    },
+    {
+      "spawn_map_xy": [
+        3.785,
+        -1.942
+      ],
+      "start_cost": 253,
+      "exit_cost": 171,
+      "escape_controller_peak_mps": 0.2,
+      "first_goal_truth_error_m": 0.07289193268049664,
+      "minimum_raw_clearance_m": 0.434954651000357,
+      "unsafe_goal_rejected_without_motion": true,
+      "subsequent_goal_stopped": true,
+      "empty_plan_gate_stop_to_healthy_wall_s": 0.299957275390625,
+      "result": "evidence/manual/rviz-inflation-nmI1E5/results.json",
+      "gate_events": "evidence/manual/rviz-inflation-nmI1E5/gate-transitions.log"
+    }
+  ]
+}

@@ -1,0 +1,3 @@
+{"fixture_event": "empty_local_plan", "sim": 20.815}
+{"leg": "escape_and_navigate", "target": [5.198, -4.553], "sim_seconds": 10.193999999999999, "goal_error_m": 0.06467140160731279, "stop_verified": true, "truth_peak_mps": 0.9560284965272023, "command_peak_mps": 0.967154083096019, "output_peak_mps": 0.9671540830960191, "minimum_raw_clearance_m": 0.43801933802786586, "start_cost": 253, "exit_cost": 171, "escape_controller_peak_mps": 0.2}
+{"leg": "second_valid_goal", "target": [5.0, -0.2], "sim_seconds": 13.117, "goal_error_m": 0.06940755511298724, "stop_verified": true, "truth_peak_mps": 0.9424541431492854, "command_peak_mps": 0.9566883887058847, "output_peak_mps": 0.9566883887058846, "minimum_raw_clearance_m": 0.65}

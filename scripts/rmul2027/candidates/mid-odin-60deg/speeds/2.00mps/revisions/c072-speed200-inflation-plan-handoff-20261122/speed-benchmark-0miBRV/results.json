@@ -1,0 +1,41 @@
+[
+  {
+    "leg": "position",
+    "target": [
+      0.0,
+      -5.5
+    ],
+    "sim_seconds": 11.245999999999999,
+    "goal_error_m": 0.049892142379216145,
+    "stop_verified": true,
+    "truth_peak_mps": 1.397915126621292,
+    "command_peak_mps": 1.406897104155903,
+    "output_peak_mps": 1.406897104155903
+  },
+  {
+    "leg": "outbound",
+    "target": [
+      5.2,
+      -5.5
+    ],
+    "sim_seconds": 10.586999999999996,
+    "goal_error_m": 0.04496447039380637,
+    "stop_verified": true,
+    "truth_peak_mps": 1.2606278292562487,
+    "command_peak_mps": 1.3046112201116955,
+    "output_peak_mps": 1.3046112201116955
+  },
+  {
+    "leg": "return",
+    "target": [
+      0.0,
+      -5.5
+    ],
+    "sim_seconds": 8.111000000000004,
+    "goal_error_m": 0.0469333002023713,
+    "stop_verified": true,
+    "truth_peak_mps": 1.3679833607621463,
+    "command_peak_mps": 1.4069867001255543,
+    "output_peak_mps": 1.4069867001255543
+  }
+]

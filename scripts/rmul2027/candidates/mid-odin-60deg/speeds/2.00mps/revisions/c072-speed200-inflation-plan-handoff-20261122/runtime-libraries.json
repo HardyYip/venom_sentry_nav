@@ -1,0 +1,212 @@
+[
+  {
+    "stage": "fixed-left",
+    "case": "left-far-01",
+    "libraries": {
+      "libsmall_gicp_relocalization.so": {
+        "prefix": "/evidence/c072-speed200-inflation-plan-handoff-20261122/gicp-install/small_gicp_relocalization/lib",
+        "sha256": "0ccf0682054bf444751b183a9845ac4932a0bb510992623c79a377ab8fec5d68"
+      },
+      "libc072_navigation_plugins.so": {
+        "prefix": "/evidence/c072-speed200-inflation-plan-handoff-20261122/planner-install/rmul_c072_planner/lib",
+        "sha256": "74125776d6b9299eb6e2dbb52669bb4c125c295385c7408effc032c440610131"
+      }
+    }
+  },
+  {
+    "stage": "fixed-left",
+    "case": "left-far-02",
+    "libraries": {
+      "libsmall_gicp_relocalization.so": {
+        "prefix": "/evidence/c072-speed200-inflation-plan-handoff-20261122/gicp-install/small_gicp_relocalization/lib",
+        "sha256": "0ccf0682054bf444751b183a9845ac4932a0bb510992623c79a377ab8fec5d68"
+      },
+      "libc072_navigation_plugins.so": {
+        "prefix": "/evidence/c072-speed200-inflation-plan-handoff-20261122/planner-install/rmul_c072_planner/lib",
+        "sha256": "74125776d6b9299eb6e2dbb52669bb4c125c295385c7408effc032c440610131"
+      }
+    }
+  },
+  {
+    "stage": "fixed-left",
+    "case": "left-far-03",
+    "libraries": {
+      "libsmall_gicp_relocalization.so": {
+        "prefix": "/evidence/c072-speed200-inflation-plan-handoff-20261122/gicp-install/small_gicp_relocalization/lib",
+        "sha256": "0ccf0682054bf444751b183a9845ac4932a0bb510992623c79a377ab8fec5d68"
+      },
+      "libc072_navigation_plugins.so": {
+        "prefix": "/evidence/c072-speed200-inflation-plan-handoff-20261122/planner-install/rmul_c072_planner/lib",
+        "sha256": "74125776d6b9299eb6e2dbb52669bb4c125c295385c7408effc032c440610131"
+      }
+    }
+  },
+  {
+    "stage": "fixed-left",
+    "case": "left-near-01",
+    "libraries": {
+      "libsmall_gicp_relocalization.so": {
+        "prefix": "/evidence/c072-speed200-inflation-plan-handoff-20261122/gicp-install/small_gicp_relocalization/lib",
+        "sha256": "0ccf0682054bf444751b183a9845ac4932a0bb510992623c79a377ab8fec5d68"
+      },
+      "libc072_navigation_plugins.so": {
+        "prefix": "/evidence/c072-speed200-inflation-plan-handoff-20261122/planner-install/rmul_c072_planner/lib",
+        "sha256": "74125776d6b9299eb6e2dbb52669bb4c125c295385c7408effc032c440610131"
+      }
+    }
+  },
+  {
+    "stage": "fixed-left",
+    "case": "left-near-02",
+    "libraries": {
+      "libsmall_gicp_relocalization.so": {
+        "prefix": "/evidence/c072-speed200-inflation-plan-handoff-20261122/gicp-install/small_gicp_relocalization/lib",
+        "sha256": "0ccf0682054bf444751b183a9845ac4932a0bb510992623c79a377ab8fec5d68"
+      },
+      "libc072_navigation_plugins.so": {
+        "prefix": "/evidence/c072-speed200-inflation-plan-handoff-20261122/planner-install/rmul_c072_planner/lib",
+        "sha256": "74125776d6b9299eb6e2dbb52669bb4c125c295385c7408effc032c440610131"
+      }
+    }
+  },
+  {
+    "stage": "fixed-left",
+    "case": "left-near-03",
+    "libraries": {
+      "libsmall_gicp_relocalization.so": {
+        "prefix": "/evidence/c072-speed200-inflation-plan-handoff-20261122/gicp-install/small_gicp_relocalization/lib",
+        "sha256": "0ccf0682054bf444751b183a9845ac4932a0bb510992623c79a377ab8fec5d68"
+      },
+      "libc072_navigation_plugins.so": {
+        "prefix": "/evidence/c072-speed200-inflation-plan-handoff-20261122/planner-install/rmul_c072_planner/lib",
+        "sha256": "74125776d6b9299eb6e2dbb52669bb4c125c295385c7408effc032c440610131"
+      }
+    }
+  },
+  {
+    "stage": "fixed-reverse-right",
+    "case": "left-reverse-01",
+    "libraries": {
+      "libsmall_gicp_relocalization.so": {
+        "prefix": "/evidence/c072-speed200-inflation-plan-handoff-20261122/gicp-install/small_gicp_relocalization/lib",
+        "sha256": "0ccf0682054bf444751b183a9845ac4932a0bb510992623c79a377ab8fec5d68"
+      },
+      "libc072_navigation_plugins.so": {
+        "prefix": "/evidence/c072-speed200-inflation-plan-handoff-20261122/planner-install/rmul_c072_planner/lib",
+        "sha256": "74125776d6b9299eb6e2dbb52669bb4c125c295385c7408effc032c440610131"
+      }
+    }
+  },
+  {
+    "stage": "fixed-reverse-right",
+    "case": "left-reverse-02",
+    "libraries": {
+      "libsmall_gicp_relocalization.so": {
+        "prefix": "/evidence/c072-speed200-inflation-plan-handoff-20261122/gicp-install/small_gicp_relocalization/lib",
+        "sha256": "0ccf0682054bf444751b183a9845ac4932a0bb510992623c79a377ab8fec5d68"
+      },
+      "libc072_navigation_plugins.so": {
+        "prefix": "/evidence/c072-speed200-inflation-plan-handoff-20261122/planner-install/rmul_c072_planner/lib",
+        "sha256": "74125776d6b9299eb6e2dbb52669bb4c125c295385c7408effc032c440610131"
+      }
+    }
+  },
+  {
+    "stage": "fixed-reverse-right",
+    "case": "left-reverse-03",
+    "libraries": {
+      "libsmall_gicp_relocalization.so": {
+        "prefix": "/evidence/c072-speed200-inflation-plan-handoff-20261122/gicp-install/small_gicp_relocalization/lib",
+        "sha256": "0ccf0682054bf444751b183a9845ac4932a0bb510992623c79a377ab8fec5d68"
+      },
+      "libc072_navigation_plugins.so": {
+        "prefix": "/evidence/c072-speed200-inflation-plan-handoff-20261122/planner-install/rmul_c072_planner/lib",
+        "sha256": "74125776d6b9299eb6e2dbb52669bb4c125c295385c7408effc032c440610131"
+      }
+    }
+  },
+  {
+    "stage": "fixed-reverse-right",
+    "case": "right-control-01",
+    "libraries": {
+      "libsmall_gicp_relocalization.so": {
+        "prefix": "/evidence/c072-speed200-inflation-plan-handoff-20261122/gicp-install/small_gicp_relocalization/lib",
+        "sha256": "0ccf0682054bf444751b183a9845ac4932a0bb510992623c79a377ab8fec5d68"
+      },
+      "libc072_navigation_plugins.so": {
+        "prefix": "/evidence/c072-speed200-inflation-plan-handoff-20261122/planner-install/rmul_c072_planner/lib",
+        "sha256": "74125776d6b9299eb6e2dbb52669bb4c125c295385c7408effc032c440610131"
+      }
+    }
+  },
+  {
+    "stage": "fixed-reverse-right",
+    "case": "right-control-02",
+    "libraries": {
+      "libsmall_gicp_relocalization.so": {
+        "prefix": "/evidence/c072-speed200-inflation-plan-handoff-20261122/gicp-install/small_gicp_relocalization/lib",
+        "sha256": "0ccf0682054bf444751b183a9845ac4932a0bb510992623c79a377ab8fec5d68"
+      },
+      "libc072_navigation_plugins.so": {
+        "prefix": "/evidence/c072-speed200-inflation-plan-handoff-20261122/planner-install/rmul_c072_planner/lib",
+        "sha256": "74125776d6b9299eb6e2dbb52669bb4c125c295385c7408effc032c440610131"
+      }
+    }
+  },
+  {
+    "stage": "fixed-reverse-right",
+    "case": "right-control-03",
+    "libraries": {
+      "libsmall_gicp_relocalization.so": {
+        "prefix": "/evidence/c072-speed200-inflation-plan-handoff-20261122/gicp-install/small_gicp_relocalization/lib",
+        "sha256": "0ccf0682054bf444751b183a9845ac4932a0bb510992623c79a377ab8fec5d68"
+      },
+      "libc072_navigation_plugins.so": {
+        "prefix": "/evidence/c072-speed200-inflation-plan-handoff-20261122/planner-install/rmul_c072_planner/lib",
+        "sha256": "74125776d6b9299eb6e2dbb52669bb4c125c295385c7408effc032c440610131"
+      }
+    }
+  },
+  {
+    "stage": "moving-standard",
+    "case": "headon-01",
+    "libraries": {
+      "libsmall_gicp_relocalization.so": {
+        "prefix": "/evidence/c072-speed200-inflation-plan-handoff-20261122/gicp-install/small_gicp_relocalization/lib",
+        "sha256": "0ccf0682054bf444751b183a9845ac4932a0bb510992623c79a377ab8fec5d68"
+      },
+      "libc072_navigation_plugins.so": {
+        "prefix": "/evidence/c072-speed200-inflation-plan-handoff-20261122/planner-install/rmul_c072_planner/lib",
+        "sha256": "74125776d6b9299eb6e2dbb52669bb4c125c295385c7408effc032c440610131"
+      }
+    }
+  },
+  {
+    "stage": "moving-standard",
+    "case": "headon-02",
+    "libraries": {
+      "libsmall_gicp_relocalization.so": {
+        "prefix": "/evidence/c072-speed200-inflation-plan-handoff-20261122/gicp-install/small_gicp_relocalization/lib",
+        "sha256": "0ccf0682054bf444751b183a9845ac4932a0bb510992623c79a377ab8fec5d68"
+      },
+      "libc072_navigation_plugins.so": {
+        "prefix": "/evidence/c072-speed200-inflation-plan-handoff-20261122/planner-install/rmul_c072_planner/lib",
+        "sha256": "74125776d6b9299eb6e2dbb52669bb4c125c295385c7408effc032c440610131"
+      }
+    }
+  },
+  {
+    "stage": "moving-standard",
+    "case": "headon-03",
+    "libraries": {
+      "libsmall_gicp_relocalization.so": {
+        "prefix": "/evidence/c072-speed200-inflation-plan-handoff-20261122/gicp-install/small_gicp_relocalization/lib",
+        "sha256": "0ccf0682054bf444751b183a9845ac4932a0bb510992623c79a377ab8fec5d68"
+      },
+      "libc072_navigation_plugins.so": {
+        "prefix": "/evidence/c072-speed200-inflation-plan-handoff-20261122/planner-install/rmul_c072_planner/lib",
+        "sha256": "74125776d6b9299eb6e2dbb52669bb4c125c295385c7408effc032c440610131"
+      }
+    }
+  }
+]

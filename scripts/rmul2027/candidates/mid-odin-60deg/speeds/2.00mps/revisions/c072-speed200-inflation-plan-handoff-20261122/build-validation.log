@@ -1,0 +1,5 @@
+Starting >>> rmul_c072_planner
+Finished <<< rmul_c072_planner [13.7s]
+
+Summary: 1 package finished [13.7s]
+Inflated outward exit, inward preference, collision start, out of map and unknown-wall rejection passed
