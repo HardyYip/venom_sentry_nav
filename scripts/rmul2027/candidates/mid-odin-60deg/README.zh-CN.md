@@ -17,3 +17,7 @@
 ## 1.25 m/s 同版仿真
 
 固定 12/12、对向 3/3，全部零接触、到点并停稳。对向实测最高 1.04164 m/s，最小物理净距 0.18452 m。[检测方法](speeds/1.25mps/TEST-METHOD.zh-CN.md) · [逐场结果](speeds/1.25mps/qualification-summary.json)
+
+## 1.25 m/s 仿真
+
+固定 12/12、移动对向 3/3，全部零接触、到点并停稳。[本轮结果和实测速率](speeds/1.25mps/revisions/static-clearance-preference-20261121/RESULTS.zh-CN.md) · [检测方法](speeds/1.25mps/revisions/static-clearance-preference-20261121/TEST-METHOD.zh-CN.md)

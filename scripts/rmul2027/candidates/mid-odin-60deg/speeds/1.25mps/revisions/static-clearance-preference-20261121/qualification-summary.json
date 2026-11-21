@@ -1,0 +1,3518 @@
+{
+  "time": "2026-11-21T15:30:08.632932+08:00",
+  "configured_params_sha256": "767ffdc067814f373f5a36cc5b5d911d66b0143867526759b5bc2c0014d6bb93",
+  "completed_standard_round": true,
+  "qualified_standard_round": true,
+  "stages": {
+    "fixed-left": {
+      "completed": 6,
+      "passed": 6,
+      "results": [
+        {
+          "case": "left-far-01",
+          "status": "passed",
+          "error": null,
+          "actions": {
+            "preposition": {
+              "accepted": true,
+              "fixture_passed": true,
+              "ros_status": 4,
+              "truth_error_m": 0.08439502063688081,
+              "strict_one_second_stop_passed": true,
+              "stable_stop_confirmed": true
+            },
+            "goal": {
+              "accepted": true,
+              "fixture_passed": true,
+              "ros_status": 4,
+              "truth_error_m": 0.07439941718130656,
+              "strict_one_second_stop_passed": true,
+              "stable_stop_confirmed": true
+            }
+          },
+          "obstacle_goal_started": true,
+          "opponent_movement_started": false,
+          "opponent_fitted_speed_mps": null,
+          "contacts": 0,
+          "minimum_gap_m": 0.21467415693159134,
+          "goal_robot_speed_peak_mps": null,
+          "topology_passed": true,
+          "params_match": true,
+          "gate_state_transition_counts": {
+            "no_single_active_goal": 4,
+            "external_stop": 2,
+            "ready": 2
+          },
+          "configuration_checks": {
+            "original_robot_sdf": true,
+            "c072_3hz_tree_with_map_refresh": true,
+            "configured_behavior_tree": true,
+            "c072_base_obstacle_04": true,
+            "c072_local_clearance_05": true,
+            "global_plugin": true,
+            "preferred_static_route": true,
+            "controller_speed": true,
+            "smoother_speed": true,
+            "velocity_sampling": true,
+            "goal_checker": true,
+            "local_prediction": true,
+            "swept_clearance": true,
+            "controlled_recovery": true
+          },
+          "recovery_events": [
+            {
+              "kind": "release_verified",
+              "steady": 181944.516834073,
+              "ros": 7.065,
+              "epoch": 0,
+              "evidence": {
+                "epoch": 0,
+                "steady": 181944.514891927,
+                "ros": 7.065,
+                "quality_count": 4,
+                "registration_sequence": 4,
+                "last_source": 6.95,
+                "gates": {
+                  "healthy": true,
+                  "stationary": true,
+                  "external": true,
+                  "pose": true
+                }
+              }
+            },
+            {
+              "kind": "transition",
+              "steady": 181944.516995791,
+              "ros": 7.065,
+              "epoch": 0,
+              "previous": "VERIFY",
+              "state": "RUNNING",
+              "fault": "",
+              "input_detail": {
+                "imu": {
+                  "steady": 181944.51313382,
+                  "ros": 7.061000000000001,
+                  "stamp": 7.06,
+                  "source_age_s": 0.0010000000000012221,
+                  "stamp_delta_s": 0.004999999999999893,
+                  "receipt_gap_s": 0.00016846999642439187,
+                  "valid": true
+                },
+                "invalid_imu": [],
+                "imu_receipt_age_s": 0.0017581070133019239,
+                "imu_valid_since": 181939.811561012,
+                "odom_stamp": 7.0,
+                "odom_receipt_age_s": 0.03624983201734722,
+                "odom_progress_age_s": 0.03624983201734722
+              }
+            },
+            {
+              "kind": "owned_tree_audit",
+              "steady": 182030.249591852,
+              "ros": 91.94800000000001,
+              "epoch": 0,
+              "remaining": []
+            }
+          ],
+          "process_remaining": [],
+          "started_at": "2026-11-21T15:08:30.454664+08:00",
+          "ended_at": "2026-11-21T15:10:15.878821+08:00"
+        },
+        {
+          "case": "left-far-02",
+          "status": "passed",
+          "error": null,
+          "actions": {
+            "preposition": {
+              "accepted": true,
+              "fixture_passed": true,
+              "ros_status": 4,
+              "truth_error_m": 0.06706688654327578,
+              "strict_one_second_stop_passed": true,
+              "stable_stop_confirmed": true
+            },
+            "goal": {
+              "accepted": true,
+              "fixture_passed": true,
+              "ros_status": 4,
+              "truth_error_m": 0.06474846852963088,
+              "strict_one_second_stop_passed": true,
+              "stable_stop_confirmed": true
+            }
+          },
+          "obstacle_goal_started": true,
+          "opponent_movement_started": false,
+          "opponent_fitted_speed_mps": null,
+          "contacts": 0,
+          "minimum_gap_m": 0.1725094927102333,
+          "goal_robot_speed_peak_mps": null,
+          "topology_passed": true,
+          "params_match": true,
+          "gate_state_transition_counts": {
+            "no_single_active_goal": 4,
+            "external_stop": 2,
+            "ready": 2
+          },
+          "configuration_checks": {
+            "original_robot_sdf": true,
+            "c072_3hz_tree_with_map_refresh": true,
+            "configured_behavior_tree": true,
+            "c072_base_obstacle_04": true,
+            "c072_local_clearance_05": true,
+            "global_plugin": true,
+            "preferred_static_route": true,
+            "controller_speed": true,
+            "smoother_speed": true,
+            "velocity_sampling": true,
+            "goal_checker": true,
+            "local_prediction": true,
+            "swept_clearance": true,
+            "controlled_recovery": true
+          },
+          "recovery_events": [
+            {
+              "kind": "release_verified",
+              "steady": 182049.038069669,
+              "ros": 6.24,
+              "epoch": 0,
+              "evidence": {
+                "epoch": 0,
+                "steady": 182049.036711732,
+                "ros": 6.24,
+                "quality_count": 4,
+                "registration_sequence": 4,
+                "last_source": 6.099999999,
+                "gates": {
+                  "healthy": true,
+                  "stationary": true,
+                  "external": true,
+                  "pose": true
+                }
+              }
+            },
+            {
+              "kind": "transition",
+              "steady": 182049.038262214,
+              "ros": 6.24,
+              "epoch": 0,
+              "previous": "VERIFY",
+              "state": "RUNNING",
+              "fault": "",
+              "input_detail": {
+                "imu": {
+                  "steady": 182049.03557794,
+                  "ros": 6.237,
+                  "stamp": 6.235,
+                  "source_age_s": 0.0019999999999997797,
+                  "stamp_delta_s": 0.004999999999999893,
+                  "receipt_gap_s": 0.0077680739923380315,
+                  "valid": true
+                },
+                "invalid_imu": [],
+                "imu_receipt_age_s": 0.0011337920150253922,
+                "imu_valid_since": 182045.154371698,
+                "odom_stamp": 6.2,
+                "odom_receipt_age_s": 0.009333556023193523,
+                "odom_progress_age_s": 0.009333556023193523
+              }
+            },
+            {
+              "kind": "owned_tree_audit",
+              "steady": 182122.145726623,
+              "ros": 78.542,
+              "epoch": 0,
+              "remaining": []
+            }
+          ],
+          "process_remaining": [],
+          "started_at": "2026-11-21T15:10:15.883253+08:00",
+          "ended_at": "2026-11-21T15:11:47.769337+08:00"
+        },
+        {
+          "case": "left-far-03",
+          "status": "passed",
+          "error": null,
+          "actions": {
+            "preposition": {
+              "accepted": true,
+              "fixture_passed": true,
+              "ros_status": 4,
+              "truth_error_m": 0.057035597141751875,
+              "strict_one_second_stop_passed": true,
+              "stable_stop_confirmed": true
+            },
+            "goal": {
+              "accepted": true,
+              "fixture_passed": true,
+              "ros_status": 4,
+              "truth_error_m": 0.058942582187503076,
+              "strict_one_second_stop_passed": true,
+              "stable_stop_confirmed": true
+            }
+          },
+          "obstacle_goal_started": true,
+          "opponent_movement_started": false,
+          "opponent_fitted_speed_mps": null,
+          "contacts": 0,
+          "minimum_gap_m": 0.13537025338673675,
+          "goal_robot_speed_peak_mps": null,
+          "topology_passed": true,
+          "params_match": true,
+          "gate_state_transition_counts": {
+            "external_stop": 2,
+            "no_single_active_goal": 3,
+            "ready": 2
+          },
+          "configuration_checks": {
+            "original_robot_sdf": true,
+            "c072_3hz_tree_with_map_refresh": true,
+            "configured_behavior_tree": true,
+            "c072_base_obstacle_04": true,
+            "c072_local_clearance_05": true,
+            "global_plugin": true,
+            "preferred_static_route": true,
+            "controller_speed": true,
+            "smoother_speed": true,
+            "velocity_sampling": true,
+            "goal_checker": true,
+            "local_prediction": true,
+            "swept_clearance": true,
+            "controlled_recovery": true
+          },
+          "recovery_events": [
+            {
+              "kind": "release_verified",
+              "steady": 182141.444664792,
+              "ros": 6.7410000000000005,
+              "epoch": 0,
+              "evidence": {
+                "epoch": 0,
+                "steady": 182141.443416207,
+                "ros": 6.7410000000000005,
+                "quality_count": 4,
+                "registration_sequence": 4,
+                "last_source": 6.65,
+                "gates": {
+                  "healthy": true,
+                  "stationary": true,
+                  "external": true,
+                  "pose": true
+                }
+              }
+            },
+            {
+              "kind": "transition",
+              "steady": 182141.444757628,
+              "ros": 6.7410000000000005,
+              "epoch": 0,
+              "previous": "VERIFY",
+              "state": "RUNNING",
+              "fault": "",
+              "input_detail": {
+                "imu": {
+                  "steady": 182141.438597709,
+                  "ros": 6.735,
+                  "stamp": 6.735,
+                  "source_age_s": 0.0,
+                  "stamp_delta_s": 0.004999999999999893,
+                  "receipt_gap_s": 0.005173559999093413,
+                  "valid": true
+                },
+                "invalid_imu": [],
+                "imu_receipt_age_s": 0.004818498011445627,
+                "imu_valid_since": 182137.074317747,
+                "odom_stamp": 6.7,
+                "odom_receipt_age_s": 0.012232983019202948,
+                "odom_progress_age_s": 0.012232983019202948
+              }
+            },
+            {
+              "kind": "owned_tree_audit",
+              "steady": 182238.43567714,
+              "ros": 102.933,
+              "epoch": 0,
+              "remaining": []
+            }
+          ],
+          "process_remaining": [],
+          "started_at": "2026-11-21T15:11:47.771792+08:00",
+          "ended_at": "2026-11-21T15:13:44.059636+08:00"
+        },
+        {
+          "case": "left-near-01",
+          "status": "passed",
+          "error": null,
+          "actions": {
+            "preposition": {
+              "accepted": true,
+              "fixture_passed": true,
+              "ros_status": 4,
+              "truth_error_m": 0.07607705903764428,
+              "strict_one_second_stop_passed": true,
+              "stable_stop_confirmed": true
+            },
+            "goal": {
+              "accepted": true,
+              "fixture_passed": true,
+              "ros_status": 4,
+              "truth_error_m": 0.058170601727209906,
+              "strict_one_second_stop_passed": true,
+              "stable_stop_confirmed": true
+            }
+          },
+          "obstacle_goal_started": true,
+          "opponent_movement_started": false,
+          "opponent_fitted_speed_mps": null,
+          "contacts": 0,
+          "minimum_gap_m": 0.12360073353053869,
+          "goal_robot_speed_peak_mps": null,
+          "topology_passed": true,
+          "params_match": true,
+          "gate_state_transition_counts": {
+            "no_single_active_goal": 4,
+            "external_stop": 2,
+            "ready": 2
+          },
+          "configuration_checks": {
+            "original_robot_sdf": true,
+            "c072_3hz_tree_with_map_refresh": true,
+            "configured_behavior_tree": true,
+            "c072_base_obstacle_04": true,
+            "c072_local_clearance_05": true,
+            "global_plugin": true,
+            "preferred_static_route": true,
+            "controller_speed": true,
+            "smoother_speed": true,
+            "velocity_sampling": true,
+            "goal_checker": true,
+            "local_prediction": true,
+            "swept_clearance": true,
+            "controlled_recovery": true
+          },
+          "recovery_events": [
+            {
+              "kind": "release_verified",
+              "steady": 181587.629990785,
+              "ros": 7.5520000000000005,
+              "epoch": 0,
+              "evidence": {
+                "epoch": 0,
+                "steady": 181587.62939433,
+                "ros": 7.5520000000000005,
+                "quality_count": 4,
+                "registration_sequence": 5,
+                "last_source": 7.2,
+                "gates": {
+                  "healthy": true,
+                  "stationary": true,
+                  "external": true,
+                  "pose": true
+                }
+              }
+            },
+            {
+              "kind": "transition",
+              "steady": 181587.630220144,
+              "ros": 7.553000000000001,
+              "epoch": 0,
+              "previous": "VERIFY",
+              "state": "RUNNING",
+              "fault": "",
+              "input_detail": {
+                "imu": {
+                  "steady": 181587.627553799,
+                  "ros": 7.550000000000001,
+                  "stamp": 7.55,
+                  "source_age_s": 8.881784197001252e-16,
+                  "stamp_delta_s": 0.004999999999999893,
+                  "receipt_gap_s": 0.005279789998894557,
+                  "valid": true
+                },
+                "invalid_imu": [],
+                "imu_receipt_age_s": 0.0018405310111120343,
+                "imu_valid_since": 181582.447471082,
+                "odom_stamp": 7.5,
+                "odom_receipt_age_s": 0.025768311985302716,
+                "odom_progress_age_s": 0.025768311985302716
+              }
+            },
+            {
+              "kind": "owned_tree_audit",
+              "steady": 181674.995237586,
+              "ros": 93.843,
+              "epoch": 0,
+              "remaining": []
+            }
+          ],
+          "process_remaining": [],
+          "started_at": "2026-11-21T15:02:33.269314+08:00",
+          "ended_at": "2026-11-21T15:04:20.622368+08:00"
+        },
+        {
+          "case": "left-near-02",
+          "status": "passed",
+          "error": null,
+          "actions": {
+            "preposition": {
+              "accepted": true,
+              "fixture_passed": true,
+              "ros_status": 4,
+              "truth_error_m": 0.0381253903476024,
+              "strict_one_second_stop_passed": true,
+              "stable_stop_confirmed": true
+            },
+            "goal": {
+              "accepted": true,
+              "fixture_passed": true,
+              "ros_status": 4,
+              "truth_error_m": 0.07816879411931721,
+              "strict_one_second_stop_passed": true,
+              "stable_stop_confirmed": true
+            }
+          },
+          "obstacle_goal_started": true,
+          "opponent_movement_started": false,
+          "opponent_fitted_speed_mps": null,
+          "contacts": 0,
+          "minimum_gap_m": 0.14212259408029446,
+          "goal_robot_speed_peak_mps": null,
+          "topology_passed": true,
+          "params_match": true,
+          "gate_state_transition_counts": {
+            "external_stop": 2,
+            "no_single_active_goal": 3,
+            "ready": 2
+          },
+          "configuration_checks": {
+            "original_robot_sdf": true,
+            "c072_3hz_tree_with_map_refresh": true,
+            "configured_behavior_tree": true,
+            "c072_base_obstacle_04": true,
+            "c072_local_clearance_05": true,
+            "global_plugin": true,
+            "preferred_static_route": true,
+            "controller_speed": true,
+            "smoother_speed": true,
+            "velocity_sampling": true,
+            "goal_checker": true,
+            "local_prediction": true,
+            "swept_clearance": true,
+            "controlled_recovery": true
+          },
+          "recovery_events": [
+            {
+              "kind": "release_verified",
+              "steady": 181694.042814,
+              "ros": 6.396000000000001,
+              "epoch": 0,
+              "evidence": {
+                "epoch": 0,
+                "steady": 181694.041888941,
+                "ros": 6.396000000000001,
+                "quality_count": 4,
+                "registration_sequence": 4,
+                "last_source": 6.299999999,
+                "gates": {
+                  "healthy": true,
+                  "stationary": true,
+                  "external": true,
+                  "pose": true
+                }
+              }
+            },
+            {
+              "kind": "transition",
+              "steady": 181694.042906974,
+              "ros": 6.396000000000001,
+              "epoch": 0,
+              "previous": "VERIFY",
+              "state": "RUNNING",
+              "fault": "",
+              "input_detail": {
+                "imu": {
+                  "steady": 181694.041487029,
+                  "ros": 6.3950000000000005,
+                  "stamp": 6.395,
+                  "source_age_s": 8.881784197001252e-16,
+                  "stamp_delta_s": 0.004999999999999893,
+                  "receipt_gap_s": 0.005064780008979142,
+                  "valid": true
+                },
+                "invalid_imu": [],
+                "imu_receipt_age_s": 0.00040191199514083564,
+                "imu_valid_since": 181690.037364961,
+                "odom_stamp": 6.349999999,
+                "odom_receipt_age_s": 0.022417445987230167,
+                "odom_progress_age_s": 0.022417445987230167
+              }
+            },
+            {
+              "kind": "owned_tree_audit",
+              "steady": 181817.211420663,
+              "ros": 128.542,
+              "epoch": 0,
+              "remaining": []
+            }
+          ],
+          "process_remaining": [],
+          "started_at": "2026-11-21T15:04:20.624556+08:00",
+          "ended_at": "2026-11-21T15:06:42.834321+08:00"
+        },
+        {
+          "case": "left-near-03",
+          "status": "passed",
+          "error": null,
+          "actions": {
+            "preposition": {
+              "accepted": true,
+              "fixture_passed": true,
+              "ros_status": 4,
+              "truth_error_m": 0.07427053189897226,
+              "strict_one_second_stop_passed": true,
+              "stable_stop_confirmed": true
+            },
+            "goal": {
+              "accepted": true,
+              "fixture_passed": true,
+              "ros_status": 4,
+              "truth_error_m": 0.06762214018667427,
+              "strict_one_second_stop_passed": true,
+              "stable_stop_confirmed": true
+            }
+          },
+          "obstacle_goal_started": true,
+          "opponent_movement_started": false,
+          "opponent_fitted_speed_mps": null,
+          "contacts": 0,
+          "minimum_gap_m": 0.15361907547878806,
+          "goal_robot_speed_peak_mps": null,
+          "topology_passed": true,
+          "params_match": true,
+          "gate_state_transition_counts": {
+            "external_stop": 2,
+            "no_single_active_goal": 3,
+            "ready": 2
+          },
+          "configuration_checks": {
+            "original_robot_sdf": true,
+            "c072_3hz_tree_with_map_refresh": true,
+            "configured_behavior_tree": true,
+            "c072_base_obstacle_04": true,
+            "c072_local_clearance_05": true,
+            "global_plugin": true,
+            "preferred_static_route": true,
+            "controller_speed": true,
+            "smoother_speed": true,
+            "velocity_sampling": true,
+            "goal_checker": true,
+            "local_prediction": true,
+            "swept_clearance": true,
+            "controlled_recovery": true
+          },
+          "recovery_events": [
+            {
+              "kind": "release_verified",
+              "steady": 181835.727607293,
+              "ros": 6.010000000000001,
+              "epoch": 0,
+              "evidence": {
+                "epoch": 0,
+                "steady": 181835.724515931,
+                "ros": 6.010000000000001,
+                "quality_count": 4,
+                "registration_sequence": 4,
+                "last_source": 5.9,
+                "gates": {
+                  "healthy": true,
+                  "stationary": true,
+                  "external": true,
+                  "pose": true
+                }
+              }
+            },
+            {
+              "kind": "transition",
+              "steady": 181835.728068876,
+              "ros": 6.011,
+              "epoch": 0,
+              "previous": "VERIFY",
+              "state": "RUNNING",
+              "fault": "",
+              "input_detail": {
+                "imu": {
+                  "steady": 181835.721977895,
+                  "ros": 6.005000000000001,
+                  "stamp": 6.005,
+                  "source_age_s": 8.881784197001252e-16,
+                  "stamp_delta_s": 0.004999999999999893,
+                  "receipt_gap_s": 0.004999510012567043,
+                  "valid": true
+                },
+                "invalid_imu": [],
+                "imu_receipt_age_s": 0.002538036002079025,
+                "imu_valid_since": 181831.735876322,
+                "odom_stamp": 5.95,
+                "odom_receipt_age_s": 0.03557850600918755,
+                "odom_progress_age_s": 0.03557850600918755
+              }
+            },
+            {
+              "kind": "owned_tree_audit",
+              "steady": 181914.901205249,
+              "ros": 83.601,
+              "epoch": 0,
+              "remaining": []
+            }
+          ],
+          "process_remaining": [],
+          "started_at": "2026-11-21T15:06:42.837478+08:00",
+          "ended_at": "2026-11-21T15:08:30.449781+08:00"
+        }
+      ]
+    },
+    "fixed-reverse-right": {
+      "completed": 6,
+      "passed": 6,
+      "results": [
+        {
+          "case": "left-reverse-01",
+          "status": "passed",
+          "error": null,
+          "actions": {
+            "preposition": {
+              "accepted": true,
+              "fixture_passed": true,
+              "ros_status": 4,
+              "truth_error_m": 0.055185095714549465,
+              "strict_one_second_stop_passed": true,
+              "stable_stop_confirmed": true
+            },
+            "goal": {
+              "accepted": true,
+              "fixture_passed": true,
+              "ros_status": 4,
+              "truth_error_m": 0.06557345565673957,
+              "strict_one_second_stop_passed": true,
+              "stable_stop_confirmed": true
+            }
+          },
+          "obstacle_goal_started": true,
+          "opponent_movement_started": false,
+          "opponent_fitted_speed_mps": null,
+          "contacts": 0,
+          "minimum_gap_m": 0.1956937157066545,
+          "goal_robot_speed_peak_mps": null,
+          "topology_passed": true,
+          "params_match": true,
+          "gate_state_transition_counts": {
+            "external_stop": 2,
+            "no_single_active_goal": 3,
+            "ready": 2
+          },
+          "configuration_checks": {
+            "original_robot_sdf": true,
+            "c072_3hz_tree_with_map_refresh": true,
+            "configured_behavior_tree": true,
+            "c072_base_obstacle_04": true,
+            "c072_local_clearance_05": true,
+            "global_plugin": true,
+            "preferred_static_route": true,
+            "controller_speed": true,
+            "smoother_speed": true,
+            "velocity_sampling": true,
+            "goal_checker": true,
+            "local_prediction": true,
+            "swept_clearance": true,
+            "controlled_recovery": true
+          },
+          "recovery_events": [
+            {
+              "kind": "release_verified",
+              "steady": 182262.0668653,
+              "ros": 6.133,
+              "epoch": 0,
+              "evidence": {
+                "epoch": 0,
+                "steady": 182262.065408967,
+                "ros": 6.133,
+                "quality_count": 4,
+                "registration_sequence": 4,
+                "last_source": 6,
+                "gates": {
+                  "healthy": true,
+                  "stationary": true,
+                  "external": true,
+                  "pose": true
+                }
+              }
+            },
+            {
+              "kind": "transition",
+              "steady": 182262.067020694,
+              "ros": 6.133,
+              "epoch": 0,
+              "previous": "VERIFY",
+              "state": "RUNNING",
+              "fault": "",
+              "input_detail": {
+                "imu": {
+                  "steady": 182262.06450012,
+                  "ros": 6.130000000000001,
+                  "stamp": 6.13,
+                  "source_age_s": 8.881784197001252e-16,
+                  "stamp_delta_s": 0.004999999999999893,
+                  "receipt_gap_s": 0.0016581749951001257,
+                  "valid": true
+                },
+                "invalid_imu": [],
+                "imu_receipt_age_s": 0.0009088469960261136,
+                "imu_valid_since": 182258.001138753,
+                "odom_stamp": 6.099999999,
+                "odom_receipt_age_s": 0.0012975920108146966,
+                "odom_progress_age_s": 0.0012975920108146966
+              }
+            },
+            {
+              "kind": "owned_tree_audit",
+              "steady": 182360.097670646,
+              "ros": 103.44600000000001,
+              "epoch": 0,
+              "remaining": []
+            }
+          ],
+          "process_remaining": [],
+          "started_at": "2026-11-21T15:13:49.060356+08:00",
+          "ended_at": "2026-11-21T15:15:45.729947+08:00"
+        },
+        {
+          "case": "left-reverse-02",
+          "status": "passed",
+          "error": null,
+          "actions": {
+            "preposition": {
+              "accepted": true,
+              "fixture_passed": true,
+              "ros_status": 4,
+              "truth_error_m": 0.08061367224453557,
+              "strict_one_second_stop_passed": true,
+              "stable_stop_confirmed": true
+            },
+            "goal": {
+              "accepted": true,
+              "fixture_passed": true,
+              "ros_status": 4,
+              "truth_error_m": 0.07239918286011765,
+              "strict_one_second_stop_passed": true,
+              "stable_stop_confirmed": true
+            }
+          },
+          "obstacle_goal_started": true,
+          "opponent_movement_started": false,
+          "opponent_fitted_speed_mps": null,
+          "contacts": 0,
+          "minimum_gap_m": 0.11926009046406376,
+          "goal_robot_speed_peak_mps": null,
+          "topology_passed": true,
+          "params_match": true,
+          "gate_state_transition_counts": {
+            "external_stop": 4,
+            "no_single_active_goal": 5,
+            "ready": 2
+          },
+          "configuration_checks": {
+            "original_robot_sdf": true,
+            "c072_3hz_tree_with_map_refresh": true,
+            "configured_behavior_tree": true,
+            "c072_base_obstacle_04": true,
+            "c072_local_clearance_05": true,
+            "global_plugin": true,
+            "preferred_static_route": true,
+            "controller_speed": true,
+            "smoother_speed": true,
+            "velocity_sampling": true,
+            "goal_checker": true,
+            "local_prediction": true,
+            "swept_clearance": true,
+            "controlled_recovery": true
+          },
+          "recovery_events": [
+            {
+              "kind": "release_verified",
+              "steady": 182379.344715521,
+              "ros": 6.743,
+              "epoch": 0,
+              "evidence": {
+                "epoch": 0,
+                "steady": 182379.343383688,
+                "ros": 6.743,
+                "quality_count": 4,
+                "registration_sequence": 4,
+                "last_source": 6.65,
+                "gates": {
+                  "healthy": true,
+                  "stationary": true,
+                  "external": true,
+                  "pose": true
+                }
+              }
+            },
+            {
+              "kind": "transition",
+              "steady": 182379.344838763,
+              "ros": 6.743,
+              "epoch": 0,
+              "previous": "VERIFY",
+              "state": "RUNNING",
+              "fault": "",
+              "input_detail": {
+                "imu": {
+                  "steady": 182379.341467882,
+                  "ros": 6.74,
+                  "stamp": 6.74,
+                  "source_age_s": 0.0,
+                  "stamp_delta_s": 0.004999999999999893,
+                  "receipt_gap_s": 0.003944283002056181,
+                  "valid": true
+                },
+                "invalid_imu": [
+                  {
+                    "steady": 182375.039915288,
+                    "ros": 2.467,
+                    "stamp": 2.29,
+                    "source_age_s": 0.17700000000000005,
+                    "stamp_delta_s": 0.004999999999999893,
+                    "receipt_gap_s": 8.721402264200151e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182375.040065602,
+                    "ros": 2.467,
+                    "stamp": 2.295,
+                    "source_age_s": 0.17200000000000015,
+                    "stamp_delta_s": 0.004999999999999893,
+                    "receipt_gap_s": 0.00015031397924758494,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182375.040239169,
+                    "ros": 2.467,
+                    "stamp": 2.3,
+                    "source_age_s": 0.16700000000000026,
+                    "stamp_delta_s": 0.004999999999999893,
+                    "receipt_gap_s": 0.00017356700845994055,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182375.040346562,
+                    "ros": 2.467,
+                    "stamp": 2.305,
+                    "source_age_s": 0.16199999999999992,
+                    "stamp_delta_s": 0.0050000000000003375,
+                    "receipt_gap_s": 0.00010739298886619508,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182375.04046723,
+                    "ros": 2.468,
+                    "stamp": 2.31,
+                    "source_age_s": 0.15799999999999992,
+                    "stamp_delta_s": 0.004999999999999893,
+                    "receipt_gap_s": 0.0001206680026371032,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182375.040560716,
+                    "ros": 2.468,
+                    "stamp": 2.315,
+                    "source_age_s": 0.15300000000000002,
+                    "stamp_delta_s": 0.004999999999999893,
+                    "receipt_gap_s": 9.348601452074945e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182375.040651588,
+                    "ros": 2.468,
+                    "stamp": 2.32,
+                    "source_age_s": 0.14800000000000013,
+                    "stamp_delta_s": 0.004999999999999893,
+                    "receipt_gap_s": 9.0871995780617e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182375.040741387,
+                    "ros": 2.468,
+                    "stamp": 2.325,
+                    "source_age_s": 0.1429999999999998,
+                    "stamp_delta_s": 0.0050000000000003375,
+                    "receipt_gap_s": 8.979899575933814e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182375.040830135,
+                    "ros": 2.468,
+                    "stamp": 2.33,
+                    "source_age_s": 0.1379999999999999,
+                    "stamp_delta_s": 0.004999999999999893,
+                    "receipt_gap_s": 8.874799823388457e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182375.040916708,
+                    "ros": 2.468,
+                    "stamp": 2.335,
+                    "source_age_s": 0.133,
+                    "stamp_delta_s": 0.004999999999999893,
+                    "receipt_gap_s": 8.657301077619195e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182375.041004273,
+                    "ros": 2.468,
+                    "stamp": 2.34,
+                    "source_age_s": 0.1280000000000001,
+                    "stamp_delta_s": 0.004999999999999893,
+                    "receipt_gap_s": 8.756498573347926e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182375.04109278,
+                    "ros": 2.468,
+                    "stamp": 2.345,
+                    "source_age_s": 0.12299999999999978,
+                    "stamp_delta_s": 0.0050000000000003375,
+                    "receipt_gap_s": 8.850701851770282e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182375.041179825,
+                    "ros": 2.468,
+                    "stamp": 2.35,
+                    "source_age_s": 0.11799999999999988,
+                    "stamp_delta_s": 0.004999999999999893,
+                    "receipt_gap_s": 8.70449875947088e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182375.04126732,
+                    "ros": 2.468,
+                    "stamp": 2.355,
+                    "source_age_s": 0.11299999999999999,
+                    "stamp_delta_s": 0.004999999999999893,
+                    "receipt_gap_s": 8.749499102123082e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182375.041356759,
+                    "ros": 2.468,
+                    "stamp": 2.36,
+                    "source_age_s": 0.1080000000000001,
+                    "stamp_delta_s": 0.004999999999999893,
+                    "receipt_gap_s": 8.94390104804188e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182375.041533793,
+                    "ros": 2.4690000000000003,
+                    "stamp": 2.365,
+                    "source_age_s": 0.10400000000000009,
+                    "stamp_delta_s": 0.0050000000000003375,
+                    "receipt_gap_s": 0.00017703400226309896,
+                    "valid": false
+                  }
+                ],
+                "imu_receipt_age_s": 0.0019158060022164136,
+                "imu_valid_since": 182375.04163318,
+                "odom_stamp": 6.7,
+                "odom_receipt_age_s": 0.012636516010388732,
+                "odom_progress_age_s": 0.012636516010388732
+              }
+            },
+            {
+              "kind": "transition",
+              "steady": 182397.244267124,
+              "ros": 24.487000000000002,
+              "epoch": 0,
+              "previous": "RUNNING",
+              "state": "TERMINAL",
+              "fault": "",
+              "input_detail": {
+                "imu": {
+                  "steady": 182397.091015385,
+                  "ros": 24.48,
+                  "stamp": 24.48,
+                  "source_age_s": 0.0,
+                  "stamp_delta_s": 0.004999999999999005,
+                  "receipt_gap_s": 0.004504459007875994,
+                  "valid": true
+                },
+                "invalid_imu": [
+                  {
+                    "steady": 182375.039915288,
+                    "ros": 2.467,
+                    "stamp": 2.29,
+                    "source_age_s": 0.17700000000000005,
+                    "stamp_delta_s": 0.004999999999999893,
+                    "receipt_gap_s": 8.721402264200151e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182375.040065602,
+                    "ros": 2.467,
+                    "stamp": 2.295,
+                    "source_age_s": 0.17200000000000015,
+                    "stamp_delta_s": 0.004999999999999893,
+                    "receipt_gap_s": 0.00015031397924758494,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182375.040239169,
+                    "ros": 2.467,
+                    "stamp": 2.3,
+                    "source_age_s": 0.16700000000000026,
+                    "stamp_delta_s": 0.004999999999999893,
+                    "receipt_gap_s": 0.00017356700845994055,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182375.040346562,
+                    "ros": 2.467,
+                    "stamp": 2.305,
+                    "source_age_s": 0.16199999999999992,
+                    "stamp_delta_s": 0.0050000000000003375,
+                    "receipt_gap_s": 0.00010739298886619508,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182375.04046723,
+                    "ros": 2.468,
+                    "stamp": 2.31,
+                    "source_age_s": 0.15799999999999992,
+                    "stamp_delta_s": 0.004999999999999893,
+                    "receipt_gap_s": 0.0001206680026371032,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182375.040560716,
+                    "ros": 2.468,
+                    "stamp": 2.315,
+                    "source_age_s": 0.15300000000000002,
+                    "stamp_delta_s": 0.004999999999999893,
+                    "receipt_gap_s": 9.348601452074945e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182375.040651588,
+                    "ros": 2.468,
+                    "stamp": 2.32,
+                    "source_age_s": 0.14800000000000013,
+                    "stamp_delta_s": 0.004999999999999893,
+                    "receipt_gap_s": 9.0871995780617e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182375.040741387,
+                    "ros": 2.468,
+                    "stamp": 2.325,
+                    "source_age_s": 0.1429999999999998,
+                    "stamp_delta_s": 0.0050000000000003375,
+                    "receipt_gap_s": 8.979899575933814e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182375.040830135,
+                    "ros": 2.468,
+                    "stamp": 2.33,
+                    "source_age_s": 0.1379999999999999,
+                    "stamp_delta_s": 0.004999999999999893,
+                    "receipt_gap_s": 8.874799823388457e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182375.040916708,
+                    "ros": 2.468,
+                    "stamp": 2.335,
+                    "source_age_s": 0.133,
+                    "stamp_delta_s": 0.004999999999999893,
+                    "receipt_gap_s": 8.657301077619195e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182375.041004273,
+                    "ros": 2.468,
+                    "stamp": 2.34,
+                    "source_age_s": 0.1280000000000001,
+                    "stamp_delta_s": 0.004999999999999893,
+                    "receipt_gap_s": 8.756498573347926e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182375.04109278,
+                    "ros": 2.468,
+                    "stamp": 2.345,
+                    "source_age_s": 0.12299999999999978,
+                    "stamp_delta_s": 0.0050000000000003375,
+                    "receipt_gap_s": 8.850701851770282e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182375.041179825,
+                    "ros": 2.468,
+                    "stamp": 2.35,
+                    "source_age_s": 0.11799999999999988,
+                    "stamp_delta_s": 0.004999999999999893,
+                    "receipt_gap_s": 8.70449875947088e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182375.04126732,
+                    "ros": 2.468,
+                    "stamp": 2.355,
+                    "source_age_s": 0.11299999999999999,
+                    "stamp_delta_s": 0.004999999999999893,
+                    "receipt_gap_s": 8.749499102123082e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182375.041356759,
+                    "ros": 2.468,
+                    "stamp": 2.36,
+                    "source_age_s": 0.1080000000000001,
+                    "stamp_delta_s": 0.004999999999999893,
+                    "receipt_gap_s": 8.94390104804188e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182375.041533793,
+                    "ros": 2.4690000000000003,
+                    "stamp": 2.365,
+                    "source_age_s": 0.10400000000000009,
+                    "stamp_delta_s": 0.0050000000000003375,
+                    "receipt_gap_s": 0.00017703400226309896,
+                    "valid": false
+                  }
+                ],
+                "imu_receipt_age_s": 0.15253216100973077,
+                "imu_valid_since": 182375.04163318,
+                "odom_stamp": 24.399999999,
+                "odom_receipt_age_s": 0.20333711500279605,
+                "odom_progress_age_s": 0.20333711500279605
+              }
+            },
+            {
+              "kind": "transition",
+              "steady": 182397.264414906,
+              "ros": 24.487000000000002,
+              "epoch": 0,
+              "previous": "TERMINAL",
+              "state": "STATIC",
+              "fault": "",
+              "input_detail": {
+                "imu": {
+                  "steady": 182397.091015385,
+                  "ros": 24.48,
+                  "stamp": 24.48,
+                  "source_age_s": 0.0,
+                  "stamp_delta_s": 0.004999999999999005,
+                  "receipt_gap_s": 0.004504459007875994,
+                  "valid": true
+                },
+                "invalid_imu": [
+                  {
+                    "steady": 182375.039915288,
+                    "ros": 2.467,
+                    "stamp": 2.29,
+                    "source_age_s": 0.17700000000000005,
+                    "stamp_delta_s": 0.004999999999999893,
+                    "receipt_gap_s": 8.721402264200151e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182375.040065602,
+                    "ros": 2.467,
+                    "stamp": 2.295,
+                    "source_age_s": 0.17200000000000015,
+                    "stamp_delta_s": 0.004999999999999893,
+                    "receipt_gap_s": 0.00015031397924758494,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182375.040239169,
+                    "ros": 2.467,
+                    "stamp": 2.3,
+                    "source_age_s": 0.16700000000000026,
+                    "stamp_delta_s": 0.004999999999999893,
+                    "receipt_gap_s": 0.00017356700845994055,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182375.040346562,
+                    "ros": 2.467,
+                    "stamp": 2.305,
+                    "source_age_s": 0.16199999999999992,
+                    "stamp_delta_s": 0.0050000000000003375,
+                    "receipt_gap_s": 0.00010739298886619508,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182375.04046723,
+                    "ros": 2.468,
+                    "stamp": 2.31,
+                    "source_age_s": 0.15799999999999992,
+                    "stamp_delta_s": 0.004999999999999893,
+                    "receipt_gap_s": 0.0001206680026371032,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182375.040560716,
+                    "ros": 2.468,
+                    "stamp": 2.315,
+                    "source_age_s": 0.15300000000000002,
+                    "stamp_delta_s": 0.004999999999999893,
+                    "receipt_gap_s": 9.348601452074945e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182375.040651588,
+                    "ros": 2.468,
+                    "stamp": 2.32,
+                    "source_age_s": 0.14800000000000013,
+                    "stamp_delta_s": 0.004999999999999893,
+                    "receipt_gap_s": 9.0871995780617e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182375.040741387,
+                    "ros": 2.468,
+                    "stamp": 2.325,
+                    "source_age_s": 0.1429999999999998,
+                    "stamp_delta_s": 0.0050000000000003375,
+                    "receipt_gap_s": 8.979899575933814e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182375.040830135,
+                    "ros": 2.468,
+                    "stamp": 2.33,
+                    "source_age_s": 0.1379999999999999,
+                    "stamp_delta_s": 0.004999999999999893,
+                    "receipt_gap_s": 8.874799823388457e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182375.040916708,
+                    "ros": 2.468,
+                    "stamp": 2.335,
+                    "source_age_s": 0.133,
+                    "stamp_delta_s": 0.004999999999999893,
+                    "receipt_gap_s": 8.657301077619195e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182375.041004273,
+                    "ros": 2.468,
+                    "stamp": 2.34,
+                    "source_age_s": 0.1280000000000001,
+                    "stamp_delta_s": 0.004999999999999893,
+                    "receipt_gap_s": 8.756498573347926e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182375.04109278,
+                    "ros": 2.468,
+                    "stamp": 2.345,
+                    "source_age_s": 0.12299999999999978,
+                    "stamp_delta_s": 0.0050000000000003375,
+                    "receipt_gap_s": 8.850701851770282e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182375.041179825,
+                    "ros": 2.468,
+                    "stamp": 2.35,
+                    "source_age_s": 0.11799999999999988,
+                    "stamp_delta_s": 0.004999999999999893,
+                    "receipt_gap_s": 8.70449875947088e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182375.04126732,
+                    "ros": 2.468,
+                    "stamp": 2.355,
+                    "source_age_s": 0.11299999999999999,
+                    "stamp_delta_s": 0.004999999999999893,
+                    "receipt_gap_s": 8.749499102123082e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182375.041356759,
+                    "ros": 2.468,
+                    "stamp": 2.36,
+                    "source_age_s": 0.1080000000000001,
+                    "stamp_delta_s": 0.004999999999999893,
+                    "receipt_gap_s": 8.94390104804188e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182375.041533793,
+                    "ros": 2.4690000000000003,
+                    "stamp": 2.365,
+                    "source_age_s": 0.10400000000000009,
+                    "stamp_delta_s": 0.0050000000000003375,
+                    "receipt_gap_s": 0.00017703400226309896,
+                    "valid": false
+                  }
+                ],
+                "imu_receipt_age_s": 0.17253846701350994,
+                "imu_valid_since": 182375.04163318,
+                "odom_stamp": 24.399999999,
+                "odom_receipt_age_s": 0.22334342100657523,
+                "odom_progress_age_s": 0.22334342100657523
+              }
+            },
+            {
+              "kind": "restart_authorized",
+              "steady": 182399.504635211,
+              "ros": 26.882,
+              "epoch": 1,
+              "terminal": true,
+              "stationary": true,
+              "seed": [
+                -0.0006835103774943572,
+                0.0012786565527643616,
+                0.0012883809075272716,
+                0.0001295413618579051,
+                6.285971560693326e-05,
+                0.0008705811332864564
+              ]
+            },
+            {
+              "kind": "transition",
+              "steady": 182399.504797908,
+              "ros": 26.882,
+              "epoch": 1,
+              "previous": "STATIC",
+              "state": "RESTARTING",
+              "fault": "",
+              "input_detail": {
+                "imu": {
+                  "steady": 182399.502613937,
+                  "ros": 26.880000000000003,
+                  "stamp": 26.88,
+                  "source_age_s": 3.552713678800501e-15,
+                  "stamp_delta_s": 0.004999999999999005,
+                  "receipt_gap_s": 0.005010762979509309,
+                  "valid": true
+                },
+                "invalid_imu": [
+                  {
+                    "steady": 182397.458184846,
+                    "ros": 24.842000000000002,
+                    "stamp": 24.7,
+                    "source_age_s": 0.142000000000003,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.0008106690074782819,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182397.458319551,
+                    "ros": 24.842000000000002,
+                    "stamp": 24.705,
+                    "source_age_s": 0.137000000000004,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.00013470498379319906,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182397.469797456,
+                    "ros": 24.846,
+                    "stamp": 24.71,
+                    "source_age_s": 0.13599999999999923,
+                    "stamp_delta_s": 0.005000000000002558,
+                    "receipt_gap_s": 0.01147790500544943,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182397.472479977,
+                    "ros": 24.856,
+                    "stamp": 24.715,
+                    "source_age_s": 0.1410000000000018,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.0026825210079550743,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182397.472779111,
+                    "ros": 24.857000000000003,
+                    "stamp": 24.72,
+                    "source_age_s": 0.137000000000004,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.0002991340006701648,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182397.472938752,
+                    "ros": 24.857000000000003,
+                    "stamp": 24.725,
+                    "source_age_s": 0.13200000000000145,
+                    "stamp_delta_s": 0.005000000000002558,
+                    "receipt_gap_s": 0.00015964100020937622,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182397.473092042,
+                    "ros": 24.857000000000003,
+                    "stamp": 24.73,
+                    "source_age_s": 0.12700000000000244,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.00015328999143093824,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182397.473221796,
+                    "ros": 24.857000000000003,
+                    "stamp": 24.735,
+                    "source_age_s": 0.12200000000000344,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.00012975401477888227,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182397.473355639,
+                    "ros": 24.857000000000003,
+                    "stamp": 24.74,
+                    "source_age_s": 0.11700000000000443,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.00013384298654273152,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182397.473625017,
+                    "ros": 24.858,
+                    "stamp": 24.745,
+                    "source_age_s": 0.11299999999999955,
+                    "stamp_delta_s": 0.005000000000002558,
+                    "receipt_gap_s": 0.00026937801158055663,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182397.473772365,
+                    "ros": 24.858,
+                    "stamp": 24.75,
+                    "source_age_s": 0.10800000000000054,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.00014734797878190875,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182397.473955561,
+                    "ros": 24.858,
+                    "stamp": 24.755,
+                    "source_age_s": 0.10300000000000153,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.0001831960107665509,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182397.489265105,
+                    "ros": 24.873,
+                    "stamp": 24.76,
+                    "source_age_s": 0.11299999999999955,
+                    "stamp_delta_s": 0.005000000000002558,
+                    "receipt_gap_s": 0.01530954398913309,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182397.489850018,
+                    "ros": 24.874000000000002,
+                    "stamp": 24.765,
+                    "source_age_s": 0.10900000000000176,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.0005849130102433264,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182397.490304296,
+                    "ros": 24.874000000000002,
+                    "stamp": 24.77,
+                    "source_age_s": 0.10400000000000276,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.0004542779934126884,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182397.490819568,
+                    "ros": 24.875,
+                    "stamp": 24.775,
+                    "source_age_s": 0.10000000000000142,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.0005152719968464226,
+                    "valid": false
+                  }
+                ],
+                "imu_receipt_age_s": 0.0008935660007409751,
+                "imu_valid_since": 182397.491164879,
+                "odom_stamp": 26.85,
+                "odom_receipt_age_s": 0.001366527983918786,
+                "odom_progress_age_s": 0.001366527983918786
+              }
+            },
+            {
+              "kind": "owned_tree_audit",
+              "steady": 182401.433305989,
+              "ros": 28.805000000000003,
+              "epoch": 1,
+              "remaining": []
+            },
+            {
+              "kind": "transition",
+              "steady": 182401.527152268,
+              "ros": 28.895000000000003,
+              "epoch": 1,
+              "previous": "RESTARTING",
+              "state": "VERIFY",
+              "fault": "",
+              "input_detail": {
+                "imu": {
+                  "steady": 182401.522899414,
+                  "ros": 28.895000000000003,
+                  "stamp": 28.895,
+                  "source_age_s": 3.552713678800501e-15,
+                  "stamp_delta_s": 0.004999999999999005,
+                  "receipt_gap_s": 0.004971378017216921,
+                  "valid": true
+                },
+                "invalid_imu": [
+                  {
+                    "steady": 182397.458184846,
+                    "ros": 24.842000000000002,
+                    "stamp": 24.7,
+                    "source_age_s": 0.142000000000003,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.0008106690074782819,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182397.458319551,
+                    "ros": 24.842000000000002,
+                    "stamp": 24.705,
+                    "source_age_s": 0.137000000000004,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.00013470498379319906,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182397.469797456,
+                    "ros": 24.846,
+                    "stamp": 24.71,
+                    "source_age_s": 0.13599999999999923,
+                    "stamp_delta_s": 0.005000000000002558,
+                    "receipt_gap_s": 0.01147790500544943,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182397.472479977,
+                    "ros": 24.856,
+                    "stamp": 24.715,
+                    "source_age_s": 0.1410000000000018,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.0026825210079550743,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182397.472779111,
+                    "ros": 24.857000000000003,
+                    "stamp": 24.72,
+                    "source_age_s": 0.137000000000004,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.0002991340006701648,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182397.472938752,
+                    "ros": 24.857000000000003,
+                    "stamp": 24.725,
+                    "source_age_s": 0.13200000000000145,
+                    "stamp_delta_s": 0.005000000000002558,
+                    "receipt_gap_s": 0.00015964100020937622,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182397.473092042,
+                    "ros": 24.857000000000003,
+                    "stamp": 24.73,
+                    "source_age_s": 0.12700000000000244,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.00015328999143093824,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182397.473221796,
+                    "ros": 24.857000000000003,
+                    "stamp": 24.735,
+                    "source_age_s": 0.12200000000000344,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.00012975401477888227,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182397.473355639,
+                    "ros": 24.857000000000003,
+                    "stamp": 24.74,
+                    "source_age_s": 0.11700000000000443,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.00013384298654273152,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182397.473625017,
+                    "ros": 24.858,
+                    "stamp": 24.745,
+                    "source_age_s": 0.11299999999999955,
+                    "stamp_delta_s": 0.005000000000002558,
+                    "receipt_gap_s": 0.00026937801158055663,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182397.473772365,
+                    "ros": 24.858,
+                    "stamp": 24.75,
+                    "source_age_s": 0.10800000000000054,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.00014734797878190875,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182397.473955561,
+                    "ros": 24.858,
+                    "stamp": 24.755,
+                    "source_age_s": 0.10300000000000153,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.0001831960107665509,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182397.489265105,
+                    "ros": 24.873,
+                    "stamp": 24.76,
+                    "source_age_s": 0.11299999999999955,
+                    "stamp_delta_s": 0.005000000000002558,
+                    "receipt_gap_s": 0.01530954398913309,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182397.489850018,
+                    "ros": 24.874000000000002,
+                    "stamp": 24.765,
+                    "source_age_s": 0.10900000000000176,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.0005849130102433264,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182397.490304296,
+                    "ros": 24.874000000000002,
+                    "stamp": 24.77,
+                    "source_age_s": 0.10400000000000276,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.0004542779934126884,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182397.490819568,
+                    "ros": 24.875,
+                    "stamp": 24.775,
+                    "source_age_s": 0.10000000000000142,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.0005152719968464226,
+                    "valid": false
+                  }
+                ],
+                "imu_receipt_age_s": 0.0007180649845395237,
+                "imu_valid_since": 182397.491164879,
+                "odom_stamp": 27.8,
+                "odom_receipt_age_s": 1.0596789169940166,
+                "odom_progress_age_s": 1.0596789169940166
+              }
+            },
+            {
+              "kind": "release_verified",
+              "steady": 182405.606253654,
+              "ros": 32.957,
+              "epoch": 1,
+              "evidence": {
+                "epoch": 1,
+                "steady": 182405.603636707,
+                "ros": 32.957,
+                "quality_count": 4,
+                "registration_sequence": 4,
+                "last_source": 32.85,
+                "gates": {
+                  "healthy": true,
+                  "stationary": true,
+                  "external": true,
+                  "pose": true
+                }
+              }
+            },
+            {
+              "kind": "transition",
+              "steady": 182405.606616428,
+              "ros": 32.958000000000006,
+              "epoch": 1,
+              "previous": "VERIFY",
+              "state": "RUNNING",
+              "fault": "",
+              "input_detail": {
+                "imu": {
+                  "steady": 182405.598704412,
+                  "ros": 32.95,
+                  "stamp": 32.95,
+                  "source_age_s": 0.0,
+                  "stamp_delta_s": 0.005000000000002558,
+                  "receipt_gap_s": 0.005005081999115646,
+                  "valid": true
+                },
+                "invalid_imu": [
+                  {
+                    "steady": 182397.458184846,
+                    "ros": 24.842000000000002,
+                    "stamp": 24.7,
+                    "source_age_s": 0.142000000000003,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.0008106690074782819,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182397.458319551,
+                    "ros": 24.842000000000002,
+                    "stamp": 24.705,
+                    "source_age_s": 0.137000000000004,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.00013470498379319906,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182397.469797456,
+                    "ros": 24.846,
+                    "stamp": 24.71,
+                    "source_age_s": 0.13599999999999923,
+                    "stamp_delta_s": 0.005000000000002558,
+                    "receipt_gap_s": 0.01147790500544943,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182397.472479977,
+                    "ros": 24.856,
+                    "stamp": 24.715,
+                    "source_age_s": 0.1410000000000018,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.0026825210079550743,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182397.472779111,
+                    "ros": 24.857000000000003,
+                    "stamp": 24.72,
+                    "source_age_s": 0.137000000000004,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.0002991340006701648,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182397.472938752,
+                    "ros": 24.857000000000003,
+                    "stamp": 24.725,
+                    "source_age_s": 0.13200000000000145,
+                    "stamp_delta_s": 0.005000000000002558,
+                    "receipt_gap_s": 0.00015964100020937622,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182397.473092042,
+                    "ros": 24.857000000000003,
+                    "stamp": 24.73,
+                    "source_age_s": 0.12700000000000244,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.00015328999143093824,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182397.473221796,
+                    "ros": 24.857000000000003,
+                    "stamp": 24.735,
+                    "source_age_s": 0.12200000000000344,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.00012975401477888227,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182397.473355639,
+                    "ros": 24.857000000000003,
+                    "stamp": 24.74,
+                    "source_age_s": 0.11700000000000443,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.00013384298654273152,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182397.473625017,
+                    "ros": 24.858,
+                    "stamp": 24.745,
+                    "source_age_s": 0.11299999999999955,
+                    "stamp_delta_s": 0.005000000000002558,
+                    "receipt_gap_s": 0.00026937801158055663,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182397.473772365,
+                    "ros": 24.858,
+                    "stamp": 24.75,
+                    "source_age_s": 0.10800000000000054,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.00014734797878190875,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182397.473955561,
+                    "ros": 24.858,
+                    "stamp": 24.755,
+                    "source_age_s": 0.10300000000000153,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.0001831960107665509,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182397.489265105,
+                    "ros": 24.873,
+                    "stamp": 24.76,
+                    "source_age_s": 0.11299999999999955,
+                    "stamp_delta_s": 0.005000000000002558,
+                    "receipt_gap_s": 0.01530954398913309,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182397.489850018,
+                    "ros": 24.874000000000002,
+                    "stamp": 24.765,
+                    "source_age_s": 0.10900000000000176,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.0005849130102433264,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182397.490304296,
+                    "ros": 24.874000000000002,
+                    "stamp": 24.77,
+                    "source_age_s": 0.10400000000000276,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.0004542779934126884,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182397.490819568,
+                    "ros": 24.875,
+                    "stamp": 24.775,
+                    "source_age_s": 0.10000000000000142,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.0005152719968464226,
+                    "valid": false
+                  }
+                ],
+                "imu_receipt_age_s": 0.004932295007165521,
+                "imu_valid_since": 182397.491164879,
+                "odom_stamp": 32.899999999,
+                "odom_receipt_age_s": 0.022162690002005547,
+                "odom_progress_age_s": 0.022162690002005547
+              }
+            },
+            {
+              "kind": "owned_tree_audit",
+              "steady": 182496.120856081,
+              "ros": 114.52300000000001,
+              "epoch": 1,
+              "remaining": []
+            }
+          ],
+          "process_remaining": [],
+          "started_at": "2026-11-21T15:15:45.731326+08:00",
+          "ended_at": "2026-11-21T15:18:01.873151+08:00"
+        },
+        {
+          "case": "left-reverse-03",
+          "status": "passed",
+          "error": null,
+          "actions": {
+            "preposition": {
+              "accepted": true,
+              "fixture_passed": true,
+              "ros_status": 4,
+              "truth_error_m": 0.0711382933355151,
+              "strict_one_second_stop_passed": true,
+              "stable_stop_confirmed": true
+            },
+            "goal": {
+              "accepted": true,
+              "fixture_passed": true,
+              "ros_status": 4,
+              "truth_error_m": 0.0732116388122667,
+              "strict_one_second_stop_passed": true,
+              "stable_stop_confirmed": true
+            }
+          },
+          "obstacle_goal_started": true,
+          "opponent_movement_started": false,
+          "opponent_fitted_speed_mps": null,
+          "contacts": 0,
+          "minimum_gap_m": 0.19299315188866561,
+          "goal_robot_speed_peak_mps": null,
+          "topology_passed": true,
+          "params_match": true,
+          "gate_state_transition_counts": {
+            "no_single_active_goal": 4,
+            "external_stop": 2,
+            "ready": 2
+          },
+          "configuration_checks": {
+            "original_robot_sdf": true,
+            "c072_3hz_tree_with_map_refresh": true,
+            "configured_behavior_tree": true,
+            "c072_base_obstacle_04": true,
+            "c072_local_clearance_05": true,
+            "global_plugin": true,
+            "preferred_static_route": true,
+            "controller_speed": true,
+            "smoother_speed": true,
+            "velocity_sampling": true,
+            "goal_checker": true,
+            "local_prediction": true,
+            "swept_clearance": true,
+            "controlled_recovery": true
+          },
+          "recovery_events": [
+            {
+              "kind": "release_verified",
+              "steady": 182515.696363809,
+              "ros": 6.0680000000000005,
+              "epoch": 0,
+              "evidence": {
+                "epoch": 0,
+                "steady": 182515.694333364,
+                "ros": 6.0680000000000005,
+                "quality_count": 4,
+                "registration_sequence": 4,
+                "last_source": 5.95,
+                "gates": {
+                  "healthy": true,
+                  "stationary": true,
+                  "external": true,
+                  "pose": true
+                }
+              }
+            },
+            {
+              "kind": "transition",
+              "steady": 182515.696758273,
+              "ros": 6.069,
+              "epoch": 0,
+              "previous": "VERIFY",
+              "state": "RUNNING",
+              "fault": "",
+              "input_detail": {
+                "imu": {
+                  "steady": 182515.692958613,
+                  "ros": 6.065,
+                  "stamp": 6.065,
+                  "source_age_s": 0.0,
+                  "stamp_delta_s": 0.005000000000000782,
+                  "receipt_gap_s": 0.0037469900271389633,
+                  "valid": true
+                },
+                "invalid_imu": [],
+                "imu_receipt_age_s": 0.0013747509801760316,
+                "imu_valid_since": 182511.561190344,
+                "odom_stamp": 6.0,
+                "odom_receipt_age_s": 0.0324725880054757,
+                "odom_progress_age_s": 0.0324725880054757
+              }
+            },
+            {
+              "kind": "owned_tree_audit",
+              "steady": 182612.159301855,
+              "ros": 100.551,
+              "epoch": 0,
+              "remaining": []
+            }
+          ],
+          "process_remaining": [],
+          "started_at": "2026-11-21T15:18:01.874815+08:00",
+          "ended_at": "2026-11-21T15:19:57.682858+08:00"
+        },
+        {
+          "case": "right-control-01",
+          "status": "passed",
+          "error": null,
+          "actions": {
+            "preposition": {
+              "accepted": true,
+              "fixture_passed": true,
+              "ros_status": 4,
+              "truth_error_m": 0.030053551373610734,
+              "strict_one_second_stop_passed": true,
+              "stable_stop_confirmed": true
+            },
+            "goal": {
+              "accepted": true,
+              "fixture_passed": true,
+              "ros_status": 4,
+              "truth_error_m": 0.07998417440135915,
+              "strict_one_second_stop_passed": true,
+              "stable_stop_confirmed": true
+            }
+          },
+          "obstacle_goal_started": true,
+          "opponent_movement_started": false,
+          "opponent_fitted_speed_mps": null,
+          "contacts": 0,
+          "minimum_gap_m": 0.2315986220508463,
+          "goal_robot_speed_peak_mps": null,
+          "topology_passed": true,
+          "params_match": true,
+          "gate_state_transition_counts": {
+            "no_single_active_goal": 4,
+            "external_stop": 2,
+            "ready": 2
+          },
+          "configuration_checks": {
+            "original_robot_sdf": true,
+            "c072_3hz_tree_with_map_refresh": true,
+            "configured_behavior_tree": true,
+            "c072_base_obstacle_04": true,
+            "c072_local_clearance_05": true,
+            "global_plugin": true,
+            "preferred_static_route": true,
+            "controller_speed": true,
+            "smoother_speed": true,
+            "velocity_sampling": true,
+            "goal_checker": true,
+            "local_prediction": true,
+            "swept_clearance": true,
+            "controlled_recovery": true
+          },
+          "recovery_events": [
+            {
+              "kind": "release_verified",
+              "steady": 182624.319725367,
+              "ros": 6.109,
+              "epoch": 0,
+              "evidence": {
+                "epoch": 0,
+                "steady": 182624.318443313,
+                "ros": 6.109,
+                "quality_count": 4,
+                "registration_sequence": 4,
+                "last_source": 6,
+                "gates": {
+                  "healthy": true,
+                  "stationary": true,
+                  "external": true,
+                  "pose": true
+                }
+              }
+            },
+            {
+              "kind": "transition",
+              "steady": 182624.319879687,
+              "ros": 6.109,
+              "epoch": 0,
+              "previous": "VERIFY",
+              "state": "RUNNING",
+              "fault": "",
+              "input_detail": {
+                "imu": {
+                  "steady": 182624.315544536,
+                  "ros": 6.105,
+                  "stamp": 6.105,
+                  "source_age_s": 0.0,
+                  "stamp_delta_s": 0.005000000000000782,
+                  "receipt_gap_s": 0.004956610995577648,
+                  "valid": true
+                },
+                "invalid_imu": [],
+                "imu_receipt_age_s": 0.002898777020163834,
+                "imu_valid_since": 182620.13095143,
+                "odom_stamp": 6.049999999,
+                "odom_receipt_age_s": 0.030558537022443488,
+                "odom_progress_age_s": 0.030558537022443488
+              }
+            },
+            {
+              "kind": "owned_tree_audit",
+              "steady": 182704.634263983,
+              "ros": 85.17500000000001,
+              "epoch": 0,
+              "remaining": []
+            }
+          ],
+          "process_remaining": [],
+          "started_at": "2026-11-21T15:19:57.685857+08:00",
+          "ended_at": "2026-11-21T15:21:30.161192+08:00"
+        },
+        {
+          "case": "right-control-02",
+          "status": "passed",
+          "error": null,
+          "actions": {
+            "preposition": {
+              "accepted": true,
+              "fixture_passed": true,
+              "ros_status": 4,
+              "truth_error_m": 0.05234846834816571,
+              "strict_one_second_stop_passed": true,
+              "stable_stop_confirmed": true
+            },
+            "goal": {
+              "accepted": true,
+              "fixture_passed": true,
+              "ros_status": 4,
+              "truth_error_m": 0.07590112444022303,
+              "strict_one_second_stop_passed": true,
+              "stable_stop_confirmed": true
+            }
+          },
+          "obstacle_goal_started": true,
+          "opponent_movement_started": false,
+          "opponent_fitted_speed_mps": null,
+          "contacts": 0,
+          "minimum_gap_m": 0.2299549329104799,
+          "goal_robot_speed_peak_mps": null,
+          "topology_passed": true,
+          "params_match": true,
+          "gate_state_transition_counts": {
+            "no_single_active_goal": 4,
+            "external_stop": 2,
+            "ready": 2
+          },
+          "configuration_checks": {
+            "original_robot_sdf": true,
+            "c072_3hz_tree_with_map_refresh": true,
+            "configured_behavior_tree": true,
+            "c072_base_obstacle_04": true,
+            "c072_local_clearance_05": true,
+            "global_plugin": true,
+            "preferred_static_route": true,
+            "controller_speed": true,
+            "smoother_speed": true,
+            "velocity_sampling": true,
+            "goal_checker": true,
+            "local_prediction": true,
+            "swept_clearance": true,
+            "controlled_recovery": true
+          },
+          "recovery_events": [
+            {
+              "kind": "release_verified",
+              "steady": 182716.542174496,
+              "ros": 6.053,
+              "epoch": 0,
+              "evidence": {
+                "epoch": 0,
+                "steady": 182716.541386143,
+                "ros": 6.053,
+                "quality_count": 4,
+                "registration_sequence": 4,
+                "last_source": 5.95,
+                "gates": {
+                  "healthy": true,
+                  "stationary": true,
+                  "external": true,
+                  "pose": true
+                }
+              }
+            },
+            {
+              "kind": "transition",
+              "steady": 182716.542455215,
+              "ros": 6.054,
+              "epoch": 0,
+              "previous": "VERIFY",
+              "state": "RUNNING",
+              "fault": "",
+              "input_detail": {
+                "imu": {
+                  "steady": 182716.538696163,
+                  "ros": 6.050000000000001,
+                  "stamp": 6.05,
+                  "source_age_s": 8.881784197001252e-16,
+                  "stamp_delta_s": 0.004999999999999893,
+                  "receipt_gap_s": 0.005211034003878012,
+                  "valid": true
+                },
+                "invalid_imu": [],
+                "imu_receipt_age_s": 0.002689979999559,
+                "imu_valid_since": 182712.500846701,
+                "odom_stamp": 6.0,
+                "odom_receipt_age_s": 0.025704036001116037,
+                "odom_progress_age_s": 0.025704036001116037
+              }
+            },
+            {
+              "kind": "owned_tree_audit",
+              "steady": 182804.648807127,
+              "ros": 91.54400000000001,
+              "epoch": 0,
+              "remaining": []
+            }
+          ],
+          "process_remaining": [],
+          "started_at": "2026-11-21T15:21:30.167041+08:00",
+          "ended_at": "2026-11-21T15:23:10.075799+08:00"
+        },
+        {
+          "case": "right-control-03",
+          "status": "passed",
+          "error": null,
+          "actions": {
+            "preposition": {
+              "accepted": true,
+              "fixture_passed": true,
+              "ros_status": 4,
+              "truth_error_m": 0.06826515082350523,
+              "strict_one_second_stop_passed": true,
+              "stable_stop_confirmed": true
+            },
+            "goal": {
+              "accepted": true,
+              "fixture_passed": true,
+              "ros_status": 4,
+              "truth_error_m": 0.07681799966373254,
+              "strict_one_second_stop_passed": true,
+              "stable_stop_confirmed": true
+            }
+          },
+          "obstacle_goal_started": true,
+          "opponent_movement_started": false,
+          "opponent_fitted_speed_mps": null,
+          "contacts": 0,
+          "minimum_gap_m": 0.23046748015304547,
+          "goal_robot_speed_peak_mps": null,
+          "topology_passed": true,
+          "params_match": true,
+          "gate_state_transition_counts": {
+            "no_single_active_goal": 5,
+            "external_stop": 4,
+            "ready": 2
+          },
+          "configuration_checks": {
+            "original_robot_sdf": true,
+            "c072_3hz_tree_with_map_refresh": true,
+            "configured_behavior_tree": true,
+            "c072_base_obstacle_04": true,
+            "c072_local_clearance_05": true,
+            "global_plugin": true,
+            "preferred_static_route": true,
+            "controller_speed": true,
+            "smoother_speed": true,
+            "velocity_sampling": true,
+            "goal_checker": true,
+            "local_prediction": true,
+            "swept_clearance": true,
+            "controlled_recovery": true
+          },
+          "recovery_events": [
+            {
+              "kind": "release_verified",
+              "steady": 182816.628477055,
+              "ros": 6.204000000000001,
+              "epoch": 0,
+              "evidence": {
+                "epoch": 0,
+                "steady": 182816.627146964,
+                "ros": 6.204000000000001,
+                "quality_count": 4,
+                "registration_sequence": 4,
+                "last_source": 6.099999999,
+                "gates": {
+                  "healthy": true,
+                  "stationary": true,
+                  "external": true,
+                  "pose": true
+                }
+              }
+            },
+            {
+              "kind": "transition",
+              "steady": 182816.6293842,
+              "ros": 6.205,
+              "epoch": 0,
+              "previous": "VERIFY",
+              "state": "RUNNING",
+              "fault": "",
+              "input_detail": {
+                "imu": {
+                  "steady": 182816.626795253,
+                  "ros": 6.203,
+                  "stamp": 6.2,
+                  "source_age_s": 0.0030000000000001137,
+                  "stamp_delta_s": 0.004999999999999893,
+                  "receipt_gap_s": 0.008039736974751577,
+                  "valid": true
+                },
+                "invalid_imu": [],
+                "imu_receipt_age_s": 0.0003517110017128289,
+                "imu_valid_since": 182812.522728735,
+                "odom_stamp": 6.15,
+                "odom_receipt_age_s": 0.02731907498673536,
+                "odom_progress_age_s": 0.02731907498673536
+              }
+            },
+            {
+              "kind": "transition",
+              "steady": 182828.231482856,
+              "ros": 17.736,
+              "epoch": 0,
+              "previous": "RUNNING",
+              "state": "TERMINAL",
+              "fault": "",
+              "input_detail": {
+                "imu": {
+                  "steady": 182828.2260546,
+                  "ros": 17.731,
+                  "stamp": 17.49,
+                  "source_age_s": 0.2410000000000032,
+                  "stamp_delta_s": 0.004999999999999005,
+                  "receipt_gap_s": 0.00036590799572877586,
+                  "valid": false
+                },
+                "invalid_imu": [
+                  {
+                    "steady": 182828.218973758,
+                    "ros": 17.62,
+                    "stamp": 17.47,
+                    "source_age_s": 0.15000000000000213,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.001304271980188787,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182828.223638708,
+                    "ros": 17.62,
+                    "stamp": 17.475,
+                    "source_age_s": 0.14499999999999957,
+                    "stamp_delta_s": 0.005000000000002558,
+                    "receipt_gap_s": 0.004664950014557689,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182828.225455915,
+                    "ros": 17.73,
+                    "stamp": 17.48,
+                    "source_age_s": 0.25,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.0018172069976571947,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182828.225688692,
+                    "ros": 17.731,
+                    "stamp": 17.485,
+                    "source_age_s": 0.24600000000000222,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.00023277700529433787,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182828.2260546,
+                    "ros": 17.731,
+                    "stamp": 17.49,
+                    "source_age_s": 0.2410000000000032,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.00036590799572877586,
+                    "valid": false
+                  }
+                ],
+                "imu_receipt_age_s": 0.0001457839971408248,
+                "imu_valid_since": null,
+                "odom_stamp": 17.5,
+                "odom_receipt_age_s": 0.0011202759924344718,
+                "odom_progress_age_s": 0.0011202759924344718
+              }
+            },
+            {
+              "kind": "transition",
+              "steady": 182828.307853918,
+              "ros": 17.813000000000002,
+              "epoch": 0,
+              "previous": "TERMINAL",
+              "state": "STATIC",
+              "fault": "",
+              "input_detail": {
+                "imu": {
+                  "steady": 182828.299845462,
+                  "ros": 17.805,
+                  "stamp": 17.805,
+                  "source_age_s": 0.0,
+                  "stamp_delta_s": 0.004999999999999005,
+                  "receipt_gap_s": 0.00494905500090681,
+                  "valid": true
+                },
+                "invalid_imu": [
+                  {
+                    "steady": 182828.227946126,
+                    "ros": 17.733,
+                    "stamp": 17.555,
+                    "source_age_s": 0.17800000000000082,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 8.805497782304883e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182828.228045704,
+                    "ros": 17.733,
+                    "stamp": 17.56,
+                    "source_age_s": 0.17300000000000182,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 9.957799920812249e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182828.228133449,
+                    "ros": 17.733,
+                    "stamp": 17.565,
+                    "source_age_s": 0.16799999999999926,
+                    "stamp_delta_s": 0.005000000000002558,
+                    "receipt_gap_s": 8.774502202868462e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182828.228220562,
+                    "ros": 17.733,
+                    "stamp": 17.57,
+                    "source_age_s": 0.16300000000000026,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 8.711300324648619e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182828.228307536,
+                    "ros": 17.733,
+                    "stamp": 17.575,
+                    "source_age_s": 0.15800000000000125,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 8.697397424839437e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182828.228394559,
+                    "ros": 17.733,
+                    "stamp": 17.58,
+                    "source_age_s": 0.15300000000000225,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 8.702301420271397e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182828.228481493,
+                    "ros": 17.733,
+                    "stamp": 17.585,
+                    "source_age_s": 0.1479999999999997,
+                    "stamp_delta_s": 0.005000000000002558,
+                    "receipt_gap_s": 8.693398558534682e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182828.228622779,
+                    "ros": 17.734,
+                    "stamp": 17.59,
+                    "source_age_s": 0.1440000000000019,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.0001412860001437366,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182828.228723428,
+                    "ros": 17.734,
+                    "stamp": 17.595,
+                    "source_age_s": 0.1390000000000029,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.00010064902016893029,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182828.228812706,
+                    "ros": 17.734,
+                    "stamp": 17.6,
+                    "source_age_s": 0.13400000000000034,
+                    "stamp_delta_s": 0.005000000000002558,
+                    "receipt_gap_s": 8.92779789865017e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182828.228898517,
+                    "ros": 17.734,
+                    "stamp": 17.605,
+                    "source_age_s": 0.12900000000000134,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 8.581101428717375e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182828.228983316,
+                    "ros": 17.734,
+                    "stamp": 17.61,
+                    "source_age_s": 0.12400000000000233,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 8.479898679070175e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182828.229065872,
+                    "ros": 17.734,
+                    "stamp": 17.615,
+                    "source_age_s": 0.11900000000000333,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 8.25560127850622e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182828.229147986,
+                    "ros": 17.734,
+                    "stamp": 17.62,
+                    "source_age_s": 0.11400000000000077,
+                    "stamp_delta_s": 0.005000000000002558,
+                    "receipt_gap_s": 8.211401291191578e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182828.229228768,
+                    "ros": 17.734,
+                    "stamp": 17.625,
+                    "source_age_s": 0.10900000000000176,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 8.078198879957199e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182828.229311253,
+                    "ros": 17.734,
+                    "stamp": 17.63,
+                    "source_age_s": 0.10400000000000276,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 8.248499943874776e-05,
+                    "valid": false
+                  }
+                ],
+                "imu_receipt_age_s": 0.006063770008040592,
+                "imu_valid_since": 182828.22939456,
+                "odom_stamp": 17.75,
+                "odom_receipt_age_s": 0.03866665600799024,
+                "odom_progress_age_s": 0.03866665600799024
+              }
+            },
+            {
+              "kind": "restart_authorized",
+              "steady": 182830.469075253,
+              "ros": 19.962,
+              "epoch": 1,
+              "terminal": true,
+              "stationary": true,
+              "seed": [
+                0.00025650921665730297,
+                0.0034114160126194515,
+                0.001038056514486254,
+                0.0013122917872747252,
+                -0.0005852971005839702,
+                -0.0009280494439565097
+              ]
+            },
+            {
+              "kind": "transition",
+              "steady": 182830.469668459,
+              "ros": 19.962,
+              "epoch": 1,
+              "previous": "STATIC",
+              "state": "RESTARTING",
+              "fault": "",
+              "input_detail": {
+                "imu": {
+                  "steady": 182830.459737829,
+                  "ros": 19.955000000000002,
+                  "stamp": 19.955,
+                  "source_age_s": 3.552713678800501e-15,
+                  "stamp_delta_s": 0.004999999999999005,
+                  "receipt_gap_s": 0.0048638139851391315,
+                  "valid": true
+                },
+                "invalid_imu": [
+                  {
+                    "steady": 182828.227946126,
+                    "ros": 17.733,
+                    "stamp": 17.555,
+                    "source_age_s": 0.17800000000000082,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 8.805497782304883e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182828.228045704,
+                    "ros": 17.733,
+                    "stamp": 17.56,
+                    "source_age_s": 0.17300000000000182,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 9.957799920812249e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182828.228133449,
+                    "ros": 17.733,
+                    "stamp": 17.565,
+                    "source_age_s": 0.16799999999999926,
+                    "stamp_delta_s": 0.005000000000002558,
+                    "receipt_gap_s": 8.774502202868462e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182828.228220562,
+                    "ros": 17.733,
+                    "stamp": 17.57,
+                    "source_age_s": 0.16300000000000026,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 8.711300324648619e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182828.228307536,
+                    "ros": 17.733,
+                    "stamp": 17.575,
+                    "source_age_s": 0.15800000000000125,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 8.697397424839437e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182828.228394559,
+                    "ros": 17.733,
+                    "stamp": 17.58,
+                    "source_age_s": 0.15300000000000225,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 8.702301420271397e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182828.228481493,
+                    "ros": 17.733,
+                    "stamp": 17.585,
+                    "source_age_s": 0.1479999999999997,
+                    "stamp_delta_s": 0.005000000000002558,
+                    "receipt_gap_s": 8.693398558534682e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182828.228622779,
+                    "ros": 17.734,
+                    "stamp": 17.59,
+                    "source_age_s": 0.1440000000000019,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.0001412860001437366,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182828.228723428,
+                    "ros": 17.734,
+                    "stamp": 17.595,
+                    "source_age_s": 0.1390000000000029,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.00010064902016893029,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182828.228812706,
+                    "ros": 17.734,
+                    "stamp": 17.6,
+                    "source_age_s": 0.13400000000000034,
+                    "stamp_delta_s": 0.005000000000002558,
+                    "receipt_gap_s": 8.92779789865017e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182828.228898517,
+                    "ros": 17.734,
+                    "stamp": 17.605,
+                    "source_age_s": 0.12900000000000134,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 8.581101428717375e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182828.228983316,
+                    "ros": 17.734,
+                    "stamp": 17.61,
+                    "source_age_s": 0.12400000000000233,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 8.479898679070175e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182828.229065872,
+                    "ros": 17.734,
+                    "stamp": 17.615,
+                    "source_age_s": 0.11900000000000333,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 8.25560127850622e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182828.229147986,
+                    "ros": 17.734,
+                    "stamp": 17.62,
+                    "source_age_s": 0.11400000000000077,
+                    "stamp_delta_s": 0.005000000000002558,
+                    "receipt_gap_s": 8.211401291191578e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182828.229228768,
+                    "ros": 17.734,
+                    "stamp": 17.625,
+                    "source_age_s": 0.10900000000000176,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 8.078198879957199e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182828.229311253,
+                    "ros": 17.734,
+                    "stamp": 17.63,
+                    "source_age_s": 0.10400000000000276,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 8.248499943874776e-05,
+                    "valid": false
+                  }
+                ],
+                "imu_receipt_age_s": 0.006078267004340887,
+                "imu_valid_since": 182828.22939456,
+                "odom_stamp": 19.899999999,
+                "odom_receipt_age_s": 0.029984561988385394,
+                "odom_progress_age_s": 0.029984561988385394
+              }
+            },
+            {
+              "kind": "owned_tree_audit",
+              "steady": 182831.899947391,
+              "ros": 21.395,
+              "epoch": 1,
+              "remaining": []
+            },
+            {
+              "kind": "transition",
+              "steady": 182831.968399854,
+              "ros": 21.461000000000002,
+              "epoch": 1,
+              "previous": "RESTARTING",
+              "state": "VERIFY",
+              "fault": "",
+              "input_detail": {
+                "imu": {
+                  "steady": 182831.959638592,
+                  "ros": 21.455000000000002,
+                  "stamp": 21.455,
+                  "source_age_s": 3.552713678800501e-15,
+                  "stamp_delta_s": 0.004999999999999005,
+                  "receipt_gap_s": 0.002192791987909004,
+                  "valid": true
+                },
+                "invalid_imu": [
+                  {
+                    "steady": 182828.227946126,
+                    "ros": 17.733,
+                    "stamp": 17.555,
+                    "source_age_s": 0.17800000000000082,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 8.805497782304883e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182828.228045704,
+                    "ros": 17.733,
+                    "stamp": 17.56,
+                    "source_age_s": 0.17300000000000182,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 9.957799920812249e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182828.228133449,
+                    "ros": 17.733,
+                    "stamp": 17.565,
+                    "source_age_s": 0.16799999999999926,
+                    "stamp_delta_s": 0.005000000000002558,
+                    "receipt_gap_s": 8.774502202868462e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182828.228220562,
+                    "ros": 17.733,
+                    "stamp": 17.57,
+                    "source_age_s": 0.16300000000000026,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 8.711300324648619e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182828.228307536,
+                    "ros": 17.733,
+                    "stamp": 17.575,
+                    "source_age_s": 0.15800000000000125,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 8.697397424839437e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182828.228394559,
+                    "ros": 17.733,
+                    "stamp": 17.58,
+                    "source_age_s": 0.15300000000000225,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 8.702301420271397e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182828.228481493,
+                    "ros": 17.733,
+                    "stamp": 17.585,
+                    "source_age_s": 0.1479999999999997,
+                    "stamp_delta_s": 0.005000000000002558,
+                    "receipt_gap_s": 8.693398558534682e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182828.228622779,
+                    "ros": 17.734,
+                    "stamp": 17.59,
+                    "source_age_s": 0.1440000000000019,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.0001412860001437366,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182828.228723428,
+                    "ros": 17.734,
+                    "stamp": 17.595,
+                    "source_age_s": 0.1390000000000029,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.00010064902016893029,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182828.228812706,
+                    "ros": 17.734,
+                    "stamp": 17.6,
+                    "source_age_s": 0.13400000000000034,
+                    "stamp_delta_s": 0.005000000000002558,
+                    "receipt_gap_s": 8.92779789865017e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182828.228898517,
+                    "ros": 17.734,
+                    "stamp": 17.605,
+                    "source_age_s": 0.12900000000000134,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 8.581101428717375e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182828.228983316,
+                    "ros": 17.734,
+                    "stamp": 17.61,
+                    "source_age_s": 0.12400000000000233,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 8.479898679070175e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182828.229065872,
+                    "ros": 17.734,
+                    "stamp": 17.615,
+                    "source_age_s": 0.11900000000000333,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 8.25560127850622e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182828.229147986,
+                    "ros": 17.734,
+                    "stamp": 17.62,
+                    "source_age_s": 0.11400000000000077,
+                    "stamp_delta_s": 0.005000000000002558,
+                    "receipt_gap_s": 8.211401291191578e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182828.229228768,
+                    "ros": 17.734,
+                    "stamp": 17.625,
+                    "source_age_s": 0.10900000000000176,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 8.078198879957199e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182828.229311253,
+                    "ros": 17.734,
+                    "stamp": 17.63,
+                    "source_age_s": 0.10400000000000276,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 8.248499943874776e-05,
+                    "valid": false
+                  }
+                ],
+                "imu_receipt_age_s": 0.006103194988099858,
+                "imu_valid_since": 182828.22939456,
+                "odom_stamp": 20.25,
+                "odom_receipt_age_s": 1.184082263003802,
+                "odom_progress_age_s": 1.184082263003802
+              }
+            },
+            {
+              "kind": "release_verified",
+              "steady": 182836.327033808,
+              "ros": 25.744000000000003,
+              "epoch": 1,
+              "evidence": {
+                "epoch": 1,
+                "steady": 182836.325723284,
+                "ros": 25.744000000000003,
+                "quality_count": 4,
+                "registration_sequence": 4,
+                "last_source": 25.649999999,
+                "gates": {
+                  "healthy": true,
+                  "stationary": true,
+                  "external": true,
+                  "pose": true
+                }
+              }
+            },
+            {
+              "kind": "transition",
+              "steady": 182836.327163231,
+              "ros": 25.744000000000003,
+              "epoch": 1,
+              "previous": "VERIFY",
+              "state": "RUNNING",
+              "fault": "",
+              "input_detail": {
+                "imu": {
+                  "steady": 182836.322747911,
+                  "ros": 25.740000000000002,
+                  "stamp": 25.74,
+                  "source_age_s": 3.552713678800501e-15,
+                  "stamp_delta_s": 0.004999999999999005,
+                  "receipt_gap_s": 0.004992186004528776,
+                  "valid": true
+                },
+                "invalid_imu": [
+                  {
+                    "steady": 182828.227946126,
+                    "ros": 17.733,
+                    "stamp": 17.555,
+                    "source_age_s": 0.17800000000000082,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 8.805497782304883e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182828.228045704,
+                    "ros": 17.733,
+                    "stamp": 17.56,
+                    "source_age_s": 0.17300000000000182,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 9.957799920812249e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182828.228133449,
+                    "ros": 17.733,
+                    "stamp": 17.565,
+                    "source_age_s": 0.16799999999999926,
+                    "stamp_delta_s": 0.005000000000002558,
+                    "receipt_gap_s": 8.774502202868462e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182828.228220562,
+                    "ros": 17.733,
+                    "stamp": 17.57,
+                    "source_age_s": 0.16300000000000026,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 8.711300324648619e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182828.228307536,
+                    "ros": 17.733,
+                    "stamp": 17.575,
+                    "source_age_s": 0.15800000000000125,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 8.697397424839437e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182828.228394559,
+                    "ros": 17.733,
+                    "stamp": 17.58,
+                    "source_age_s": 0.15300000000000225,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 8.702301420271397e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182828.228481493,
+                    "ros": 17.733,
+                    "stamp": 17.585,
+                    "source_age_s": 0.1479999999999997,
+                    "stamp_delta_s": 0.005000000000002558,
+                    "receipt_gap_s": 8.693398558534682e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182828.228622779,
+                    "ros": 17.734,
+                    "stamp": 17.59,
+                    "source_age_s": 0.1440000000000019,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.0001412860001437366,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182828.228723428,
+                    "ros": 17.734,
+                    "stamp": 17.595,
+                    "source_age_s": 0.1390000000000029,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 0.00010064902016893029,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182828.228812706,
+                    "ros": 17.734,
+                    "stamp": 17.6,
+                    "source_age_s": 0.13400000000000034,
+                    "stamp_delta_s": 0.005000000000002558,
+                    "receipt_gap_s": 8.92779789865017e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182828.228898517,
+                    "ros": 17.734,
+                    "stamp": 17.605,
+                    "source_age_s": 0.12900000000000134,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 8.581101428717375e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182828.228983316,
+                    "ros": 17.734,
+                    "stamp": 17.61,
+                    "source_age_s": 0.12400000000000233,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 8.479898679070175e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182828.229065872,
+                    "ros": 17.734,
+                    "stamp": 17.615,
+                    "source_age_s": 0.11900000000000333,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 8.25560127850622e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182828.229147986,
+                    "ros": 17.734,
+                    "stamp": 17.62,
+                    "source_age_s": 0.11400000000000077,
+                    "stamp_delta_s": 0.005000000000002558,
+                    "receipt_gap_s": 8.211401291191578e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182828.229228768,
+                    "ros": 17.734,
+                    "stamp": 17.625,
+                    "source_age_s": 0.10900000000000176,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 8.078198879957199e-05,
+                    "valid": false
+                  },
+                  {
+                    "steady": 182828.229311253,
+                    "ros": 17.734,
+                    "stamp": 17.63,
+                    "source_age_s": 0.10400000000000276,
+                    "stamp_delta_s": 0.004999999999999005,
+                    "receipt_gap_s": 8.248499943874776e-05,
+                    "valid": false
+                  }
+                ],
+                "imu_receipt_age_s": 0.002975373005028814,
+                "imu_valid_since": 182828.22939456,
+                "odom_stamp": 25.699999999,
+                "odom_receipt_age_s": 0.010107631998835132,
+                "odom_progress_age_s": 0.010107631998835132
+              }
+            },
+            {
+              "kind": "owned_tree_audit",
+              "steady": 182907.770380759,
+              "ros": 95.54700000000001,
+              "epoch": 1,
+              "remaining": []
+            }
+          ],
+          "process_remaining": [],
+          "started_at": "2026-11-21T15:23:10.082442+08:00",
+          "ended_at": "2026-11-21T15:24:53.200310+08:00"
+        }
+      ]
+    },
+    "moving-standard": {
+      "completed": 3,
+      "passed": 3,
+      "results": [
+        {
+          "case": "headon-01",
+          "status": "passed",
+          "error": null,
+          "actions": {
+            "preposition": {
+              "accepted": true,
+              "fixture_passed": true,
+              "ros_status": 4,
+              "truth_error_m": 0.07725263800558572,
+              "strict_one_second_stop_passed": true,
+              "stable_stop_confirmed": true
+            },
+            "goal": {
+              "accepted": true,
+              "fixture_passed": true,
+              "ros_status": 4,
+              "truth_error_m": 0.0775641033542874,
+              "strict_one_second_stop_passed": true,
+              "stable_stop_confirmed": true
+            }
+          },
+          "obstacle_goal_started": true,
+          "opponent_movement_started": true,
+          "opponent_fitted_speed_mps": 0.499891715108176,
+          "contacts": 0,
+          "minimum_gap_m": 0.20941499663772656,
+          "goal_robot_speed_peak_mps": 1.1361672875238777,
+          "topology_passed": true,
+          "params_match": true,
+          "gate_state_transition_counts": {
+            "external_stop": 2,
+            "no_single_active_goal": 3,
+            "ready": 2
+          },
+          "configuration_checks": {
+            "original_robot_sdf": true,
+            "c072_3hz_tree_with_map_refresh": true,
+            "configured_behavior_tree": true,
+            "c072_base_obstacle_04": true,
+            "c072_local_clearance_05": true,
+            "global_plugin": true,
+            "preferred_static_route": true,
+            "controller_speed": true,
+            "smoother_speed": true,
+            "velocity_sampling": true,
+            "goal_checker": true,
+            "local_prediction": true,
+            "swept_clearance": true,
+            "controlled_recovery": true
+          },
+          "recovery_events": [
+            {
+              "kind": "release_verified",
+              "steady": 182924.718665184,
+              "ros": 6.242,
+              "epoch": 0,
+              "evidence": {
+                "epoch": 0,
+                "steady": 182924.717772827,
+                "ros": 6.242,
+                "quality_count": 4,
+                "registration_sequence": 4,
+                "last_source": 6.15,
+                "gates": {
+                  "healthy": true,
+                  "stationary": true,
+                  "external": true,
+                  "pose": true
+                }
+              }
+            },
+            {
+              "kind": "transition",
+              "steady": 182924.718755734,
+              "ros": 6.242,
+              "epoch": 0,
+              "previous": "VERIFY",
+              "state": "RUNNING",
+              "fault": "",
+              "input_detail": {
+                "imu": {
+                  "steady": 182924.716563204,
+                  "ros": 6.24,
+                  "stamp": 6.24,
+                  "source_age_s": 0.0,
+                  "stamp_delta_s": 0.004999999999999893,
+                  "receipt_gap_s": 0.005100776004837826,
+                  "valid": true
+                },
+                "invalid_imu": [],
+                "imu_receipt_age_s": 0.0012096229766029865,
+                "imu_valid_since": 182920.529287216,
+                "odom_stamp": 6.2,
+                "odom_receipt_age_s": 0.010012364975409582,
+                "odom_progress_age_s": 0.010012364975409582
+              }
+            },
+            {
+              "kind": "owned_tree_audit",
+              "steady": 183012.89566649,
+              "ros": 91.735,
+              "epoch": 0,
+              "remaining": []
+            }
+          ],
+          "process_remaining": [],
+          "started_at": "2026-11-21T15:24:58.221700+08:00",
+          "ended_at": "2026-11-21T15:26:48.238422+08:00"
+        },
+        {
+          "case": "headon-02",
+          "status": "passed",
+          "error": null,
+          "actions": {
+            "preposition": {
+              "accepted": true,
+              "fixture_passed": true,
+              "ros_status": 4,
+              "truth_error_m": 0.07292865340224514,
+              "strict_one_second_stop_passed": true,
+              "stable_stop_confirmed": true
+            },
+            "goal": {
+              "accepted": true,
+              "fixture_passed": true,
+              "ros_status": 4,
+              "truth_error_m": 0.05053774144644316,
+              "strict_one_second_stop_passed": true,
+              "stable_stop_confirmed": true
+            }
+          },
+          "obstacle_goal_started": true,
+          "opponent_movement_started": true,
+          "opponent_fitted_speed_mps": 0.5000202277471975,
+          "contacts": 0,
+          "minimum_gap_m": 0.2672095108145258,
+          "goal_robot_speed_peak_mps": 0.9414863319249827,
+          "topology_passed": true,
+          "params_match": true,
+          "gate_state_transition_counts": {
+            "external_stop": 2,
+            "no_single_active_goal": 3,
+            "ready": 2
+          },
+          "configuration_checks": {
+            "original_robot_sdf": true,
+            "c072_3hz_tree_with_map_refresh": true,
+            "configured_behavior_tree": true,
+            "c072_base_obstacle_04": true,
+            "c072_local_clearance_05": true,
+            "global_plugin": true,
+            "preferred_static_route": true,
+            "controller_speed": true,
+            "smoother_speed": true,
+            "velocity_sampling": true,
+            "goal_checker": true,
+            "local_prediction": true,
+            "swept_clearance": true,
+            "controlled_recovery": true
+          },
+          "recovery_events": [
+            {
+              "kind": "release_verified",
+              "steady": 183036.010849638,
+              "ros": 7.458,
+              "epoch": 0,
+              "evidence": {
+                "epoch": 0,
+                "steady": 183036.010039997,
+                "ros": 7.458,
+                "quality_count": 4,
+                "registration_sequence": 6,
+                "last_source": 7,
+                "gates": {
+                  "healthy": true,
+                  "stationary": true,
+                  "external": true,
+                  "pose": true
+                }
+              }
+            },
+            {
+              "kind": "transition",
+              "steady": 183036.010968712,
+              "ros": 7.458,
+              "epoch": 0,
+              "previous": "VERIFY",
+              "state": "RUNNING",
+              "fault": "",
+              "input_detail": {
+                "imu": {
+                  "steady": 183036.007166309,
+                  "ros": 7.455,
+                  "stamp": 7.455,
+                  "source_age_s": 0.0,
+                  "stamp_delta_s": 0.004999999999999893,
+                  "receipt_gap_s": 0.004724675003672019,
+                  "valid": true
+                },
+                "invalid_imu": [],
+                "imu_receipt_age_s": 0.002873688004910946,
+                "imu_valid_since": 183030.577817281,
+                "odom_stamp": 7.4,
+                "odom_receipt_age_s": 0.02615675301058218,
+                "odom_progress_age_s": 0.02615675301058218
+              }
+            },
+            {
+              "kind": "owned_tree_audit",
+              "steady": 183122.913044405,
+              "ros": 92.81700000000001,
+              "epoch": 0,
+              "remaining": []
+            }
+          ],
+          "process_remaining": [],
+          "started_at": "2026-11-21T15:26:48.239905+08:00",
+          "ended_at": "2026-11-21T15:28:28.374536+08:00"
+        },
+        {
+          "case": "headon-03",
+          "status": "passed",
+          "error": null,
+          "actions": {
+            "preposition": {
+              "accepted": true,
+              "fixture_passed": true,
+              "ros_status": 4,
+              "truth_error_m": 0.06940071898358698,
+              "strict_one_second_stop_passed": true,
+              "stable_stop_confirmed": true
+            },
+            "goal": {
+              "accepted": true,
+              "fixture_passed": true,
+              "ros_status": 4,
+              "truth_error_m": 0.016537676477561703,
+              "strict_one_second_stop_passed": true,
+              "stable_stop_confirmed": true
+            }
+          },
+          "obstacle_goal_started": true,
+          "opponent_movement_started": true,
+          "opponent_fitted_speed_mps": 0.5000646743317246,
+          "contacts": 0,
+          "minimum_gap_m": 0.2619993308074877,
+          "goal_robot_speed_peak_mps": 0.850226534294207,
+          "topology_passed": true,
+          "params_match": true,
+          "gate_state_transition_counts": {
+            "no_single_active_goal": 4,
+            "external_stop": 2,
+            "ready": 2
+          },
+          "configuration_checks": {
+            "original_robot_sdf": true,
+            "c072_3hz_tree_with_map_refresh": true,
+            "configured_behavior_tree": true,
+            "c072_base_obstacle_04": true,
+            "c072_local_clearance_05": true,
+            "global_plugin": true,
+            "preferred_static_route": true,
+            "controller_speed": true,
+            "smoother_speed": true,
+            "velocity_sampling": true,
+            "goal_checker": true,
+            "local_prediction": true,
+            "swept_clearance": true,
+            "controlled_recovery": true
+          },
+          "recovery_events": [
+            {
+              "kind": "release_verified",
+              "steady": 183135.344120571,
+              "ros": 6.264,
+              "epoch": 0,
+              "evidence": {
+                "epoch": 0,
+                "steady": 183135.341273124,
+                "ros": 6.264,
+                "quality_count": 4,
+                "registration_sequence": 4,
+                "last_source": 6.15,
+                "gates": {
+                  "healthy": true,
+                  "stationary": true,
+                  "external": true,
+                  "pose": true
+                }
+              }
+            },
+            {
+              "kind": "transition",
+              "steady": 183135.345048343,
+              "ros": 6.264,
+              "epoch": 0,
+              "previous": "VERIFY",
+              "state": "RUNNING",
+              "fault": "",
+              "input_detail": {
+                "imu": {
+                  "steady": 183135.335028498,
+                  "ros": 6.255000000000001,
+                  "stamp": 6.255,
+                  "source_age_s": 8.881784197001252e-16,
+                  "stamp_delta_s": 0.004999999999999893,
+                  "receipt_gap_s": 0.004225674987537786,
+                  "valid": true
+                },
+                "invalid_imu": [],
+                "imu_receipt_age_s": 0.006244626012630761,
+                "imu_valid_since": 183131.125253222,
+                "odom_stamp": 6.2,
+                "odom_receipt_age_s": 0.030285310000181198,
+                "odom_progress_age_s": 0.030285310000181198
+              }
+            },
+            {
+              "kind": "owned_tree_audit",
+              "steady": 183221.479364109,
+              "ros": 91.45400000000001,
+              "epoch": 0,
+              "remaining": []
+            }
+          ],
+          "process_remaining": [],
+          "started_at": "2026-11-21T15:28:28.376882+08:00",
+          "ended_at": "2026-11-21T15:30:06.907917+08:00"
+        }
+      ]
+    }
+  }
+}
