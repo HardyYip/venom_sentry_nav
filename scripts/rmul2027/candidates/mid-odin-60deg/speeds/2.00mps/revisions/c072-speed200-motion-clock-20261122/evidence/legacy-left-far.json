@@ -1,0 +1,13 @@
+{
+  "case": "left-far-01",
+  "passed": true,
+  "status": "passed",
+  "minimum_clearance_m": 0.17451723722636991,
+  "contact_health": {
+    "event": "health",
+    "frames": 1244,
+    "contacts": 0,
+    "probe_contacts": 1244
+  },
+  "params_sha256": "ba99406e46497990fe1e3eb53660f9be6fbc897746c4a0253b8d871f24262a0a"
+}

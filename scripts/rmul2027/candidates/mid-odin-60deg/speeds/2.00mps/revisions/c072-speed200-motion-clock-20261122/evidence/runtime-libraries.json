@@ -1,0 +1,332 @@
+[
+  {
+    "stage": "fixed-left",
+    "case": "left-far-01",
+    "libraries": {
+      "libsmall_gicp_relocalization.so": {
+        "prefix": "/evidence/c072-speed200-motion-clock-20261122/gicp-install/small_gicp_relocalization/lib",
+        "sha256": "0ccf0682054bf444751b183a9845ac4932a0bb510992623c79a377ab8fec5d68"
+      },
+      "libvelocity_smoother_core.so": {
+        "prefix": "/evidence/c072-speed200-motion-clock-20261122/planner-install/nav2_velocity_smoother/lib",
+        "sha256": "68863281fb376a63eaa8e6dea324cc34bb3d861ab67f2842321fe8a61f052b42"
+      },
+      "libc072_navigation_plugins.so": {
+        "prefix": "/evidence/c072-speed200-motion-clock-20261122/planner-install/rmul_c072_planner/lib",
+        "sha256": "37f3ac52f352de2639df8ffc55cc5d29a7edc6fc3e91c1995f7f1693fd8de0b6"
+      },
+      "libsensor_scan_generation.so": {
+        "prefix": "/evidence/c072-speed200-motion-clock-20261122/planner-install/sensor_scan_generation/lib",
+        "sha256": "18a5a0092c5e8e664f0aefeb2e0226dee26d095ace23fbcf975be569b4a0b769"
+      }
+    }
+  },
+  {
+    "stage": "fixed-left",
+    "case": "left-far-02",
+    "libraries": {
+      "libsmall_gicp_relocalization.so": {
+        "prefix": "/evidence/c072-speed200-motion-clock-20261122/gicp-install/small_gicp_relocalization/lib",
+        "sha256": "0ccf0682054bf444751b183a9845ac4932a0bb510992623c79a377ab8fec5d68"
+      },
+      "libvelocity_smoother_core.so": {
+        "prefix": "/evidence/c072-speed200-motion-clock-20261122/planner-install/nav2_velocity_smoother/lib",
+        "sha256": "68863281fb376a63eaa8e6dea324cc34bb3d861ab67f2842321fe8a61f052b42"
+      },
+      "libc072_navigation_plugins.so": {
+        "prefix": "/evidence/c072-speed200-motion-clock-20261122/planner-install/rmul_c072_planner/lib",
+        "sha256": "37f3ac52f352de2639df8ffc55cc5d29a7edc6fc3e91c1995f7f1693fd8de0b6"
+      },
+      "libsensor_scan_generation.so": {
+        "prefix": "/evidence/c072-speed200-motion-clock-20261122/planner-install/sensor_scan_generation/lib",
+        "sha256": "18a5a0092c5e8e664f0aefeb2e0226dee26d095ace23fbcf975be569b4a0b769"
+      }
+    }
+  },
+  {
+    "stage": "fixed-left",
+    "case": "left-far-03",
+    "libraries": {
+      "libsmall_gicp_relocalization.so": {
+        "prefix": "/evidence/c072-speed200-motion-clock-20261122/gicp-install/small_gicp_relocalization/lib",
+        "sha256": "0ccf0682054bf444751b183a9845ac4932a0bb510992623c79a377ab8fec5d68"
+      },
+      "libvelocity_smoother_core.so": {
+        "prefix": "/evidence/c072-speed200-motion-clock-20261122/planner-install/nav2_velocity_smoother/lib",
+        "sha256": "68863281fb376a63eaa8e6dea324cc34bb3d861ab67f2842321fe8a61f052b42"
+      },
+      "libc072_navigation_plugins.so": {
+        "prefix": "/evidence/c072-speed200-motion-clock-20261122/planner-install/rmul_c072_planner/lib",
+        "sha256": "37f3ac52f352de2639df8ffc55cc5d29a7edc6fc3e91c1995f7f1693fd8de0b6"
+      },
+      "libsensor_scan_generation.so": {
+        "prefix": "/evidence/c072-speed200-motion-clock-20261122/planner-install/sensor_scan_generation/lib",
+        "sha256": "18a5a0092c5e8e664f0aefeb2e0226dee26d095ace23fbcf975be569b4a0b769"
+      }
+    }
+  },
+  {
+    "stage": "fixed-left",
+    "case": "left-near-01",
+    "libraries": {
+      "libsmall_gicp_relocalization.so": {
+        "prefix": "/evidence/c072-speed200-motion-clock-20261122/gicp-install/small_gicp_relocalization/lib",
+        "sha256": "0ccf0682054bf444751b183a9845ac4932a0bb510992623c79a377ab8fec5d68"
+      },
+      "libvelocity_smoother_core.so": {
+        "prefix": "/evidence/c072-speed200-motion-clock-20261122/planner-install/nav2_velocity_smoother/lib",
+        "sha256": "68863281fb376a63eaa8e6dea324cc34bb3d861ab67f2842321fe8a61f052b42"
+      },
+      "libc072_navigation_plugins.so": {
+        "prefix": "/evidence/c072-speed200-motion-clock-20261122/planner-install/rmul_c072_planner/lib",
+        "sha256": "37f3ac52f352de2639df8ffc55cc5d29a7edc6fc3e91c1995f7f1693fd8de0b6"
+      },
+      "libsensor_scan_generation.so": {
+        "prefix": "/evidence/c072-speed200-motion-clock-20261122/planner-install/sensor_scan_generation/lib",
+        "sha256": "18a5a0092c5e8e664f0aefeb2e0226dee26d095ace23fbcf975be569b4a0b769"
+      }
+    }
+  },
+  {
+    "stage": "fixed-left",
+    "case": "left-near-02",
+    "libraries": {
+      "libsmall_gicp_relocalization.so": {
+        "prefix": "/evidence/c072-speed200-motion-clock-20261122/gicp-install/small_gicp_relocalization/lib",
+        "sha256": "0ccf0682054bf444751b183a9845ac4932a0bb510992623c79a377ab8fec5d68"
+      },
+      "libvelocity_smoother_core.so": {
+        "prefix": "/evidence/c072-speed200-motion-clock-20261122/planner-install/nav2_velocity_smoother/lib",
+        "sha256": "68863281fb376a63eaa8e6dea324cc34bb3d861ab67f2842321fe8a61f052b42"
+      },
+      "libc072_navigation_plugins.so": {
+        "prefix": "/evidence/c072-speed200-motion-clock-20261122/planner-install/rmul_c072_planner/lib",
+        "sha256": "37f3ac52f352de2639df8ffc55cc5d29a7edc6fc3e91c1995f7f1693fd8de0b6"
+      },
+      "libsensor_scan_generation.so": {
+        "prefix": "/evidence/c072-speed200-motion-clock-20261122/planner-install/sensor_scan_generation/lib",
+        "sha256": "18a5a0092c5e8e664f0aefeb2e0226dee26d095ace23fbcf975be569b4a0b769"
+      }
+    }
+  },
+  {
+    "stage": "fixed-left",
+    "case": "left-near-03",
+    "libraries": {
+      "libsmall_gicp_relocalization.so": {
+        "prefix": "/evidence/c072-speed200-motion-clock-20261122/gicp-install/small_gicp_relocalization/lib",
+        "sha256": "0ccf0682054bf444751b183a9845ac4932a0bb510992623c79a377ab8fec5d68"
+      },
+      "libvelocity_smoother_core.so": {
+        "prefix": "/evidence/c072-speed200-motion-clock-20261122/planner-install/nav2_velocity_smoother/lib",
+        "sha256": "68863281fb376a63eaa8e6dea324cc34bb3d861ab67f2842321fe8a61f052b42"
+      },
+      "libc072_navigation_plugins.so": {
+        "prefix": "/evidence/c072-speed200-motion-clock-20261122/planner-install/rmul_c072_planner/lib",
+        "sha256": "37f3ac52f352de2639df8ffc55cc5d29a7edc6fc3e91c1995f7f1693fd8de0b6"
+      },
+      "libsensor_scan_generation.so": {
+        "prefix": "/evidence/c072-speed200-motion-clock-20261122/planner-install/sensor_scan_generation/lib",
+        "sha256": "18a5a0092c5e8e664f0aefeb2e0226dee26d095ace23fbcf975be569b4a0b769"
+      }
+    }
+  },
+  {
+    "stage": "fixed-reverse-right",
+    "case": "left-reverse-01",
+    "libraries": {
+      "libsmall_gicp_relocalization.so": {
+        "prefix": "/evidence/c072-speed200-motion-clock-20261122/gicp-install/small_gicp_relocalization/lib",
+        "sha256": "0ccf0682054bf444751b183a9845ac4932a0bb510992623c79a377ab8fec5d68"
+      },
+      "libvelocity_smoother_core.so": {
+        "prefix": "/evidence/c072-speed200-motion-clock-20261122/planner-install/nav2_velocity_smoother/lib",
+        "sha256": "68863281fb376a63eaa8e6dea324cc34bb3d861ab67f2842321fe8a61f052b42"
+      },
+      "libc072_navigation_plugins.so": {
+        "prefix": "/evidence/c072-speed200-motion-clock-20261122/planner-install/rmul_c072_planner/lib",
+        "sha256": "37f3ac52f352de2639df8ffc55cc5d29a7edc6fc3e91c1995f7f1693fd8de0b6"
+      },
+      "libsensor_scan_generation.so": {
+        "prefix": "/evidence/c072-speed200-motion-clock-20261122/planner-install/sensor_scan_generation/lib",
+        "sha256": "18a5a0092c5e8e664f0aefeb2e0226dee26d095ace23fbcf975be569b4a0b769"
+      }
+    }
+  },
+  {
+    "stage": "fixed-reverse-right",
+    "case": "left-reverse-02",
+    "libraries": {
+      "libsmall_gicp_relocalization.so": {
+        "prefix": "/evidence/c072-speed200-motion-clock-20261122/gicp-install/small_gicp_relocalization/lib",
+        "sha256": "0ccf0682054bf444751b183a9845ac4932a0bb510992623c79a377ab8fec5d68"
+      },
+      "libvelocity_smoother_core.so": {
+        "prefix": "/evidence/c072-speed200-motion-clock-20261122/planner-install/nav2_velocity_smoother/lib",
+        "sha256": "68863281fb376a63eaa8e6dea324cc34bb3d861ab67f2842321fe8a61f052b42"
+      },
+      "libc072_navigation_plugins.so": {
+        "prefix": "/evidence/c072-speed200-motion-clock-20261122/planner-install/rmul_c072_planner/lib",
+        "sha256": "37f3ac52f352de2639df8ffc55cc5d29a7edc6fc3e91c1995f7f1693fd8de0b6"
+      },
+      "libsensor_scan_generation.so": {
+        "prefix": "/evidence/c072-speed200-motion-clock-20261122/planner-install/sensor_scan_generation/lib",
+        "sha256": "18a5a0092c5e8e664f0aefeb2e0226dee26d095ace23fbcf975be569b4a0b769"
+      }
+    }
+  },
+  {
+    "stage": "fixed-reverse-right",
+    "case": "left-reverse-03",
+    "libraries": {
+      "libsmall_gicp_relocalization.so": {
+        "prefix": "/evidence/c072-speed200-motion-clock-20261122/gicp-install/small_gicp_relocalization/lib",
+        "sha256": "0ccf0682054bf444751b183a9845ac4932a0bb510992623c79a377ab8fec5d68"
+      },
+      "libvelocity_smoother_core.so": {
+        "prefix": "/evidence/c072-speed200-motion-clock-20261122/planner-install/nav2_velocity_smoother/lib",
+        "sha256": "68863281fb376a63eaa8e6dea324cc34bb3d861ab67f2842321fe8a61f052b42"
+      },
+      "libc072_navigation_plugins.so": {
+        "prefix": "/evidence/c072-speed200-motion-clock-20261122/planner-install/rmul_c072_planner/lib",
+        "sha256": "37f3ac52f352de2639df8ffc55cc5d29a7edc6fc3e91c1995f7f1693fd8de0b6"
+      },
+      "libsensor_scan_generation.so": {
+        "prefix": "/evidence/c072-speed200-motion-clock-20261122/planner-install/sensor_scan_generation/lib",
+        "sha256": "18a5a0092c5e8e664f0aefeb2e0226dee26d095ace23fbcf975be569b4a0b769"
+      }
+    }
+  },
+  {
+    "stage": "fixed-reverse-right",
+    "case": "right-control-01",
+    "libraries": {
+      "libsmall_gicp_relocalization.so": {
+        "prefix": "/evidence/c072-speed200-motion-clock-20261122/gicp-install/small_gicp_relocalization/lib",
+        "sha256": "0ccf0682054bf444751b183a9845ac4932a0bb510992623c79a377ab8fec5d68"
+      },
+      "libvelocity_smoother_core.so": {
+        "prefix": "/evidence/c072-speed200-motion-clock-20261122/planner-install/nav2_velocity_smoother/lib",
+        "sha256": "68863281fb376a63eaa8e6dea324cc34bb3d861ab67f2842321fe8a61f052b42"
+      },
+      "libc072_navigation_plugins.so": {
+        "prefix": "/evidence/c072-speed200-motion-clock-20261122/planner-install/rmul_c072_planner/lib",
+        "sha256": "37f3ac52f352de2639df8ffc55cc5d29a7edc6fc3e91c1995f7f1693fd8de0b6"
+      },
+      "libsensor_scan_generation.so": {
+        "prefix": "/evidence/c072-speed200-motion-clock-20261122/planner-install/sensor_scan_generation/lib",
+        "sha256": "18a5a0092c5e8e664f0aefeb2e0226dee26d095ace23fbcf975be569b4a0b769"
+      }
+    }
+  },
+  {
+    "stage": "fixed-reverse-right",
+    "case": "right-control-02",
+    "libraries": {
+      "libsmall_gicp_relocalization.so": {
+        "prefix": "/evidence/c072-speed200-motion-clock-20261122/gicp-install/small_gicp_relocalization/lib",
+        "sha256": "0ccf0682054bf444751b183a9845ac4932a0bb510992623c79a377ab8fec5d68"
+      },
+      "libvelocity_smoother_core.so": {
+        "prefix": "/evidence/c072-speed200-motion-clock-20261122/planner-install/nav2_velocity_smoother/lib",
+        "sha256": "68863281fb376a63eaa8e6dea324cc34bb3d861ab67f2842321fe8a61f052b42"
+      },
+      "libc072_navigation_plugins.so": {
+        "prefix": "/evidence/c072-speed200-motion-clock-20261122/planner-install/rmul_c072_planner/lib",
+        "sha256": "37f3ac52f352de2639df8ffc55cc5d29a7edc6fc3e91c1995f7f1693fd8de0b6"
+      },
+      "libsensor_scan_generation.so": {
+        "prefix": "/evidence/c072-speed200-motion-clock-20261122/planner-install/sensor_scan_generation/lib",
+        "sha256": "18a5a0092c5e8e664f0aefeb2e0226dee26d095ace23fbcf975be569b4a0b769"
+      }
+    }
+  },
+  {
+    "stage": "fixed-reverse-right",
+    "case": "right-control-03",
+    "libraries": {
+      "libsmall_gicp_relocalization.so": {
+        "prefix": "/evidence/c072-speed200-motion-clock-20261122/gicp-install/small_gicp_relocalization/lib",
+        "sha256": "0ccf0682054bf444751b183a9845ac4932a0bb510992623c79a377ab8fec5d68"
+      },
+      "libvelocity_smoother_core.so": {
+        "prefix": "/evidence/c072-speed200-motion-clock-20261122/planner-install/nav2_velocity_smoother/lib",
+        "sha256": "68863281fb376a63eaa8e6dea324cc34bb3d861ab67f2842321fe8a61f052b42"
+      },
+      "libc072_navigation_plugins.so": {
+        "prefix": "/evidence/c072-speed200-motion-clock-20261122/planner-install/rmul_c072_planner/lib",
+        "sha256": "37f3ac52f352de2639df8ffc55cc5d29a7edc6fc3e91c1995f7f1693fd8de0b6"
+      },
+      "libsensor_scan_generation.so": {
+        "prefix": "/evidence/c072-speed200-motion-clock-20261122/planner-install/sensor_scan_generation/lib",
+        "sha256": "18a5a0092c5e8e664f0aefeb2e0226dee26d095ace23fbcf975be569b4a0b769"
+      }
+    }
+  },
+  {
+    "stage": "moving-standard",
+    "case": "headon-01",
+    "libraries": {
+      "libsmall_gicp_relocalization.so": {
+        "prefix": "/evidence/c072-speed200-motion-clock-20261122/gicp-install/small_gicp_relocalization/lib",
+        "sha256": "0ccf0682054bf444751b183a9845ac4932a0bb510992623c79a377ab8fec5d68"
+      },
+      "libvelocity_smoother_core.so": {
+        "prefix": "/evidence/c072-speed200-motion-clock-20261122/planner-install/nav2_velocity_smoother/lib",
+        "sha256": "68863281fb376a63eaa8e6dea324cc34bb3d861ab67f2842321fe8a61f052b42"
+      },
+      "libc072_navigation_plugins.so": {
+        "prefix": "/evidence/c072-speed200-motion-clock-20261122/planner-install/rmul_c072_planner/lib",
+        "sha256": "37f3ac52f352de2639df8ffc55cc5d29a7edc6fc3e91c1995f7f1693fd8de0b6"
+      },
+      "libsensor_scan_generation.so": {
+        "prefix": "/evidence/c072-speed200-motion-clock-20261122/planner-install/sensor_scan_generation/lib",
+        "sha256": "18a5a0092c5e8e664f0aefeb2e0226dee26d095ace23fbcf975be569b4a0b769"
+      }
+    }
+  },
+  {
+    "stage": "moving-standard",
+    "case": "headon-02",
+    "libraries": {
+      "libsmall_gicp_relocalization.so": {
+        "prefix": "/evidence/c072-speed200-motion-clock-20261122/gicp-install/small_gicp_relocalization/lib",
+        "sha256": "0ccf0682054bf444751b183a9845ac4932a0bb510992623c79a377ab8fec5d68"
+      },
+      "libvelocity_smoother_core.so": {
+        "prefix": "/evidence/c072-speed200-motion-clock-20261122/planner-install/nav2_velocity_smoother/lib",
+        "sha256": "68863281fb376a63eaa8e6dea324cc34bb3d861ab67f2842321fe8a61f052b42"
+      },
+      "libc072_navigation_plugins.so": {
+        "prefix": "/evidence/c072-speed200-motion-clock-20261122/planner-install/rmul_c072_planner/lib",
+        "sha256": "37f3ac52f352de2639df8ffc55cc5d29a7edc6fc3e91c1995f7f1693fd8de0b6"
+      },
+      "libsensor_scan_generation.so": {
+        "prefix": "/evidence/c072-speed200-motion-clock-20261122/planner-install/sensor_scan_generation/lib",
+        "sha256": "18a5a0092c5e8e664f0aefeb2e0226dee26d095ace23fbcf975be569b4a0b769"
+      }
+    }
+  },
+  {
+    "stage": "moving-standard",
+    "case": "headon-03",
+    "libraries": {
+      "libsmall_gicp_relocalization.so": {
+        "prefix": "/evidence/c072-speed200-motion-clock-20261122/gicp-install/small_gicp_relocalization/lib",
+        "sha256": "0ccf0682054bf444751b183a9845ac4932a0bb510992623c79a377ab8fec5d68"
+      },
+      "libvelocity_smoother_core.so": {
+        "prefix": "/evidence/c072-speed200-motion-clock-20261122/planner-install/nav2_velocity_smoother/lib",
+        "sha256": "68863281fb376a63eaa8e6dea324cc34bb3d861ab67f2842321fe8a61f052b42"
+      },
+      "libc072_navigation_plugins.so": {
+        "prefix": "/evidence/c072-speed200-motion-clock-20261122/planner-install/rmul_c072_planner/lib",
+        "sha256": "37f3ac52f352de2639df8ffc55cc5d29a7edc6fc3e91c1995f7f1693fd8de0b6"
+      },
+      "libsensor_scan_generation.so": {
+        "prefix": "/evidence/c072-speed200-motion-clock-20261122/planner-install/sensor_scan_generation/lib",
+        "sha256": "18a5a0092c5e8e664f0aefeb2e0226dee26d095ace23fbcf975be569b4a0b769"
+      }
+    }
+  }
+]

@@ -1,0 +1,15 @@
+{
+  "slow_clock": {
+    "elapsed_sim_s": 0.598197866,
+    "peak_mps": 1.0416125387499997,
+    "sample_count": 24
+  },
+  "pause": {
+    "max_delta_mps": 0.0,
+    "wall_seconds": 0.35
+  },
+  "rollback": {
+    "samples_after": 1,
+    "max_mps": 0.0
+  }
+}

@@ -1,0 +1,38 @@
+[
+  {
+    "leg": "escape_and_navigate",
+    "target": [
+      5.198,
+      -4.553
+    ],
+    "sim_seconds": 8.386,
+    "goal_error_m": 0.07249619889909453,
+    "stop_verified": true,
+    "truth_peak_mps": 1.538989751061063,
+    "command_peak_mps": 1.975854245636555,
+    "output_peak_mps": 1.5886472708716477,
+    "minimum_raw_clearance_m": 0.4379833827547541,
+    "start_cost": 253,
+    "exit_cost": 171,
+    "escape_controller_peak_mps": 0.2
+  },
+  {
+    "leg": "reject_deep_goal",
+    "status": "rejected",
+    "no_motion": true
+  },
+  {
+    "leg": "second_valid_goal",
+    "target": [
+      5.0,
+      -0.2
+    ],
+    "sim_seconds": 8.518999999999998,
+    "goal_error_m": 0.07103795320438311,
+    "stop_verified": true,
+    "truth_peak_mps": 1.95298583120622,
+    "command_peak_mps": 2.0000000000000018,
+    "output_peak_mps": 2.0,
+    "minimum_raw_clearance_m": 0.65
+  }
+]

@@ -1,0 +1,294 @@
+{
+  "result_count": 7,
+  "contacts_decode_errors": {},
+  "map_clearance_method": "conservative proxy from 5 cm navigation occupancy cells, sample stride 25, body rectangle 0.58 x 0.53 m; excludes the two spawned boxes",
+  "legs": [
+    {
+      "leg": "southwest-to-southeast",
+      "start": [
+        0.1000000452106038,
+        -5.950000000160346
+      ],
+      "goal": [
+        9.55,
+        -5.8
+      ],
+      "end": [
+        9.599786734588978,
+        -5.749746386356549
+      ],
+      "direct_m": 9.451190356011656,
+      "travelled_m": 15.137651520216117,
+      "start_sim": 24.7,
+      "end_sim": 52.956,
+      "samples": 26790,
+      "goal_status": 4,
+      "error": null,
+      "stop_verified": true,
+      "goal_error_m": 0.07073997897411655,
+      "truth_peak_mps": 1.9684411681870182,
+      "peak_at_sim": 34.066,
+      "peak_at_xy": [
+        4.5458602769585745,
+        -3.5057568947199176
+      ],
+      "controller_peak_mps": 2.0000000000000013,
+      "output_peak_mps": 1.9998037724912052,
+      "contacts": {
+        "ground": 83025,
+        "wall": 0,
+        "box": 0,
+        "unknown": 0
+      },
+      "sample_dt_median_ms": 0.9999999999976694,
+      "sample_dt_max_ms": 25.9999999999998,
+      "approximated_map_clearance_m": 0.07840044993490798
+    },
+    {
+      "leg": "east-wall-straight",
+      "start": [
+        9.599786734588978,
+        -5.749746386356549
+      ],
+      "goal": [
+        9.55,
+        0.4
+      ],
+      "end": [
+        9.504988670007865,
+        0.2769186028626569
+      ],
+      "direct_m": 6.149947913230362,
+      "travelled_m": 6.03295582203507,
+      "start_sim": 52.956,
+      "end_sim": 63.765,
+      "samples": 10194,
+      "goal_status": 4,
+      "error": null,
+      "stop_verified": true,
+      "goal_error_m": 0.13105361555081682,
+      "truth_peak_mps": 1.9985532325283266,
+      "peak_at_sim": 56.171,
+      "peak_at_xy": [
+        9.574203239803639,
+        -4.383208331463502
+      ],
+      "controller_peak_mps": 2.0000000000000018,
+      "output_peak_mps": 2.0,
+      "contacts": {
+        "ground": 33073,
+        "wall": 0,
+        "box": 0,
+        "unknown": 0
+      },
+      "sample_dt_median_ms": 0.9999999999976694,
+      "sample_dt_max_ms": 22.999999999996135,
+      "approximated_map_clearance_m": 0.27994573626026287
+    },
+    {
+      "leg": "northeast-to-southwest",
+      "start": [
+        9.504988670007865,
+        0.2769186028626569
+      ],
+      "goal": [
+        0.12,
+        -5.75
+      ],
+      "end": [
+        0.17268983443221853,
+        -5.797296603987957
+      ],
+      "direct_m": 11.153553701924242,
+      "travelled_m": 12.9895122336624,
+      "start_sim": 63.765,
+      "end_sim": 84.728,
+      "samples": 19847,
+      "goal_status": 4,
+      "error": null,
+      "stop_verified": true,
+      "goal_error_m": 0.07080386572277116,
+      "truth_peak_mps": 1.991205538879972,
+      "peak_at_sim": 71.289,
+      "peak_at_xy": [
+        4.985276441489758,
+        -3.233452200409719
+      ],
+      "controller_peak_mps": 1.9975411386897675,
+      "output_peak_mps": 1.9975411386897672,
+      "contacts": {
+        "ground": 63101,
+        "wall": 0,
+        "box": 0,
+        "unknown": 0
+      },
+      "sample_dt_median_ms": 1.0000000000047748,
+      "sample_dt_max_ms": 33.00000000000125,
+      "approximated_map_clearance_m": 0.22212671603179884
+    },
+    {
+      "leg": "south-wall",
+      "start": [
+        0.17268983443221853,
+        -5.797296603987957
+      ],
+      "goal": [
+        4.8,
+        -5.9
+      ],
+      "end": [
+        4.739558138729719,
+        -5.941561539838094
+      ],
+      "direct_m": 4.62844977891295,
+      "travelled_m": 4.692204204017204,
+      "start_sim": 84.728,
+      "end_sim": 96.348,
+      "samples": 10956,
+      "goal_status": 4,
+      "error": null,
+      "stop_verified": true,
+      "goal_error_m": 0.07335243818394414,
+      "truth_peak_mps": 1.4910075350786864,
+      "peak_at_sim": 86.829,
+      "peak_at_xy": [
+        1.102035684922546,
+        -5.964968724391047
+      ],
+      "controller_peak_mps": 1.9649925656168887,
+      "output_peak_mps": 1.4962699174848313,
+      "contacts": {
+        "ground": 36780,
+        "wall": 0,
+        "box": 0,
+        "unknown": 0
+      },
+      "sample_dt_median_ms": 1.0000000000047748,
+      "sample_dt_max_ms": 34.000000000006025,
+      "approximated_map_clearance_m": 0.23724321062083664
+    },
+    {
+      "leg": "central-straight",
+      "start": [
+        4.739558138729719,
+        -5.941561539838094
+      ],
+      "goal": [
+        4.8,
+        0.4
+      ],
+      "end": [
+        4.7491961303942505,
+        0.2945448195669407
+      ],
+      "direct_m": 6.341849571075265,
+      "travelled_m": 6.2581809225301,
+      "start_sim": 96.348,
+      "end_sim": 108.988,
+      "samples": 11745,
+      "goal_status": 4,
+      "error": null,
+      "stop_verified": true,
+      "goal_error_m": 0.11705480873115416,
+      "truth_peak_mps": 1.998920962810309,
+      "peak_at_sim": 101.364,
+      "peak_at_xy": [
+        4.6851699271649805,
+        -3.7568102394853673
+      ],
+      "controller_peak_mps": 2.0000000000000018,
+      "output_peak_mps": 2.0,
+      "contacts": {
+        "ground": 35871,
+        "wall": 0,
+        "box": 0,
+        "unknown": 0
+      },
+      "sample_dt_median_ms": 1.0000000000047748,
+      "sample_dt_max_ms": 37.9999999999967,
+      "approximated_map_clearance_m": 0.2651397633786998
+    },
+    {
+      "leg": "center-to-southeast",
+      "start": [
+        4.7491961303942505,
+        0.2945448195669407
+      ],
+      "goal": [
+        9.25,
+        -5.65
+      ],
+      "end": [
+        9.204900318746546,
+        -5.590094379823359
+      ],
+      "direct_m": 7.456195315608239,
+      "travelled_m": 8.789854644243212,
+      "start_sim": 108.988,
+      "end_sim": 130.627,
+      "samples": 20274,
+      "goal_status": 4,
+      "error": null,
+      "stop_verified": true,
+      "goal_error_m": 0.07498442890301403,
+      "truth_peak_mps": 1.6572473216505312,
+      "peak_at_sim": 124.499,
+      "peak_at_xy": [
+        9.019250223359158,
+        -3.3727909892022807
+      ],
+      "controller_peak_mps": 1.961224107541003,
+      "output_peak_mps": 1.6644804515245621,
+      "contacts": {
+        "ground": 63841,
+        "wall": 0,
+        "box": 0,
+        "unknown": 0
+      },
+      "sample_dt_median_ms": 1.0000000000047748,
+      "sample_dt_max_ms": 37.9999999999967,
+      "approximated_map_clearance_m": 0.10323824458970744
+    },
+    {
+      "leg": "southeast-to-west",
+      "start": [
+        9.204900318746546,
+        -5.590094379823359
+      ],
+      "goal": [
+        0.1,
+        -0.45
+      ],
+      "end": [
+        0.10925839868804577,
+        -0.518267684833071
+      ],
+      "direct_m": 10.455609979709584,
+      "travelled_m": 18.059769389110112,
+      "start_sim": 130.627,
+      "end_sim": 192.124,
+      "samples": 58149,
+      "goal_status": 4,
+      "error": null,
+      "stop_verified": true,
+      "goal_error_m": 0.06889263196260041,
+      "truth_peak_mps": 1.9626351935195283,
+      "peak_at_sim": 175.548,
+      "peak_at_xy": [
+        5.319439459848983,
+        -2.3564993358909327
+      ],
+      "controller_peak_mps": 2.0000000000000013,
+      "output_peak_mps": 1.9825888455629341,
+      "contacts": {
+        "ground": 182751,
+        "wall": 0,
+        "box": 0,
+        "unknown": 0
+      },
+      "sample_dt_median_ms": 1.0000000000047748,
+      "sample_dt_max_ms": 39.00000000001569,
+      "approximated_map_clearance_m": 0.09080741653180306
+    }
+  ]
+}

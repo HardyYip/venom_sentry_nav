@@ -1,0 +1,216 @@
+{
+  "method": "Compare same-leg odometry speed against the median Gazebo ground-truth speed within ±25 ms of each odometry header stamp, with ground-truth speed at least 0.15 m/s.",
+  "callback_clock": {
+    "evidence_dir": "callback clock A/B route",
+    "per_leg": {
+      "east-wall-straight": {
+        "paired_samples": 133,
+        "mean_error_mps": -0.03387498267013086,
+        "mae_mps": 0.09475367719178465,
+        "rmse_mps": 0.13829333910155467,
+        "peak_absolute_error_mps": 0.6176286801538968
+      },
+      "east-wall-return": {
+        "paired_samples": 121,
+        "mean_error_mps": -0.007901453943236905,
+        "mae_mps": 0.08018994817746698,
+        "rmse_mps": 0.10099730206202832,
+        "peak_absolute_error_mps": 0.3131970008217997
+      }
+    },
+    "combined": {
+      "paired_samples": 254,
+      "mean_error_mps": -0.021501766229366413,
+      "mae_mps": 0.08781583777945222,
+      "rmse_mps": 0.1219572403764684,
+      "peak_absolute_error_mps": 0.6176286801538968
+    },
+    "route_results": [
+      {
+        "leg": "east-wall-straight",
+        "start": [
+          9.539899053130483,
+          -5.771264802701271
+        ],
+        "goal": [
+          9.55,
+          0.4
+        ],
+        "end": [
+          9.50301960269015,
+          0.296080678476748
+        ],
+        "direct_m": 6.171273069163868,
+        "travelled_m": 6.075313141506736,
+        "start_sim": 24.568,
+        "end_sim": 34.915,
+        "samples": 9985,
+        "goal_status": 4,
+        "error": null,
+        "stop_verified": true,
+        "goal_error_m": 0.11404553089553499,
+        "truth_peak_mps": 1.9969556790683891,
+        "peak_at_sim": 27.29,
+        "peak_at_xy": [
+          9.496584566825849,
+          -3.742936247364661
+        ],
+        "controller_peak_mps": 2.0000000000000018,
+        "output_peak_mps": 2.0,
+        "contacts": {
+          "ground": 31274,
+          "wall": 0,
+          "box": 0,
+          "elevated": 0,
+          "unknown": 0
+        }
+      },
+      {
+        "leg": "east-wall-return",
+        "start": [
+          9.50301960269015,
+          0.296080678476748
+        ],
+        "goal": [
+          9.55,
+          -5.77
+        ],
+        "end": [
+          9.592550975012573,
+          -5.717567236130675
+        ],
+        "direct_m": 6.066262601925531,
+        "travelled_m": 6.0255708432492066,
+        "start_sim": 34.915,
+        "end_sim": 44.513,
+        "samples": 9176,
+        "goal_status": 4,
+        "error": null,
+        "stop_verified": true,
+        "goal_error_m": 0.06752614457746657,
+        "truth_peak_mps": 1.9964854048651284,
+        "peak_at_sim": 37.51,
+        "peak_at_xy": [
+          9.545928423774146,
+          -1.737972180616684
+        ],
+        "controller_peak_mps": 2.0,
+        "output_peak_mps": 2.0,
+        "contacts": {
+          "ground": 25724,
+          "wall": 0,
+          "box": 0,
+          "elevated": 0,
+          "unknown": 0
+        }
+      }
+    ]
+  },
+  "source_clock": {
+    "evidence_dir": "source clock A/B route",
+    "per_leg": {
+      "east-wall-straight": {
+        "paired_samples": 132,
+        "mean_error_mps": -0.0007148886501998136,
+        "mae_mps": 0.052846243360279516,
+        "rmse_mps": 0.07383437725817282,
+        "peak_absolute_error_mps": 0.2721267329620283
+      },
+      "east-wall-return": {
+        "paired_samples": 120,
+        "mean_error_mps": 0.002744950525750601,
+        "mae_mps": 0.0571265399622133,
+        "rmse_mps": 0.06830099695314397,
+        "peak_absolute_error_mps": 0.20163918821661386
+      }
+    },
+    "combined": {
+      "paired_samples": 252,
+      "mean_error_mps": 0.0009326538145384792,
+      "mae_mps": 0.05488447983739084,
+      "rmse_mps": 0.07125304663964432,
+      "peak_absolute_error_mps": 0.2721267329620283
+    },
+    "route_results": [
+      {
+        "leg": "east-wall-straight",
+        "start": [
+          9.539863749664232,
+          -5.7712968542657075
+        ],
+        "goal": [
+          9.55,
+          0.4
+        ],
+        "end": [
+          9.512206943239118,
+          0.2782576848617717
+        ],
+        "direct_m": 6.171305178569659,
+        "travelled_m": 6.067762738560478,
+        "start_sim": 23.783,
+        "end_sim": 34.379,
+        "samples": 10026,
+        "goal_status": 4,
+        "error": null,
+        "stop_verified": true,
+        "goal_error_m": 0.12747355190213774,
+        "truth_peak_mps": 1.9965896781979486,
+        "peak_at_sim": 26.672,
+        "peak_at_xy": [
+          9.499227059101125,
+          -3.7918627901480595
+        ],
+        "controller_peak_mps": 2.000000000000002,
+        "output_peak_mps": 2.0,
+        "contacts": {
+          "ground": 31956,
+          "wall": 0,
+          "box": 0,
+          "elevated": 0,
+          "unknown": 0
+        }
+      },
+      {
+        "leg": "east-wall-return",
+        "start": [
+          9.512206943239118,
+          0.2782576848617717
+        ],
+        "goal": [
+          9.55,
+          -5.77
+        ],
+        "end": [
+          9.601001719732194,
+          -5.7095404896685515
+        ],
+        "direct_m": 6.04837576028712,
+        "travelled_m": 5.9978373443370625,
+        "start_sim": 34.379,
+        "end_sim": 43.907,
+        "samples": 9113,
+        "goal_status": 4,
+        "error": null,
+        "stop_verified": true,
+        "goal_error_m": 0.0790982161945493,
+        "truth_peak_mps": 1.9955327681081507,
+        "peak_at_sim": 37.06,
+        "peak_at_xy": [
+          9.559395304977091,
+          -1.9418893944890319
+        ],
+        "controller_peak_mps": 2.0,
+        "output_peak_mps": 2.0,
+        "contacts": {
+          "ground": 25654,
+          "wall": 0,
+          "box": 0,
+          "elevated": 0,
+          "unknown": 0
+        }
+      }
+    ]
+  },
+  "relative_mae_reduction_percent": 37.500476878405294
+}

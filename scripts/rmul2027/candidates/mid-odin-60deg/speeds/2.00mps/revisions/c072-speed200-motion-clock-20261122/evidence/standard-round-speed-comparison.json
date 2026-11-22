@@ -1,0 +1,561 @@
+[
+  {
+    "case": "left-far-01",
+    "stage": "fixed-left",
+    "result": "failed",
+    "error": "RuntimeError('Navigation acceptance failed')",
+    "contacts": 0,
+    "minimum_gap_m": 1.4590911382789091,
+    "baseline_gap_m": 0.18678107086233042,
+    "baseline": {
+      "preposition": {
+        "truth_mps": 1.266084447031096,
+        "controller_mps": 1.3028882712631293,
+        "output_mps": 1.3167756116133922
+      },
+      "goal": {
+        "truth_mps": 1.078751217097596,
+        "controller_mps": 1.1288134366403861,
+        "output_mps": 1.1288134366403864
+      }
+    },
+    "candidate": {
+      "preposition": {
+        "truth_mps": 1.9663568873028026,
+        "controller_mps": 1.9867538831732758,
+        "output_mps": 1.9867538831732758
+      },
+      "goal": {
+        "truth_mps": 0.0001166063936852764,
+        "controller_mps": 0.0,
+        "output_mps": 0.0
+      }
+    },
+    "effective_configuration_files": [
+      "fixed-left/cases/left-far-01/stack-evidence/nav2_params.yaml",
+      "fixed-left/cases/left-far-01/stack-evidence/imu-recovery/nav-epoch-0.yaml",
+      "fixed-left/cases/left-far-01/stack-evidence/imu-recovery/nav-epoch-1.yaml"
+    ]
+  },
+  {
+    "case": "left-far-02",
+    "stage": "fixed-left",
+    "result": "failed",
+    "error": "RuntimeError('Preposition failed')",
+    "contacts": null,
+    "minimum_gap_m": null,
+    "baseline_gap_m": 0.12734434681425633,
+    "baseline": {
+      "preposition": {
+        "truth_mps": 1.2751660345984768,
+        "controller_mps": 1.3291118140014255,
+        "output_mps": 1.3291118140014258
+      },
+      "goal": {
+        "truth_mps": 0.7990827431765123,
+        "controller_mps": 0.8227091904714604,
+        "output_mps": 0.8227091904714604
+      }
+    },
+    "candidate": {
+      "preposition": {
+        "truth_mps": 1.955579321935982,
+        "controller_mps": 1.9600937985775093,
+        "output_mps": 1.9600937985775095
+      },
+      "goal": {
+        "truth_mps": 0.0,
+        "controller_mps": 0.0,
+        "output_mps": 0.0
+      }
+    },
+    "effective_configuration_files": [
+      "fixed-left/cases/left-far-02/stack-evidence/nav2_params.yaml",
+      "fixed-left/cases/left-far-02/stack-evidence/imu-recovery/nav-epoch-0.yaml",
+      "fixed-left/cases/left-far-02/stack-evidence/imu-recovery/nav-epoch-1.yaml"
+    ]
+  },
+  {
+    "case": "left-far-03",
+    "stage": "fixed-left",
+    "result": "passed",
+    "error": null,
+    "contacts": 0,
+    "minimum_gap_m": 0.13435199200760603,
+    "baseline_gap_m": 0.18401569733379564,
+    "baseline": {
+      "preposition": {
+        "truth_mps": 1.2712211685521941,
+        "controller_mps": 1.2764330403674886,
+        "output_mps": 1.2787983730031935
+      },
+      "goal": {
+        "truth_mps": 1.1072031126000839,
+        "controller_mps": 1.105952152075742,
+        "output_mps": 1.1231429658973762
+      }
+    },
+    "candidate": {
+      "preposition": {
+        "truth_mps": 1.9640473449911837,
+        "controller_mps": 1.9874664357090663,
+        "output_mps": 1.9874664357090663
+      },
+      "goal": {
+        "truth_mps": 1.115555631414717,
+        "controller_mps": 1.9285814598125208,
+        "output_mps": 1.120066005438384
+      }
+    },
+    "effective_configuration_files": [
+      "fixed-left/cases/left-far-03/stack-evidence/nav2_params.yaml",
+      "fixed-left/cases/left-far-03/stack-evidence/imu-recovery/nav-epoch-0.yaml"
+    ]
+  },
+  {
+    "case": "left-near-01",
+    "stage": "fixed-left",
+    "result": "passed",
+    "error": null,
+    "contacts": 0,
+    "minimum_gap_m": 0.20553535863676467,
+    "baseline_gap_m": 0.2091537930210885,
+    "baseline": {
+      "preposition": {
+        "truth_mps": 1.3206890639088615,
+        "controller_mps": 1.3124227676571807,
+        "output_mps": 1.3254287675987968
+      },
+      "goal": {
+        "truth_mps": 0.8339169838243843,
+        "controller_mps": 0.8833577917080776,
+        "output_mps": 0.890049801370369
+      }
+    },
+    "candidate": {
+      "preposition": {
+        "truth_mps": 1.9829272629881634,
+        "controller_mps": 1.9860813430576894,
+        "output_mps": 1.986254689980803
+      },
+      "goal": {
+        "truth_mps": 1.1528951279022643,
+        "controller_mps": 1.7650406195553572,
+        "output_mps": 1.2143346022656196
+      }
+    },
+    "effective_configuration_files": [
+      "fixed-left/cases/left-near-01/stack-evidence/nav2_params.yaml",
+      "fixed-left/cases/left-near-01/stack-evidence/imu-recovery/nav-epoch-0.yaml"
+    ]
+  },
+  {
+    "case": "left-near-02",
+    "stage": "fixed-left",
+    "result": "passed",
+    "error": null,
+    "contacts": 0,
+    "minimum_gap_m": 0.15638206811326896,
+    "baseline_gap_m": 0.19970070947473825,
+    "baseline": {
+      "preposition": {
+        "truth_mps": 1.280693018409259,
+        "controller_mps": 1.3257338833631194,
+        "output_mps": 1.3257338833631196
+      },
+      "goal": {
+        "truth_mps": 0.8217610190457619,
+        "controller_mps": 0.8237597529801959,
+        "output_mps": 0.8237597529801957
+      }
+    },
+    "candidate": {
+      "preposition": {
+        "truth_mps": 1.9679418783513347,
+        "controller_mps": 1.9723161136112246,
+        "output_mps": 1.9720397611789655
+      },
+      "goal": {
+        "truth_mps": 1.2126406066668338,
+        "controller_mps": 1.9216659439142914,
+        "output_mps": 1.2495051375899193
+      }
+    },
+    "effective_configuration_files": [
+      "fixed-left/cases/left-near-02/stack-evidence/nav2_params.yaml",
+      "fixed-left/cases/left-near-02/stack-evidence/imu-recovery/nav-epoch-0.yaml"
+    ]
+  },
+  {
+    "case": "left-near-03",
+    "stage": "fixed-left",
+    "result": "passed",
+    "error": null,
+    "contacts": 0,
+    "minimum_gap_m": 0.14292117188708017,
+    "baseline_gap_m": 0.1420212294046257,
+    "baseline": {
+      "preposition": {
+        "truth_mps": 1.2627638108461015,
+        "controller_mps": 1.3110135172931427,
+        "output_mps": 1.3110135172931427
+      },
+      "goal": {
+        "truth_mps": 0.7948025184858305,
+        "controller_mps": 0.7983526642876811,
+        "output_mps": 0.798352664287681
+      }
+    },
+    "candidate": {
+      "preposition": {
+        "truth_mps": 1.983172123808272,
+        "controller_mps": 1.9863616814257388,
+        "output_mps": 1.9863616814257385
+      },
+      "goal": {
+        "truth_mps": 1.1310795747486857,
+        "controller_mps": 2.0000000000000013,
+        "output_mps": 1.2119020023222646
+      }
+    },
+    "effective_configuration_files": [
+      "fixed-left/cases/left-near-03/stack-evidence/nav2_params.yaml",
+      "fixed-left/cases/left-near-03/stack-evidence/imu-recovery/nav-epoch-0.yaml"
+    ]
+  },
+  {
+    "case": "left-reverse-01",
+    "stage": "fixed-reverse-right",
+    "result": "passed",
+    "error": null,
+    "contacts": 0,
+    "minimum_gap_m": 0.15592525194121531,
+    "baseline_gap_m": 0.14664809397759093,
+    "baseline": {
+      "preposition": {
+        "truth_mps": 1.2290633941538798,
+        "controller_mps": 1.2322850105473442,
+        "output_mps": 1.2393627338928523
+      },
+      "goal": {
+        "truth_mps": 0.8036863859619158,
+        "controller_mps": 0.8297767658067666,
+        "output_mps": 0.8098190170000289
+      }
+    },
+    "candidate": {
+      "preposition": {
+        "truth_mps": 1.9826506495910854,
+        "controller_mps": 1.9863804972264645,
+        "output_mps": 1.986660777452826
+      },
+      "goal": {
+        "truth_mps": 1.4724244522088639,
+        "controller_mps": 1.92,
+        "output_mps": 1.505959878494596
+      }
+    },
+    "effective_configuration_files": [
+      "fixed-reverse-right/cases/left-reverse-01/stack-evidence/nav2_params.yaml",
+      "fixed-reverse-right/cases/left-reverse-01/stack-evidence/imu-recovery/nav-epoch-0.yaml",
+      "fixed-reverse-right/cases/left-reverse-01/stack-evidence/imu-recovery/nav-epoch-1.yaml"
+    ]
+  },
+  {
+    "case": "left-reverse-02",
+    "stage": "fixed-reverse-right",
+    "result": "passed",
+    "error": null,
+    "contacts": 0,
+    "minimum_gap_m": 0.2106484326149308,
+    "baseline_gap_m": 0.15825805706166562,
+    "baseline": {
+      "preposition": {
+        "truth_mps": 1.2830113987208345,
+        "controller_mps": 1.3027829554460626,
+        "output_mps": 1.3027829554460624
+      },
+      "goal": {
+        "truth_mps": 0.8860940871622692,
+        "controller_mps": 0.9129809574817449,
+        "output_mps": 0.9129809574817448
+      }
+    },
+    "candidate": {
+      "preposition": {
+        "truth_mps": 1.9870082531840247,
+        "controller_mps": 1.997607698092764,
+        "output_mps": 1.9976076980927637
+      },
+      "goal": {
+        "truth_mps": 1.364606654359766,
+        "controller_mps": 1.4841260604696231,
+        "output_mps": 1.4073219023566774
+      }
+    },
+    "effective_configuration_files": [
+      "fixed-reverse-right/cases/left-reverse-02/stack-evidence/nav2_params.yaml",
+      "fixed-reverse-right/cases/left-reverse-02/stack-evidence/imu-recovery/nav-epoch-0.yaml"
+    ]
+  },
+  {
+    "case": "left-reverse-03",
+    "stage": "fixed-reverse-right",
+    "result": "passed",
+    "error": null,
+    "contacts": 0,
+    "minimum_gap_m": 0.1580535995113923,
+    "baseline_gap_m": 0.14190713789756337,
+    "baseline": {
+      "preposition": {
+        "truth_mps": 1.2489500280558947,
+        "controller_mps": 1.251487660457735,
+        "output_mps": 1.2627884285650863
+      },
+      "goal": {
+        "truth_mps": 0.8326252347215194,
+        "controller_mps": 0.8746630545619707,
+        "output_mps": 0.8746630545619706
+      }
+    },
+    "candidate": {
+      "preposition": {
+        "truth_mps": 1.9785984663696181,
+        "controller_mps": 1.9868148941206907,
+        "output_mps": 1.9868148941206905
+      },
+      "goal": {
+        "truth_mps": 1.0224974286973456,
+        "controller_mps": 1.5533190271158088,
+        "output_mps": 1.024499877989257
+      }
+    },
+    "effective_configuration_files": [
+      "fixed-reverse-right/cases/left-reverse-03/stack-evidence/nav2_params.yaml",
+      "fixed-reverse-right/cases/left-reverse-03/stack-evidence/imu-recovery/nav-epoch-0.yaml",
+      "fixed-reverse-right/cases/left-reverse-03/stack-evidence/imu-recovery/nav-epoch-1.yaml"
+    ]
+  },
+  {
+    "case": "right-control-01",
+    "stage": "fixed-reverse-right",
+    "result": "passed",
+    "error": null,
+    "contacts": 0,
+    "minimum_gap_m": 0.16073212142137133,
+    "baseline_gap_m": 0.1933075671221122,
+    "baseline": {
+      "preposition": {
+        "truth_mps": 1.272302665166003,
+        "controller_mps": 1.310217746913619,
+        "output_mps": 1.3102177469136187
+      },
+      "goal": {
+        "truth_mps": 0.9744786072910685,
+        "controller_mps": 1.0233172782958375,
+        "output_mps": 1.0233172782958377
+      }
+    },
+    "candidate": {
+      "preposition": {
+        "truth_mps": 1.9814996777365186,
+        "controller_mps": 2.0000000000000013,
+        "output_mps": 1.9861533988888005
+      },
+      "goal": {
+        "truth_mps": 1.1335897805390642,
+        "controller_mps": 1.5635006190360876,
+        "output_mps": 1.1428424005355942
+      }
+    },
+    "effective_configuration_files": [
+      "fixed-reverse-right/cases/right-control-01/stack-evidence/nav2_params.yaml",
+      "fixed-reverse-right/cases/right-control-01/stack-evidence/imu-recovery/nav-epoch-0.yaml"
+    ]
+  },
+  {
+    "case": "right-control-02",
+    "stage": "fixed-reverse-right",
+    "result": "failed",
+    "error": "RuntimeError('Preposition failed')",
+    "contacts": null,
+    "minimum_gap_m": null,
+    "baseline_gap_m": 0.15563881737638557,
+    "baseline": {
+      "preposition": {
+        "truth_mps": 1.3058776031732806,
+        "controller_mps": 1.342724445810029,
+        "output_mps": 1.3603585584810727
+      },
+      "goal": {
+        "truth_mps": 0.8153862632877651,
+        "controller_mps": 0.8110934605738869,
+        "output_mps": 0.9067733787493923
+      }
+    },
+    "candidate": {
+      "preposition": {
+        "truth_mps": 1.980834137013516,
+        "controller_mps": 2.0,
+        "output_mps": 1.9867184726150442
+      },
+      "goal": {
+        "truth_mps": 0.0,
+        "controller_mps": 0.0,
+        "output_mps": 0.0
+      }
+    },
+    "effective_configuration_files": [
+      "fixed-reverse-right/cases/right-control-02/stack-evidence/nav2_params.yaml",
+      "fixed-reverse-right/cases/right-control-02/stack-evidence/imu-recovery/nav-epoch-0.yaml"
+    ]
+  },
+  {
+    "case": "right-control-03",
+    "stage": "fixed-reverse-right",
+    "result": "passed",
+    "error": null,
+    "contacts": 0,
+    "minimum_gap_m": 0.16161468089024592,
+    "baseline_gap_m": 0.13492012792419916,
+    "baseline": {
+      "preposition": {
+        "truth_mps": 1.1742142680004917,
+        "controller_mps": 1.1897258837680327,
+        "output_mps": 1.19178879518226
+      },
+      "goal": {
+        "truth_mps": 0.7809732621976296,
+        "controller_mps": 0.8301820321221253,
+        "output_mps": 0.8301820321221252
+      }
+    },
+    "candidate": {
+      "preposition": {
+        "truth_mps": 2.0179436665030854,
+        "controller_mps": 2.0000000000000013,
+        "output_mps": 1.9994216494337549
+      },
+      "goal": {
+        "truth_mps": 1.0678388896029885,
+        "controller_mps": 1.9200000000000013,
+        "output_mps": 1.1274763140534658
+      }
+    },
+    "effective_configuration_files": [
+      "fixed-reverse-right/cases/right-control-03/stack-evidence/nav2_params.yaml",
+      "fixed-reverse-right/cases/right-control-03/stack-evidence/imu-recovery/nav-epoch-0.yaml"
+    ]
+  },
+  {
+    "case": "headon-01",
+    "stage": "moving-standard",
+    "result": "passed",
+    "error": null,
+    "contacts": 0,
+    "minimum_gap_m": 0.18930373392560518,
+    "baseline_gap_m": 0.1894709887412807,
+    "baseline": {
+      "preposition": {
+        "truth_mps": 1.2266450714448203,
+        "controller_mps": 1.228405937854473,
+        "output_mps": 1.2284059378544727
+      },
+      "goal": {
+        "truth_mps": 1.0174758870665999,
+        "controller_mps": 1.0625347693359664,
+        "output_mps": 1.0778309853034305
+      }
+    },
+    "candidate": {
+      "preposition": {
+        "truth_mps": 1.9774335162864818,
+        "controller_mps": 2.0000000000000018,
+        "output_mps": 1.9861329053209527
+      },
+      "goal": {
+        "truth_mps": 1.892523964176713,
+        "controller_mps": 2.000000000000001,
+        "output_mps": 1.9417774861786246
+      }
+    },
+    "effective_configuration_files": [
+      "moving-standard/cases/headon-01/stack-evidence/nav2_params.yaml",
+      "moving-standard/cases/headon-01/stack-evidence/imu-recovery/nav-epoch-0.yaml"
+    ]
+  },
+  {
+    "case": "headon-02",
+    "stage": "moving-standard",
+    "result": "passed",
+    "error": null,
+    "contacts": 0,
+    "minimum_gap_m": 0.266870610173626,
+    "baseline_gap_m": 0.21596463676086153,
+    "baseline": {
+      "preposition": {
+        "truth_mps": 1.2416063404471696,
+        "controller_mps": 1.295719505175502,
+        "output_mps": 1.295719505175502
+      },
+      "goal": {
+        "truth_mps": 1.2020237788108739,
+        "controller_mps": 1.1933321174969216,
+        "output_mps": 1.212517627514936
+      }
+    },
+    "candidate": {
+      "preposition": {
+        "truth_mps": 1.9814240544294224,
+        "controller_mps": 2.0000000000000013,
+        "output_mps": 1.9856101949898801
+      },
+      "goal": {
+        "truth_mps": 1.763096966155089,
+        "controller_mps": 2.0000000000000013,
+        "output_mps": 1.8118373571257365
+      }
+    },
+    "effective_configuration_files": [
+      "moving-standard/cases/headon-02/stack-evidence/nav2_params.yaml",
+      "moving-standard/cases/headon-02/stack-evidence/imu-recovery/nav-epoch-0.yaml"
+    ]
+  },
+  {
+    "case": "headon-03",
+    "stage": "moving-standard",
+    "result": "passed",
+    "error": null,
+    "contacts": 0,
+    "minimum_gap_m": 0.24459706344112506,
+    "baseline_gap_m": 0.25756968331300456,
+    "baseline": {
+      "preposition": {
+        "truth_mps": 1.2042912178404828,
+        "controller_mps": 1.2482819000527876,
+        "output_mps": 1.2482819000527878
+      },
+      "goal": {
+        "truth_mps": 1.1212660485640344,
+        "controller_mps": 1.1465706329470957,
+        "output_mps": 1.1465706329470955
+      }
+    },
+    "candidate": {
+      "preposition": {
+        "truth_mps": 2.0601050143525077,
+        "controller_mps": 2.0000000000000013,
+        "output_mps": 2.0
+      },
+      "goal": {
+        "truth_mps": 1.894044249734302,
+        "controller_mps": 1.979090700296478,
+        "output_mps": 1.9409529087915536
+      }
+    },
+    "effective_configuration_files": [
+      "moving-standard/cases/headon-03/stack-evidence/nav2_params.yaml",
+      "moving-standard/cases/headon-03/stack-evidence/imu-recovery/nav-epoch-0.yaml"
+    ]
+  }
+]

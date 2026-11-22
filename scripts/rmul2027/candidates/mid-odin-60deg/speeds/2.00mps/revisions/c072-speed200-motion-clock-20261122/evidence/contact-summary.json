@@ -1,0 +1,56 @@
+{
+  "messages": {
+    "collision_part_000": 167394
+  },
+  "malformed": {},
+  "counts": [
+    {
+      "leg": "center-to-southeast",
+      "source": "collision_part_000",
+      "kind": "ground",
+      "records": 63841
+    },
+    {
+      "leg": "central-straight",
+      "source": "collision_part_000",
+      "kind": "ground",
+      "records": 35871
+    },
+    {
+      "leg": "east-wall-straight",
+      "source": "collision_part_000",
+      "kind": "ground",
+      "records": 33073
+    },
+    {
+      "leg": "northeast-to-southwest",
+      "source": "collision_part_000",
+      "kind": "ground",
+      "records": 63101
+    },
+    {
+      "leg": "setup",
+      "source": "collision_part_000",
+      "kind": "ground",
+      "records": 4008
+    },
+    {
+      "leg": "south-wall",
+      "source": "collision_part_000",
+      "kind": "ground",
+      "records": 36780
+    },
+    {
+      "leg": "southeast-to-west",
+      "source": "collision_part_000",
+      "kind": "ground",
+      "records": 182751
+    },
+    {
+      "leg": "southwest-to-southeast",
+      "source": "collision_part_000",
+      "kind": "ground",
+      "records": 83025
+    }
+  ]
+}

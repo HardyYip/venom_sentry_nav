@@ -1,0 +1,45 @@
+{
+  "verified_at": "2026-11-22T12:22:47+08:00",
+  "speed": {
+    "smoother_east_ramp_fit_mps2": 1.7508176617850066,
+    "sample_count": 17,
+    "ramp_interval_sim_s": [
+      55.013,
+      55.761
+    ],
+    "peak_smoother_planar_mps": 2.0,
+    "previous_long_route_peak_mps": 1.4044370244450162,
+    "current_long_route_peak_mps": 1.998920962810309,
+    "raw_versus_source_clock_two_way": "odometry-ab.json"
+  },
+  "odometry_ab": "odometry-ab.json",
+  "odometry_mae_before_mps": 0.08781583777945222,
+  "odometry_mae_after_mps": 0.05488447983739084,
+  "odometry_mae_reduction_percent": 37.500476878405294,
+  "long_routes": "7/7, zero wall/box contacts",
+  "inflation_tests": [
+    "rviz-inflation-Qg0g3s/results.json",
+    "rviz-inflation-VUuB75/results.json",
+    "rviz-inflation-aN39q0/results.json"
+  ],
+  "formal_fixed_passes": 9,
+  "formal_fixed_total": 12,
+  "formal_moving_passes": 3,
+  "formal_moving_total": 3,
+  "qualified_full_round": false,
+  "retries": [
+    [
+      "left-far-01",
+      "failed"
+    ],
+    [
+      "right-control-01",
+      "passed"
+    ]
+  ],
+  "legacy_left_far": {
+    "passed": true,
+    "receipt": "legacy-left-far.json"
+  },
+  "default_profile": "b4a4657, latest candidate retained separately"
+}
