@@ -1,5 +1,6 @@
 """Exercise the installed lifecycle smoother against a slow, paused and reset ROS clock."""
 import json
+from math import hypot
 from pathlib import Path
 import sys
 import time
@@ -18,6 +19,7 @@ def check(output):
     cmd = node.create_publisher(Twist, 'cmd_vel', 10)
     state = node.create_client(ChangeState, 'velocity_smoother/change_state')
     samples = []
+    planar_speeds = []
     sim_ns = 2_000_000_000
     target = Twist()
     target.linear.y = 2.0
@@ -25,6 +27,7 @@ def check(output):
 
     def observe(message):
         samples.append((sim_ns / 1e9, message.linear.y))
+        planar_speeds.append(hypot(message.linear.x, message.linear.y))
 
     node.create_subscription(Twist, 'cmd_vel_smoothed', observe, 10)
 
@@ -81,8 +84,20 @@ def check(output):
         sim_ns -= 1_000_000_000
         step(.25, command=False)
         after_reset = samples[start_reset:]
-        assert after_reset and all(abs(value) < .0001 for _, value in after_reset), after_reset
-        phases['rollback'] = dict(samples_after=len(after_reset), max_mps=max(v for _, v in after_reset))
+        # A command published before the smoother received the new clock can
+        # still be in flight. Verify that the zero output arrives and persists.
+        zero_index = next((i for i, (_, value) in enumerate(after_reset) if abs(value) < .0001), None)
+        assert zero_index is not None, after_reset
+        after_zero = after_reset[zero_index:]
+        assert all(abs(value) < .0001 for _, value in after_zero), after_reset
+        phases['rollback'] = dict(samples_after=len(after_zero), max_mps=max(v for _, v in after_zero))
+
+        target.linear.x = 2.0
+        start_diagonal = len(planar_speeds)
+        step(2.2, rate=1.0, command=True)
+        peak_diagonal = max(planar_speeds[start_diagonal:])
+        assert 1.95 <= peak_diagonal <= 2.00001, peak_diagonal
+        phases['diagonal'] = dict(peak_mps=peak_diagonal)
         transition(Transition.TRANSITION_DEACTIVATE)
         output.write_text(json.dumps(phases, indent=2) + '\n')
         print(json.dumps(phases), flush=True)

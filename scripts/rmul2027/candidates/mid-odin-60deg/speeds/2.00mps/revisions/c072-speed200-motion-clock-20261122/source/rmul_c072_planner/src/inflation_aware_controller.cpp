@@ -130,32 +130,41 @@ public:
 private:
   void limitInwardApproach(geometry_msgs::msg::Twist & twist, escape::Point current, double yaw)
   {
+    constexpr double reaction_seconds = 0.15;
+    const auto stopping_distance = [&](double speed) {
+        return speed * reaction_seconds + speed * speed / (2.0 * braking_rate_);
+      };
+    auto * grid = costmap_->getCostmap();
+    std::lock_guard<nav2_costmap_2d::Costmap2D::mutex_t> lock(*grid->getMutex());
+
+    // The smoother cannot immediately turn the last velocity into a new one.
+    // Check the direction in which the chassis is already moving as well as
+    // the requested direction. Brake first if the current motion is unsafe.
+    if (std::isfinite(estimated_speed_) && estimated_speed_ > .04) {
+      const auto heading = std::atan2(estimated_velocity_.y, estimated_velocity_.x);
+      const auto distance = stopping_distance(estimated_speed_);
+      if (escape::freeBrakingDistance(*grid, current, heading, distance) < distance) {
+        twist.linear.x = 0.0;
+        twist.linear.y = 0.0;
+        RCLCPP_INFO_THROTTLE(logger_, *clock_, 1000,
+          "C072 braking measured approach %.2f m/s before inner inflation", estimated_speed_);
+        return;
+      }
+    }
+
     const auto speed = std::hypot(twist.linear.x, twist.linear.y);
     if (speed <= 0.0) {
       return;
     }
     const auto angle = yaw + std::atan2(twist.linear.y, twist.linear.x);
-    constexpr double reaction_seconds = 0.15;
-    const auto braking = speed * reaction_seconds + speed * speed / (2.0 * braking_rate_);
-    auto * grid = costmap_->getCostmap();
-    std::lock_guard<nav2_costmap_2d::Costmap2D::mutex_t> lock(*grid->getMutex());
-    const auto step = grid->getResolution() * 0.5;
-    const int count = std::max(1, static_cast<int>(std::ceil(braking / step)));
-    for (int index = 1; index <= count; ++index) {
-      const auto ahead = braking * index / count;
-      const auto point = escape::along(current, angle, ahead);
-      if (escape::clearance(*grid, point, escape::normal_clearance_m) >=
-        escape::normal_clearance_m && !escape::inscribed(*grid, point))
-      {
-        continue;
-      }
-      const auto available = braking * (index - 1) / count;
+    const auto braking = stopping_distance(speed);
+    const auto available = escape::freeBrakingDistance(*grid, current, angle, braking);
+    if (available < braking) {
       const auto reaction_speed = braking_rate_ * reaction_seconds;
       const auto permitted = std::sqrt(reaction_speed * reaction_speed +
         2.0 * braking_rate_ * available) - reaction_speed;
       twist.linear.x *= permitted / speed;
       twist.linear.y *= permitted / speed;
-      return;
     }
   }
 
@@ -168,8 +177,9 @@ private:
   void updateSpeed(escape::Point point, double stamp)
   {
     if (previous_pose_ && stamp > previous_stamp_) {
-      estimated_speed_ = std::hypot(point.x - previous_pose_->x, point.y - previous_pose_->y) /
-        (stamp - previous_stamp_);
+      const auto dt = stamp - previous_stamp_;
+      estimated_velocity_ = {(point.x - previous_pose_->x) / dt, (point.y - previous_pose_->y) / dt};
+      estimated_speed_ = std::hypot(estimated_velocity_.x, estimated_velocity_.y);
     } else if (!previous_pose_ || stamp < previous_stamp_) {
       estimated_speed_ = std::numeric_limits<double>::infinity();
       still_since_.reset();
@@ -298,6 +308,7 @@ private:
   std::optional<double> still_since_;
   std::optional<escape::Point> previous_pose_;
   double previous_stamp_{0.0};
+  escape::Point estimated_velocity_{0.0, 0.0};
   double estimated_speed_{std::numeric_limits<double>::infinity()};
 };
 }  // namespace rmul_c072_planner

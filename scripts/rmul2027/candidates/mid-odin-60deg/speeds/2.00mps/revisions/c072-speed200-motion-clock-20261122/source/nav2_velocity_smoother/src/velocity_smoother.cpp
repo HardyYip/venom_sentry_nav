@@ -62,6 +62,16 @@ VelocitySmoother::on_configure(const rclcpp_lifecycle::State &)
   node->get_parameter("scale_velocities", scale_velocities_);
 
   // Kinematics
+  rcl_interfaces::msg::ParameterDescriptor planar_limit;
+  planar_limit.description = "Maximum planar speed in m/s. A negative value disables this limit.";
+  planar_limit.read_only = true;
+  declare_parameter_if_not_declared(
+    node, "max_speed_xy", rclcpp::ParameterValue(-1.0), planar_limit);
+  node->get_parameter("max_speed_xy", max_speed_xy_);
+  if (!std::isfinite(max_speed_xy_)) {
+    throw std::runtime_error("The planar speed limit must be finite");
+  }
+
   declare_parameter_if_not_declared(
     node, "max_velocity", rclcpp::ParameterValue(std::vector<double>{0.50, 0.0, 2.5}));
   declare_parameter_if_not_declared(
@@ -294,6 +304,15 @@ void VelocitySmoother::smootherTimer()
   command_->linear.y = std::clamp(command_->linear.y, min_velocities_[1], max_velocities_[1]);
   command_->angular.z = std::clamp(command_->angular.z, min_velocities_[2], max_velocities_[2]);
 
+  if (max_speed_xy_ >= 0.0) {
+    const double target_speed = std::hypot(command_->linear.x, command_->linear.y);
+    if (target_speed > max_speed_xy_) {
+      const double factor = max_speed_xy_ / target_speed;
+      command_->linear.x *= factor;
+      command_->linear.y *= factor;
+    }
+  }
+
   // Find if any component is not within the acceleration constraints. If so, store the most
   // significant scale factor to apply to the vector <dvx, dvy, dvw>, eta, to reduce all axes
   // proportionally to follow the same direction, within change of velocity bounds.
@@ -328,6 +347,32 @@ void VelocitySmoother::smootherTimer()
     current_.linear.y, command_->linear.y, max_accels_[1], max_decels_[1], eta);
   cmd_vel->angular.z = applyConstraints(
     current_.angular.z, command_->angular.z, max_accels_[2], max_decels_[2], eta);
+  if (max_speed_xy_ >= 0.0) {
+    const double output_speed = std::hypot(cmd_vel->linear.x, cmd_vel->linear.y);
+    if (output_speed > max_speed_xy_) {
+      // Independently limited axes can leave the speed circle on turns.
+      // Shorten the change along its original direction to retain the axis limits.
+      const double dx = cmd_vel->linear.x - current_.linear.x;
+      const double dy = cmd_vel->linear.y - current_.linear.y;
+      const double delta_squared = dx * dx + dy * dy;
+      const double projection = current_.linear.x * dx + current_.linear.y * dy;
+      const double radius_squared = max_speed_xy_ * max_speed_xy_;
+      const double current_squared =
+        current_.linear.x * current_.linear.x + current_.linear.y * current_.linear.y;
+      if (delta_squared > 0.0 && current_squared <= radius_squared) {
+        const double root = std::sqrt(
+          projection * projection + delta_squared * (radius_squared - current_squared));
+        const double fraction = std::clamp((root - projection) / delta_squared, 0.0, 1.0);
+        cmd_vel->linear.x = current_.linear.x + fraction * dx;
+        cmd_vel->linear.y = current_.linear.y + fraction * dy;
+      } else {
+        // A closed-loop measurement can start outside the configured speed circle.
+        const double factor = max_speed_xy_ / output_speed;
+        cmd_vel->linear.x *= factor;
+        cmd_vel->linear.y *= factor;
+      }
+    }
+  }
   last_cmd_ = *cmd_vel;
 
   // Apply deadband restrictions & publish

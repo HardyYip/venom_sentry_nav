@@ -69,6 +69,22 @@ inline bool inscribed(const nav2_costmap_2d::Costmap2D & grid, Point p)
          grid.getCost(x, y) == nav2_costmap_2d::INSCRIBED_INFLATED_OBSTACLE;
 }
 
+inline double freeBrakingDistance(
+  const nav2_costmap_2d::Costmap2D & grid, Point current, double angle, double distance)
+{
+  const auto step = grid.getResolution() * 0.5;
+  const int count = std::max(1, static_cast<int>(std::ceil(distance / step)));
+  for (int index = 1; index <= count; ++index) {
+    const auto point = along(current, angle, distance * index / count);
+    if (clearance(grid, point, normal_clearance_m) < normal_clearance_m ||
+      inscribed(grid, point))
+    {
+      return distance * (index - 1) / count;
+    }
+  }
+  return distance;
+}
+
 inline std::optional<Point> find(
   const nav2_costmap_2d::Costmap2D & grid, Point start, Point goal, double radius)
 {
