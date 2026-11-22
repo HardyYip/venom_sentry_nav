@@ -24,6 +24,8 @@ exec env -i /usr/bin/bwrap --unshare-user --uid 0 --gid 0 --unshare-net --unshar
   --tmpfs /home/sim --bind "$archive/workspace" "$source_root" \
   --ro-bind "$(dirname -- "${BASH_SOURCE[0]}")/instrumentation/world.sdf" "$source_root/src/pb2025_sentry_nav/scripts/rmul2027/scene/worlds/rmul_2027_3v3_flat_floor_world.sdf" \
   --ro-bind "$(dirname -- "${BASH_SOURCE[0]}")/instrumentation/field.sdf" "$source_root/src/pb2025_sentry_nav/scripts/rmul2027/scene/models/rmul_2027_3v3_flat_floor/model.sdf" \
+  --ro-bind "$(dirname -- "${BASH_SOURCE[0]}")/source/view/mid_odin_view_runtime.py" "$source_root/src/pb2025_sentry_nav/scripts/rmul2027/mid_odin_view_runtime.py" \
+  --ro-bind "$(dirname -- "${BASH_SOURCE[0]}")/source/recovery-supervisor/supervisor.py" "$source_root/src/pb2025_sentry_nav/rmul2027_decision/recovery/supervisor.py" \
   --ro-bind "$archive/outputs" "$outputs" --bind "$results" /evidence \
   --chdir "$source_root" --setenv PATH /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin \
   --setenv HOME /home/sim --setenv TZ Asia/Shanghai --setenv LC_ALL C.UTF-8 \

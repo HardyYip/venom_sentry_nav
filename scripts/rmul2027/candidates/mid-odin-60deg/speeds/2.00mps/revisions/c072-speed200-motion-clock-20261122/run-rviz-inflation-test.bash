@@ -6,7 +6,7 @@ exec 9>/tmp/rmul-fixed-moving-20261120.lock
 flock -w 1200 9
 out=$(mktemp -d "$trial/rviz-inflation-XXXXXX")
 printf '%s\n' "$out"
-env RMUL_HEADLESS_NVIDIA=1 RMUL_SOFTWARE_THREADS=12 RMUL_NAV_SENSOR_ONLY=1 RMUL_NAV_RENDER_LOD=1     bash /tmp/rmul-jammy/sim_shell.bash -c '
+env RMUL_HEADLESS_NVIDIA=1 RMUL_SOFTWARE_THREADS=12 RMUL_NAV_SENSOR_ONLY=1 RMUL_NAV_RENDER_LOD=1     bash "$trial/sim-shell.bash" -c '
     set -eo pipefail
     source /opt/ros/humble/setup.bash
     source install/setup.bash

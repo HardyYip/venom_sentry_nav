@@ -119,6 +119,24 @@ def inspect(path):
                   fixtures['small_gicp_relocalization']['ros__parameters']['max_reacquired_pose_jump_m']
               and lio.get('max_imu_gap')==.1,
     }
+    expected_smoother = fixtures['velocity_smoother']['ros__parameters']
+    expected_gicp = fixtures['small_gicp_relocalization']['ros__parameters']
+    if 'max_speed_xy' in expected_smoother:
+        input_matches['smoother_planar_speed'] = (
+            smoother.get('max_speed_xy') == expected_smoother['max_speed_xy'])
+    if 'tracking_correspondence_distance_m' in expected_gicp:
+        input_matches['bounded_tracking_correspondence'] = (
+            gicp.get('tracking_correspondence_distance_m') ==
+            expected_gicp['tracking_correspondence_distance_m'])
+    if 'recovery_correspondence_distance_m' in expected_gicp:
+        input_matches['recovery_correspondence_distance'] = (
+            gicp.get('recovery_correspondence_distance_m') ==
+            expected_gicp['recovery_correspondence_distance_m'])
+    progress_critic = 'rmul_c072_planner::PathProgress'
+    if progress_critic in expected_follow_path.get('critics', []):
+        input_matches['stationary_path_progress'] = (
+            progress_critic in ctrl.get('critics', []) and
+            ctrl.get(progress_critic + '.scale') == expected_follow_path[progress_critic + '.scale'])
     recovery=[]
     events=stack/'imu-recovery/events.jsonl'
     if events.is_file():

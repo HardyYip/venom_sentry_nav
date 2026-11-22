@@ -11,4 +11,7 @@
          base_class_type="dwb_core::TrajectoryCritic">
     <description>Scores the continuous distance to the final goal near arrival.</description>
   </class>
+  <class type="rmul_c072_planner::PathProgressCritic" base_class_type="dwb_core::TrajectoryCritic">
+    <description>Score progress toward the next part of the path when nearly stationary.</description>
+  </class>
 </library>

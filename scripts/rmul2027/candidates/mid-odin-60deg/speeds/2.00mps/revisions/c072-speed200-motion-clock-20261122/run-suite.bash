@@ -15,7 +15,7 @@ mkdir "$dest/$role"
 exec 9>/tmp/rmul-fixed-moving-20261120.lock
 flock -n 9
 set +e
-env RMUL_HEADLESS_NVIDIA="$headless_nvidia" RMUL_SOFTWARE_THREADS=${RMUL_BENCH_THREADS:-12} RMUL_NAV_SENSOR_ONLY=1 RMUL_NAV_RENDER_LOD=1     bash /tmp/rmul-jammy/sim_shell.bash -c '
+env RMUL_HEADLESS_NVIDIA="$headless_nvidia" RMUL_SOFTWARE_THREADS=${RMUL_BENCH_THREADS:-12} RMUL_NAV_SENSOR_ONLY=1 RMUL_NAV_RENDER_LOD=1     bash "$dest/sim-shell.bash" -c '
         set -eo pipefail
         ulimit -c 0
         role=$1; render=$2; shift 2

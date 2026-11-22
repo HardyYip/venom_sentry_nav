@@ -2,6 +2,7 @@
 set -euo pipefail
 here=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
 cd "$here"
+python3 "$here/record-build-inputs.py" --verify "$here"
 flock -w 180 /tmp/rmul-fixed-moving-20261120.lock true
 bash run.bash > long-routes-run.log 2>&1
 python3 review.py

@@ -178,6 +178,8 @@ small_gicp_relocalization:
     registered_leaf_size: 0.05
     max_registration_error_per_inlier: 0.0185
     max_reacquired_pose_jump_m: 0.16
+    recovery_correspondence_distance_m: 0.20
+    tracking_correspondence_distance_m: 0.30
     registration_worker_enabled: true
     max_dist_sq: 3.0
     map_frame: map
@@ -391,6 +393,8 @@ controller_server:
       - PathDist
       - GoalDist
       - rmul_c072_planner::TerminalGoal
+      - rmul_c072_planner::PathProgress
+      rmul_c072_planner::PathProgress.scale: 40.0
       rmul_c072_planner::TerminalGoal.scale: 64.0
       BaseObstacle.scale: 0.4
       rmul_c072_planner::SweptClearance.scale: 160.0

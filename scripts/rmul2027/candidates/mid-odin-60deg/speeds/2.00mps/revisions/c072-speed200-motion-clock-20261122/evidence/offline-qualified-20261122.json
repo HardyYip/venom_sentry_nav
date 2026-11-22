@@ -1,0 +1,1568 @@
+{
+  "release": "qualified",
+  "time": "2026-11-22T16:37:19.228458+08:00",
+  "exit_codes": {
+    "qualification": 0,
+    "final-audit": 0,
+    "execution": 0,
+    "directed_recovery": 0,
+    "forced_cold_start": 0
+  },
+  "source_and_build_hashes": {
+    "gicp-install/small_gicp_relocalization/lib/libsmall_gicp_relocalization.so": "5a7d259f261bde74a7a14010d36ea6193a259a8803b1678b6c1bac17be678300",
+    "params.yaml": "20dc3786bc14c74911ee4d43c0c9d2652c687a428b4d02cca7dba2dbaafb6788",
+    "planner-install/nav2_velocity_smoother/lib/libvelocity_smoother_core.so": "5674da31415e44706d4a3ddd1a697cacbc30790659f74c1e932af7a680955ba5",
+    "planner-install/rmul_c072_planner/lib/libc072_navigation_plugins.so": "f67d62489751b9585713acc86e0eba3bfcf6958ec7cd911e008bde544f31dd58",
+    "planner-install/sensor_scan_generation/lib/libsensor_scan_generation.so": "17ba07b275ddcf7b3ee1b552ab8fb57a68002a2d97605793a01ef89ec4537f20",
+    "source/fastdds_local_64m.xml": "41b883f85949817a31dc3487941c280189b3042170a2b073507ca7f8318072f9",
+    "source/gicp-recovery/CMakeLists.txt": "72ab7de7e5b743598ab2a4dc6229ed91f52aa46e668bb5039f85db1e34681e0c",
+    "source/gicp-recovery/include/small_gicp_relocalization/metric_correspondence.hpp": "4df7502a34c5c43b96fbcbbbde464a165b8951f3b6fd029b629cbc6370bba613",
+    "source/gicp-recovery/include/small_gicp_relocalization/registration_budget.hpp": "6121e348a1807681c1df7d4eb91d50254095ef3a067bbd5a91f95ee7f85f216b",
+    "source/gicp-recovery/include/small_gicp_relocalization/small_gicp_relocalization.hpp": "d3b5145967cb7503d2a07c7b25648c08580fb9b995ca4c9ddba7a3f9606fb17e",
+    "source/gicp-recovery/launch/small_gicp_relocalization_launch.py": "670dc69cd1d478fc37b20527519d8fcbccc5a1091e4f9a29896fe80a7da4b07e",
+    "source/gicp-recovery/package.xml": "a90dda8c498e08dbc62430abc1669f4c0f2ce5af3a248c5c63a751a0aab40949",
+    "source/gicp-recovery/src/small_gicp_relocalization.cpp": "58c114f3c28d792349d1f31afcf7d6bea81cb2957745663c4a4d59dd3c696bdf",
+    "source/nav2_velocity_smoother/CMakeLists.txt": "234d4190fbd7a624fad57aa96f12dc0f0c641ffd372b95209f1b388fe3dee875",
+    "source/nav2_velocity_smoother/LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "source/nav2_velocity_smoother/include/nav2_velocity_smoother/velocity_smoother.hpp": "c01bfeacaaf297ec1f073a2e52d26532c0c950e4bf47f4db1d1b23a29bee4c70",
+    "source/nav2_velocity_smoother/package.xml": "91c33d28154f13ae22e0e7c4e4f4eaf44a01402377922903daed9afbdbc13439",
+    "source/nav2_velocity_smoother/src/main.cpp": "1e6ac714f19ca1bdf157eda45209cfa2fe0dad1e429df50b033c671cfbe79240",
+    "source/nav2_velocity_smoother/src/velocity_smoother.cpp": "34697329f4f8c5931bf5611e2802fe67808e771547ef27c29cbb698487cb2d4d",
+    "source/recovery-supervisor/supervisor.py": "ab1751a3f4aaaaee9da6aec384e9307cbb67286eb0c0f9bc8d3f8d5e82500b28",
+    "source/rmul_c072_planner/CMakeLists.txt": "e69474befb77a487237fa2cc4fc614b80cc7e044f3f23343a525c57df65fbd3e",
+    "source/rmul_c072_planner/critics.xml": "6c352cae9ad36df7253e377f851540a37da989aa50f10f255128785ba971008f",
+    "source/rmul_c072_planner/msg/ObservedObstacle.msg": "c7987220aeaa8f78219eacbdd3be82f4f76f7a5875f4a48830dc56d752f10a12",
+    "source/rmul_c072_planner/msg/ObservedObstacles.msg": "64af2caddfc40d17f2068f31ff9aed1ecebf6f3bb984e2af9f3c1fcc561aef61",
+    "source/rmul_c072_planner/package.xml": "5f0de9b75e413884fce2f24a99159861ab9311382aa7efe0e72652057c1fb959",
+    "source/rmul_c072_planner/plugins.xml": "43911634b777a28e9da10c17b4a050b19b0af5de593486b101fa8e668e5cae15",
+    "source/rmul_c072_planner/src/inflation_aware_controller.cpp": "fd99b8ade51a5c603f4662d6cffa6a05857176c362fd4533853ac6cf63825c01",
+    "source/rmul_c072_planner/src/inflation_escape.hpp": "23fb7a24e8db3a62e1de03ab2041c3b083f9b71e763023d5eaae9bafd06e0029",
+    "source/rmul_c072_planner/src/observed_motion.hpp": "3a34d57231f3915f8cbc9f1371f6aa2a2bc67282a4a3fd40a17c2e7d78d1135c",
+    "source/rmul_c072_planner/src/observed_motion_critic.cpp": "3ed3406ad3cda18b04de570b0cc15c0aee440372316fdd11297e0da035c42d14",
+    "source/rmul_c072_planner/src/path_progress_critic.cpp": "76bbc1cb7005223c64b09d996b67bd3fce53bee7eab9be07b21d117072123b68",
+    "source/rmul_c072_planner/src/reserve_navfn.cpp": "8e954682d5a16c73ca139097c4a090ba8a808a275c80b476449735650f51e772",
+    "source/rmul_c072_planner/src/swept_clearance_critic.cpp": "21c7f842cfd19c8387cb58e2741d3b3c53a0d5378c2b22dbc925f780928b9fae",
+    "source/rmul_c072_planner/src/terminal_goal_critic.cpp": "cbcc7d003fd6322bd05686f705fa35bc9977d8d18e22bd3b07d70c4f12cd8dde",
+    "source/rmul_c072_planner/src/trajectory_timing.hpp": "aa405df716ca7a6fe1b3f82054f6c993f9c6dcac4e6b32aaeb7e799ebead8f2d",
+    "source/sensor_scan_generation/CMakeLists.txt": "84f841df71da8404c9aee88ba0af523def8a2b4bda09e41b03b7de8b79cc05a3",
+    "source/sensor_scan_generation/LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "source/sensor_scan_generation/include/sensor_scan_generation/sensor_scan_generation.hpp": "80116ba4721466465d5c66eadc558d98d96a4d0fd21a281806e9e7132fb13c76",
+    "source/sensor_scan_generation/launch/sensor_scan_generation.launch.py": "7bc95244d703979cfcb8c9737eb6447d22f6ff60b37fa1fb9e73c5ec4ca9a6d5",
+    "source/sensor_scan_generation/package.xml": "fd732c9e2d1f8fb0576a5c773754ff78efc4366c4feefbbe3cce497be6edfb65",
+    "source/sensor_scan_generation/src/sensor_scan_generation.cpp": "2636d5407bd354960fd293c3b527eeb1997e0c0566dcd9fd722d4974caf2f5b4",
+    "source/view/mid_odin_view_runtime.py": "de981a501973cc1b12490d875f8275f8fd6924d0e868ab014b034d465b129bae"
+  },
+  "standard_round": {
+    "fixed-left": [
+      {
+        "case": "left-far-01",
+        "status": "passed",
+        "actions": {
+          "preposition": {
+            "accepted": true,
+            "fixture_passed": true,
+            "ros_status": 4,
+            "truth_error_m": 0.05050901719077678,
+            "strict_one_second_stop_passed": true,
+            "stable_stop_confirmed": true
+          },
+          "goal": {
+            "accepted": true,
+            "fixture_passed": true,
+            "ros_status": 4,
+            "truth_error_m": 0.07872013538211411,
+            "strict_one_second_stop_passed": true,
+            "stable_stop_confirmed": true
+          }
+        },
+        "contacts": 0,
+        "minimum_gap_m": 0.15683113252618508,
+        "goal_robot_speed_peak_mps": null,
+        "configuration_checks": {
+          "original_robot_sdf": true,
+          "c072_3hz_tree_with_map_refresh": true,
+          "configured_behavior_tree": true,
+          "c072_base_obstacle_04": true,
+          "c072_local_clearance_05": true,
+          "global_plugin": true,
+          "preferred_static_route": true,
+          "controller_speed": true,
+          "smoother_speed": true,
+          "velocity_sampling": true,
+          "goal_checker": true,
+          "local_prediction": true,
+          "swept_clearance": true,
+          "controlled_recovery": true,
+          "smoother_planar_speed": true,
+          "bounded_tracking_correspondence": true,
+          "recovery_correspondence_distance": true,
+          "stationary_path_progress": true
+        },
+        "params_match": true,
+        "process_remaining": []
+      },
+      {
+        "case": "left-far-02",
+        "status": "passed",
+        "actions": {
+          "preposition": {
+            "accepted": true,
+            "fixture_passed": true,
+            "ros_status": 4,
+            "truth_error_m": 0.052184648702386024,
+            "strict_one_second_stop_passed": true,
+            "stable_stop_confirmed": true
+          },
+          "goal": {
+            "accepted": true,
+            "fixture_passed": true,
+            "ros_status": 4,
+            "truth_error_m": 0.07051108143331057,
+            "strict_one_second_stop_passed": true,
+            "stable_stop_confirmed": true
+          }
+        },
+        "contacts": 0,
+        "minimum_gap_m": 0.16340615089574564,
+        "goal_robot_speed_peak_mps": null,
+        "configuration_checks": {
+          "original_robot_sdf": true,
+          "c072_3hz_tree_with_map_refresh": true,
+          "configured_behavior_tree": true,
+          "c072_base_obstacle_04": true,
+          "c072_local_clearance_05": true,
+          "global_plugin": true,
+          "preferred_static_route": true,
+          "controller_speed": true,
+          "smoother_speed": true,
+          "velocity_sampling": true,
+          "goal_checker": true,
+          "local_prediction": true,
+          "swept_clearance": true,
+          "controlled_recovery": true,
+          "smoother_planar_speed": true,
+          "bounded_tracking_correspondence": true,
+          "recovery_correspondence_distance": true,
+          "stationary_path_progress": true
+        },
+        "params_match": true,
+        "process_remaining": []
+      },
+      {
+        "case": "left-far-03",
+        "status": "passed",
+        "actions": {
+          "preposition": {
+            "accepted": true,
+            "fixture_passed": true,
+            "ros_status": 4,
+            "truth_error_m": 0.06219359010404603,
+            "strict_one_second_stop_passed": true,
+            "stable_stop_confirmed": true
+          },
+          "goal": {
+            "accepted": true,
+            "fixture_passed": true,
+            "ros_status": 4,
+            "truth_error_m": 0.07499474404435068,
+            "strict_one_second_stop_passed": true,
+            "stable_stop_confirmed": true
+          }
+        },
+        "contacts": 0,
+        "minimum_gap_m": 0.14467351771301828,
+        "goal_robot_speed_peak_mps": null,
+        "configuration_checks": {
+          "original_robot_sdf": true,
+          "c072_3hz_tree_with_map_refresh": true,
+          "configured_behavior_tree": true,
+          "c072_base_obstacle_04": true,
+          "c072_local_clearance_05": true,
+          "global_plugin": true,
+          "preferred_static_route": true,
+          "controller_speed": true,
+          "smoother_speed": true,
+          "velocity_sampling": true,
+          "goal_checker": true,
+          "local_prediction": true,
+          "swept_clearance": true,
+          "controlled_recovery": true,
+          "smoother_planar_speed": true,
+          "bounded_tracking_correspondence": true,
+          "recovery_correspondence_distance": true,
+          "stationary_path_progress": true
+        },
+        "params_match": true,
+        "process_remaining": []
+      },
+      {
+        "case": "left-near-01",
+        "status": "passed",
+        "actions": {
+          "preposition": {
+            "accepted": true,
+            "fixture_passed": true,
+            "ros_status": 4,
+            "truth_error_m": 0.06635863869946937,
+            "strict_one_second_stop_passed": true,
+            "stable_stop_confirmed": true
+          },
+          "goal": {
+            "accepted": true,
+            "fixture_passed": true,
+            "ros_status": 4,
+            "truth_error_m": 0.0782500611282281,
+            "strict_one_second_stop_passed": true,
+            "stable_stop_confirmed": true
+          }
+        },
+        "contacts": 0,
+        "minimum_gap_m": 0.16183511086806635,
+        "goal_robot_speed_peak_mps": null,
+        "configuration_checks": {
+          "original_robot_sdf": true,
+          "c072_3hz_tree_with_map_refresh": true,
+          "configured_behavior_tree": true,
+          "c072_base_obstacle_04": true,
+          "c072_local_clearance_05": true,
+          "global_plugin": true,
+          "preferred_static_route": true,
+          "controller_speed": true,
+          "smoother_speed": true,
+          "velocity_sampling": true,
+          "goal_checker": true,
+          "local_prediction": true,
+          "swept_clearance": true,
+          "controlled_recovery": true,
+          "smoother_planar_speed": true,
+          "bounded_tracking_correspondence": true,
+          "recovery_correspondence_distance": true,
+          "stationary_path_progress": true
+        },
+        "params_match": true,
+        "process_remaining": []
+      },
+      {
+        "case": "left-near-02",
+        "status": "passed",
+        "actions": {
+          "preposition": {
+            "accepted": true,
+            "fixture_passed": true,
+            "ros_status": 4,
+            "truth_error_m": 0.07271635193438304,
+            "strict_one_second_stop_passed": true,
+            "stable_stop_confirmed": true
+          },
+          "goal": {
+            "accepted": true,
+            "fixture_passed": true,
+            "ros_status": 4,
+            "truth_error_m": 0.07745843712502147,
+            "strict_one_second_stop_passed": true,
+            "stable_stop_confirmed": true
+          }
+        },
+        "contacts": 0,
+        "minimum_gap_m": 0.16258351455175735,
+        "goal_robot_speed_peak_mps": null,
+        "configuration_checks": {
+          "original_robot_sdf": true,
+          "c072_3hz_tree_with_map_refresh": true,
+          "configured_behavior_tree": true,
+          "c072_base_obstacle_04": true,
+          "c072_local_clearance_05": true,
+          "global_plugin": true,
+          "preferred_static_route": true,
+          "controller_speed": true,
+          "smoother_speed": true,
+          "velocity_sampling": true,
+          "goal_checker": true,
+          "local_prediction": true,
+          "swept_clearance": true,
+          "controlled_recovery": true,
+          "smoother_planar_speed": true,
+          "bounded_tracking_correspondence": true,
+          "recovery_correspondence_distance": true,
+          "stationary_path_progress": true
+        },
+        "params_match": true,
+        "process_remaining": []
+      },
+      {
+        "case": "left-near-03",
+        "status": "passed",
+        "actions": {
+          "preposition": {
+            "accepted": true,
+            "fixture_passed": true,
+            "ros_status": 4,
+            "truth_error_m": 0.06954790135409297,
+            "strict_one_second_stop_passed": true,
+            "stable_stop_confirmed": true
+          },
+          "goal": {
+            "accepted": true,
+            "fixture_passed": true,
+            "ros_status": 4,
+            "truth_error_m": 0.09206051265278452,
+            "strict_one_second_stop_passed": true,
+            "stable_stop_confirmed": true
+          }
+        },
+        "contacts": 0,
+        "minimum_gap_m": 0.1589515074387311,
+        "goal_robot_speed_peak_mps": null,
+        "configuration_checks": {
+          "original_robot_sdf": true,
+          "c072_3hz_tree_with_map_refresh": true,
+          "configured_behavior_tree": true,
+          "c072_base_obstacle_04": true,
+          "c072_local_clearance_05": true,
+          "global_plugin": true,
+          "preferred_static_route": true,
+          "controller_speed": true,
+          "smoother_speed": true,
+          "velocity_sampling": true,
+          "goal_checker": true,
+          "local_prediction": true,
+          "swept_clearance": true,
+          "controlled_recovery": true,
+          "smoother_planar_speed": true,
+          "bounded_tracking_correspondence": true,
+          "recovery_correspondence_distance": true,
+          "stationary_path_progress": true
+        },
+        "params_match": true,
+        "process_remaining": []
+      }
+    ],
+    "fixed-reverse-right": [
+      {
+        "case": "left-reverse-01",
+        "status": "passed",
+        "actions": {
+          "preposition": {
+            "accepted": true,
+            "fixture_passed": true,
+            "ros_status": 4,
+            "truth_error_m": 0.07387717307119637,
+            "strict_one_second_stop_passed": true,
+            "stable_stop_confirmed": true
+          },
+          "goal": {
+            "accepted": true,
+            "fixture_passed": true,
+            "ros_status": 4,
+            "truth_error_m": 0.07959599977983356,
+            "strict_one_second_stop_passed": true,
+            "stable_stop_confirmed": true
+          }
+        },
+        "contacts": 0,
+        "minimum_gap_m": 0.1576805866513853,
+        "goal_robot_speed_peak_mps": null,
+        "configuration_checks": {
+          "original_robot_sdf": true,
+          "c072_3hz_tree_with_map_refresh": true,
+          "configured_behavior_tree": true,
+          "c072_base_obstacle_04": true,
+          "c072_local_clearance_05": true,
+          "global_plugin": true,
+          "preferred_static_route": true,
+          "controller_speed": true,
+          "smoother_speed": true,
+          "velocity_sampling": true,
+          "goal_checker": true,
+          "local_prediction": true,
+          "swept_clearance": true,
+          "controlled_recovery": true,
+          "smoother_planar_speed": true,
+          "bounded_tracking_correspondence": true,
+          "recovery_correspondence_distance": true,
+          "stationary_path_progress": true
+        },
+        "params_match": true,
+        "process_remaining": []
+      },
+      {
+        "case": "left-reverse-02",
+        "status": "passed",
+        "actions": {
+          "preposition": {
+            "accepted": true,
+            "fixture_passed": true,
+            "ros_status": 4,
+            "truth_error_m": 0.07332543008756942,
+            "strict_one_second_stop_passed": true,
+            "stable_stop_confirmed": true
+          },
+          "goal": {
+            "accepted": true,
+            "fixture_passed": true,
+            "ros_status": 4,
+            "truth_error_m": 0.08008749591559211,
+            "strict_one_second_stop_passed": true,
+            "stable_stop_confirmed": true
+          }
+        },
+        "contacts": 0,
+        "minimum_gap_m": 0.16781653088670812,
+        "goal_robot_speed_peak_mps": null,
+        "configuration_checks": {
+          "original_robot_sdf": true,
+          "c072_3hz_tree_with_map_refresh": true,
+          "configured_behavior_tree": true,
+          "c072_base_obstacle_04": true,
+          "c072_local_clearance_05": true,
+          "global_plugin": true,
+          "preferred_static_route": true,
+          "controller_speed": true,
+          "smoother_speed": true,
+          "velocity_sampling": true,
+          "goal_checker": true,
+          "local_prediction": true,
+          "swept_clearance": true,
+          "controlled_recovery": true,
+          "smoother_planar_speed": true,
+          "bounded_tracking_correspondence": true,
+          "recovery_correspondence_distance": true,
+          "stationary_path_progress": true
+        },
+        "params_match": true,
+        "process_remaining": []
+      },
+      {
+        "case": "left-reverse-03",
+        "status": "passed",
+        "actions": {
+          "preposition": {
+            "accepted": true,
+            "fixture_passed": true,
+            "ros_status": 4,
+            "truth_error_m": 0.07372704196411708,
+            "strict_one_second_stop_passed": true,
+            "stable_stop_confirmed": true
+          },
+          "goal": {
+            "accepted": true,
+            "fixture_passed": true,
+            "ros_status": 4,
+            "truth_error_m": 0.07484612207850917,
+            "strict_one_second_stop_passed": true,
+            "stable_stop_confirmed": true
+          }
+        },
+        "contacts": 0,
+        "minimum_gap_m": 0.14071787833091065,
+        "goal_robot_speed_peak_mps": null,
+        "configuration_checks": {
+          "original_robot_sdf": true,
+          "c072_3hz_tree_with_map_refresh": true,
+          "configured_behavior_tree": true,
+          "c072_base_obstacle_04": true,
+          "c072_local_clearance_05": true,
+          "global_plugin": true,
+          "preferred_static_route": true,
+          "controller_speed": true,
+          "smoother_speed": true,
+          "velocity_sampling": true,
+          "goal_checker": true,
+          "local_prediction": true,
+          "swept_clearance": true,
+          "controlled_recovery": true,
+          "smoother_planar_speed": true,
+          "bounded_tracking_correspondence": true,
+          "recovery_correspondence_distance": true,
+          "stationary_path_progress": true
+        },
+        "params_match": true,
+        "process_remaining": []
+      },
+      {
+        "case": "right-control-01",
+        "status": "passed",
+        "actions": {
+          "preposition": {
+            "accepted": true,
+            "fixture_passed": true,
+            "ros_status": 4,
+            "truth_error_m": 0.07643859000418385,
+            "strict_one_second_stop_passed": true,
+            "stable_stop_confirmed": true
+          },
+          "goal": {
+            "accepted": true,
+            "fixture_passed": true,
+            "ros_status": 4,
+            "truth_error_m": 0.0731231908875903,
+            "strict_one_second_stop_passed": true,
+            "stable_stop_confirmed": true
+          }
+        },
+        "contacts": 0,
+        "minimum_gap_m": 0.1401606396900641,
+        "goal_robot_speed_peak_mps": null,
+        "configuration_checks": {
+          "original_robot_sdf": true,
+          "c072_3hz_tree_with_map_refresh": true,
+          "configured_behavior_tree": true,
+          "c072_base_obstacle_04": true,
+          "c072_local_clearance_05": true,
+          "global_plugin": true,
+          "preferred_static_route": true,
+          "controller_speed": true,
+          "smoother_speed": true,
+          "velocity_sampling": true,
+          "goal_checker": true,
+          "local_prediction": true,
+          "swept_clearance": true,
+          "controlled_recovery": true,
+          "smoother_planar_speed": true,
+          "bounded_tracking_correspondence": true,
+          "recovery_correspondence_distance": true,
+          "stationary_path_progress": true
+        },
+        "params_match": true,
+        "process_remaining": []
+      },
+      {
+        "case": "right-control-02",
+        "status": "passed",
+        "actions": {
+          "preposition": {
+            "accepted": true,
+            "fixture_passed": true,
+            "ros_status": 4,
+            "truth_error_m": 0.08492875600364691,
+            "strict_one_second_stop_passed": true,
+            "stable_stop_confirmed": true
+          },
+          "goal": {
+            "accepted": true,
+            "fixture_passed": true,
+            "ros_status": 4,
+            "truth_error_m": 0.07253990211933908,
+            "strict_one_second_stop_passed": true,
+            "stable_stop_confirmed": true
+          }
+        },
+        "contacts": 0,
+        "minimum_gap_m": 0.15010459373676982,
+        "goal_robot_speed_peak_mps": null,
+        "configuration_checks": {
+          "original_robot_sdf": true,
+          "c072_3hz_tree_with_map_refresh": true,
+          "configured_behavior_tree": true,
+          "c072_base_obstacle_04": true,
+          "c072_local_clearance_05": true,
+          "global_plugin": true,
+          "preferred_static_route": true,
+          "controller_speed": true,
+          "smoother_speed": true,
+          "velocity_sampling": true,
+          "goal_checker": true,
+          "local_prediction": true,
+          "swept_clearance": true,
+          "controlled_recovery": true,
+          "smoother_planar_speed": true,
+          "bounded_tracking_correspondence": true,
+          "recovery_correspondence_distance": true,
+          "stationary_path_progress": true
+        },
+        "params_match": true,
+        "process_remaining": []
+      },
+      {
+        "case": "right-control-03",
+        "status": "passed",
+        "actions": {
+          "preposition": {
+            "accepted": true,
+            "fixture_passed": true,
+            "ros_status": 4,
+            "truth_error_m": 0.0702419576294394,
+            "strict_one_second_stop_passed": true,
+            "stable_stop_confirmed": true
+          },
+          "goal": {
+            "accepted": true,
+            "fixture_passed": true,
+            "ros_status": 4,
+            "truth_error_m": 0.08153785136275395,
+            "strict_one_second_stop_passed": true,
+            "stable_stop_confirmed": true
+          }
+        },
+        "contacts": 0,
+        "minimum_gap_m": 0.16986076333486544,
+        "goal_robot_speed_peak_mps": null,
+        "configuration_checks": {
+          "original_robot_sdf": true,
+          "c072_3hz_tree_with_map_refresh": true,
+          "configured_behavior_tree": true,
+          "c072_base_obstacle_04": true,
+          "c072_local_clearance_05": true,
+          "global_plugin": true,
+          "preferred_static_route": true,
+          "controller_speed": true,
+          "smoother_speed": true,
+          "velocity_sampling": true,
+          "goal_checker": true,
+          "local_prediction": true,
+          "swept_clearance": true,
+          "controlled_recovery": true,
+          "smoother_planar_speed": true,
+          "bounded_tracking_correspondence": true,
+          "recovery_correspondence_distance": true,
+          "stationary_path_progress": true
+        },
+        "params_match": true,
+        "process_remaining": []
+      }
+    ],
+    "moving-standard": [
+      {
+        "case": "headon-01",
+        "status": "passed",
+        "actions": {
+          "preposition": {
+            "accepted": true,
+            "fixture_passed": true,
+            "ros_status": 4,
+            "truth_error_m": 0.07861995910780473,
+            "strict_one_second_stop_passed": true,
+            "stable_stop_confirmed": true
+          },
+          "goal": {
+            "accepted": true,
+            "fixture_passed": true,
+            "ros_status": 4,
+            "truth_error_m": 0.06787811518293368,
+            "strict_one_second_stop_passed": true,
+            "stable_stop_confirmed": true
+          }
+        },
+        "contacts": 0,
+        "minimum_gap_m": 0.17676498990075706,
+        "goal_robot_speed_peak_mps": 1.4674139539085043,
+        "configuration_checks": {
+          "original_robot_sdf": true,
+          "c072_3hz_tree_with_map_refresh": true,
+          "configured_behavior_tree": true,
+          "c072_base_obstacle_04": true,
+          "c072_local_clearance_05": true,
+          "global_plugin": true,
+          "preferred_static_route": true,
+          "controller_speed": true,
+          "smoother_speed": true,
+          "velocity_sampling": true,
+          "goal_checker": true,
+          "local_prediction": true,
+          "swept_clearance": true,
+          "controlled_recovery": true,
+          "smoother_planar_speed": true,
+          "bounded_tracking_correspondence": true,
+          "recovery_correspondence_distance": true,
+          "stationary_path_progress": true
+        },
+        "params_match": true,
+        "process_remaining": []
+      },
+      {
+        "case": "headon-02",
+        "status": "passed",
+        "actions": {
+          "preposition": {
+            "accepted": true,
+            "fixture_passed": true,
+            "ros_status": 4,
+            "truth_error_m": 0.07384429157271441,
+            "strict_one_second_stop_passed": true,
+            "stable_stop_confirmed": true
+          },
+          "goal": {
+            "accepted": true,
+            "fixture_passed": true,
+            "ros_status": 4,
+            "truth_error_m": 0.06703058773439108,
+            "strict_one_second_stop_passed": true,
+            "stable_stop_confirmed": true
+          }
+        },
+        "contacts": 0,
+        "minimum_gap_m": 0.14100292531907566,
+        "goal_robot_speed_peak_mps": 1.579984045816022,
+        "configuration_checks": {
+          "original_robot_sdf": true,
+          "c072_3hz_tree_with_map_refresh": true,
+          "configured_behavior_tree": true,
+          "c072_base_obstacle_04": true,
+          "c072_local_clearance_05": true,
+          "global_plugin": true,
+          "preferred_static_route": true,
+          "controller_speed": true,
+          "smoother_speed": true,
+          "velocity_sampling": true,
+          "goal_checker": true,
+          "local_prediction": true,
+          "swept_clearance": true,
+          "controlled_recovery": true,
+          "smoother_planar_speed": true,
+          "bounded_tracking_correspondence": true,
+          "recovery_correspondence_distance": true,
+          "stationary_path_progress": true
+        },
+        "params_match": true,
+        "process_remaining": []
+      },
+      {
+        "case": "headon-03",
+        "status": "passed",
+        "actions": {
+          "preposition": {
+            "accepted": true,
+            "fixture_passed": true,
+            "ros_status": 4,
+            "truth_error_m": 0.07487814016062057,
+            "strict_one_second_stop_passed": true,
+            "stable_stop_confirmed": true
+          },
+          "goal": {
+            "accepted": true,
+            "fixture_passed": true,
+            "ros_status": 4,
+            "truth_error_m": 0.051051539648583964,
+            "strict_one_second_stop_passed": true,
+            "stable_stop_confirmed": true
+          }
+        },
+        "contacts": 0,
+        "minimum_gap_m": 0.08444290111593733,
+        "goal_robot_speed_peak_mps": 1.666454470086457,
+        "configuration_checks": {
+          "original_robot_sdf": true,
+          "c072_3hz_tree_with_map_refresh": true,
+          "configured_behavior_tree": true,
+          "c072_base_obstacle_04": true,
+          "c072_local_clearance_05": true,
+          "global_plugin": true,
+          "preferred_static_route": true,
+          "controller_speed": true,
+          "smoother_speed": true,
+          "velocity_sampling": true,
+          "goal_checker": true,
+          "local_prediction": true,
+          "swept_clearance": true,
+          "controlled_recovery": true,
+          "smoother_planar_speed": true,
+          "bounded_tracking_correspondence": true,
+          "recovery_correspondence_distance": true,
+          "stationary_path_progress": true
+        },
+        "params_match": true,
+        "process_remaining": []
+      }
+    ]
+  },
+  "long_routes": [
+    {
+      "leg": "southwest-to-southeast",
+      "start": [
+        0.0999859456911425,
+        -5.9500000001603475
+      ],
+      "goal": [
+        9.55,
+        -5.8
+      ],
+      "end": [
+        9.50687567861544,
+        -5.750296720378493
+      ],
+      "direct_m": 9.451204453755249,
+      "travelled_m": 15.04201736607488,
+      "start_sim": 23.657,
+      "end_sim": 66.589,
+      "samples": 40894,
+      "goal_status": 4,
+      "error": null,
+      "stop_verified": true,
+      "goal_error_m": 0.06580367087034368,
+      "truth_peak_mps": 1.9565191073898796,
+      "peak_at_sim": 59.994,
+      "peak_at_xy": [
+        9.221042166311888,
+        -3.1432483374398545
+      ],
+      "controller_peak_mps": 2.0000000000000013,
+      "output_peak_mps": 1.9548058291822885,
+      "contacts": {
+        "ground": 131302,
+        "wall": 0,
+        "box": 0,
+        "elevated": 0,
+        "unknown": 0
+      }
+    },
+    {
+      "leg": "east-wall-straight",
+      "start": [
+        9.50687567861544,
+        -5.750296720378493
+      ],
+      "goal": [
+        9.55,
+        0.4
+      ],
+      "end": [
+        9.509522694594889,
+        0.2732207020672379
+      ],
+      "direct_m": 6.150447906924612,
+      "travelled_m": 6.038245278173314,
+      "start_sim": 66.589,
+      "end_sim": 76.207,
+      "samples": 9095,
+      "goal_status": 4,
+      "error": null,
+      "stop_verified": true,
+      "goal_error_m": 0.13308419379168498,
+      "truth_peak_mps": 1.9985152136086335,
+      "peak_at_sim": 69.222,
+      "peak_at_xy": [
+        9.443019306645787,
+        -3.7995414438612065
+      ],
+      "controller_peak_mps": 2.0000000000000018,
+      "output_peak_mps": 2.0,
+      "contacts": {
+        "ground": 29222,
+        "wall": 0,
+        "box": 0,
+        "elevated": 0,
+        "unknown": 0
+      }
+    },
+    {
+      "leg": "northeast-to-southwest",
+      "start": [
+        9.509522694594889,
+        0.2732207020672379
+      ],
+      "goal": [
+        0.12,
+        -5.75
+      ],
+      "end": [
+        0.17162561111412256,
+        -5.7035954920504475
+      ],
+      "direct_m": 11.155371982059757,
+      "travelled_m": 13.755395336576322,
+      "start_sim": 76.207,
+      "end_sim": 111.97,
+      "samples": 34000,
+      "goal_status": 4,
+      "error": null,
+      "stop_verified": true,
+      "goal_error_m": 0.06941600738263977,
+      "truth_peak_mps": 1.9822451181863445,
+      "peak_at_sim": 90.407,
+      "peak_at_xy": [
+        4.997355507912593,
+        -3.1867827836678435
+      ],
+      "controller_peak_mps": 2.0,
+      "output_peak_mps": 1.9950747771143487,
+      "contacts": {
+        "ground": 109261,
+        "wall": 0,
+        "box": 0,
+        "elevated": 0,
+        "unknown": 0
+      }
+    },
+    {
+      "leg": "south-wall",
+      "start": [
+        0.17162561111412256,
+        -5.7035954920504475
+      ],
+      "goal": [
+        4.8,
+        -5.9
+      ],
+      "end": [
+        4.741633101492984,
+        -5.950655751568423
+      ],
+      "direct_m": 4.632539715365387,
+      "travelled_m": 4.716708196193907,
+      "start_sim": 111.97,
+      "end_sim": 128.457,
+      "samples": 15691,
+      "goal_status": 4,
+      "error": null,
+      "stop_verified": true,
+      "goal_error_m": 0.07728324532710841,
+      "truth_peak_mps": 1.5036777348509809,
+      "peak_at_sim": 114.289,
+      "peak_at_xy": [
+        0.843031934637438,
+        -5.839231539322045
+      ],
+      "controller_peak_mps": 1.9792828126820132,
+      "output_peak_mps": 1.5495962223828892,
+      "contacts": {
+        "ground": 50210,
+        "wall": 0,
+        "box": 0,
+        "elevated": 0,
+        "unknown": 0
+      }
+    },
+    {
+      "leg": "central-straight",
+      "start": [
+        4.741633101492984,
+        -5.950655751568423
+      ],
+      "goal": [
+        4.8,
+        0.4
+      ],
+      "end": [
+        4.753378947170788,
+        0.30562723644022194
+      ],
+      "direct_m": 6.350923961894869,
+      "travelled_m": 6.26896576276048,
+      "start_sim": 128.457,
+      "end_sim": 140.911,
+      "samples": 11797,
+      "goal_status": 4,
+      "error": null,
+      "stop_verified": true,
+      "goal_error_m": 0.10526034898675744,
+      "truth_peak_mps": 2.0107144298885284,
+      "peak_at_sim": 133.685,
+      "peak_at_xy": [
+        4.67547542893215,
+        -2.8231671304187205
+      ],
+      "controller_peak_mps": 2.0000000000000018,
+      "output_peak_mps": 2.0,
+      "contacts": {
+        "ground": 35791,
+        "wall": 0,
+        "box": 0,
+        "elevated": 0,
+        "unknown": 0
+      }
+    },
+    {
+      "leg": "center-to-southeast",
+      "start": [
+        4.753378947170788,
+        0.30562723644022194
+      ],
+      "goal": [
+        9.25,
+        -5.65
+      ],
+      "end": [
+        9.20672365446031,
+        -5.591246552204445
+      ],
+      "direct_m": 7.4625127585938165,
+      "travelled_m": 8.85770616392872,
+      "start_sim": 140.911,
+      "end_sim": 168.0,
+      "samples": 25845,
+      "goal_status": 4,
+      "error": null,
+      "stop_verified": true,
+      "goal_error_m": 0.07297129374716957,
+      "truth_peak_mps": 1.9425188162169322,
+      "peak_at_sim": 161.599,
+      "peak_at_xy": [
+        9.014172097674034,
+        -2.887927089683043
+      ],
+      "controller_peak_mps": 1.9474409879798078,
+      "output_peak_mps": 1.9474409879798078,
+      "contacts": {
+        "ground": 79635,
+        "wall": 0,
+        "box": 0,
+        "elevated": 0,
+        "unknown": 0
+      }
+    },
+    {
+      "leg": "southeast-to-west",
+      "start": [
+        9.20672365446031,
+        -5.591246552204445
+      ],
+      "goal": [
+        0.1,
+        -0.45
+      ],
+      "end": [
+        0.14907022989551688,
+        -0.500234942898635
+      ],
+      "direct_m": 10.457764188834105,
+      "travelled_m": 19.265869063140244,
+      "start_sim": 168.0,
+      "end_sim": 218.742,
+      "samples": 48253,
+      "goal_status": 4,
+      "error": null,
+      "stop_verified": true,
+      "goal_error_m": 0.07022419063277267,
+      "truth_peak_mps": 1.9202547598482753,
+      "peak_at_sim": 187.037,
+      "peak_at_xy": [
+        5.310357861212565,
+        -2.460849337318858
+      ],
+      "controller_peak_mps": 2.0000000000000013,
+      "output_peak_mps": 1.9876882704656569,
+      "contacts": {
+        "ground": 150856,
+        "wall": 0,
+        "box": 0,
+        "elevated": 0,
+        "unknown": 0
+      }
+    }
+  ],
+  "inflation_escapes": [
+    [
+      {
+        "leg": "escape_and_navigate",
+        "target": [
+          5.198,
+          -4.553
+        ],
+        "sim_seconds": 9.181000000000001,
+        "goal_error_m": 0.07299569648494766,
+        "stop_verified": true,
+        "truth_peak_mps": 1.5535837281323504,
+        "command_peak_mps": 1.975854245636555,
+        "output_peak_mps": 1.5993567572435397,
+        "minimum_raw_clearance_m": 0.4349687591798048,
+        "start_cost": 253,
+        "exit_cost": 171,
+        "escape_controller_peak_mps": 0.20000000000000004
+      },
+      {
+        "leg": "reject_deep_goal",
+        "status": "rejected",
+        "no_motion": true
+      },
+      {
+        "leg": "second_valid_goal",
+        "target": [
+          5.0,
+          -0.2
+        ],
+        "sim_seconds": 8.623000000000001,
+        "goal_error_m": 0.07484367471175808,
+        "stop_verified": true,
+        "truth_peak_mps": 1.983315822695332,
+        "command_peak_mps": 2.000000000000002,
+        "output_peak_mps": 2.0,
+        "minimum_raw_clearance_m": 0.65
+      }
+    ],
+    [
+      {
+        "leg": "escape_and_navigate",
+        "target": [
+          5.198,
+          -4.553
+        ],
+        "sim_seconds": 8.923000000000002,
+        "goal_error_m": 0.07108269831812064,
+        "stop_verified": true,
+        "truth_peak_mps": 1.5487114784315101,
+        "command_peak_mps": 1.975854245636555,
+        "output_peak_mps": 1.59537713507161,
+        "minimum_raw_clearance_m": 0.4380120425599392,
+        "start_cost": 253,
+        "exit_cost": 171,
+        "escape_controller_peak_mps": 0.20000000000000004
+      },
+      {
+        "leg": "reject_deep_goal",
+        "status": "rejected",
+        "no_motion": true
+      },
+      {
+        "leg": "second_valid_goal",
+        "target": [
+          5.0,
+          -0.2
+        ],
+        "sim_seconds": 9.047000000000004,
+        "goal_error_m": 0.06940877136881267,
+        "stop_verified": true,
+        "truth_peak_mps": 1.9819935459907958,
+        "command_peak_mps": 2.0000000000000018,
+        "output_peak_mps": 2.0,
+        "minimum_raw_clearance_m": 0.65
+      }
+    ],
+    [
+      {
+        "leg": "escape_and_navigate",
+        "target": [
+          5.198,
+          -4.553
+        ],
+        "sim_seconds": 8.430999999999997,
+        "goal_error_m": 0.07135905890081841,
+        "stop_verified": true,
+        "truth_peak_mps": 1.526029596441999,
+        "command_peak_mps": 1.975854245636555,
+        "output_peak_mps": 1.6012131320205931,
+        "minimum_raw_clearance_m": 0.45106420189416774,
+        "start_cost": 209,
+        "exit_cost": 171,
+        "escape_controller_peak_mps": 0.20000000000000004
+      },
+      {
+        "leg": "reject_deep_goal",
+        "status": "rejected",
+        "no_motion": true
+      },
+      {
+        "leg": "second_valid_goal",
+        "target": [
+          5.0,
+          -0.2
+        ],
+        "sim_seconds": 8.488,
+        "goal_error_m": 0.07071444407962951,
+        "stop_verified": true,
+        "truth_peak_mps": 1.9777336368306797,
+        "command_peak_mps": 2.0000000000000018,
+        "output_peak_mps": 2.0,
+        "minimum_raw_clearance_m": 0.65
+      }
+    ]
+  ],
+  "directed_imu_recovery": [
+    {
+      "case": "left-reverse-01",
+      "status": "passed",
+      "params_sha256": "20dc3786bc14c74911ee4d43c0c9d2652c687a428b4d02cca7dba2dbaafb6788",
+      "process_cleanup": {
+        "initial": [],
+        "remaining": []
+      }
+    },
+    {
+      "case": "left-reverse-02",
+      "status": "passed",
+      "params_sha256": "20dc3786bc14c74911ee4d43c0c9d2652c687a428b4d02cca7dba2dbaafb6788",
+      "process_cleanup": {
+        "initial": [],
+        "remaining": []
+      }
+    },
+    {
+      "case": "left-reverse-03",
+      "status": "passed",
+      "params_sha256": "20dc3786bc14c74911ee4d43c0c9d2652c687a428b4d02cca7dba2dbaafb6788",
+      "process_cleanup": {
+        "initial": [],
+        "remaining": []
+      }
+    }
+  ],
+  "cold_imu_recovery": {
+    "result": "passed",
+    "fault": "[pointlio_mapping-3] [ERROR] [1795336657.863775924] [li_initialization]: IMU_INPUT_FAULT_LATCH previous=3.970000000 current=4.115000000 gap=0.145000000 limit=0.100000; output disabled; restart with stationary initialization",
+    "cold_restart": {
+      "kind": "startup_restart_authorized",
+      "steady": 273675.240122839,
+      "ros": 6.087000000000001,
+      "epoch": 0,
+      "terminal": true,
+      "stationary": true,
+      "trigger": "point_lio_imu_input_fault_before_odometry"
+    },
+    "release": {
+      "kind": "release_verified",
+      "steady": 273690.179601656,
+      "ros": 20.490000000000002,
+      "epoch": 0,
+      "evidence": {
+        "epoch": 0,
+        "steady": 273690.177080239,
+        "ros": 20.490000000000002,
+        "quality_count": 4,
+        "registration_sequence": 4,
+        "last_source": 20.35,
+        "gates": {
+          "healthy": true,
+          "stationary": true,
+          "external": true,
+          "pose": true
+        }
+      }
+    },
+    "log_dir": "20261122-163729-rmul2027-nav"
+  },
+  "runtime_checks": [
+    {
+      "stage": "fixed-left",
+      "case": "left-far-01",
+      "libraries": {
+        "libsmall_gicp_relocalization.so": {
+          "prefix": "/evidence/c072-cold-tracking-full.L87Hac/gicp-install/small_gicp_relocalization/lib",
+          "sha256": "5a7d259f261bde74a7a14010d36ea6193a259a8803b1678b6c1bac17be678300"
+        },
+        "libvelocity_smoother_core.so": {
+          "prefix": "/evidence/c072-cold-tracking-full.L87Hac/planner-install/nav2_velocity_smoother/lib",
+          "sha256": "5674da31415e44706d4a3ddd1a697cacbc30790659f74c1e932af7a680955ba5"
+        },
+        "libc072_navigation_plugins.so": {
+          "prefix": "/evidence/c072-cold-tracking-full.L87Hac/planner-install/rmul_c072_planner/lib",
+          "sha256": "f67d62489751b9585713acc86e0eba3bfcf6958ec7cd911e008bde544f31dd58"
+        },
+        "libsensor_scan_generation.so": {
+          "prefix": "/evidence/c072-cold-tracking-full.L87Hac/planner-install/sensor_scan_generation/lib",
+          "sha256": "17ba07b275ddcf7b3ee1b552ab8fb57a68002a2d97605793a01ef89ec4537f20"
+        }
+      }
+    },
+    {
+      "stage": "fixed-left",
+      "case": "left-far-02",
+      "libraries": {
+        "libsmall_gicp_relocalization.so": {
+          "prefix": "/evidence/c072-cold-tracking-full.L87Hac/gicp-install/small_gicp_relocalization/lib",
+          "sha256": "5a7d259f261bde74a7a14010d36ea6193a259a8803b1678b6c1bac17be678300"
+        },
+        "libvelocity_smoother_core.so": {
+          "prefix": "/evidence/c072-cold-tracking-full.L87Hac/planner-install/nav2_velocity_smoother/lib",
+          "sha256": "5674da31415e44706d4a3ddd1a697cacbc30790659f74c1e932af7a680955ba5"
+        },
+        "libc072_navigation_plugins.so": {
+          "prefix": "/evidence/c072-cold-tracking-full.L87Hac/planner-install/rmul_c072_planner/lib",
+          "sha256": "f67d62489751b9585713acc86e0eba3bfcf6958ec7cd911e008bde544f31dd58"
+        },
+        "libsensor_scan_generation.so": {
+          "prefix": "/evidence/c072-cold-tracking-full.L87Hac/planner-install/sensor_scan_generation/lib",
+          "sha256": "17ba07b275ddcf7b3ee1b552ab8fb57a68002a2d97605793a01ef89ec4537f20"
+        }
+      }
+    },
+    {
+      "stage": "fixed-left",
+      "case": "left-far-03",
+      "libraries": {
+        "libsmall_gicp_relocalization.so": {
+          "prefix": "/evidence/c072-cold-tracking-full.L87Hac/gicp-install/small_gicp_relocalization/lib",
+          "sha256": "5a7d259f261bde74a7a14010d36ea6193a259a8803b1678b6c1bac17be678300"
+        },
+        "libvelocity_smoother_core.so": {
+          "prefix": "/evidence/c072-cold-tracking-full.L87Hac/planner-install/nav2_velocity_smoother/lib",
+          "sha256": "5674da31415e44706d4a3ddd1a697cacbc30790659f74c1e932af7a680955ba5"
+        },
+        "libc072_navigation_plugins.so": {
+          "prefix": "/evidence/c072-cold-tracking-full.L87Hac/planner-install/rmul_c072_planner/lib",
+          "sha256": "f67d62489751b9585713acc86e0eba3bfcf6958ec7cd911e008bde544f31dd58"
+        },
+        "libsensor_scan_generation.so": {
+          "prefix": "/evidence/c072-cold-tracking-full.L87Hac/planner-install/sensor_scan_generation/lib",
+          "sha256": "17ba07b275ddcf7b3ee1b552ab8fb57a68002a2d97605793a01ef89ec4537f20"
+        }
+      }
+    },
+    {
+      "stage": "fixed-left",
+      "case": "left-near-01",
+      "libraries": {
+        "libsmall_gicp_relocalization.so": {
+          "prefix": "/evidence/c072-cold-tracking-full.L87Hac/gicp-install/small_gicp_relocalization/lib",
+          "sha256": "5a7d259f261bde74a7a14010d36ea6193a259a8803b1678b6c1bac17be678300"
+        },
+        "libvelocity_smoother_core.so": {
+          "prefix": "/evidence/c072-cold-tracking-full.L87Hac/planner-install/nav2_velocity_smoother/lib",
+          "sha256": "5674da31415e44706d4a3ddd1a697cacbc30790659f74c1e932af7a680955ba5"
+        },
+        "libc072_navigation_plugins.so": {
+          "prefix": "/evidence/c072-cold-tracking-full.L87Hac/planner-install/rmul_c072_planner/lib",
+          "sha256": "f67d62489751b9585713acc86e0eba3bfcf6958ec7cd911e008bde544f31dd58"
+        },
+        "libsensor_scan_generation.so": {
+          "prefix": "/evidence/c072-cold-tracking-full.L87Hac/planner-install/sensor_scan_generation/lib",
+          "sha256": "17ba07b275ddcf7b3ee1b552ab8fb57a68002a2d97605793a01ef89ec4537f20"
+        }
+      }
+    },
+    {
+      "stage": "fixed-left",
+      "case": "left-near-02",
+      "libraries": {
+        "libsmall_gicp_relocalization.so": {
+          "prefix": "/evidence/c072-cold-tracking-full.L87Hac/gicp-install/small_gicp_relocalization/lib",
+          "sha256": "5a7d259f261bde74a7a14010d36ea6193a259a8803b1678b6c1bac17be678300"
+        },
+        "libvelocity_smoother_core.so": {
+          "prefix": "/evidence/c072-cold-tracking-full.L87Hac/planner-install/nav2_velocity_smoother/lib",
+          "sha256": "5674da31415e44706d4a3ddd1a697cacbc30790659f74c1e932af7a680955ba5"
+        },
+        "libc072_navigation_plugins.so": {
+          "prefix": "/evidence/c072-cold-tracking-full.L87Hac/planner-install/rmul_c072_planner/lib",
+          "sha256": "f67d62489751b9585713acc86e0eba3bfcf6958ec7cd911e008bde544f31dd58"
+        },
+        "libsensor_scan_generation.so": {
+          "prefix": "/evidence/c072-cold-tracking-full.L87Hac/planner-install/sensor_scan_generation/lib",
+          "sha256": "17ba07b275ddcf7b3ee1b552ab8fb57a68002a2d97605793a01ef89ec4537f20"
+        }
+      }
+    },
+    {
+      "stage": "fixed-left",
+      "case": "left-near-03",
+      "libraries": {
+        "libsmall_gicp_relocalization.so": {
+          "prefix": "/evidence/c072-cold-tracking-full.L87Hac/gicp-install/small_gicp_relocalization/lib",
+          "sha256": "5a7d259f261bde74a7a14010d36ea6193a259a8803b1678b6c1bac17be678300"
+        },
+        "libvelocity_smoother_core.so": {
+          "prefix": "/evidence/c072-cold-tracking-full.L87Hac/planner-install/nav2_velocity_smoother/lib",
+          "sha256": "5674da31415e44706d4a3ddd1a697cacbc30790659f74c1e932af7a680955ba5"
+        },
+        "libc072_navigation_plugins.so": {
+          "prefix": "/evidence/c072-cold-tracking-full.L87Hac/planner-install/rmul_c072_planner/lib",
+          "sha256": "f67d62489751b9585713acc86e0eba3bfcf6958ec7cd911e008bde544f31dd58"
+        },
+        "libsensor_scan_generation.so": {
+          "prefix": "/evidence/c072-cold-tracking-full.L87Hac/planner-install/sensor_scan_generation/lib",
+          "sha256": "17ba07b275ddcf7b3ee1b552ab8fb57a68002a2d97605793a01ef89ec4537f20"
+        }
+      }
+    },
+    {
+      "stage": "fixed-reverse-right",
+      "case": "left-reverse-01",
+      "libraries": {
+        "libsmall_gicp_relocalization.so": {
+          "prefix": "/evidence/c072-cold-tracking-full.L87Hac/gicp-install/small_gicp_relocalization/lib",
+          "sha256": "5a7d259f261bde74a7a14010d36ea6193a259a8803b1678b6c1bac17be678300"
+        },
+        "libvelocity_smoother_core.so": {
+          "prefix": "/evidence/c072-cold-tracking-full.L87Hac/planner-install/nav2_velocity_smoother/lib",
+          "sha256": "5674da31415e44706d4a3ddd1a697cacbc30790659f74c1e932af7a680955ba5"
+        },
+        "libc072_navigation_plugins.so": {
+          "prefix": "/evidence/c072-cold-tracking-full.L87Hac/planner-install/rmul_c072_planner/lib",
+          "sha256": "f67d62489751b9585713acc86e0eba3bfcf6958ec7cd911e008bde544f31dd58"
+        },
+        "libsensor_scan_generation.so": {
+          "prefix": "/evidence/c072-cold-tracking-full.L87Hac/planner-install/sensor_scan_generation/lib",
+          "sha256": "17ba07b275ddcf7b3ee1b552ab8fb57a68002a2d97605793a01ef89ec4537f20"
+        }
+      }
+    },
+    {
+      "stage": "fixed-reverse-right",
+      "case": "left-reverse-02",
+      "libraries": {
+        "libsmall_gicp_relocalization.so": {
+          "prefix": "/evidence/c072-cold-tracking-full.L87Hac/gicp-install/small_gicp_relocalization/lib",
+          "sha256": "5a7d259f261bde74a7a14010d36ea6193a259a8803b1678b6c1bac17be678300"
+        },
+        "libvelocity_smoother_core.so": {
+          "prefix": "/evidence/c072-cold-tracking-full.L87Hac/planner-install/nav2_velocity_smoother/lib",
+          "sha256": "5674da31415e44706d4a3ddd1a697cacbc30790659f74c1e932af7a680955ba5"
+        },
+        "libc072_navigation_plugins.so": {
+          "prefix": "/evidence/c072-cold-tracking-full.L87Hac/planner-install/rmul_c072_planner/lib",
+          "sha256": "f67d62489751b9585713acc86e0eba3bfcf6958ec7cd911e008bde544f31dd58"
+        },
+        "libsensor_scan_generation.so": {
+          "prefix": "/evidence/c072-cold-tracking-full.L87Hac/planner-install/sensor_scan_generation/lib",
+          "sha256": "17ba07b275ddcf7b3ee1b552ab8fb57a68002a2d97605793a01ef89ec4537f20"
+        }
+      }
+    },
+    {
+      "stage": "fixed-reverse-right",
+      "case": "left-reverse-03",
+      "libraries": {
+        "libsmall_gicp_relocalization.so": {
+          "prefix": "/evidence/c072-cold-tracking-full.L87Hac/gicp-install/small_gicp_relocalization/lib",
+          "sha256": "5a7d259f261bde74a7a14010d36ea6193a259a8803b1678b6c1bac17be678300"
+        },
+        "libvelocity_smoother_core.so": {
+          "prefix": "/evidence/c072-cold-tracking-full.L87Hac/planner-install/nav2_velocity_smoother/lib",
+          "sha256": "5674da31415e44706d4a3ddd1a697cacbc30790659f74c1e932af7a680955ba5"
+        },
+        "libc072_navigation_plugins.so": {
+          "prefix": "/evidence/c072-cold-tracking-full.L87Hac/planner-install/rmul_c072_planner/lib",
+          "sha256": "f67d62489751b9585713acc86e0eba3bfcf6958ec7cd911e008bde544f31dd58"
+        },
+        "libsensor_scan_generation.so": {
+          "prefix": "/evidence/c072-cold-tracking-full.L87Hac/planner-install/sensor_scan_generation/lib",
+          "sha256": "17ba07b275ddcf7b3ee1b552ab8fb57a68002a2d97605793a01ef89ec4537f20"
+        }
+      }
+    },
+    {
+      "stage": "fixed-reverse-right",
+      "case": "right-control-01",
+      "libraries": {
+        "libsmall_gicp_relocalization.so": {
+          "prefix": "/evidence/c072-cold-tracking-full.L87Hac/gicp-install/small_gicp_relocalization/lib",
+          "sha256": "5a7d259f261bde74a7a14010d36ea6193a259a8803b1678b6c1bac17be678300"
+        },
+        "libvelocity_smoother_core.so": {
+          "prefix": "/evidence/c072-cold-tracking-full.L87Hac/planner-install/nav2_velocity_smoother/lib",
+          "sha256": "5674da31415e44706d4a3ddd1a697cacbc30790659f74c1e932af7a680955ba5"
+        },
+        "libc072_navigation_plugins.so": {
+          "prefix": "/evidence/c072-cold-tracking-full.L87Hac/planner-install/rmul_c072_planner/lib",
+          "sha256": "f67d62489751b9585713acc86e0eba3bfcf6958ec7cd911e008bde544f31dd58"
+        },
+        "libsensor_scan_generation.so": {
+          "prefix": "/evidence/c072-cold-tracking-full.L87Hac/planner-install/sensor_scan_generation/lib",
+          "sha256": "17ba07b275ddcf7b3ee1b552ab8fb57a68002a2d97605793a01ef89ec4537f20"
+        }
+      }
+    },
+    {
+      "stage": "fixed-reverse-right",
+      "case": "right-control-02",
+      "libraries": {
+        "libsmall_gicp_relocalization.so": {
+          "prefix": "/evidence/c072-cold-tracking-full.L87Hac/gicp-install/small_gicp_relocalization/lib",
+          "sha256": "5a7d259f261bde74a7a14010d36ea6193a259a8803b1678b6c1bac17be678300"
+        },
+        "libvelocity_smoother_core.so": {
+          "prefix": "/evidence/c072-cold-tracking-full.L87Hac/planner-install/nav2_velocity_smoother/lib",
+          "sha256": "5674da31415e44706d4a3ddd1a697cacbc30790659f74c1e932af7a680955ba5"
+        },
+        "libc072_navigation_plugins.so": {
+          "prefix": "/evidence/c072-cold-tracking-full.L87Hac/planner-install/rmul_c072_planner/lib",
+          "sha256": "f67d62489751b9585713acc86e0eba3bfcf6958ec7cd911e008bde544f31dd58"
+        },
+        "libsensor_scan_generation.so": {
+          "prefix": "/evidence/c072-cold-tracking-full.L87Hac/planner-install/sensor_scan_generation/lib",
+          "sha256": "17ba07b275ddcf7b3ee1b552ab8fb57a68002a2d97605793a01ef89ec4537f20"
+        }
+      }
+    },
+    {
+      "stage": "fixed-reverse-right",
+      "case": "right-control-03",
+      "libraries": {
+        "libsmall_gicp_relocalization.so": {
+          "prefix": "/evidence/c072-cold-tracking-full.L87Hac/gicp-install/small_gicp_relocalization/lib",
+          "sha256": "5a7d259f261bde74a7a14010d36ea6193a259a8803b1678b6c1bac17be678300"
+        },
+        "libvelocity_smoother_core.so": {
+          "prefix": "/evidence/c072-cold-tracking-full.L87Hac/planner-install/nav2_velocity_smoother/lib",
+          "sha256": "5674da31415e44706d4a3ddd1a697cacbc30790659f74c1e932af7a680955ba5"
+        },
+        "libc072_navigation_plugins.so": {
+          "prefix": "/evidence/c072-cold-tracking-full.L87Hac/planner-install/rmul_c072_planner/lib",
+          "sha256": "f67d62489751b9585713acc86e0eba3bfcf6958ec7cd911e008bde544f31dd58"
+        },
+        "libsensor_scan_generation.so": {
+          "prefix": "/evidence/c072-cold-tracking-full.L87Hac/planner-install/sensor_scan_generation/lib",
+          "sha256": "17ba07b275ddcf7b3ee1b552ab8fb57a68002a2d97605793a01ef89ec4537f20"
+        }
+      }
+    },
+    {
+      "stage": "moving-standard",
+      "case": "headon-01",
+      "libraries": {
+        "libsmall_gicp_relocalization.so": {
+          "prefix": "/evidence/c072-cold-tracking-full.L87Hac/gicp-install/small_gicp_relocalization/lib",
+          "sha256": "5a7d259f261bde74a7a14010d36ea6193a259a8803b1678b6c1bac17be678300"
+        },
+        "libvelocity_smoother_core.so": {
+          "prefix": "/evidence/c072-cold-tracking-full.L87Hac/planner-install/nav2_velocity_smoother/lib",
+          "sha256": "5674da31415e44706d4a3ddd1a697cacbc30790659f74c1e932af7a680955ba5"
+        },
+        "libc072_navigation_plugins.so": {
+          "prefix": "/evidence/c072-cold-tracking-full.L87Hac/planner-install/rmul_c072_planner/lib",
+          "sha256": "f67d62489751b9585713acc86e0eba3bfcf6958ec7cd911e008bde544f31dd58"
+        },
+        "libsensor_scan_generation.so": {
+          "prefix": "/evidence/c072-cold-tracking-full.L87Hac/planner-install/sensor_scan_generation/lib",
+          "sha256": "17ba07b275ddcf7b3ee1b552ab8fb57a68002a2d97605793a01ef89ec4537f20"
+        }
+      }
+    },
+    {
+      "stage": "moving-standard",
+      "case": "headon-02",
+      "libraries": {
+        "libsmall_gicp_relocalization.so": {
+          "prefix": "/evidence/c072-cold-tracking-full.L87Hac/gicp-install/small_gicp_relocalization/lib",
+          "sha256": "5a7d259f261bde74a7a14010d36ea6193a259a8803b1678b6c1bac17be678300"
+        },
+        "libvelocity_smoother_core.so": {
+          "prefix": "/evidence/c072-cold-tracking-full.L87Hac/planner-install/nav2_velocity_smoother/lib",
+          "sha256": "5674da31415e44706d4a3ddd1a697cacbc30790659f74c1e932af7a680955ba5"
+        },
+        "libc072_navigation_plugins.so": {
+          "prefix": "/evidence/c072-cold-tracking-full.L87Hac/planner-install/rmul_c072_planner/lib",
+          "sha256": "f67d62489751b9585713acc86e0eba3bfcf6958ec7cd911e008bde544f31dd58"
+        },
+        "libsensor_scan_generation.so": {
+          "prefix": "/evidence/c072-cold-tracking-full.L87Hac/planner-install/sensor_scan_generation/lib",
+          "sha256": "17ba07b275ddcf7b3ee1b552ab8fb57a68002a2d97605793a01ef89ec4537f20"
+        }
+      }
+    },
+    {
+      "stage": "moving-standard",
+      "case": "headon-03",
+      "libraries": {
+        "libsmall_gicp_relocalization.so": {
+          "prefix": "/evidence/c072-cold-tracking-full.L87Hac/gicp-install/small_gicp_relocalization/lib",
+          "sha256": "5a7d259f261bde74a7a14010d36ea6193a259a8803b1678b6c1bac17be678300"
+        },
+        "libvelocity_smoother_core.so": {
+          "prefix": "/evidence/c072-cold-tracking-full.L87Hac/planner-install/nav2_velocity_smoother/lib",
+          "sha256": "5674da31415e44706d4a3ddd1a697cacbc30790659f74c1e932af7a680955ba5"
+        },
+        "libc072_navigation_plugins.so": {
+          "prefix": "/evidence/c072-cold-tracking-full.L87Hac/planner-install/rmul_c072_planner/lib",
+          "sha256": "f67d62489751b9585713acc86e0eba3bfcf6958ec7cd911e008bde544f31dd58"
+        },
+        "libsensor_scan_generation.so": {
+          "prefix": "/evidence/c072-cold-tracking-full.L87Hac/planner-install/sensor_scan_generation/lib",
+          "sha256": "17ba07b275ddcf7b3ee1b552ab8fb57a68002a2d97605793a01ef89ec4537f20"
+        }
+      }
+    }
+  ],
+  "previous_reverse_03_brake_replay": {
+    "previous_trigger_s": 63.044,
+    "latest_trigger_s": 62.412,
+    "inner_reserve_crossing_s": 63.106
+  },
+  "local_headless": {
+    "peak_mps": [
+      0.919,
+      1.972,
+      2.0
+    ],
+    "stationary_seconds": 1.05,
+    "tests_passed": true
+  }
+}

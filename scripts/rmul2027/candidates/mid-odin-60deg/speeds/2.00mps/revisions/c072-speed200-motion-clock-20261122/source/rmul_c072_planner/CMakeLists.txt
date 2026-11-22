@@ -17,6 +17,7 @@ add_library(c072_navigation_plugins SHARED
   src/observed_motion_critic.cpp
   src/swept_clearance_critic.cpp
   src/terminal_goal_critic.cpp
+  src/path_progress_critic.cpp
   src/inflation_aware_controller.cpp)
 target_compile_features(c072_navigation_plugins PUBLIC cxx_std_17)
 target_link_libraries(c072_navigation_plugins ${OpenCV_LIBRARIES} "${c072_tracks_typesupport}")

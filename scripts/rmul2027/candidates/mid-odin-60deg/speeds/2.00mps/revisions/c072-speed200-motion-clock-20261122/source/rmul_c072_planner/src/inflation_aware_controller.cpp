@@ -130,12 +130,18 @@ public:
 private:
   void limitInwardApproach(geometry_msgs::msg::Twist & twist, escape::Point current, double yaw)
   {
-    constexpr double reaction_seconds = 0.15;
+    // Account for DDS, the 20 Hz smoother, and the measured pre-brake delay.
+    constexpr double reaction_seconds = 0.25;
+    constexpr double approach_speed = 0.18;
     const auto stopping_distance = [&](double speed) {
         return speed * reaction_seconds + speed * speed / (2.0 * braking_rate_);
       };
     auto * grid = costmap_->getCostmap();
     std::lock_guard<nav2_costmap_2d::Costmap2D::mutex_t> lock(*grid->getMutex());
+    // Slow before the inner reserve, then allow a crawl toward a tangent
+    // while retaining the absolute clearance and inscribed-cell checks.
+    const auto outer_reserve = std::max(escape::normal_clearance_m,
+      escape::clearance(*grid, current, escape::escape_end_clearance_m));
 
     // The smoother cannot immediately turn the last velocity into a new one.
     // Check the direction in which the chassis is already moving as well as
@@ -143,7 +149,9 @@ private:
     if (std::isfinite(estimated_speed_) && estimated_speed_ > .04) {
       const auto heading = std::atan2(estimated_velocity_.y, estimated_velocity_.x);
       const auto distance = stopping_distance(estimated_speed_);
-      if (escape::freeBrakingDistance(*grid, current, heading, distance) < distance) {
+      const auto reserve = estimated_speed_ > approach_speed ?
+        outer_reserve : escape::normal_clearance_m;
+      if (escape::freeBrakingDistance(*grid, current, heading, distance, reserve) < distance) {
         twist.linear.x = 0.0;
         twist.linear.y = 0.0;
         RCLCPP_INFO_THROTTLE(logger_, *clock_, 1000,
@@ -158,14 +166,22 @@ private:
     }
     const auto angle = yaw + std::atan2(twist.linear.y, twist.linear.x);
     const auto braking = stopping_distance(speed);
-    const auto available = escape::freeBrakingDistance(*grid, current, angle, braking);
-    if (available < braking) {
-      const auto reaction_speed = braking_rate_ * reaction_seconds;
-      const auto permitted = std::sqrt(reaction_speed * reaction_speed +
-        2.0 * braking_rate_ * available) - reaction_speed;
-      twist.linear.x *= permitted / speed;
-      twist.linear.y *= permitted / speed;
+    const auto reaction_speed = braking_rate_ * reaction_seconds;
+    const auto speed_for_distance = [&](double distance) {
+        return std::sqrt(reaction_speed * reaction_speed + 2.0 * braking_rate_ * distance) -
+               reaction_speed;
+      };
+    const auto inner_distance = escape::freeBrakingDistance(*grid, current, angle, braking);
+    auto permitted = inner_distance < braking ? speed_for_distance(inner_distance) : speed;
+    if (permitted > approach_speed && outer_reserve > escape::normal_clearance_m) {
+      const auto outer_distance =
+        escape::freeBrakingDistance(*grid, current, angle, braking, outer_reserve);
+      if (outer_distance < braking) {
+        permitted = std::min(permitted, std::max(approach_speed, speed_for_distance(outer_distance)));
+      }
     }
+    twist.linear.x *= permitted / speed;
+    twist.linear.y *= permitted / speed;
   }
 
   void resetEscape()

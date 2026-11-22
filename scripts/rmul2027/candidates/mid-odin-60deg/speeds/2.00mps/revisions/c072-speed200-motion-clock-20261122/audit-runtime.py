@@ -7,7 +7,11 @@ import sys
 
 root = Path(sys.argv[1]).resolve()
 workspace = Path("/tmp/rmul-original-20261119/workspace")
-expected = json.loads((root / "tested-inputs.json").read_text())
+build_manifest = root / "build-inputs.json"
+if not build_manifest.is_file():
+    build_manifest = root / "tested-inputs.json"
+expected = json.loads(build_manifest.read_text())
+assert hashlib.sha256((root / "params.yaml").read_bytes()).hexdigest() == expected["params.yaml"]
 libraries = [
     key for key in expected if key.endswith((
         "/libsmall_gicp_relocalization.so", "/libc072_navigation_plugins.so",
