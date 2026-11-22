@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="3" main_tree_to_execute="MainTree">
+  <BehaviorTree ID="MainTree">
+    <ReactiveSequence name="FreshLocalizationRequired">
+      <PoseFresh use_sim_time="true" parent="map" child="base_footprint" timeout="0.5" future_tolerance="0.1" initial_transform_wait="0.5"/>
+      <PipelineSequence name="NavigateWithReplanning">
+        <RateController hz="3.0">
+          <RecoveryNode name="ComputePathToPose" number_of_retries="3">
+            <Sequence name="RequireNewRouteBeforeFollowing">
+              <ComputePathToPose goal="{goal}" path="{path}" planner_id="GridBased"/>
+              <SetBlackboard output_key="global_route_state" value="ready"/>
+            </Sequence>
+            <Sequence name="HoldForFreshGlobalCostmap">
+              <SetBlackboard output_key="global_route_state" value="waiting"/>
+              <Wait wait_duration="1"/>
+            </Sequence>
+          </RecoveryNode>
+        </RateController>
+        <!-- A mismatch halts FollowPath and keeps the pipeline running until a new plan succeeds. -->
+        <BlackboardCheckString value_A="{global_route_state}" value_B="ready" return_on_mismatch="RUNNING">
+          <RecoveryNode name="FollowPath" number_of_retries="2">
+            <FollowPath path="{path}" controller_id="FollowPath"/>
+            <RoundRobin name="ControllerRecovery">
+              <Wait wait_duration="1"/>
+              <Sequence name="LimitedControllerRecovery">
+                <ClearEntireCostmap name="ClearLocalCostmap" service_name="local_costmap/clear_entirely_local_costmap"/>
+                <BackUp backup_dist="0.20" backup_speed="0.15" time_allowance="5.0"/>
+              </Sequence>
+            </RoundRobin>
+          </RecoveryNode>
+        </BlackboardCheckString>
+      </PipelineSequence>
+    </ReactiveSequence>
+  </BehaviorTree>
+</root>

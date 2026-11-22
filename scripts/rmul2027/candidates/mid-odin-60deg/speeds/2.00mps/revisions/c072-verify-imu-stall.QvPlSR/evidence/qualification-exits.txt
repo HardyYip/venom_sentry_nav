@@ -1,0 +1,8 @@
+formal 1
+long 0
+manual-abort 0
+manual-other 0
+manual-abort-recheck-2 0
+escape 3.801 -1.942 0
+escape 3.785 -1.942 0
+escape 3.788 -2.100 0

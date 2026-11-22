@@ -1,0 +1,4 @@
+cold 0
+component_owned 0
+double 0
+late_odometry 0

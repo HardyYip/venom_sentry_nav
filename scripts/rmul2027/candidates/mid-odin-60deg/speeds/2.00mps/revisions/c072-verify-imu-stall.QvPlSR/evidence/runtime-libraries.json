@@ -1,0 +1,332 @@
+[
+  {
+    "stage": "fixed-left",
+    "case": "left-far-01",
+    "libraries": {
+      "libsmall_gicp_relocalization.so": {
+        "prefix": "/evidence/c072-verify-imu-stall.QvPlSR/gicp-install/small_gicp_relocalization/lib",
+        "sha256": "5a7d259f261bde74a7a14010d36ea6193a259a8803b1678b6c1bac17be678300"
+      },
+      "libvelocity_smoother_core.so": {
+        "prefix": "/evidence/c072-verify-imu-stall.QvPlSR/planner-install/nav2_velocity_smoother/lib",
+        "sha256": "a75df8a26d5f8b0b2286cdafe11eaada0434c9c7e715eb1214c629802ba3f4da"
+      },
+      "libc072_navigation_plugins.so": {
+        "prefix": "/evidence/c072-verify-imu-stall.QvPlSR/planner-install/rmul_c072_planner/lib",
+        "sha256": "424836639f078533bd12b1e33ba3bf5c09af626364f56078b131803ef6f308c8"
+      },
+      "libsensor_scan_generation.so": {
+        "prefix": "/evidence/c072-verify-imu-stall.QvPlSR/planner-install/sensor_scan_generation/lib",
+        "sha256": "2a110292bbb3655256c95f1bc4c9f047b92d28fd86e721e5e267e28239a2c44a"
+      }
+    }
+  },
+  {
+    "stage": "fixed-left",
+    "case": "left-far-02",
+    "libraries": {
+      "libsmall_gicp_relocalization.so": {
+        "prefix": "/evidence/c072-verify-imu-stall.QvPlSR/gicp-install/small_gicp_relocalization/lib",
+        "sha256": "5a7d259f261bde74a7a14010d36ea6193a259a8803b1678b6c1bac17be678300"
+      },
+      "libvelocity_smoother_core.so": {
+        "prefix": "/evidence/c072-verify-imu-stall.QvPlSR/planner-install/nav2_velocity_smoother/lib",
+        "sha256": "a75df8a26d5f8b0b2286cdafe11eaada0434c9c7e715eb1214c629802ba3f4da"
+      },
+      "libc072_navigation_plugins.so": {
+        "prefix": "/evidence/c072-verify-imu-stall.QvPlSR/planner-install/rmul_c072_planner/lib",
+        "sha256": "424836639f078533bd12b1e33ba3bf5c09af626364f56078b131803ef6f308c8"
+      },
+      "libsensor_scan_generation.so": {
+        "prefix": "/evidence/c072-verify-imu-stall.QvPlSR/planner-install/sensor_scan_generation/lib",
+        "sha256": "2a110292bbb3655256c95f1bc4c9f047b92d28fd86e721e5e267e28239a2c44a"
+      }
+    }
+  },
+  {
+    "stage": "fixed-left",
+    "case": "left-far-03",
+    "libraries": {
+      "libsmall_gicp_relocalization.so": {
+        "prefix": "/evidence/c072-verify-imu-stall.QvPlSR/gicp-install/small_gicp_relocalization/lib",
+        "sha256": "5a7d259f261bde74a7a14010d36ea6193a259a8803b1678b6c1bac17be678300"
+      },
+      "libvelocity_smoother_core.so": {
+        "prefix": "/evidence/c072-verify-imu-stall.QvPlSR/planner-install/nav2_velocity_smoother/lib",
+        "sha256": "a75df8a26d5f8b0b2286cdafe11eaada0434c9c7e715eb1214c629802ba3f4da"
+      },
+      "libc072_navigation_plugins.so": {
+        "prefix": "/evidence/c072-verify-imu-stall.QvPlSR/planner-install/rmul_c072_planner/lib",
+        "sha256": "424836639f078533bd12b1e33ba3bf5c09af626364f56078b131803ef6f308c8"
+      },
+      "libsensor_scan_generation.so": {
+        "prefix": "/evidence/c072-verify-imu-stall.QvPlSR/planner-install/sensor_scan_generation/lib",
+        "sha256": "2a110292bbb3655256c95f1bc4c9f047b92d28fd86e721e5e267e28239a2c44a"
+      }
+    }
+  },
+  {
+    "stage": "fixed-left",
+    "case": "left-near-01",
+    "libraries": {
+      "libsmall_gicp_relocalization.so": {
+        "prefix": "/evidence/c072-verify-imu-stall.QvPlSR/gicp-install/small_gicp_relocalization/lib",
+        "sha256": "5a7d259f261bde74a7a14010d36ea6193a259a8803b1678b6c1bac17be678300"
+      },
+      "libvelocity_smoother_core.so": {
+        "prefix": "/evidence/c072-verify-imu-stall.QvPlSR/planner-install/nav2_velocity_smoother/lib",
+        "sha256": "a75df8a26d5f8b0b2286cdafe11eaada0434c9c7e715eb1214c629802ba3f4da"
+      },
+      "libc072_navigation_plugins.so": {
+        "prefix": "/evidence/c072-verify-imu-stall.QvPlSR/planner-install/rmul_c072_planner/lib",
+        "sha256": "424836639f078533bd12b1e33ba3bf5c09af626364f56078b131803ef6f308c8"
+      },
+      "libsensor_scan_generation.so": {
+        "prefix": "/evidence/c072-verify-imu-stall.QvPlSR/planner-install/sensor_scan_generation/lib",
+        "sha256": "2a110292bbb3655256c95f1bc4c9f047b92d28fd86e721e5e267e28239a2c44a"
+      }
+    }
+  },
+  {
+    "stage": "fixed-left",
+    "case": "left-near-02",
+    "libraries": {
+      "libsmall_gicp_relocalization.so": {
+        "prefix": "/evidence/c072-verify-imu-stall.QvPlSR/gicp-install/small_gicp_relocalization/lib",
+        "sha256": "5a7d259f261bde74a7a14010d36ea6193a259a8803b1678b6c1bac17be678300"
+      },
+      "libvelocity_smoother_core.so": {
+        "prefix": "/evidence/c072-verify-imu-stall.QvPlSR/planner-install/nav2_velocity_smoother/lib",
+        "sha256": "a75df8a26d5f8b0b2286cdafe11eaada0434c9c7e715eb1214c629802ba3f4da"
+      },
+      "libc072_navigation_plugins.so": {
+        "prefix": "/evidence/c072-verify-imu-stall.QvPlSR/planner-install/rmul_c072_planner/lib",
+        "sha256": "424836639f078533bd12b1e33ba3bf5c09af626364f56078b131803ef6f308c8"
+      },
+      "libsensor_scan_generation.so": {
+        "prefix": "/evidence/c072-verify-imu-stall.QvPlSR/planner-install/sensor_scan_generation/lib",
+        "sha256": "2a110292bbb3655256c95f1bc4c9f047b92d28fd86e721e5e267e28239a2c44a"
+      }
+    }
+  },
+  {
+    "stage": "fixed-left",
+    "case": "left-near-03",
+    "libraries": {
+      "libsmall_gicp_relocalization.so": {
+        "prefix": "/evidence/c072-verify-imu-stall.QvPlSR/gicp-install/small_gicp_relocalization/lib",
+        "sha256": "5a7d259f261bde74a7a14010d36ea6193a259a8803b1678b6c1bac17be678300"
+      },
+      "libvelocity_smoother_core.so": {
+        "prefix": "/evidence/c072-verify-imu-stall.QvPlSR/planner-install/nav2_velocity_smoother/lib",
+        "sha256": "a75df8a26d5f8b0b2286cdafe11eaada0434c9c7e715eb1214c629802ba3f4da"
+      },
+      "libc072_navigation_plugins.so": {
+        "prefix": "/evidence/c072-verify-imu-stall.QvPlSR/planner-install/rmul_c072_planner/lib",
+        "sha256": "424836639f078533bd12b1e33ba3bf5c09af626364f56078b131803ef6f308c8"
+      },
+      "libsensor_scan_generation.so": {
+        "prefix": "/evidence/c072-verify-imu-stall.QvPlSR/planner-install/sensor_scan_generation/lib",
+        "sha256": "2a110292bbb3655256c95f1bc4c9f047b92d28fd86e721e5e267e28239a2c44a"
+      }
+    }
+  },
+  {
+    "stage": "fixed-reverse-right",
+    "case": "left-reverse-01",
+    "libraries": {
+      "libsmall_gicp_relocalization.so": {
+        "prefix": "/evidence/c072-verify-imu-stall.QvPlSR/gicp-install/small_gicp_relocalization/lib",
+        "sha256": "5a7d259f261bde74a7a14010d36ea6193a259a8803b1678b6c1bac17be678300"
+      },
+      "libvelocity_smoother_core.so": {
+        "prefix": "/evidence/c072-verify-imu-stall.QvPlSR/planner-install/nav2_velocity_smoother/lib",
+        "sha256": "a75df8a26d5f8b0b2286cdafe11eaada0434c9c7e715eb1214c629802ba3f4da"
+      },
+      "libc072_navigation_plugins.so": {
+        "prefix": "/evidence/c072-verify-imu-stall.QvPlSR/planner-install/rmul_c072_planner/lib",
+        "sha256": "424836639f078533bd12b1e33ba3bf5c09af626364f56078b131803ef6f308c8"
+      },
+      "libsensor_scan_generation.so": {
+        "prefix": "/evidence/c072-verify-imu-stall.QvPlSR/planner-install/sensor_scan_generation/lib",
+        "sha256": "2a110292bbb3655256c95f1bc4c9f047b92d28fd86e721e5e267e28239a2c44a"
+      }
+    }
+  },
+  {
+    "stage": "fixed-reverse-right",
+    "case": "left-reverse-02",
+    "libraries": {
+      "libsmall_gicp_relocalization.so": {
+        "prefix": "/evidence/c072-verify-imu-stall.QvPlSR/gicp-install/small_gicp_relocalization/lib",
+        "sha256": "5a7d259f261bde74a7a14010d36ea6193a259a8803b1678b6c1bac17be678300"
+      },
+      "libvelocity_smoother_core.so": {
+        "prefix": "/evidence/c072-verify-imu-stall.QvPlSR/planner-install/nav2_velocity_smoother/lib",
+        "sha256": "a75df8a26d5f8b0b2286cdafe11eaada0434c9c7e715eb1214c629802ba3f4da"
+      },
+      "libc072_navigation_plugins.so": {
+        "prefix": "/evidence/c072-verify-imu-stall.QvPlSR/planner-install/rmul_c072_planner/lib",
+        "sha256": "424836639f078533bd12b1e33ba3bf5c09af626364f56078b131803ef6f308c8"
+      },
+      "libsensor_scan_generation.so": {
+        "prefix": "/evidence/c072-verify-imu-stall.QvPlSR/planner-install/sensor_scan_generation/lib",
+        "sha256": "2a110292bbb3655256c95f1bc4c9f047b92d28fd86e721e5e267e28239a2c44a"
+      }
+    }
+  },
+  {
+    "stage": "fixed-reverse-right",
+    "case": "left-reverse-03",
+    "libraries": {
+      "libsmall_gicp_relocalization.so": {
+        "prefix": "/evidence/c072-verify-imu-stall.QvPlSR/gicp-install/small_gicp_relocalization/lib",
+        "sha256": "5a7d259f261bde74a7a14010d36ea6193a259a8803b1678b6c1bac17be678300"
+      },
+      "libvelocity_smoother_core.so": {
+        "prefix": "/evidence/c072-verify-imu-stall.QvPlSR/planner-install/nav2_velocity_smoother/lib",
+        "sha256": "a75df8a26d5f8b0b2286cdafe11eaada0434c9c7e715eb1214c629802ba3f4da"
+      },
+      "libc072_navigation_plugins.so": {
+        "prefix": "/evidence/c072-verify-imu-stall.QvPlSR/planner-install/rmul_c072_planner/lib",
+        "sha256": "424836639f078533bd12b1e33ba3bf5c09af626364f56078b131803ef6f308c8"
+      },
+      "libsensor_scan_generation.so": {
+        "prefix": "/evidence/c072-verify-imu-stall.QvPlSR/planner-install/sensor_scan_generation/lib",
+        "sha256": "2a110292bbb3655256c95f1bc4c9f047b92d28fd86e721e5e267e28239a2c44a"
+      }
+    }
+  },
+  {
+    "stage": "fixed-reverse-right",
+    "case": "right-control-01",
+    "libraries": {
+      "libsmall_gicp_relocalization.so": {
+        "prefix": "/evidence/c072-verify-imu-stall.QvPlSR/gicp-install/small_gicp_relocalization/lib",
+        "sha256": "5a7d259f261bde74a7a14010d36ea6193a259a8803b1678b6c1bac17be678300"
+      },
+      "libvelocity_smoother_core.so": {
+        "prefix": "/evidence/c072-verify-imu-stall.QvPlSR/planner-install/nav2_velocity_smoother/lib",
+        "sha256": "a75df8a26d5f8b0b2286cdafe11eaada0434c9c7e715eb1214c629802ba3f4da"
+      },
+      "libc072_navigation_plugins.so": {
+        "prefix": "/evidence/c072-verify-imu-stall.QvPlSR/planner-install/rmul_c072_planner/lib",
+        "sha256": "424836639f078533bd12b1e33ba3bf5c09af626364f56078b131803ef6f308c8"
+      },
+      "libsensor_scan_generation.so": {
+        "prefix": "/evidence/c072-verify-imu-stall.QvPlSR/planner-install/sensor_scan_generation/lib",
+        "sha256": "2a110292bbb3655256c95f1bc4c9f047b92d28fd86e721e5e267e28239a2c44a"
+      }
+    }
+  },
+  {
+    "stage": "fixed-reverse-right",
+    "case": "right-control-02",
+    "libraries": {
+      "libsmall_gicp_relocalization.so": {
+        "prefix": "/evidence/c072-verify-imu-stall.QvPlSR/gicp-install/small_gicp_relocalization/lib",
+        "sha256": "5a7d259f261bde74a7a14010d36ea6193a259a8803b1678b6c1bac17be678300"
+      },
+      "libvelocity_smoother_core.so": {
+        "prefix": "/evidence/c072-verify-imu-stall.QvPlSR/planner-install/nav2_velocity_smoother/lib",
+        "sha256": "a75df8a26d5f8b0b2286cdafe11eaada0434c9c7e715eb1214c629802ba3f4da"
+      },
+      "libc072_navigation_plugins.so": {
+        "prefix": "/evidence/c072-verify-imu-stall.QvPlSR/planner-install/rmul_c072_planner/lib",
+        "sha256": "424836639f078533bd12b1e33ba3bf5c09af626364f56078b131803ef6f308c8"
+      },
+      "libsensor_scan_generation.so": {
+        "prefix": "/evidence/c072-verify-imu-stall.QvPlSR/planner-install/sensor_scan_generation/lib",
+        "sha256": "2a110292bbb3655256c95f1bc4c9f047b92d28fd86e721e5e267e28239a2c44a"
+      }
+    }
+  },
+  {
+    "stage": "fixed-reverse-right",
+    "case": "right-control-03",
+    "libraries": {
+      "libsmall_gicp_relocalization.so": {
+        "prefix": "/evidence/c072-verify-imu-stall.QvPlSR/gicp-install/small_gicp_relocalization/lib",
+        "sha256": "5a7d259f261bde74a7a14010d36ea6193a259a8803b1678b6c1bac17be678300"
+      },
+      "libvelocity_smoother_core.so": {
+        "prefix": "/evidence/c072-verify-imu-stall.QvPlSR/planner-install/nav2_velocity_smoother/lib",
+        "sha256": "a75df8a26d5f8b0b2286cdafe11eaada0434c9c7e715eb1214c629802ba3f4da"
+      },
+      "libc072_navigation_plugins.so": {
+        "prefix": "/evidence/c072-verify-imu-stall.QvPlSR/planner-install/rmul_c072_planner/lib",
+        "sha256": "424836639f078533bd12b1e33ba3bf5c09af626364f56078b131803ef6f308c8"
+      },
+      "libsensor_scan_generation.so": {
+        "prefix": "/evidence/c072-verify-imu-stall.QvPlSR/planner-install/sensor_scan_generation/lib",
+        "sha256": "2a110292bbb3655256c95f1bc4c9f047b92d28fd86e721e5e267e28239a2c44a"
+      }
+    }
+  },
+  {
+    "stage": "moving-standard",
+    "case": "headon-01",
+    "libraries": {
+      "libsmall_gicp_relocalization.so": {
+        "prefix": "/evidence/c072-verify-imu-stall.QvPlSR/gicp-install/small_gicp_relocalization/lib",
+        "sha256": "5a7d259f261bde74a7a14010d36ea6193a259a8803b1678b6c1bac17be678300"
+      },
+      "libvelocity_smoother_core.so": {
+        "prefix": "/evidence/c072-verify-imu-stall.QvPlSR/planner-install/nav2_velocity_smoother/lib",
+        "sha256": "a75df8a26d5f8b0b2286cdafe11eaada0434c9c7e715eb1214c629802ba3f4da"
+      },
+      "libc072_navigation_plugins.so": {
+        "prefix": "/evidence/c072-verify-imu-stall.QvPlSR/planner-install/rmul_c072_planner/lib",
+        "sha256": "424836639f078533bd12b1e33ba3bf5c09af626364f56078b131803ef6f308c8"
+      },
+      "libsensor_scan_generation.so": {
+        "prefix": "/evidence/c072-verify-imu-stall.QvPlSR/planner-install/sensor_scan_generation/lib",
+        "sha256": "2a110292bbb3655256c95f1bc4c9f047b92d28fd86e721e5e267e28239a2c44a"
+      }
+    }
+  },
+  {
+    "stage": "moving-standard",
+    "case": "headon-02",
+    "libraries": {
+      "libsmall_gicp_relocalization.so": {
+        "prefix": "/evidence/c072-verify-imu-stall.QvPlSR/gicp-install/small_gicp_relocalization/lib",
+        "sha256": "5a7d259f261bde74a7a14010d36ea6193a259a8803b1678b6c1bac17be678300"
+      },
+      "libvelocity_smoother_core.so": {
+        "prefix": "/evidence/c072-verify-imu-stall.QvPlSR/planner-install/nav2_velocity_smoother/lib",
+        "sha256": "a75df8a26d5f8b0b2286cdafe11eaada0434c9c7e715eb1214c629802ba3f4da"
+      },
+      "libc072_navigation_plugins.so": {
+        "prefix": "/evidence/c072-verify-imu-stall.QvPlSR/planner-install/rmul_c072_planner/lib",
+        "sha256": "424836639f078533bd12b1e33ba3bf5c09af626364f56078b131803ef6f308c8"
+      },
+      "libsensor_scan_generation.so": {
+        "prefix": "/evidence/c072-verify-imu-stall.QvPlSR/planner-install/sensor_scan_generation/lib",
+        "sha256": "2a110292bbb3655256c95f1bc4c9f047b92d28fd86e721e5e267e28239a2c44a"
+      }
+    }
+  },
+  {
+    "stage": "moving-standard",
+    "case": "headon-03",
+    "libraries": {
+      "libsmall_gicp_relocalization.so": {
+        "prefix": "/evidence/c072-verify-imu-stall.QvPlSR/gicp-install/small_gicp_relocalization/lib",
+        "sha256": "5a7d259f261bde74a7a14010d36ea6193a259a8803b1678b6c1bac17be678300"
+      },
+      "libvelocity_smoother_core.so": {
+        "prefix": "/evidence/c072-verify-imu-stall.QvPlSR/planner-install/nav2_velocity_smoother/lib",
+        "sha256": "a75df8a26d5f8b0b2286cdafe11eaada0434c9c7e715eb1214c629802ba3f4da"
+      },
+      "libc072_navigation_plugins.so": {
+        "prefix": "/evidence/c072-verify-imu-stall.QvPlSR/planner-install/rmul_c072_planner/lib",
+        "sha256": "424836639f078533bd12b1e33ba3bf5c09af626364f56078b131803ef6f308c8"
+      },
+      "libsensor_scan_generation.so": {
+        "prefix": "/evidence/c072-verify-imu-stall.QvPlSR/planner-install/sensor_scan_generation/lib",
+        "sha256": "2a110292bbb3655256c95f1bc4c9f047b92d28fd86e721e5e267e28239a2c44a"
+      }
+    }
+  }
+]

@@ -1,0 +1,15 @@
+fixed-left left-far-01 passed None goal True contacts 0 min_gap 0.18155365207270463
+fixed-left left-far-02 passed None goal True contacts 0 min_gap 0.1640216675708335
+fixed-left left-far-03 passed None goal True contacts 0 min_gap 0.17955663870848326
+fixed-left left-near-01 passed None goal True contacts 0 min_gap 0.17987686894066277
+fixed-left left-near-02 passed None goal True contacts 0 min_gap 0.1809063530246
+fixed-left left-near-03 passed None goal True contacts 0 min_gap 0.18169963219266716
+fixed-reverse-right left-reverse-01 passed None goal True contacts 0 min_gap 0.21335772200797593
+fixed-reverse-right left-reverse-02 passed None goal True contacts 0 min_gap 0.15533108819843555
+fixed-reverse-right left-reverse-03 passed None goal True contacts 0 min_gap 0.18637616482635178
+fixed-reverse-right right-control-01 passed None goal True contacts 0 min_gap 0.16211702443487325
+fixed-reverse-right right-control-02 passed None goal True contacts 0 min_gap 0.15881563016407435
+fixed-reverse-right right-control-03 passed None goal True contacts 0 min_gap 0.20318489753705424
+moving-standard headon-01 failed RuntimeError('Navigation acceptance failed') goal True contacts 0 min_gap 0.056188766024961145
+moving-standard headon-02 passed None goal True contacts 0 min_gap 0.1672561854728276
+moving-standard headon-03 passed None goal True contacts 0 min_gap 0.20975743363382116

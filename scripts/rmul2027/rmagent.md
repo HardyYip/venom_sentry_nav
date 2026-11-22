@@ -23,3 +23,7 @@
 6. **完成实车验收。** 实车的传感器时序、定位、净空、速度跟踪和故障停车仍待现场验证。
 
 本次仅整理文档和核对已有证据。Windows 原始日志未在本次 Ubuntu 会话读回，复核沿用 17:29–17:31 的现场记录。
+
+## 22 日晚 Ubuntu 候选交接
+
+`c072-verify-imu-stall.QvPlSR` 已保存该构建的源码、参数与最后一轮原始回执。固定 12/12、长路线 7/7、脱困 3/3，脱困指令上限 0.60 m/s。对向 `headon-01` 中止，正式整轮保留为 2/3 对向的候选记录。后续复核对向失败、移动中 IMU 注入和 Windows 原始手动场景。[候选结果与复现方法](candidates/mid-odin-60deg/speeds/2.00mps/revisions/c072-verify-imu-stall.QvPlSR/RESULTS.zh-CN.md)

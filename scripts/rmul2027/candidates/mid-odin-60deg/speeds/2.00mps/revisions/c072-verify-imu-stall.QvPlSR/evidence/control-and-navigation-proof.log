@@ -1,0 +1,46 @@
+Starting >>> c072_grid_recovery_proof
+--- stderr: c072_grid_recovery_proof
+CMake Warning:
+  Manually-specified variables were not used by the project:
+
+    CATKIN_INSTALL_INTO_PREFIX_ROOT
+
+
+---
+Finished <<< c072_grid_recovery_proof [8.18s]
+
+Summary: 1 package finished [8.28s]
+  1 package had stderr output: c072_grid_recovery_proof
+PASS 30000 bit-identical clearance and braking probes. Prior 378.31 ms, revised 60.56 ms
+[INFO] [1795356168.643993622] [grid_proof_map.grid_proof_map]:
+	grid_proof_map lifecycle node launched.
+	Waiting on external lifecycle transitions to activate
+	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[INFO] [1795356168.644445468] [grid_proof_map.grid_proof_map]: Creating Costmap
+[INFO] [1795356168.644572390] [grid_proof_map.grid_proof_map]: Configuring
+[INFO] [1795356168.654431095] [grid_proof]: Configuring plugin Recovery of type NavfnPlanner
+[INFO] [1795356168.655505048] [grid_proof]: Configuring plugin Native of type NavfnPlanner
+[WARN] [1795356168.655922500] [grid_proof]: Native: failed to create plan with tolerance 0.15.
+[WARN] [1795356168.658296849] [grid_proof]: Recovery: failed to create plan with tolerance 0.15.
+[WARN] [1795356168.658460508] [grid_proof]: Recovery: failed to create plan with tolerance 0.15.
+[WARN] [1795356168.658620400] [grid_proof]: Recovery: failed to create plan with tolerance 0.15.
+[INFO] [1795356168.660295652] [grid_proof]: C072 recovered a clearance-checked grid route after NavFn returned no path
+[WARN] [1795356168.660965776] [grid_proof]: Recovery: failed to create plan with tolerance 0.15.
+[WARN] [1795356168.661058185] [grid_proof]: Recovery: failed to create plan with tolerance 0.15.
+[WARN] [1795356168.661166613] [grid_proof]: Recovery: failed to create plan with tolerance 0.15.
+[WARN] [1795356168.662521439] [grid_proof]: Recovery: failed to create plan with tolerance 0.15.
+[WARN] [1795356168.662621252] [grid_proof]: Recovery: failed to create plan with tolerance 0.15.
+[WARN] [1795356168.662733517] [grid_proof]: Recovery: failed to create plan with tolerance 0.15.
+[INFO] [1795356168.664550117] [grid_proof]: C072 clearance checked 280 global waypoints
+[INFO] [1795356168.665073473] [grid_proof]: Cleaning up plugin Recovery of type NavfnPlanner
+[INFO] [1795356168.665090003] [grid_proof]: Destroying plugin Recovery of type NavfnPlanner
+[INFO] [1795356168.665095223] [grid_proof]: Cleaning up plugin Native of type NavfnPlanner
+[INFO] [1795356168.665106043] [grid_proof_map.grid_proof_map]: Cleaning up
+[INFO] [1795356168.666704824] [grid_proof]: Destroying plugin Native of type NavfnPlanner
+[INFO] [1795356168.666755627] [grid_proof_map.grid_proof_map]: Destroying
+PASS NavFn no-path, verified grid route 741 points
+PASS complete barrier rejected, cost 254
+PASS complete barrier rejected, cost 255
+PASS ordinary clear route 280 points
+PASS transient no-path: halted, waited, followed fresh plan
+PASS persistent no-path: halted, three bounded waits, failed safely

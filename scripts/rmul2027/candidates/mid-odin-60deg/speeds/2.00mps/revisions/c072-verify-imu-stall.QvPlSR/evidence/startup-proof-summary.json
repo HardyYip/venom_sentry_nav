@@ -1,0 +1,162 @@
+[
+  {
+    "label": "cold IMU",
+    "fixture": "/home/yq/Downloads/rmul2027-taildrop-20261119/original-60deg-iterations-20261119/c072-verify-imu-stall.QvPlSR-cold-final",
+    "event_path": "/tmp/rmul-original-20261119/workspace/logs/20261122-223607-rmul2027-nav/imu-recovery/events.jsonl",
+    "retries": [
+      {
+        "kind": "startup_restart_authorized",
+        "steady": 295194.161905694,
+        "ros": 7.4750000000000005,
+        "epoch": 0,
+        "terminal": true,
+        "stationary": true,
+        "trigger": "point_lio_imu_input_fault_before_odometry",
+        "attempt": 1
+      }
+    ],
+    "released": [
+      {
+        "kind": "release_verified",
+        "steady": 295209.700532057,
+        "ros": 22.317,
+        "epoch": 0,
+        "evidence": {
+          "epoch": 0,
+          "steady": 295209.697781774,
+          "ros": 22.317,
+          "quality_count": 4,
+          "registration_sequence": 4,
+          "last_source": 22.199999999,
+          "gates": {
+            "healthy": true,
+            "stationary": true,
+            "external": true,
+            "pose": true
+          }
+        }
+      }
+    ],
+    "starts": [
+      318,
+      518
+    ],
+    "stopped": [
+      318
+    ]
+  },
+  {
+    "label": "component timeout",
+    "fixture": "/home/yq/Downloads/rmul2027-taildrop-20261119/original-60deg-iterations-20261119/c072-verify-imu-stall.QvPlSR-component-final-owned-command",
+    "event_path": "/tmp/rmul-original-20261119/workspace/logs/20261122-223702-rmul2027-nav/imu-recovery/events.jsonl",
+    "retries": [
+      {
+        "kind": "startup_restart_authorized",
+        "steady": 295250.064740969,
+        "ros": 8.450000000000001,
+        "epoch": 0,
+        "terminal": true,
+        "stationary": true,
+        "trigger": "component_load_response_timeout_before_odometry",
+        "attempt": 1
+      }
+    ],
+    "released": [
+      {
+        "kind": "release_verified",
+        "steady": 295256.026966707,
+        "ros": 14.127,
+        "epoch": 0,
+        "evidence": {
+          "epoch": 0,
+          "steady": 295256.023379354,
+          "ros": 14.127,
+          "quality_count": 4,
+          "registration_sequence": 7,
+          "last_source": 13.9,
+          "gates": {
+            "healthy": true,
+            "stationary": true,
+            "external": true,
+            "pose": true
+          }
+        }
+      }
+    ],
+    "starts": [
+      305,
+      325
+    ],
+    "stopped": [
+      305
+    ]
+  },
+  {
+    "label": "IMU timeout followed by a latch after odometry had started",
+    "fixture": "/home/yq/Downloads/rmul2027-taildrop-20261119/original-60deg-iterations-20261119/c072-verify-imu-stall.QvPlSR-late-odometry",
+    "event_path": "/tmp/rmul-original-20261119/workspace/logs/20261122-223856-rmul2027-nav/imu-recovery/events.jsonl",
+    "retries": [
+      {
+        "kind": "startup_restart_authorized",
+        "steady": 295371.878567546,
+        "ros": 15.4,
+        "epoch": 1,
+        "terminal": true,
+        "stationary": true,
+        "trigger": "point_lio_imu_input_fault_during_verification",
+        "attempt": 1
+      }
+    ],
+    "released": [
+      {
+        "kind": "release_verified",
+        "steady": 295362.07758326,
+        "ros": 6.034000000000001,
+        "epoch": 0,
+        "evidence": {
+          "epoch": 0,
+          "steady": 295362.075304361,
+          "ros": 6.034000000000001,
+          "quality_count": 4,
+          "registration_sequence": 4,
+          "last_source": 5.95,
+          "gates": {
+            "healthy": true,
+            "stationary": true,
+            "external": true,
+            "pose": true
+          }
+        }
+      },
+      {
+        "kind": "release_verified",
+        "steady": 295387.597850077,
+        "ros": 30.573,
+        "epoch": 1,
+        "evidence": {
+          "epoch": 1,
+          "steady": 295387.594925343,
+          "ros": 30.573,
+          "quality_count": 4,
+          "registration_sequence": 5,
+          "last_source": 30.3,
+          "gates": {
+            "healthy": true,
+            "stationary": true,
+            "external": true,
+            "pose": true
+          }
+        }
+      }
+    ],
+    "starts": [
+      305,
+      526,
+      725
+    ],
+    "stopped": [
+      305,
+      526
+    ]
+  }
+]

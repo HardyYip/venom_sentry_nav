@@ -1,0 +1,17 @@
+<library path="c072_navigation_plugins">
+  <class name="rmul_c072_planner::PredictedObstacleCritic" type="rmul_c072_planner::PredictedObstacleCritic"
+         base_class_type="dwb_core::TrajectoryCritic">
+    <description>Scores C072 trajectories against time-aligned observed obstacle motion.</description>
+  </class>
+  <class name="rmul_c072_planner::SweptClearanceCritic" type="rmul_c072_planner::SweptClearanceCritic"
+         base_class_type="dwb_core::TrajectoryCritic">
+    <description>Prefers trajectories that preserve clearance for the spinning chassis.</description>
+  </class>
+  <class name="rmul_c072_planner::TerminalGoalCritic" type="rmul_c072_planner::TerminalGoalCritic"
+         base_class_type="dwb_core::TrajectoryCritic">
+    <description>Scores the continuous distance to the final goal near arrival.</description>
+  </class>
+  <class type="rmul_c072_planner::PathProgressCritic" base_class_type="dwb_core::TrajectoryCritic">
+    <description>Score progress toward the next part of the path when nearly stationary.</description>
+  </class>
+</library>

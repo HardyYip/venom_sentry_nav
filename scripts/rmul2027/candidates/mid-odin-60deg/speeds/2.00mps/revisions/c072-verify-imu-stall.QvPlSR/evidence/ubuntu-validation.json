@@ -1,0 +1,905 @@
+{
+  "source_trial": "c072-verify-imu-stall.QvPlSR",
+  "qualified_full_round": false,
+  "fixed_obstacles": [
+    {
+      "passed": true,
+      "cases": 6,
+      "params_sha256": "d23ae497d7104cce9ce9fbf575238e5ceefffeff626f4147b888eca6cb427467",
+      "results": [
+        {
+          "case": "left-near-01",
+          "status": "passed",
+          "contact_health": {
+            "event": "health",
+            "frames": 2526,
+            "contacts": 0,
+            "probe_contacts": 2526
+          },
+          "process_cleanup": {
+            "initial": [],
+            "remaining": []
+          }
+        },
+        {
+          "case": "left-near-02",
+          "status": "passed",
+          "contact_health": {
+            "event": "health",
+            "frames": 2682,
+            "contacts": 0,
+            "probe_contacts": 2682
+          },
+          "process_cleanup": {
+            "initial": [],
+            "remaining": []
+          }
+        },
+        {
+          "case": "left-near-03",
+          "status": "passed",
+          "contact_health": {
+            "event": "health",
+            "frames": 2470,
+            "contacts": 0,
+            "probe_contacts": 2470
+          },
+          "process_cleanup": {
+            "initial": [],
+            "remaining": []
+          }
+        },
+        {
+          "case": "left-far-01",
+          "status": "passed",
+          "contact_health": {
+            "event": "health",
+            "frames": 2484,
+            "contacts": 0,
+            "probe_contacts": 2484
+          },
+          "process_cleanup": {
+            "initial": [],
+            "remaining": []
+          }
+        },
+        {
+          "case": "left-far-02",
+          "status": "passed",
+          "contact_health": {
+            "event": "health",
+            "frames": 2498,
+            "contacts": 0,
+            "probe_contacts": 2498
+          },
+          "process_cleanup": {
+            "initial": [],
+            "remaining": []
+          }
+        },
+        {
+          "case": "left-far-03",
+          "status": "passed",
+          "contact_health": {
+            "event": "health",
+            "frames": 2528,
+            "contacts": 0,
+            "probe_contacts": 2528
+          },
+          "process_cleanup": {
+            "initial": [],
+            "remaining": []
+          }
+        }
+      ]
+    },
+    {
+      "passed": true,
+      "cases": 6,
+      "params_sha256": "d23ae497d7104cce9ce9fbf575238e5ceefffeff626f4147b888eca6cb427467",
+      "results": [
+        {
+          "case": "left-reverse-01",
+          "status": "passed",
+          "contact_health": {
+            "event": "health",
+            "frames": 2472,
+            "contacts": 0,
+            "probe_contacts": 2472
+          },
+          "process_cleanup": {
+            "initial": [],
+            "remaining": []
+          }
+        },
+        {
+          "case": "left-reverse-02",
+          "status": "passed",
+          "contact_health": {
+            "event": "health",
+            "frames": 2550,
+            "contacts": 0,
+            "probe_contacts": 2550
+          },
+          "process_cleanup": {
+            "initial": [],
+            "remaining": []
+          }
+        },
+        {
+          "case": "left-reverse-03",
+          "status": "passed",
+          "contact_health": {
+            "event": "health",
+            "frames": 2514,
+            "contacts": 0,
+            "probe_contacts": 2514
+          },
+          "process_cleanup": {
+            "initial": [],
+            "remaining": []
+          }
+        },
+        {
+          "case": "right-control-01",
+          "status": "passed",
+          "contact_health": {
+            "event": "health",
+            "frames": 2528,
+            "contacts": 0,
+            "probe_contacts": 2528
+          },
+          "process_cleanup": {
+            "initial": [],
+            "remaining": []
+          }
+        },
+        {
+          "case": "right-control-02",
+          "status": "passed",
+          "contact_health": {
+            "event": "health",
+            "frames": 2536,
+            "contacts": 0,
+            "probe_contacts": 2536
+          },
+          "process_cleanup": {
+            "initial": [],
+            "remaining": []
+          }
+        },
+        {
+          "case": "right-control-03",
+          "status": "passed",
+          "contact_health": {
+            "event": "health",
+            "frames": 2500,
+            "contacts": 0,
+            "probe_contacts": 2500
+          },
+          "process_cleanup": {
+            "initial": [],
+            "remaining": []
+          }
+        }
+      ]
+    }
+  ],
+  "moving_obstacles": {
+    "passed": false,
+    "cases": 3,
+    "params_sha256": "d23ae497d7104cce9ce9fbf575238e5ceefffeff626f4147b888eca6cb427467",
+    "results": [
+      {
+        "case": "headon-01",
+        "status": "failed",
+        "error": "RuntimeError('Navigation acceptance failed')",
+        "contact_health": {
+          "event": "health",
+          "frames": 4866,
+          "contacts": 0,
+          "probe_contacts": 4866
+        },
+        "process_cleanup": {
+          "initial": [],
+          "remaining": []
+        },
+        "opponent_min_gap_m": 0.056188766024961145,
+        "opponent_nominal_speed_mps": 0.5
+      },
+      {
+        "case": "headon-02",
+        "status": "passed",
+        "contact_health": {
+          "event": "health",
+          "frames": 4928,
+          "contacts": 0,
+          "probe_contacts": 4928
+        },
+        "process_cleanup": {
+          "initial": [],
+          "remaining": []
+        },
+        "opponent_min_gap_m": 0.1672561854728276,
+        "opponent_nominal_speed_mps": 0.5,
+        "opponent_motion_regression_speed_mps": 0.499475697437496,
+        "robot_goal_speed_peak_mps": 1.3739179242179498
+      },
+      {
+        "case": "headon-03",
+        "status": "passed",
+        "contact_health": {
+          "event": "health",
+          "frames": 4864,
+          "contacts": 0,
+          "probe_contacts": 4864
+        },
+        "process_cleanup": {
+          "initial": [],
+          "remaining": []
+        },
+        "opponent_min_gap_m": 0.20975743363382116,
+        "opponent_nominal_speed_mps": 0.5,
+        "opponent_motion_regression_speed_mps": 0.5002929614555822,
+        "robot_goal_speed_peak_mps": 1.3762341063413568
+      }
+    ]
+  },
+  "long_routes": {
+    "result_count": 7,
+    "contacts_decode_errors": {},
+    "map_clearance_method": "conservative proxy from 5 cm navigation occupancy cells, sample stride 25, body rectangle 0.58 x 0.53 m; excludes the two spawned boxes",
+    "legs": [
+      {
+        "leg": "southwest-to-southeast",
+        "start": [
+          0.09996758269288364,
+          -5.950000000160345
+        ],
+        "goal": [
+          9.55,
+          -5.8
+        ],
+        "end": [
+          9.554290415568186,
+          -5.733199362567873
+        ],
+        "direct_m": 9.451222814440653,
+        "travelled_m": 15.423140999469723,
+        "start_sim": 22.429,
+        "end_sim": 56.052,
+        "samples": 31502,
+        "goal_status": 4,
+        "error": null,
+        "stop_verified": true,
+        "goal_error_m": 0.06693827624824329,
+        "truth_peak_mps": 1.9767607850181261,
+        "peak_at_sim": 39.8,
+        "peak_at_xy": [
+          4.694710421283852,
+          -3.200889905350175
+        ],
+        "controller_peak_mps": 2.0000000000000013,
+        "output_peak_mps": 1.9754600610507558,
+        "contacts": {
+          "ground": 101126,
+          "wall": 0,
+          "box": 0,
+          "unknown": 0
+        },
+        "sample_dt_median_ms": 0.9999999999976694,
+        "sample_dt_max_ms": 51.00000000000193,
+        "approximated_map_clearance_m": 0.1274631442363618
+      },
+      {
+        "leg": "east-wall-straight",
+        "start": [
+          9.554290415568186,
+          -5.733199362567873
+        ],
+        "goal": [
+          9.55,
+          0.4
+        ],
+        "end": [
+          9.503743947682004,
+          0.28866111835828834
+        ],
+        "direct_m": 6.133200863225394,
+        "travelled_m": 6.031511394864445,
+        "start_sim": 56.052,
+        "end_sim": 66.793,
+        "samples": 10121,
+        "goal_status": 4,
+        "error": null,
+        "stop_verified": true,
+        "goal_error_m": 0.12056520618019251,
+        "truth_peak_mps": 2.0017048790851404,
+        "peak_at_sim": 59.957,
+        "peak_at_xy": [
+          9.489910121621113,
+          -2.493533553298017
+        ],
+        "controller_peak_mps": 2.000000000000002,
+        "output_peak_mps": 2.0,
+        "contacts": {
+          "ground": 32571,
+          "wall": 0,
+          "box": 0,
+          "unknown": 0
+        },
+        "sample_dt_median_ms": 0.9999999999976694,
+        "sample_dt_max_ms": 36.999999999999034,
+        "approximated_map_clearance_m": 0.27035959112379154
+      },
+      {
+        "leg": "northeast-to-southwest",
+        "start": [
+          9.503743947682004,
+          0.28866111835828834
+        ],
+        "goal": [
+          0.12,
+          -5.75
+        ],
+        "end": [
+          0.1793501609810697,
+          -5.701753600783268
+        ],
+        "direct_m": 11.158856508533068,
+        "travelled_m": 11.653733071559847,
+        "start_sim": 66.793,
+        "end_sim": 89.677,
+        "samples": 21596,
+        "goal_status": 4,
+        "error": null,
+        "stop_verified": true,
+        "goal_error_m": 0.07648631672305316,
+        "truth_peak_mps": 1.9455406980985372,
+        "peak_at_sim": 76.625,
+        "peak_at_xy": [
+          5.346545733165656,
+          -2.393458093570743
+        ],
+        "controller_peak_mps": 2.0,
+        "output_peak_mps": 1.9648784554872167,
+        "contacts": {
+          "ground": 68346,
+          "wall": 0,
+          "box": 0,
+          "unknown": 0
+        },
+        "sample_dt_median_ms": 1.0000000000047748,
+        "sample_dt_max_ms": 29.000000000010573,
+        "approximated_map_clearance_m": 0.15988350193494377
+      },
+      {
+        "leg": "south-wall",
+        "start": [
+          0.1793501609810697,
+          -5.701753600783268
+        ],
+        "goal": [
+          4.8,
+          -5.9
+        ],
+        "end": [
+          4.750568995201911,
+          -5.941029981982174
+        ],
+        "direct_m": 4.624900709164259,
+        "travelled_m": 5.694123103716365,
+        "start_sim": 89.677,
+        "end_sim": 107.429,
+        "samples": 16629,
+        "goal_status": 4,
+        "error": null,
+        "stop_verified": true,
+        "goal_error_m": 0.06424082546797036,
+        "truth_peak_mps": 1.5594094842581905,
+        "peak_at_sim": 91.503,
+        "peak_at_xy": [
+          0.816797533112096,
+          -5.461487903048594
+        ],
+        "controller_peak_mps": 1.9758542456365564,
+        "output_peak_mps": 1.5707067300416448,
+        "contacts": {
+          "ground": 54533,
+          "wall": 0,
+          "box": 0,
+          "unknown": 0
+        },
+        "sample_dt_median_ms": 1.0000000000047748,
+        "sample_dt_max_ms": 36.000000000001364,
+        "approximated_map_clearance_m": 0.23088843299634737
+      },
+      {
+        "leg": "central-straight",
+        "start": [
+          4.750568995201911,
+          -5.941029981982174
+        ],
+        "goal": [
+          4.8,
+          0.4
+        ],
+        "end": [
+          4.7524397479253375,
+          0.29982727024944156
+        ],
+        "direct_m": 6.341222646827045,
+        "travelled_m": 6.257362702663204,
+        "start_sim": 107.429,
+        "end_sim": 119.704,
+        "samples": 11636,
+        "goal_status": 4,
+        "error": null,
+        "stop_verified": true,
+        "goal_error_m": 0.11088982533615896,
+        "truth_peak_mps": 2.0143474315923937,
+        "peak_at_sim": 112.817,
+        "peak_at_xy": [
+          4.745619619203361,
+          -2.5504862048637
+        ],
+        "controller_peak_mps": 2.000000000000002,
+        "output_peak_mps": 2.0,
+        "contacts": {
+          "ground": 35448,
+          "wall": 0,
+          "box": 0,
+          "unknown": 0
+        },
+        "sample_dt_median_ms": 1.0000000000047748,
+        "sample_dt_max_ms": 33.999999999991815,
+        "approximated_map_clearance_m": 0.24750524605356056
+      },
+      {
+        "leg": "center-to-southeast",
+        "start": [
+          4.7524397479253375,
+          0.29982727024944156
+        ],
+        "goal": [
+          9.25,
+          -5.65
+        ],
+        "end": [
+          9.184698174578134,
+          -5.61231787893124
+        ],
+        "direct_m": 7.458451097033875,
+        "travelled_m": 8.830651009266976,
+        "start_sim": 119.704,
+        "end_sim": 138.274,
+        "samples": 17629,
+        "goal_status": 4,
+        "error": null,
+        "stop_verified": true,
+        "goal_error_m": 0.0753941022339849,
+        "truth_peak_mps": 1.9431539413924626,
+        "peak_at_sim": 131.718,
+        "peak_at_xy": [
+          9.030372145350338,
+          -2.988544869212478
+        ],
+        "controller_peak_mps": 1.949375755018248,
+        "output_peak_mps": 1.9466767195111054,
+        "contacts": {
+          "ground": 55668,
+          "wall": 0,
+          "box": 0,
+          "unknown": 0
+        },
+        "sample_dt_median_ms": 1.0000000000047748,
+        "sample_dt_max_ms": 34.99999999999659,
+        "approximated_map_clearance_m": 0.1560633534272327
+      },
+      {
+        "leg": "southeast-to-west",
+        "start": [
+          9.184698174578134,
+          -5.61231787893124
+        ],
+        "goal": [
+          0.1,
+          -0.45
+        ],
+        "end": [
+          0.14279489669228873,
+          -0.5131984448519171
+        ],
+        "direct_m": 10.44898400832906,
+        "travelled_m": 17.852345731303537,
+        "start_sim": 138.274,
+        "end_sim": 167.872,
+        "samples": 28383,
+        "goal_status": 4,
+        "error": null,
+        "stop_verified": true,
+        "goal_error_m": 0.07632461342584365,
+        "truth_peak_mps": 1.9501751893556063,
+        "peak_at_sim": 161.888,
+        "peak_at_xy": [
+          0.515198921016256,
+          -3.0201375281098812
+        ],
+        "controller_peak_mps": 2.0000000000000013,
+        "output_peak_mps": 1.9999999999999976,
+        "contacts": {
+          "ground": 87374,
+          "wall": 0,
+          "box": 0,
+          "unknown": 0
+        },
+        "sample_dt_median_ms": 1.0000000000047748,
+        "sample_dt_max_ms": 36.000000000001364,
+        "approximated_map_clearance_m": 0.13050283915632171
+      }
+    ]
+  },
+  "manual_goal_cases": {
+    "manual-abort": {
+      "result_count": 1,
+      "contacts_decode_errors": {},
+      "map_clearance_method": "conservative proxy from 5 cm navigation occupancy cells, sample stride 25, body rectangle 0.58 x 0.53 m; excludes the two spawned boxes",
+      "legs": [
+        {
+          "leg": "windows-abort",
+          "start": [
+            0.06001938108777072,
+            -0.7449999995932752
+          ],
+          "goal": [
+            9.597,
+            -5.1
+          ],
+          "end": [
+            9.540816676732438,
+            -5.068954553754768
+          ],
+          "direct_m": 10.484275097928803,
+          "travelled_m": 17.30157250968116,
+          "start_sim": 23.86,
+          "end_sim": 57.408,
+          "samples": 31468,
+          "goal_status": 4,
+          "error": null,
+          "stop_verified": true,
+          "goal_error_m": 0.06419022936516766,
+          "truth_peak_mps": 1.958078408484391,
+          "peak_at_sim": 37.977,
+          "peak_at_xy": [
+            4.579754692334479,
+            -3.5079589566825184
+          ],
+          "controller_peak_mps": 2.0000000000000013,
+          "output_peak_mps": 1.9927656279521004,
+          "contacts": {
+            "ground": 100472,
+            "wall": 0,
+            "box": 0,
+            "unknown": 0
+          },
+          "sample_dt_median_ms": 0.9999999999976694,
+          "sample_dt_max_ms": 74.99999999999929,
+          "approximated_map_clearance_m": 0.14180937846674185
+        }
+      ]
+    },
+    "manual-other": {
+      "result_count": 1,
+      "contacts_decode_errors": {},
+      "map_clearance_method": "conservative proxy from 5 cm navigation occupancy cells, sample stride 25, body rectangle 0.58 x 0.53 m; excludes the two spawned boxes",
+      "legs": [
+        {
+          "leg": "windows-comparison",
+          "start": [
+            0.060028123497350094,
+            -0.7449999995932761
+          ],
+          "goal": [
+            9.597,
+            -5.388
+          ],
+          "end": [
+            9.560982466152867,
+            -5.330559873484054
+          ],
+          "direct_m": 10.607133523105066,
+          "travelled_m": 17.598605861581003,
+          "start_sim": 25.813,
+          "end_sim": 61.442,
+          "samples": 33248,
+          "goal_status": 4,
+          "error": null,
+          "stop_verified": true,
+          "goal_error_m": 0.06779845778922433,
+          "truth_peak_mps": 1.9467055052719544,
+          "peak_at_sim": 43.982,
+          "peak_at_xy": [
+            4.57692740252666,
+            -3.4397455333162146
+          ],
+          "controller_peak_mps": 2.0000000000000013,
+          "output_peak_mps": 1.9842114704823055,
+          "contacts": {
+            "ground": 108304,
+            "wall": 0,
+            "box": 0,
+            "unknown": 0
+          },
+          "sample_dt_median_ms": 0.9999999999976694,
+          "sample_dt_max_ms": 61.99999999999761,
+          "approximated_map_clearance_m": 0.05784138236978589
+        }
+      ]
+    },
+    "manual-abort-recheck-2": {
+      "result_count": 1,
+      "contacts_decode_errors": {},
+      "map_clearance_method": "conservative proxy from 5 cm navigation occupancy cells, sample stride 25, body rectangle 0.58 x 0.53 m; excludes the two spawned boxes",
+      "legs": [
+        {
+          "leg": "windows-abort",
+          "start": [
+            0.059998137957329334,
+            -0.7449999995879666
+          ],
+          "goal": [
+            9.597,
+            -5.1
+          ],
+          "end": [
+            9.570047474003024,
+            -5.042058922842383
+          ],
+          "direct_m": 10.484294421666828,
+          "travelled_m": 17.12766513550086,
+          "start_sim": 22.244,
+          "end_sim": 51.583,
+          "samples": 27434,
+          "goal_status": 4,
+          "error": null,
+          "stop_verified": true,
+          "goal_error_m": 0.0639031069651745,
+          "truth_peak_mps": 1.9670031883925134,
+          "peak_at_sim": 35.93,
+          "peak_at_xy": [
+            4.437235528996958,
+            -3.4730041452588165
+          ],
+          "controller_peak_mps": 2.0000000000000013,
+          "output_peak_mps": 1.9869909943521622,
+          "contacts": {
+            "ground": 88852,
+            "wall": 0,
+            "box": 0,
+            "unknown": 0
+          },
+          "sample_dt_median_ms": 0.9999999999976694,
+          "sample_dt_max_ms": 53.000000000000824,
+          "approximated_map_clearance_m": 0.1468630336217171
+        }
+      ]
+    }
+  },
+  "inflation_escape": {
+    "rviz-inflation-0N1hN9": [
+      {
+        "leg": "escape_and_navigate",
+        "target": [
+          5.198,
+          -4.553
+        ],
+        "sim_seconds": 8.992999999999999,
+        "goal_error_m": 0.07191571485904577,
+        "stop_verified": true,
+        "truth_peak_mps": 1.531766289623041,
+        "command_peak_mps": 1.9763228371646746,
+        "output_peak_mps": 1.5690833322376785,
+        "minimum_raw_clearance_m": 0.4509978613919987,
+        "start_cost": 209,
+        "exit_cost": 171,
+        "escape_controller_peak_mps": 0.6,
+        "escape_truth_peak_mps": 0.41008293766041143
+      },
+      {
+        "leg": "reject_deep_goal",
+        "status": "rejected",
+        "no_motion": true
+      },
+      {
+        "leg": "second_valid_goal",
+        "target": [
+          5.0,
+          -0.2
+        ],
+        "sim_seconds": 8.456,
+        "goal_error_m": 0.06941737168640541,
+        "stop_verified": true,
+        "truth_peak_mps": 1.9639829010955678,
+        "command_peak_mps": 2.000000000000002,
+        "output_peak_mps": 2.0,
+        "minimum_raw_clearance_m": 0.65
+      }
+    ],
+    "rviz-inflation-AZUNNf": [
+      {
+        "leg": "escape_and_navigate",
+        "target": [
+          5.198,
+          -4.553
+        ],
+        "sim_seconds": 7.823999999999998,
+        "goal_error_m": 0.07549656600505368,
+        "stop_verified": true,
+        "truth_peak_mps": 1.4932623992424638,
+        "command_peak_mps": 1.975854245636555,
+        "output_peak_mps": 1.5300611050313635,
+        "minimum_raw_clearance_m": 0.43801065578273946,
+        "start_cost": 253,
+        "exit_cost": 171,
+        "escape_controller_peak_mps": 0.6,
+        "escape_truth_peak_mps": 0.5185485690447296
+      },
+      {
+        "leg": "reject_deep_goal",
+        "status": "rejected",
+        "no_motion": true
+      },
+      {
+        "leg": "second_valid_goal",
+        "target": [
+          5.0,
+          -0.2
+        ],
+        "sim_seconds": 9.252999999999997,
+        "goal_error_m": 0.06597648096074177,
+        "stop_verified": true,
+        "truth_peak_mps": 1.9408842029613382,
+        "command_peak_mps": 2.000000000000002,
+        "output_peak_mps": 2.0,
+        "minimum_raw_clearance_m": 0.65
+      }
+    ],
+    "rviz-inflation-q23Md1": [
+      {
+        "leg": "escape_and_navigate",
+        "target": [
+          5.198,
+          -4.553
+        ],
+        "sim_seconds": 8.129999999999999,
+        "goal_error_m": 0.06851491667878837,
+        "stop_verified": true,
+        "truth_peak_mps": 1.545207613961249,
+        "command_peak_mps": 1.975854245636555,
+        "output_peak_mps": 1.571847157225548,
+        "minimum_raw_clearance_m": 0.43500771822274764,
+        "start_cost": 253,
+        "exit_cost": 171,
+        "escape_controller_peak_mps": 0.6,
+        "escape_truth_peak_mps": 0.4930790169671513
+      },
+      {
+        "leg": "reject_deep_goal",
+        "status": "rejected",
+        "no_motion": true
+      },
+      {
+        "leg": "second_valid_goal",
+        "target": [
+          5.0,
+          -0.2
+        ],
+        "sim_seconds": 8.677999999999997,
+        "goal_error_m": 0.07067746282708073,
+        "stop_verified": true,
+        "truth_peak_mps": 1.9806635239182024,
+        "command_peak_mps": 2.000000000000002,
+        "output_peak_mps": 2.0,
+        "minimum_raw_clearance_m": 0.65
+      }
+    ]
+  },
+  "moving_imu_recovery": null,
+  "failed_headon01": {
+    "minimum_gap_m": 0.056188766024961145,
+    "contact_health": {
+      "event": "health",
+      "frames": 4866,
+      "contacts": 0,
+      "probe_contacts": 4866
+    },
+    "failure": "RuntimeError('Navigation acceptance failed')",
+    "result": [
+      {
+        "event": "result",
+        "mode": "nav",
+        "status": 6,
+        "ground_truth_moved": 1.8389439557806855,
+        "goal_error": 3.0866076820753663,
+        "ground_truth_goal_error": 3.0886570577314267,
+        "ground_truth_map_xy": [
+          6.273636822253334,
+          -0.8171939214325179
+        ],
+        "estimated_map_xy": [
+          6.275306198728984,
+          -0.8151214445939544
+        ],
+        "ground_truth_z": 0.0,
+        "stopped_speed": 3.971974791176912e-05,
+        "stopped_command": 0.0,
+        "elapsed_wall_s": 10.91418949200306,
+        "nonzero_commands": 34,
+        "counts": {
+          "ground_truth": 9886,
+          "imu": 2786,
+          "clock": 12009,
+          "lidar": 282,
+          "adapted_odometry": 261,
+          "registered_scan": 261,
+          "odometry": 261,
+          "terrain_map": 261,
+          "terrain_map_ext": 261,
+          "cmd_vel": 1753,
+          "lio": 260,
+          "map": 1,
+          "local_costmap": 10,
+          "lio_cloud": 257,
+          "converted_cloud": 254,
+          "global_costmap": 1,
+          "global_plan": 9,
+          "local_plan": 47
+        },
+        "stop_state": {
+          "mode": "strict-safety-stop",
+          "classification": "safety_stop",
+          "still_spinning": false,
+          "translation_speed_mps": 3.9719747911785466e-05,
+          "translation_command_mps": 0.0,
+          "angular_speed_rps": 2.2178482665707316e-11,
+          "angular_command_rps": 0.0,
+          "legacy_max_speed": 3.971974791176912e-05,
+          "legacy_max_command": 0.0,
+          "stable_stop_confirmed": true,
+          "original_1s_stop_passed": true,
+          "stop_observation_budget_sim_s": 2.0,
+          "stop_confirmation_delay_sim_s": 1.203000000000003,
+          "threshold": 0.03,
+          "source": "chassis_odometry_gt twist and cmd_vel received at final check"
+        }
+      }
+    ],
+    "error_events": [
+      {
+        "event": "FAIL",
+        "mode": "nav",
+        "error": "Navigation did not return SUCCEEDED",
+        "counts": {
+          "ground_truth": 9886,
+          "imu": 2786,
+          "clock": 12009,
+          "lidar": 282,
+          "adapted_odometry": 261,
+          "registered_scan": 261,
+          "odometry": 261,
+          "terrain_map": 261,
+          "terrain_map_ext": 261,
+          "cmd_vel": 1753,
+          "lio": 260,
+          "map": 1,
+          "local_costmap": 10,
+          "lio_cloud": 257,
+          "converted_cloud": 254,
+          "global_costmap": 1,
+          "global_plan": 9,
+          "local_plan": 47
+        }
+      }
+    ]
+  }
+}
