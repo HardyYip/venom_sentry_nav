@@ -1,0 +1,8 @@
+PASS transient no-path: halted, waited, followed fresh plan (3 waits)
+PASS transient no-path: halted, waited, followed fresh plan (5 waits)
+PASS persistent no-path: halted, bounded waits, failed safely (6 waits)
+PASS 128 additional near-stop samples and shallow angles; normal moving sample grid unchanged; absolute speed limit preserved; predicted diagonal acceleration capped
+PASS real smoother: diagonal acceleration and braking, 1.750 m/s^2 maximum command change, 2.000 m/s cap, zero after braking
+PASS hand-selected map goal (9.597, -5.1), odom peak 1.985 m/s, one-second stop
+PASS hand-selected map goal (0.06, -0.745), odom peak 1.985 m/s, one-second stop
+PASS hand-selected map goal (9.597, -5.388), odom peak 1.987 m/s, one-second stop

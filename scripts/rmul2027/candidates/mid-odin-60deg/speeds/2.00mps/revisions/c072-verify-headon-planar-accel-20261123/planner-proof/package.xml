@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>c072_grid_recovery_proof</name><version>0.0.1</version>
+  <description>Isolated planner regression fixture</description>
+  <maintainer email="codex@example.invalid">Codex</maintainer><license>Apache-2.0</license>
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <depend>lifecycle_msgs</depend><depend>nav2_core</depend><depend>nav2_navfn_planner</depend>
+  <depend>nav2_costmap_2d</depend><depend>pluginlib</depend><depend>rclcpp</depend>
+  <depend>rclcpp_lifecycle</depend><depend>tf2_ros</depend>
+  <depend>behaviortree_cpp_v3</depend>
+  <depend>dwb_core</depend><depend>nav2_util</depend>
+</package>

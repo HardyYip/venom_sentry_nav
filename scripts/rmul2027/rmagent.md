@@ -1,8 +1,14 @@
 # RMUL MID360 + Odin1 导航交接
 
-更新日期 2026-11-22（北京时间）。手动测试和下轮需求以当天收到的 ToDesk 交接记录为准。
+更新日期 2026-11-23（北京时间）。历史手动测试保留当天收到的 ToDesk 交接记录。
 
-## 当前基线
+## 2026-11-23 离线验收与默认版
+
+- 正式分支为 `sim/rmul2027-mid-odin-20261121`，默认使用本轮 2.00 m/s 的源码和参数。固定 12/12、对向 3/3、长路线 7/7、膨胀区脱困 3/3、移动 IMU 恢复 3/3、启动恢复 4/4 和 WSL 无界面手动坐标 3/3。对向车为 0.50 m/s，正式对向最小物理净距 0.099 m。
+- 短时全局无路会停止跟随旧路线并等待有效重规划。低速轨迹增加更细的横向方向，避免原固定定向夹具在膨胀边停滞。向外退出阶段的控制器指令上限为 0.60 m/s。使用最新目标后依旧检查扫掠净空，危险目标拒绝后可继续下发合法点位。
+- RViz2 每次沿用 `RM-RViz2-LATEST` 完整启动包和项目内手动启动入口。窗口手动复测和实车验收继续等待现场测试。[正式验收结果与凭证](candidates/mid-odin-60deg/speeds/2.00mps/revisions/c072-verify-headon-planar-accel-20261123/RESULTS.zh-CN.md)
+
+## 11 月 22 日基线
 
 - 正式 2.00 m/s 仿真基线为 `b5e08a78e7feb90f54eb95d33d70c99e9a395e29`。正式分支为 `sim/rmul2027-mid-odin-20261121`。速度反馈分支 `sim/rmul2027-speed-feedback-20261122` 也已包含该提交。`6ccd713` 的固定障碍 9/12 属于早期候选，`b4a4657` 是之前的合格基线。[正式验收结果与复现方法](https://github.com/HardyYip/venom_sentry_nav/blob/b5e08a78e7feb90f54eb95d33d70c99e9a395e29/scripts/rmul2027/candidates/mid-odin-60deg/speeds/2.00mps/revisions/c072-speed200-motion-clock-20261122/RESULTS.zh-CN.md)
 - 16:37 完成的 Ubuntu 隔离 Gazebo 验收使用同一构建。固定障碍 12/12、对向 3/3、长路线 7/7、膨胀区脱困 3/3。固定、对向和长路线均无墙箱碰撞并通过停稳检查。三组脱困使用 0.20 m/s 指令上限。反向 IMU 中断恢复 3/3，首启 145 ms IMU 缺口触发一次受控重启并通过放行。正式 15 场的有效参数和库哈希已核对。末级指令峰值 2.000 m/s，Gazebo 真值单次采样峰值 2.011 m/s。[逐场验收凭证](https://github.com/HardyYip/venom_sentry_nav/blob/b5e08a78e7feb90f54eb95d33d70c99e9a395e29/scripts/rmul2027/candidates/mid-odin-60deg/speeds/2.00mps/revisions/c072-speed200-motion-clock-20261122/evidence/offline-qualified-20261122.json)
@@ -13,7 +19,7 @@
 - 17:31，下发另一目标 `(9.597, -5.388)` 后成功到点，停在 `(9.540, -5.337)`，随后约 5 秒里程计保持 0 m/s。此次测试也记录到沿膨胀边缘反复减速。
 - 复测沿用 Windows + Ubuntu-22.04 WSL 的 `RM-RViz2-LATEST` 完整启动包。仅看图使用 `Open-RViz2.cmd`。手动选点先运行包内 `ensure_wslg_display.py`，再走 `rm-decision-replay/run.bash manual`，以加载 `decision-manual.rviz`、可见 `2D Goal Pose`、日志出现 `MANUAL_READY` 为就绪依据。原始手动记录见回放目录的 `replay.log`、`manual-controller.log`、`manual-planner.log` 和 `manual-bt.log`。
 
-## 待完成任务
+## 11 月 22 日待办记录
 
 1. **复现目标途中中止。** 先在 Ubuntu 用 `b5e08a7` 和相同夹具复跑上述两个目标，同步记录目标状态、全局路径及 NavFn 回退、局部净空、速度指令和制动触发。以异常目标可重复到点并停稳作为修复验收。
 2. **定位贴边走走停停。** 对齐原始障碍净空、沿边和朝向障碍的速度分量、控制器输出及末级指令，核实同时置零两个平移轴的条件。修复后确认安全贴边段能连续前进，同时通过碰撞、净空和停车检查。

@@ -32,6 +32,6 @@
 
 ## 本机默认 2.00 m/s
 
-同版固定 12/12、移动对向 3/3、膨胀脱困 3/3、连续路线 7/7，通过 IMU 中断恢复和冷启动故障复测。[默认版结果、参数与测试方法](speeds/2.00mps/revisions/c072-speed200-motion-clock-20261122/RESULTS.zh-CN.md)
+同版固定 12/12、移动对向 3/3、膨胀脱困 3/3、连续路线 7/7，通过 IMU 中断恢复和冷启动故障复测。[默认版结果、参数与测试方法](speeds/2.00mps/revisions/c072-verify-headon-planar-accel-20261123/RESULTS.zh-CN.md)
 
 Windows RViz2 手动复测记录与待完成事项见 [RMUL 导航交接](../../rmagent.md)。

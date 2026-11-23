@@ -17,4 +17,4 @@
 
 ## 最新默认版
 
-同一构建通过 12 次固定障碍、3 次对向移动障碍、3 次膨胀区脱困和 7 段连续路线验收，并完成 IMU 故障复测。[默认版结果与凭证](revisions/c072-speed200-motion-clock-20261122/RESULTS.zh-CN.md)
+同一构建通过 12 次固定障碍、3 次对向移动障碍、3 次膨胀区脱困和 7 段连续路线验收，并完成 IMU 故障复测。[默认版结果与凭证](revisions/c072-verify-headon-planar-accel-20261123/RESULTS.zh-CN.md)

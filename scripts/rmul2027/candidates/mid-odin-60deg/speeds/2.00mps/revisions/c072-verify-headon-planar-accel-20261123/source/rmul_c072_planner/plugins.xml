@@ -1,0 +1,10 @@
+<library path="c072_navigation_plugins">
+  <class name="rmul_c072_planner/ReserveNavfn" type="rmul_c072_planner::ReserveNavfn"
+         base_class_type="nav2_core::GlobalPlanner">
+    <description>NavFn on a private protected snapshot of the current costmap.</description>
+  </class>
+  <class name="rmul_c072_planner::InflationAwareController"
+         type="rmul_c072_planner::InflationAwareController" base_class_type="nav2_core::Controller">
+    <description>C072 DWB controller with checked outward recovery from inflated starts.</description>
+  </class>
+</library>
