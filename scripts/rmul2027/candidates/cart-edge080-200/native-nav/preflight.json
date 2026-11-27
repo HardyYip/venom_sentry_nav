@@ -1,0 +1,15 @@
+{
+  "release": "3eb64d3faefc21d80c531746d7e6d531f65eec4f",
+  "elevation_deg": -10,
+  "baseline_inputs": {
+    "params.yaml": "fb8fa11d824d5c682f3a01e50a6452bb4edee4754bca788d21e4bef2c23af43e",
+    "planner-install/rmul_c072_planner/lib/libc072_navigation_plugins.so": "631ffbc1a9f154f85fecd3fb26471a7f4a0d78cadbe4a9a0d20e40ae88dbc262",
+    "planner-install/nav2_velocity_smoother/lib/libvelocity_smoother_core.so": "c2bee0296089351a5c42eee0dbfe75eea6d6a2189b29ab8fe6551bfc8fc618dd"
+  },
+  "other_runtime_inputs": {
+    "safety-install/lib/librmul_pose_fresh_condition_bt_node.so": "e625127bf18dbdb366cedd9956530c9418dc895a7935071442c5be7944e146b4",
+    "../runtime/omni/pb_omni_pid_pursuit_controller/lib/libpb_omni_pid_pursuit_controller.so": "2e64a25111879d4b9a6ca16dc9be4107fab87aab4c583c92f96d588c596dafc0",
+    "../runtime/pb_nav2_plugins/lib/liblayers.so": "aa3db2121edbc7b054b108637d7149512fbbb965ece4c1bd7cca111dc86dbe74",
+    "../../c072-verify-headon-planar-accel-20261123/source/rmul_c072_planner/behavior_trees/navigate_field_refresh.xml": "1667e8f5d6ec6cfca5ebe94f2e001e6d2f5707611e43dfffa56623d7ef757794"
+  }
+}

@@ -1,0 +1,111 @@
+[INFO] [1795757131.681045678] [controller_server]: 
+	controller_server lifecycle node launched. 
+	Waiting on external lifecycle transitions to activate
+	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[INFO] [1795757131.686569758] [controller_server]: Creating controller server
+[INFO] [1795757131.692924427] [local_costmap.local_costmap]: 
+	local_costmap lifecycle node launched. 
+	Waiting on external lifecycle transitions to activate
+	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[INFO] [1795757131.693613681] [local_costmap.local_costmap]: Creating Costmap
+[INFO] [1795757131.811618401] [controller_server]: Configuring controller interface
+[INFO] [1795757131.811722391] [controller_server]: getting goal checker plugins..
+[INFO] [1795757131.811787494] [controller_server]: Controller frequency set to 20.0000Hz
+[INFO] [1795757131.811816153] [local_costmap.local_costmap]: Configuring
+[INFO] [1795757131.814262211] [local_costmap.local_costmap]: Using plugin "static_layer"
+[INFO] [1795757131.818770641] [local_costmap.local_costmap]: Subscribing to the map topic (/map) with transient local durability
+[INFO] [1795757131.819925843] [local_costmap.local_costmap]: Initialized plugin "static_layer"
+[INFO] [1795757131.819961494] [local_costmap.local_costmap]: Using plugin "intensity_voxel_layer"
+[INFO] [1795757131.821226406] [local_costmap.local_costmap]: Subscribed to Topics: terrain_map
+[INFO] [1795757131.823700452] [local_costmap.local_costmap]: Initialized plugin "intensity_voxel_layer"
+[INFO] [1795757131.823717171] [local_costmap.local_costmap]: Using plugin "odin_obstacle_layer"
+[INFO] [1795757131.823866980] [local_costmap.local_costmap]: Subscribed to Topics: odin_cloud
+[INFO] [1795757131.824757533] [local_costmap.local_costmap]: Initialized plugin "odin_obstacle_layer"
+[INFO] [1795757131.824773060] [local_costmap.local_costmap]: Using plugin "mid_geometric_obstacle_layer"
+[INFO] [1795757131.824944527] [local_costmap.local_costmap]: Subscribed to Topics: mid_geometric_cloud
+[INFO] [1795757131.825915229] [local_costmap.local_costmap]: Initialized plugin "mid_geometric_obstacle_layer"
+[INFO] [1795757131.825929964] [local_costmap.local_costmap]: Using plugin "inflation_layer"
+[INFO] [1795757131.826339634] [local_costmap.local_costmap]: Initialized plugin "inflation_layer"
+[INFO] [1795757131.829694937] [controller_server]: Created progress_checker : progress_checker of type nav2_controller::SimpleProgressChecker
+[INFO] [1795757131.830022274] [controller_server]: Created goal checker : general_goal_checker of type nav2_controller::SimpleGoalChecker
+[INFO] [1795757131.830136442] [controller_server]: Controller Server has general_goal_checker  goal checkers available.
+[INFO] [1795757131.835565577] [controller_server]: Created controller : FollowPath of type rmul_c072_planner::InflationAwareController
+[INFO] [1795757131.837667448] [controller_server]: Setting transform_tolerance to 0.100000
+[INFO] [1795757131.840973445] [controller_server]: Using critic "rmul_c072_planner::PredictedObstacle" (rmul_c072_planner::PredictedObstacleCritic)
+[INFO] [1795757131.841611541] [controller_server]: C072 measured obstacle prediction active in local scoring
+[INFO] [1795757131.841630333] [controller_server]: Critic plugin initialized
+[INFO] [1795757131.842161113] [controller_server]: Using critic "BaseObstacle" (dwb_critics::BaseObstacleCritic)
+[INFO] [1795757131.842246721] [controller_server]: Critic plugin initialized
+[INFO] [1795757131.842297880] [controller_server]: Using critic "ObstacleFootprint" (dwb_critics::ObstacleFootprintCritic)
+[INFO] [1795757131.842356151] [controller_server]: Critic plugin initialized
+[INFO] [1795757131.842404214] [controller_server]: Using critic "PathDist" (dwb_critics::PathDistCritic)
+[INFO] [1795757131.842609219] [controller_server]: Critic plugin initialized
+[INFO] [1795757131.842657773] [controller_server]: Using critic "GoalDist" (dwb_critics::GoalDistCritic)
+[INFO] [1795757131.842833728] [controller_server]: Critic plugin initialized
+[INFO] [1795757131.842880118] [controller_server]: Using critic "rmul_c072_planner::TerminalGoal" (rmul_c072_planner::TerminalGoalCritic)
+[INFO] [1795757131.842937418] [controller_server]: Critic plugin initialized
+[INFO] [1795757131.842983417] [controller_server]: Using critic "rmul_c072_planner::PathProgress" (rmul_c072_planner::PathProgressCritic)
+[INFO] [1795757131.843015663] [controller_server]: Critic plugin initialized
+[INFO] [1795757131.843058247] [controller_server]: Using critic "rmul_c072_planner::SweptClearance" (rmul_c072_planner::SweptClearanceCritic)
+[INFO] [1795757131.843463579] [controller_server]: Critic plugin initialized
+[INFO] [1795757131.843562030] [controller_server]: Shared trajectory/goal-field planning radius 0.500000, physical floor 0.432884
+[INFO] [1795757131.843582034] [controller_server]: Goal-field complete cell coverage enabled, half-diagonal reserve 0.035355 m
+[INFO] [1795757131.843625600] [controller_server]: Added SpinCoverage critic: full physical spin circle vs lethal/unknown cells
+[INFO] [1795757131.843634315] [controller_server]: Continuous trajectory cell reserve enabled; inward motion from reserve forbidden
+[INFO] [1795757131.844126407] [controller_server]: Omni DWB uses estimated pose velocity in the nonspinning command frame
+[INFO] [1795757131.844582618] [controller_server]: C072 measured obstacle prediction active in local scoring
+[INFO] [1795757131.844601510] [controller_server]: Controller Server has FollowPath  controllers available.
+[INFO] [1795757134.286785573] [local_costmap.local_costmap]: StaticLayer: Resizing static layer to 254 X 174 at 0.050000 m/pix
+[INFO] [1795757134.749063949] [controller_server]: Activating
+[INFO] [1795757134.749107314] [local_costmap.local_costmap]: Activating
+[INFO] [1795757134.749119124] [local_costmap.local_costmap]: Checking transform
+[INFO] [1795757134.749188645] [local_costmap.local_costmap]: start
+[INFO] [1795757134.900077107] [controller_server]: Creating bond (controller_server) to lifecycle manager.
+[INFO] [1795757137.247797523] [controller_server]: Received a goal, begin computing control effort.
+[WARN] [1795757137.247852218] [controller_server]: No goal checker was specified in parameter 'current_goal_checker'. Server will use only plugin loaded general_goal_checker . This warning will appear once.
+[INFO] [1795757137.252810564] [SpinCoverageCritic]: SpinCoverage sample world=(0.000,0.000) radius=0.500 clear=1
+[INFO] [1795757137.648150903] [controller_server]: Passing new path to controller.
+[INFO] [1795757137.998146167] [controller_server]: Passing new path to controller.
+[INFO] [1795757138.348136197] [controller_server]: Passing new path to controller.
+[INFO] [1795757138.698139525] [controller_server]: Passing new path to controller.
+[INFO] [1795757139.048142842] [controller_server]: Passing new path to controller.
+[INFO] [1795757139.448131472] [controller_server]: Passing new path to controller.
+[INFO] [1795757139.798151057] [controller_server]: Passing new path to controller.
+[INFO] [1795757140.148144536] [controller_server]: Passing new path to controller.
+[INFO] [1795757140.498137039] [controller_server]: Passing new path to controller.
+[INFO] [1795757140.848131587] [controller_server]: Passing new path to controller.
+[INFO] [1795757141.248140203] [controller_server]: Passing new path to controller.
+[INFO] [1795757141.598142477] [controller_server]: Passing new path to controller.
+[INFO] [1795757141.948130256] [controller_server]: Passing new path to controller.
+[INFO] [1795757142.298137311] [controller_server]: Passing new path to controller.
+[INFO] [1795757142.648136362] [controller_server]: Passing new path to controller.
+[INFO] [1795757143.048128981] [controller_server]: Passing new path to controller.
+[INFO] [1795757143.398137226] [controller_server]: Passing new path to controller.
+[INFO] [1795757143.748134923] [controller_server]: Passing new path to controller.
+[INFO] [1795757144.098130932] [controller_server]: Passing new path to controller.
+[INFO] [1795757144.448143752] [controller_server]: Passing new path to controller.
+[INFO] [1795757144.848128962] [controller_server]: Passing new path to controller.
+[INFO] [1795757145.198130669] [controller_server]: Passing new path to controller.
+[INFO] [1795757145.548136702] [controller_server]: Passing new path to controller.
+[INFO] [1795757145.898137205] [controller_server]: Passing new path to controller.
+[INFO] [1795757146.248132444] [controller_server]: Passing new path to controller.
+[INFO] [1795757146.648150730] [controller_server]: Passing new path to controller.
+[INFO] [1795757146.998136641] [controller_server]: Passing new path to controller.
+[INFO] [1795757147.348133023] [controller_server]: Passing new path to controller.
+[INFO] [1795757147.698137816] [controller_server]: Passing new path to controller.
+[INFO] [1795757148.048135651] [controller_server]: Passing new path to controller.
+[INFO] [1795757148.448135112] [controller_server]: Passing new path to controller.
+[INFO] [1795757148.798139693] [controller_server]: Passing new path to controller.
+[INFO] [1795757149.148151609] [controller_server]: Passing new path to controller.
+[INFO] [1795757149.498134097] [controller_server]: Passing new path to controller.
+[INFO] [1795757149.618694284] [controller_server]: Reached the goal!
+[INFO] [1795757151.612312198] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[INFO] [1795757151.612387890] [controller_server]: Running Nav2 LifecycleNode rcl preshutdown (controller_server)
+[INFO] [1795757151.612438559] [controller_server]: Deactivating
+[INFO] [1795757151.612474481] [local_costmap.local_costmap]: Deactivating
+[INFO] [1795757151.649315120] [controller_server]: Destroying bond (controller_server) to lifecycle manager.
+[INFO] [1795757151.659447583] [controller_server]: Cleaning up
+[INFO] [1795757151.659736539] [local_costmap.local_costmap]: Cleaning up
+[INFO] [1795757151.665715507] [controller_server]: Destroying bond (controller_server) to lifecycle manager.
+[INFO] [1795757151.670317797] [local_costmap.local_costmap]: Destroying
+[INFO] [1795757151.672096929] [controller_server]: Destroying

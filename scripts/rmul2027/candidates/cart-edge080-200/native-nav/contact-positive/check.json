@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "contacts": [
+    [
+      "cart::body::body_collision",
+      7,
+      "box0::body::body_collision",
+      22,
+      4
+    ]
+  ]
+}

@@ -1,0 +1,21 @@
+controller_server:
+  FollowPath:
+    min_vel_x: -2.0
+    min_vel_y: -2.0
+    max_vel_x: 2.0
+    max_vel_y: 2.0
+    max_speed_xy: 2.0
+    forward_prune_distance: 4.0
+velocity_smoother:
+  max_speed_xy: 2.0
+  max_velocity:
+  - 2.0
+  - 2.0
+  - 1.0
+  min_velocity:
+  - -2.0
+  - -2.0
+  - -1.0
+inflation_layer:
+  cost_scaling_factor: 2.6
+  inflation_radius: 0.9

@@ -1,0 +1,360 @@
+{
+  "requested": 15,
+  "finished": 15,
+  "passed": 15,
+  "sha256": {
+    "scene.py": "3f397de5b50870ff8bda21475815fd7abc7b56dacdfc98502be64c5e419b6a92",
+    "evaluate.py": "f967c8a1d54956e20ace8aa93e83ecc0d2cc786979e6edd1bdd1ea044636820b",
+    "run-case.bash": "a48ee538aaa69a06d879d89e50daf8d7313b3acc46f9dea280b764a19c71a788",
+    "isolated.bash": "b505f4e57319897fb2018b54659601cd91bda09d2a14cae1d02b6b25360e04f6",
+    "odin-final.sdf": "46d77d94cc70290ca62a568db9f0753403c88dd720520b4a01b43bb47b875f98",
+    "speed.yaml": "7d337aff64fc30be94c85642679e61004d4e2e902857d4a78cda9b4adfc85353"
+  },
+  "results": [
+    {
+      "passed": true,
+      "error": null,
+      "case": "left-far-01",
+      "distance_to_goal": 0.07412795974087981,
+      "stop_seconds": 1.5999999999999979,
+      "odom_peak": 1.2974999999999515,
+      "cmd_peak": 1.2974999999999999,
+      "contacts": 0,
+      "gap": 0.21462331166411572,
+      "cloud_frames": {
+        "odin": 164,
+        "mid": 327
+      },
+      "obstacle_returns": {
+        "odin": 167028,
+        "mid": 346608
+      },
+      "plans": 33,
+      "box_travel": 0.0,
+      "box_speed": null,
+      "exit": 0
+    },
+    {
+      "passed": true,
+      "error": null,
+      "case": "left-far-02",
+      "distance_to_goal": 0.0766685711074324,
+      "stop_seconds": 1.4000000000000004,
+      "odom_peak": 1.2898289473683988,
+      "cmd_peak": 1.2898289473684181,
+      "contacts": 0,
+      "gap": 0.21560748117150738,
+      "cloud_frames": {
+        "odin": 160,
+        "mid": 323
+      },
+      "obstacle_returns": {
+        "odin": 161983,
+        "mid": 342743
+      },
+      "plans": 32,
+      "box_travel": 0.0,
+      "box_speed": null,
+      "exit": 0
+    },
+    {
+      "passed": true,
+      "error": null,
+      "case": "left-far-03",
+      "distance_to_goal": 0.07253268181168476,
+      "stop_seconds": 1.6000000000000014,
+      "odom_peak": 1.014667720875162,
+      "cmd_peak": 1.0146677208751511,
+      "contacts": 0,
+      "gap": 0.21867045348752095,
+      "cloud_frames": {
+        "odin": 166,
+        "mid": 332
+      },
+      "obstacle_returns": {
+        "odin": 163551,
+        "mid": 362746
+      },
+      "plans": 33,
+      "box_travel": 0.0,
+      "box_speed": null,
+      "exit": 0
+    },
+    {
+      "passed": true,
+      "error": null,
+      "case": "left-near-01",
+      "distance_to_goal": 0.07332360097537911,
+      "stop_seconds": 1.5999999999999996,
+      "odom_peak": 1.288447368421042,
+      "cmd_peak": 1.2884473684210576,
+      "contacts": 0,
+      "gap": 0.20544218871348008,
+      "cloud_frames": {
+        "odin": 173,
+        "mid": 343
+      },
+      "obstacle_returns": {
+        "odin": 254881,
+        "mid": 355351
+      },
+      "plans": 35,
+      "box_travel": 0.0,
+      "box_speed": null,
+      "exit": 0
+    },
+    {
+      "passed": true,
+      "error": null,
+      "case": "left-near-02",
+      "distance_to_goal": 0.073847548701936,
+      "stop_seconds": 1.5999999999999996,
+      "odom_peak": 1.2613762603647103,
+      "cmd_peak": 1.2613762603646814,
+      "contacts": 0,
+      "gap": 0.20630212639026654,
+      "cloud_frames": {
+        "odin": 171,
+        "mid": 344
+      },
+      "obstacle_returns": {
+        "odin": 250145,
+        "mid": 357315
+      },
+      "plans": 35,
+      "box_travel": 0.0,
+      "box_speed": null,
+      "exit": 0
+    },
+    {
+      "passed": true,
+      "error": null,
+      "case": "left-near-03",
+      "distance_to_goal": 0.07622101724831576,
+      "stop_seconds": 1.5999999999999996,
+      "odom_peak": 1.2891381578947758,
+      "cmd_peak": 1.2891381578947398,
+      "contacts": 0,
+      "gap": 0.2055919174324984,
+      "cloud_frames": {
+        "odin": 170,
+        "mid": 342
+      },
+      "obstacle_returns": {
+        "odin": 250624,
+        "mid": 354432
+      },
+      "plans": 35,
+      "box_travel": 0.0,
+      "box_speed": null,
+      "exit": 0
+    },
+    {
+      "passed": true,
+      "error": null,
+      "case": "left-reverse-01",
+      "distance_to_goal": 0.07668630971964735,
+      "stop_seconds": 1.6000000000000014,
+      "odom_peak": 1.033246557864195,
+      "cmd_peak": 1.033246557864204,
+      "contacts": 0,
+      "gap": 0.25642173576811217,
+      "cloud_frames": {
+        "odin": 165,
+        "mid": 333
+      },
+      "obstacle_returns": {
+        "odin": 156162,
+        "mid": 366357
+      },
+      "plans": 33,
+      "box_travel": 0.0,
+      "box_speed": null,
+      "exit": 0
+    },
+    {
+      "passed": true,
+      "error": null,
+      "case": "left-reverse-02",
+      "distance_to_goal": 0.0732616709459379,
+      "stop_seconds": 1.6000000000000014,
+      "odom_peak": 1.0159008202829836,
+      "cmd_peak": 1.0159008202830633,
+      "contacts": 0,
+      "gap": 0.25886677422388443,
+      "cloud_frames": {
+        "odin": 168,
+        "mid": 336
+      },
+      "obstacle_returns": {
+        "odin": 158238,
+        "mid": 370420
+      },
+      "plans": 34,
+      "box_travel": 0.0,
+      "box_speed": null,
+      "exit": 0
+    },
+    {
+      "passed": true,
+      "error": null,
+      "case": "left-reverse-03",
+      "distance_to_goal": 0.07269774310429832,
+      "stop_seconds": 1.6000000000000014,
+      "odom_peak": 1.0319023927089954,
+      "cmd_peak": 1.031902392708917,
+      "contacts": 0,
+      "gap": 0.2568401772747217,
+      "cloud_frames": {
+        "odin": 165,
+        "mid": 334
+      },
+      "obstacle_returns": {
+        "odin": 155332,
+        "mid": 369226
+      },
+      "plans": 33,
+      "box_travel": 0.0,
+      "box_speed": null,
+      "exit": 0
+    },
+    {
+      "passed": true,
+      "error": null,
+      "case": "right-control-01",
+      "distance_to_goal": 0.07346338961564088,
+      "stop_seconds": 1.5999999999999996,
+      "odom_peak": 1.1690782461587776,
+      "cmd_peak": 1.1690782461588247,
+      "contacts": 0,
+      "gap": 0.25946105405751047,
+      "cloud_frames": {
+        "odin": 140,
+        "mid": 283
+      },
+      "obstacle_returns": {
+        "odin": 127158,
+        "mid": 319330
+      },
+      "plans": 27,
+      "box_travel": 0.0,
+      "box_speed": null,
+      "exit": 0
+    },
+    {
+      "passed": true,
+      "error": null,
+      "case": "right-control-02",
+      "distance_to_goal": 0.07362158415824673,
+      "stop_seconds": 1.5999999999999996,
+      "odom_peak": 0.9546873839614248,
+      "cmd_peak": 0.954687383961451,
+      "contacts": 0,
+      "gap": 0.25878615718775094,
+      "cloud_frames": {
+        "odin": 144,
+        "mid": 288
+      },
+      "obstacle_returns": {
+        "odin": 130311,
+        "mid": 323901
+      },
+      "plans": 28,
+      "box_travel": 0.0,
+      "box_speed": null,
+      "exit": 0
+    },
+    {
+      "passed": true,
+      "error": null,
+      "case": "right-control-03",
+      "distance_to_goal": 0.0737383842210328,
+      "stop_seconds": 1.5999999999999996,
+      "odom_peak": 0.9742740568069203,
+      "cmd_peak": 0.9742740568069711,
+      "contacts": 0,
+      "gap": 0.24973713448908005,
+      "cloud_frames": {
+        "odin": 143,
+        "mid": 286
+      },
+      "obstacle_returns": {
+        "odin": 129355,
+        "mid": 323130
+      },
+      "plans": 27,
+      "box_travel": 0.0,
+      "box_speed": null,
+      "exit": 0
+    },
+    {
+      "passed": true,
+      "error": null,
+      "case": "headon-01",
+      "distance_to_goal": 0.07552762669912906,
+      "stop_seconds": 1.799999999999999,
+      "odom_peak": 1.8386627578479933,
+      "cmd_peak": 1.8386627578479722,
+      "contacts": 0,
+      "gap": 0.1227485384414633,
+      "cloud_frames": {
+        "odin": 145,
+        "mid": 289
+      },
+      "obstacle_returns": {
+        "odin": 132682,
+        "mid": 300692
+      },
+      "plans": 28,
+      "box_travel": 3.4999999999997256,
+      "box_speed": 0.49999999999995587,
+      "exit": 0
+    },
+    {
+      "passed": true,
+      "error": null,
+      "case": "headon-02",
+      "distance_to_goal": 0.07610718252559652,
+      "stop_seconds": 1.6000000000000014,
+      "odom_peak": 1.7231449746764347,
+      "cmd_peak": 1.7231449746764165,
+      "contacts": 0,
+      "gap": 0.19374119750078803,
+      "cloud_frames": {
+        "odin": 139,
+        "mid": 276
+      },
+      "obstacle_returns": {
+        "odin": 125824,
+        "mid": 291348
+      },
+      "plans": 26,
+      "box_travel": 3.4989999999997257,
+      "box_speed": 0.49999999999995565,
+      "exit": 0
+    },
+    {
+      "passed": true,
+      "error": null,
+      "case": "headon-03",
+      "distance_to_goal": 0.07624596649705352,
+      "stop_seconds": 1.5999999999999996,
+      "odom_peak": 1.7250120032677305,
+      "cmd_peak": 1.7250120032677516,
+      "contacts": 0,
+      "gap": 0.20379666689067777,
+      "cloud_frames": {
+        "odin": 140,
+        "mid": 279
+      },
+      "obstacle_returns": {
+        "odin": 126330,
+        "mid": 296068
+      },
+      "plans": 26,
+      "box_travel": 3.4999999999997256,
+      "box_speed": 0.49999999999995437,
+      "exit": 0
+    }
+  ]
+}
