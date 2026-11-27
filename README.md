@@ -1,10 +1,12 @@
-# pb2025_sentry_nav
+# 玩具小车导航仿真（2.5 m/s 候选）
+
+本分支用于玩具小车的贴边行驶实验。2.5 m/s 是候选的速度上限，0.80 m/s 是待验证的贴边平均速度目标。
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Build and Test](https://github.com/SMBU-PolarBear-Robotics-Team/pb2025_sentry_nav/actions/workflows/build_and_test.yml/badge.svg)](https://github.com/SMBU-PolarBear-Robotics-Team/pb2025_sentry_nav/actions/workflows/build_and_test.yml)
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit)](https://github.com/pre-commit/pre-commit)
 
-深圳北理莫斯科大学 北极熊战队 2025 赛季哨兵导航仿真/实车包
+本项目沿用深圳北理莫斯科大学北极熊战队的 `pb2025_sentry_nav`（2025 赛季哨兵导航仿真/实车包）。下文中的上游包名、镜像名和链接沿用原名。
 
 本分支包含 RMUL2027 的 C052 低速导航、独立基础决策、跨场策略及受控 IMU 恢复。当前有限验收与未验边界见 [C066 交付总览](scripts/rmul2027/reports/C066-DELIVERY.zh-CN.md)；[导航恢复与构建](scripts/rmul2027/README.zh-CN.md)、[决策入口](rmul2027_decision/README.zh-CN.md)、[受控恢复入口](rmul2027_decision/recovery/README.zh-CN.md)。决策 BT4 必须隔离构建，Nav2 保持 BT3。
 
