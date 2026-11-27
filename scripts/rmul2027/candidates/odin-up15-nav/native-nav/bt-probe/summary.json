@@ -1,0 +1,60 @@
+{
+  "requested": 2,
+  "finished": 2,
+  "passed": 2,
+  "sha256": {
+    "scene.py": "40aa8e8159edc460c4f2aabbdad835dd4c06c15c407232e89d5712292afdfa3e",
+    "evaluate.py": "18591f68075332807396a003fe75075eb72a0ad78cc8e7e6bfadf2762c14ce04",
+    "run-case.bash": "adf6c6201e2588299152a9e15cdb33f33bfd383b3cfa05ffda6e4ffd96de5b33",
+    "isolated.bash": "b505f4e57319897fb2018b54659601cd91bda09d2a14cae1d02b6b25360e04f6",
+    "odin-up15.sdf": "bfd24159b0665e540da0c3eeccbbd3e8db7577d49e07e0ca236deaf5f5822b18"
+  },
+  "results": [
+    {
+      "passed": true,
+      "error": null,
+      "case": "left-near-01",
+      "distance_to_goal": 0.07738009878221168,
+      "stop_seconds": 1.6000000000000014,
+      "odom_peak": 1.0314199882143724,
+      "cmd_peak": 1.031419988214371,
+      "contacts": 0,
+      "gap": 0.22227116512614503,
+      "cloud_frames": {
+        "odin": 199,
+        "mid": 400
+      },
+      "obstacle_returns": {
+        "odin": 323457,
+        "mid": 459600
+      },
+      "plans": 43,
+      "box_travel": 0.0,
+      "box_speed": null,
+      "exit": 0
+    },
+    {
+      "passed": true,
+      "error": null,
+      "case": "headon-01",
+      "distance_to_goal": 0.07350556709596912,
+      "stop_seconds": 1.5999999999999979,
+      "odom_peak": 1.7044582833815334,
+      "cmd_peak": 1.7044582833815396,
+      "contacts": 0,
+      "gap": 0.05610432001537619,
+      "cloud_frames": {
+        "odin": 174,
+        "mid": 345
+      },
+      "obstacle_returns": {
+        "odin": 152770,
+        "mid": 381889
+      },
+      "plans": 24,
+      "box_travel": 3.4999999999997256,
+      "box_speed": 0.49999999999995487,
+      "exit": 0
+    }
+  ]
+}

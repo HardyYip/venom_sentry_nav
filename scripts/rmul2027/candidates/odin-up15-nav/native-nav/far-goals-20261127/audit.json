@@ -1,0 +1,123 @@
+{
+  "seed": 2294429396,
+  "start": [
+    1.0,
+    -5.5
+  ],
+  "rows": [
+    {
+      "id": "far-01",
+      "goal": [
+        9.725,
+        -2.575
+      ],
+      "straight": 9.202241574746882,
+      "length": 10.959624864433737,
+      "error": 0.07486043801050944,
+      "peak": 1.9710913935400205,
+      "stop": 1.6000000000000014,
+      "gap": 0.22020792415618742,
+      "contacts": 0
+    },
+    {
+      "id": "far-02",
+      "goal": [
+        9.225,
+        0.225
+      ],
+      "straight": 10.021289837141723,
+      "length": 10.364782543562793,
+      "error": 0.0744471148807945,
+      "peak": 1.9558098491545806,
+      "stop": 1.5999999999999979,
+      "gap": 0.21956200236654114,
+      "contacts": 0
+    },
+    {
+      "id": "far-03",
+      "goal": [
+        8.975,
+        -5.475
+      ],
+      "straight": 7.975039184856711,
+      "length": 13.534279183322944,
+      "error": 0.07226024447150221,
+      "peak": 1.9507976909879905,
+      "stop": 1.6000000000000014,
+      "gap": 0.22428693194866373,
+      "contacts": 0
+    },
+    {
+      "id": "far-04",
+      "goal": [
+        4.675,
+        0.275
+      ],
+      "straight": 6.84516252546278,
+      "length": 8.469356884635559,
+      "error": 0.07334886316391087,
+      "peak": 1.9725531471233189,
+      "stop": 1.5999999999999979,
+      "gap": 0.21455997435178326,
+      "contacts": 0
+    },
+    {
+      "id": "far-05",
+      "goal": [
+        5.875,
+        -1.425
+      ],
+      "straight": 6.353837423164052,
+      "length": 6.6469467293273725,
+      "error": 0.07461142782927341,
+      "peak": 1.888549617502512,
+      "stop": 1.6000000000000014,
+      "gap": 0.22088032909709107,
+      "contacts": 0
+    }
+  ],
+  "gate": {
+    "closure": 3.5,
+    "stationary_during": 2.6000000000000005,
+    "resumed_speed": 1.946900317823212,
+    "contacts": 0,
+    "goal_error": 0.07656112344662425,
+    "stop_at_goal": 1.6000000000000014,
+    "planner_failures": 12,
+    "waits": 4,
+    "follow_cancel": true,
+    "passed": true
+  },
+  "waypoint_replay": [
+    "patrol:0:0 -> patrol:1:1",
+    "patrol:1:1 -> patrol:2:2",
+    "patrol:2:2 -> patrol:3:3",
+    "patrol:3:3 -> patrol:4:4",
+    "patrol:4:4 -> patrol:0:5"
+  ],
+  "policy_sha256": "529169e487540118f851ed5ab3bd032788f00618ebc703188ac2de81282a734e",
+  "live_waypoint_test": {
+    "goals": [
+      [
+        9.725,
+        -2.575
+      ],
+      [
+        9.225,
+        0.225
+      ],
+      [
+        8.975,
+        -5.475
+      ]
+    ],
+    "successes": 3,
+    "max_error": 0.07761615750386505,
+    "contacts": 0,
+    "min_gap": 0.22666878939920335,
+    "dwell_confirmations": 3,
+    "wraparound": "patrol:0:3",
+    "peak": 1.9999999999997797,
+    "scope": "C062 ordinary waypoint policy on a single live navigation cart, with a test adapter and real NavigateToPose results."
+  }
+}

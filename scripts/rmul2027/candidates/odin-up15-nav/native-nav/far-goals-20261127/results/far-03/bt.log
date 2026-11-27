@@ -1,0 +1,18 @@
+[INFO] [1795745462.015553544] [bt_navigator]: 
+	bt_navigator lifecycle node launched. 
+	Waiting on external lifecycle transitions to activate
+	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[INFO] [1795745462.015617805] [bt_navigator]: Creating
+[INFO] [1795745462.172287068] [bt_navigator]: Configuring
+[INFO] [1795745465.509592089] [bt_navigator]: Activating
+[INFO] [1795745465.522198642] [bt_navigator]: Creating bond (bt_navigator) to lifecycle manager.
+[INFO] [1795745467.522050802] [bt_navigator]: Begin navigating from current location (0.00, 0.00) to (7.97, 0.03)
+[INFO] [1795745490.302339694] [bt_navigator]: Goal succeeded
+[INFO] [1795745492.241952745] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[INFO] [1795745492.242007598] [bt_navigator]: Running Nav2 LifecycleNode rcl preshutdown (bt_navigator)
+[INFO] [1795745492.242069284] [bt_navigator]: Deactivating
+[INFO] [1795745492.242099541] [bt_navigator]: Destroying bond (bt_navigator) to lifecycle manager.
+[INFO] [1795745492.252387354] [bt_navigator]: Cleaning up
+[INFO] [1795745492.274635470] [bt_navigator]: Completed Cleaning up
+[INFO] [1795745492.274675646] [bt_navigator]: Destroying bond (bt_navigator) to lifecycle manager.
+[INFO] [1795745492.276197443] [bt_navigator]: Destroying

@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='utf-8'?>
+<sdf version="1.7"><model name="odin_up15_sensor_rig"><static>true</static><link name="sensor_mount"><sensor name="odin_lidar" type="gpu_lidar">
+				<ignition_frame_id>odin_scan</ignition_frame_id>
+				<pose>0.024776089228374782 -0.130746284013811 0.21714818053052704 0.0 -0.2617993877991494 -1.396263401595464</pose>
+				<always_on>true</always_on>
+				<visualize>false</visualize>
+				<update_rate>10</update_rate>
+				<ray>
+					<scan>
+						<horizontal>
+							<samples>240</samples>
+							<resolution>1</resolution>
+							<min_angle>-1.0471975511965976</min_angle>
+							<max_angle>1.0471975511965976</max_angle>
+						</horizontal>
+						<vertical>
+							<samples>180</samples>
+							<resolution>1</resolution>
+							<min_angle>-0.7853981633974483</min_angle>
+							<max_angle>0.7853981633974483</max_angle>
+						</vertical>
+					</scan>
+					<range>
+						<min>0.2</min>
+						<max>30.0</max>
+						<resolution>0.01</resolution>
+					</range>
+				</ray>
+				<noise>
+					<type>gaussian</type>
+					<mean>0</mean>
+					<stddev>0.03</stddev>
+				</noise>
+			</sensor>
+		</link></model></sdf>

@@ -1,0 +1,4 @@
+{"event": "ready", "time": 3.088, "clouds": {"odin": 30, "mid": 60}}
+{"event": "map_gate_closed", "time": 3.9000000000000004, "speed": 0.9296277884106794}
+{"event": "map_gate_opened", "time": 7.4}
+{"event": "goal_response", "time": 31.240000000000002, "status": 4}

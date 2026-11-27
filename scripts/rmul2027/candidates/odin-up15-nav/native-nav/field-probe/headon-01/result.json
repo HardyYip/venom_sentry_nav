@@ -1,0 +1,22 @@
+{
+  "passed": false,
+  "error": "RuntimeError('contact or clearance <= 0.05 m')",
+  "case": "headon-01",
+  "distance_to_goal": 3.005688640217474,
+  "stop_seconds": 0.0,
+  "odom_peak": 1.747946564257342,
+  "cmd_peak": 1.7479465642573333,
+  "contacts": 0,
+  "gap": 0.0466850193943439,
+  "cloud_frames": {
+    "odin": 27,
+    "mid": 55
+  },
+  "obstacle_returns": {
+    "odin": 24904,
+    "mid": 61714
+  },
+  "plans": 4,
+  "box_travel": 1.0469999999998847,
+  "box_speed": 0.499999999999943
+}

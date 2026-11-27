@@ -1,0 +1,19 @@
+[INFO] [1795742427.585227333] [bt_navigator]: 
+	bt_navigator lifecycle node launched. 
+	Waiting on external lifecycle transitions to activate
+	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[INFO] [1795742427.585298738] [bt_navigator]: Creating
+[INFO] [1795742427.759688055] [bt_navigator]: Configuring
+[INFO] [1795742431.054523667] [bt_navigator]: Activating
+[INFO] [1795742431.070709693] [bt_navigator]: Creating bond (bt_navigator) to lifecycle manager.
+[INFO] [1795742433.071222030] [bt_navigator]: Begin navigating from current location (0.00, 0.00) to (4.80, 0.00)
+[WARN] [1795742435.643018807] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[INFO] [1795742445.763248486] [bt_navigator]: Goal succeeded
+[INFO] [1795742447.728485469] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[INFO] [1795742447.728613089] [bt_navigator]: Running Nav2 LifecycleNode rcl preshutdown (bt_navigator)
+[INFO] [1795742447.728716944] [bt_navigator]: Deactivating
+[INFO] [1795742447.728764243] [bt_navigator]: Destroying bond (bt_navigator) to lifecycle manager.
+[INFO] [1795742447.739122395] [bt_navigator]: Cleaning up
+[INFO] [1795742447.758057082] [bt_navigator]: Completed Cleaning up
+[INFO] [1795742447.758094312] [bt_navigator]: Destroying bond (bt_navigator) to lifecycle manager.
+[INFO] [1795742447.763220017] [bt_navigator]: Destroying

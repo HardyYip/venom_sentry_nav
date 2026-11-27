@@ -1,0 +1,148 @@
+{
+  "release": "3eb64d3faefc21d80c531746d7e6d531f65eec4f",
+  "checked": 15,
+  "fixed": 12,
+  "moving": 3,
+  "min_fixed_gap_m": 0.2147862123775201,
+  "min_moving_gap_m": 0.05446470090027655,
+  "max_goal_error_m": 0.07749816612795023,
+  "min_stopped_s": 1.4000000000000004,
+  "max_measured_mps": 1.6996837764545225,
+  "rows": [
+    {
+      "case": "left-far-01",
+      "moving": false,
+      "goal_error_m": 0.07488827578587684,
+      "stationary_seconds": 1.6000000000000014,
+      "min_box_gap_m": 0.21848406289839511,
+      "peak_mps": 1.0858511203584358,
+      "odin_frames": 202
+    },
+    {
+      "case": "left-far-02",
+      "moving": false,
+      "goal_error_m": 0.07262443928651031,
+      "stationary_seconds": 1.6000000000000014,
+      "min_box_gap_m": 0.22308205285684116,
+      "peak_mps": 1.0315682286752494,
+      "odin_frames": 206
+    },
+    {
+      "case": "left-far-03",
+      "moving": false,
+      "goal_error_m": 0.07193939578018148,
+      "stationary_seconds": 1.6000000000000014,
+      "min_box_gap_m": 0.2147862123775201,
+      "peak_mps": 1.0318319211315516,
+      "odin_frames": 186
+    },
+    {
+      "case": "left-near-01",
+      "moving": false,
+      "goal_error_m": 0.07439521750638392,
+      "stationary_seconds": 1.6000000000000014,
+      "min_box_gap_m": 0.22378398425651216,
+      "peak_mps": 1.0325726381226286,
+      "odin_frames": 199
+    },
+    {
+      "case": "left-near-02",
+      "moving": false,
+      "goal_error_m": 0.07665538659814759,
+      "stationary_seconds": 1.6000000000000014,
+      "min_box_gap_m": 0.22166489268156306,
+      "peak_mps": 1.030753162683865,
+      "odin_frames": 198
+    },
+    {
+      "case": "left-near-03",
+      "moving": false,
+      "goal_error_m": 0.07539323342403488,
+      "stationary_seconds": 1.5999999999999979,
+      "min_box_gap_m": 0.22111804423335105,
+      "peak_mps": 1.0033069807684933,
+      "odin_frames": 201
+    },
+    {
+      "case": "left-reverse-01",
+      "moving": false,
+      "goal_error_m": 0.07453415595977478,
+      "stationary_seconds": 1.5999999999999996,
+      "min_box_gap_m": 0.24118382418816836,
+      "peak_mps": 1.0895556311643302,
+      "odin_frames": 161
+    },
+    {
+      "case": "left-reverse-02",
+      "moving": false,
+      "goal_error_m": 0.07368217189238284,
+      "stationary_seconds": 1.4000000000000004,
+      "min_box_gap_m": 0.24332306580157598,
+      "peak_mps": 1.1224999999999263,
+      "odin_frames": 161
+    },
+    {
+      "case": "left-reverse-03",
+      "moving": false,
+      "goal_error_m": 0.0758225644374144,
+      "stationary_seconds": 1.5999999999999996,
+      "min_box_gap_m": 0.24274150698324823,
+      "peak_mps": 1.0311231977358009,
+      "odin_frames": 159
+    },
+    {
+      "case": "right-control-01",
+      "moving": false,
+      "goal_error_m": 0.07411316014423062,
+      "stationary_seconds": 1.5999999999999996,
+      "min_box_gap_m": 0.2195533067681831,
+      "peak_mps": 0.9396712319262543,
+      "odin_frames": 143
+    },
+    {
+      "case": "right-control-02",
+      "moving": false,
+      "goal_error_m": 0.07431706077302257,
+      "stationary_seconds": 1.5999999999999996,
+      "min_box_gap_m": 0.2184486637606106,
+      "peak_mps": 1.0028553703134448,
+      "odin_frames": 140
+    },
+    {
+      "case": "right-control-03",
+      "moving": false,
+      "goal_error_m": 0.0723857791259785,
+      "stationary_seconds": 1.5999999999999996,
+      "min_box_gap_m": 0.21490208278028286,
+      "peak_mps": 1.0009042808382846,
+      "odin_frames": 140
+    },
+    {
+      "case": "headon-01",
+      "moving": true,
+      "goal_error_m": 0.07478223126815006,
+      "stationary_seconds": 1.5999999999999996,
+      "min_box_gap_m": 0.06217610028210596,
+      "peak_mps": 1.6924889055350036,
+      "odin_frames": 141
+    },
+    {
+      "case": "headon-02",
+      "moving": true,
+      "goal_error_m": 0.07456916422204583,
+      "stationary_seconds": 1.5999999999999979,
+      "min_box_gap_m": 0.05865702832471975,
+      "peak_mps": 1.6977655154670324,
+      "odin_frames": 174
+    },
+    {
+      "case": "headon-03",
+      "moving": true,
+      "goal_error_m": 0.07749816612795023,
+      "stationary_seconds": 1.5999999999999979,
+      "min_box_gap_m": 0.05446470090027655,
+      "peak_mps": 1.6996837764545225,
+      "odin_frames": 174
+    }
+  ]
+}

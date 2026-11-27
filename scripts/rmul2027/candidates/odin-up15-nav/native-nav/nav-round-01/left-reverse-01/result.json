@@ -1,0 +1,22 @@
+{
+  "passed": true,
+  "error": null,
+  "case": "left-reverse-01",
+  "distance_to_goal": 0.07453415595977478,
+  "stop_seconds": 1.5999999999999996,
+  "odom_peak": 1.0895556311643302,
+  "cmd_peak": 1.0895556311643246,
+  "contacts": 0,
+  "gap": 0.24118382418816836,
+  "cloud_frames": {
+    "odin": 161,
+    "mid": 322
+  },
+  "obstacle_returns": {
+    "odin": 148728,
+    "mid": 353697
+  },
+  "plans": 32,
+  "box_travel": 0.0,
+  "box_speed": null
+}

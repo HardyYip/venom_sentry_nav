@@ -1,0 +1,10 @@
+{"event": "ready", "time": 3.032, "clouds": {"odin": 30, "mid": 60}}
+{"event": "policy_dispatch", "time": 3.032, "key": "patrol:0:0", "goal": [9.725, -2.575]}
+{"event": "policy_arrival", "time": 22.454, "key": "patrol:0:0", "error": 0.07761615750386505, "status": 4}
+{"event": "policy_next", "time": 24.156000000000002, "previous": "patrol:0:0", "next": "patrol:1:1", "dwell": 1.7020000000000017, "stationary_samples": 5}
+{"event": "policy_dispatch", "time": 24.156000000000002, "key": "patrol:1:1", "goal": [9.225, 0.225]}
+{"event": "policy_arrival", "time": 30.004, "key": "patrol:1:1", "error": 0.0775317114279356, "status": 4}
+{"event": "policy_next", "time": 31.706000000000003, "previous": "patrol:1:1", "next": "patrol:2:2", "dwell": 1.7020000000000017, "stationary_samples": 5}
+{"event": "policy_dispatch", "time": 31.706000000000003, "key": "patrol:2:2", "goal": [8.975, -5.475]}
+{"event": "policy_arrival", "time": 39.176, "key": "patrol:2:2", "error": 0.07624777734118421, "status": 4}
+{"event": "policy_next", "time": 40.876000000000005, "previous": "patrol:2:2", "next": "patrol:0:3", "dwell": 1.7000000000000028, "stationary_samples": 6}
