@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='utf-8'?>
+<sdf version="1.8"><world name="navigation"><gravity>0 0 0</gravity><physics name="fixed_step" type="ignored"><max_step_size>0.002</max_step_size><real_time_factor>1</real_time_factor></physics><plugin filename="libignition-gazebo-physics-system.so" name="ignition::gazebo::systems::Physics" /><plugin filename="libignition-gazebo-user-commands-system.so" name="ignition::gazebo::systems::UserCommands" /><plugin filename="libignition-gazebo-scene-broadcaster-system.so" name="ignition::gazebo::systems::SceneBroadcaster" /><plugin filename="libignition-gazebo-contact-system.so" name="ignition::gazebo::systems::Contact" /><plugin filename="libignition-gazebo-sensors-system.so" name="ignition::gazebo::systems::Sensors"><render_engine>ogre2</render_engine></plugin><model name="cart"><static>false</static><pose>0 0 0 0 0 0</pose><link name="body"><gravity>false</gravity><visual name="body_visual"><pose>0 0 .115 0 0 0</pose><geometry><box><size>0.58 0.53 0.12</size></box></geometry></visual><collision name="body_collision"><pose>0 0 .115 0 0 0</pose><geometry><box><size>0.58 0.53 0.12</size></box></geometry></collision><sensor name="contacts" type="contact"><always_on>true</always_on><update_rate>50</update_rate><topic>/cart/contact</topic><contact><collision>body_collision</collision></contact></sensor><sensor name="odin_lidar" type="gpu_lidar">
+				<ignition_frame_id>odin_scan</ignition_frame_id>
+				<pose>0.09289010486677564 0.09528837179169314 0.43074818053052705 0.0 0.17453292519943295 0.7853981633974481</pose>
+				<always_on>true</always_on>
+				<visualize>false</visualize>
+				<update_rate>10</update_rate>
+				<ray>
+					<scan>
+						<horizontal>
+							<samples>240</samples>
+							<resolution>1</resolution>
+							<min_angle>-1.0471975511965976</min_angle>
+							<max_angle>1.0471975511965976</max_angle>
+						</horizontal>
+						<vertical>
+							<samples>180</samples>
+							<resolution>1</resolution>
+							<min_angle>-0.7853981633974483</min_angle>
+							<max_angle>0.7853981633974483</max_angle>
+						</vertical>
+					</scan>
+					<range>
+						<min>0.2</min>
+						<max>30.0</max>
+						<resolution>0.01</resolution>
+					</range>
+				</ray>
+				<noise>
+					<type>gaussian</type>
+					<mean>0</mean>
+					<stddev>0.03</stddev>
+				</noise>
+			<topic>/odin/scan</topic></sensor>
+		<sensor name="front_mid360_lidar" type="gpu_lidar">
+				<ignition_frame_id>mid_scan</ignition_frame_id>
+				<pose>-0.10082615350292608 -0.10753471241995771 0.4390260428864482 7.771561172376176e-16 1.047197551196604 3.970704410195215</pose>
+				<always_on>true</always_on>
+				<visualize>true</visualize>
+				<update_rate>20.0</update_rate>
+				<ray>
+					<scan>
+						<horizontal>
+							<samples>1875.0</samples>
+							<resolution>1.0</resolution>
+							<min_angle>0</min_angle>
+							<max_angle>6.2831852</max_angle>
+						</horizontal>
+						<vertical>
+							<samples>32</samples>
+							<min_angle>-0.12217304764</min_angle>
+							<max_angle>0.90757121104</max_angle>
+						</vertical>
+					</scan>
+					<range>
+						<min>0.1</min>
+						<max>40.0</max>
+					</range>
+				</ray>
+				<noise>
+					<type>gaussian</type>
+					<mean>0.0</mean>
+					<stddev>0.01</stddev>
+				</noise>
+			<topic>/mid/scan</topic></sensor>
+		</link><plugin filename="libignition-gazebo-velocity-control-system.so" name="ignition::gazebo::systems::VelocityControl"><topic>/cart/cmd</topic></plugin><plugin filename="libignition-gazebo-odometry-publisher-system.so" name="ignition::gazebo::systems::OdometryPublisher"><odom_topic>/cart/odom</odom_topic><odom_frame>odom</odom_frame><robot_base_frame>base_link</robot_base_frame><odom_publish_frequency>50</odom_publish_frequency><dimensions>3</dimensions></plugin></model><model name="box0"><static>true</static><pose>8 12 0 0 0 0</pose><link name="body"><gravity>false</gravity><visual name="body_visual"><pose>0 0 0.25 0 0 0</pose><geometry><box><size>0.58 0.5 0.5</size></box></geometry></visual><collision name="body_collision"><pose>0 0 0.25 0 0 0</pose><geometry><box><size>0.58 0.5 0.5</size></box></geometry></collision></link></model></world></sdf>

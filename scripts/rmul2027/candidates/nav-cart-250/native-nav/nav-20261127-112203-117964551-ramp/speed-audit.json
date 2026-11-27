@@ -1,0 +1,11 @@
+{
+  "lane_odom_peak_mps": 2.203944448305961,
+  "lane_length_m": 28,
+  "lane_goal_error_m": 0.07522200068312301,
+  "bench_odom_peak_mps": 2.500000000000246,
+  "bench_cruise_s": 2.7800000000000002,
+  "max_command_delta_mps": 0.08750000000000015,
+  "contacts": 0,
+  "acceleration_fit_mps2": 1.7410782241015352,
+  "deceleration_fit_mps2": -1.74702212138411
+}

@@ -1,0 +1,71 @@
+[INFO] [1795749263.582645620] [controller_server]: 
+	controller_server lifecycle node launched. 
+	Waiting on external lifecycle transitions to activate
+	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[INFO] [1795749263.587439864] [controller_server]: Creating controller server
+[INFO] [1795749263.592005189] [local_costmap.local_costmap]: 
+	local_costmap lifecycle node launched. 
+	Waiting on external lifecycle transitions to activate
+	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[INFO] [1795749263.592368949] [local_costmap.local_costmap]: Creating Costmap
+[INFO] [1795749263.709287706] [controller_server]: Configuring controller interface
+[INFO] [1795749263.709406858] [controller_server]: getting goal checker plugins..
+[INFO] [1795749263.709449258] [controller_server]: Controller frequency set to 20.0000Hz
+[INFO] [1795749263.709470187] [local_costmap.local_costmap]: Configuring
+[INFO] [1795749263.712010576] [local_costmap.local_costmap]: Using plugin "static_layer"
+[INFO] [1795749263.714066850] [local_costmap.local_costmap]: Subscribing to the map topic (/map) with transient local durability
+[INFO] [1795749263.714609946] [local_costmap.local_costmap]: Initialized plugin "static_layer"
+[INFO] [1795749263.714624072] [local_costmap.local_costmap]: Using plugin "intensity_voxel_layer"
+[INFO] [1795749263.715209937] [local_costmap.local_costmap]: Subscribed to Topics: terrain_map
+[INFO] [1795749263.716747352] [local_costmap.local_costmap]: Initialized plugin "intensity_voxel_layer"
+[INFO] [1795749263.716760987] [local_costmap.local_costmap]: Using plugin "odin_obstacle_layer"
+[INFO] [1795749263.716929081] [local_costmap.local_costmap]: Subscribed to Topics: odin_cloud
+[INFO] [1795749263.717872595] [local_costmap.local_costmap]: Initialized plugin "odin_obstacle_layer"
+[INFO] [1795749263.717886331] [local_costmap.local_costmap]: Using plugin "mid_geometric_obstacle_layer"
+[INFO] [1795749263.718050628] [local_costmap.local_costmap]: Subscribed to Topics: mid_geometric_cloud
+[INFO] [1795749263.719029238] [local_costmap.local_costmap]: Initialized plugin "mid_geometric_obstacle_layer"
+[INFO] [1795749263.719042332] [local_costmap.local_costmap]: Using plugin "inflation_layer"
+[INFO] [1795749263.719384121] [local_costmap.local_costmap]: Initialized plugin "inflation_layer"
+[INFO] [1795749263.722764882] [controller_server]: Created progress_checker : progress_checker of type nav2_controller::SimpleProgressChecker
+[INFO] [1795749263.723099457] [controller_server]: Created goal checker : general_goal_checker of type nav2_controller::SimpleGoalChecker
+[INFO] [1795749263.723223349] [controller_server]: Controller Server has general_goal_checker  goal checkers available.
+[INFO] [1795749263.728644244] [controller_server]: Created controller : FollowPath of type rmul_c072_planner::InflationAwareController
+[INFO] [1795749263.730651987] [controller_server]: Setting transform_tolerance to 0.100000
+[INFO] [1795749263.733754668] [controller_server]: Using critic "rmul_c072_planner::PredictedObstacle" (rmul_c072_planner::PredictedObstacleCritic)
+[INFO] [1795749263.734246458] [controller_server]: C072 measured obstacle prediction active in local scoring
+[INFO] [1795749263.734260814] [controller_server]: Critic plugin initialized
+[INFO] [1795749263.734716466] [controller_server]: Using critic "BaseObstacle" (dwb_critics::BaseObstacleCritic)
+[INFO] [1795749263.734813207] [controller_server]: Critic plugin initialized
+[INFO] [1795749263.734867489] [controller_server]: Using critic "ObstacleFootprint" (dwb_critics::ObstacleFootprintCritic)
+[INFO] [1795749263.734931358] [controller_server]: Critic plugin initialized
+[INFO] [1795749263.734982143] [controller_server]: Using critic "PathDist" (dwb_critics::PathDistCritic)
+[INFO] [1795749263.735153503] [controller_server]: Critic plugin initialized
+[INFO] [1795749263.735208316] [controller_server]: Using critic "GoalDist" (dwb_critics::GoalDistCritic)
+[INFO] [1795749263.735371851] [controller_server]: Critic plugin initialized
+[INFO] [1795749263.735420563] [controller_server]: Using critic "rmul_c072_planner::TerminalGoal" (rmul_c072_planner::TerminalGoalCritic)
+[INFO] [1795749263.735481577] [controller_server]: Critic plugin initialized
+[INFO] [1795749263.735528544] [controller_server]: Using critic "rmul_c072_planner::PathProgress" (rmul_c072_planner::PathProgressCritic)
+[INFO] [1795749263.735568589] [controller_server]: Critic plugin initialized
+[INFO] [1795749263.735616499] [controller_server]: Using critic "rmul_c072_planner::SweptClearance" (rmul_c072_planner::SweptClearanceCritic)
+[INFO] [1795749263.736017749] [controller_server]: Critic plugin initialized
+[INFO] [1795749263.736122184] [controller_server]: Shared trajectory/goal-field planning radius 0.500000, physical floor 0.432884
+[INFO] [1795749263.736139356] [controller_server]: Goal-field complete cell coverage enabled, half-diagonal reserve 0.035355 m
+[INFO] [1795749263.736183359] [controller_server]: Added SpinCoverage critic: full physical spin circle vs lethal/unknown cells
+[INFO] [1795749263.736191494] [controller_server]: Continuous trajectory cell reserve enabled; inward motion from reserve forbidden
+[INFO] [1795749263.736635604] [controller_server]: Omni DWB uses estimated pose velocity in the nonspinning command frame
+[INFO] [1795749263.737095704] [controller_server]: C072 measured obstacle prediction active in local scoring
+[ERROR] [1795749263.739056981] [controller_server]: Caught exception in callback for transition 10
+[ERROR] [1795749263.739077890] [controller_server]: Original error: Inflation recovery needs the configured physical footprint
+[WARN] [1795749263.739092517] [controller_server]: Callback returned ERROR during the transition: configure
+[FATAL] [1795749263.739100582] [controller_server]: Lifecycle node controller_server does not have error state implemented
+[INFO] [1795749266.144499389] [local_costmap.local_costmap]: StaticLayer: Resizing static layer to 254 X 174 at 0.050000 m/pix
+[INFO] [1795749311.264352268] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[INFO] [1795749311.264436766] [controller_server]: Running Nav2 LifecycleNode rcl preshutdown (controller_server)
+[INFO] [1795749311.264494945] [controller_server]: Destroying bond (controller_server) to lifecycle manager.
+Warning: class_loader.ClassLoader: SEVERE WARNING!!! Attempting to unload library while objects created by this loader exist in the heap! You should delete your objects before attempting to unload the library or destroying the ClassLoader. The library will NOT be unloaded.
+         at line 127 in ./src/class_loader.cpp
+Warning: class_loader.ClassLoader: SEVERE WARNING!!! Attempting to unload library while objects created by this loader exist in the heap! You should delete your objects before attempting to unload the library or destroying the ClassLoader. The library will NOT be unloaded.
+         at line 127 in ./src/class_loader.cpp
+[INFO] [1795749311.272460860] [local_costmap.local_costmap]: Destroying
+[ERROR] [1795749311.272489393] [local_costmap.local_costmap]: Unable to start transition 2 from current state cleaningup: Could not publish transition: publisher's context is invalid, at ./src/rcl/publisher.c:389, at ./src/rcl_lifecycle.c:368
+[INFO] [1795749311.275643350] [controller_server]: Destroying

@@ -1,0 +1,84 @@
+{
+  "requested": 3,
+  "finished": 3,
+  "passed": 3,
+  "sha256": {
+    "scene.py": "3f397de5b50870ff8bda21475815fd7abc7b56dacdfc98502be64c5e419b6a92",
+    "evaluate.py": "a04662c2d2607ecf7168ad25eb4e6e305cd0f13b15d8ca63ce49479ec422d6f9",
+    "run-case.bash": "adf6c6201e2588299152a9e15cdb33f33bfd383b3cfa05ffda6e4ffd96de5b33",
+    "isolated.bash": "b505f4e57319897fb2018b54659601cd91bda09d2a14cae1d02b6b25360e04f6",
+    "odin-final.sdf": "46d77d94cc70290ca62a568db9f0753403c88dd720520b4a01b43bb47b875f98",
+    "speed.yaml": "98faeb407e40fbb89abf42c4df262ab98a24aaebe7b398a825f382405387c5d6"
+  },
+  "results": [
+    {
+      "passed": true,
+      "error": null,
+      "case": "headon-01",
+      "distance_to_goal": 0.07551294108614455,
+      "stop_seconds": 1.5999999999999996,
+      "odom_peak": 1.6539492643904938,
+      "cmd_peak": 1.6539492643904712,
+      "contacts": 0,
+      "gap": 0.18227440920371088,
+      "cloud_frames": {
+        "odin": 144,
+        "mid": 287
+      },
+      "obstacle_returns": {
+        "odin": 129883,
+        "mid": 303337
+      },
+      "plans": 27,
+      "box_travel": 3.4999999999997256,
+      "box_speed": 0.49999999999995587,
+      "exit": 0
+    },
+    {
+      "passed": true,
+      "error": null,
+      "case": "headon-02",
+      "distance_to_goal": 0.07569797603537277,
+      "stop_seconds": 1.6000000000000014,
+      "odom_peak": 1.6402853113226727,
+      "cmd_peak": 1.6402853113226512,
+      "contacts": 0,
+      "gap": 0.18941953582821824,
+      "cloud_frames": {
+        "odin": 139,
+        "mid": 269
+      },
+      "obstacle_returns": {
+        "odin": 126922,
+        "mid": 282418
+      },
+      "plans": 26,
+      "box_travel": 3.4999999999997256,
+      "box_speed": 0.49999999999995437,
+      "exit": 0
+    },
+    {
+      "passed": true,
+      "error": null,
+      "case": "headon-03",
+      "distance_to_goal": 0.07676774491944974,
+      "stop_seconds": 1.5999999999999996,
+      "odom_peak": 1.69344474620018,
+      "cmd_peak": 1.6934447462002014,
+      "contacts": 0,
+      "gap": 0.08502464327539776,
+      "cloud_frames": {
+        "odin": 171,
+        "mid": 344
+      },
+      "obstacle_returns": {
+        "odin": 150930,
+        "mid": 375880
+      },
+      "plans": 24,
+      "box_travel": 3.4999999999997256,
+      "box_speed": 0.49999999999995437,
+      "exit": 0
+    }
+  ]
+}

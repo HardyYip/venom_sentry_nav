@@ -1,0 +1,11 @@
+{
+  "requested_mps": 2.8284271247461903,
+  "max_odom_mps": 2.500000000000246,
+  "cruise_min_mps": 2.499999999999618,
+  "cruise_seconds": 2.7800000000000002,
+  "max_cmd_mps": 2.5,
+  "max_step_mps": 0.08750000000000015,
+  "max_stopped_mps": 0.0,
+  "contacts": 0,
+  "passed": true
+}

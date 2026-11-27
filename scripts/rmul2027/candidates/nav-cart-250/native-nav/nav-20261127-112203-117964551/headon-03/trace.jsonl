@@ -1,0 +1,3 @@
+{"event": "ready", "time": 2.998, "clouds": {"odin": 29, "mid": 59}}
+{"event": "box_motion_start", "time": 2.998}
+{"event": "goal_response", "time": 12.278, "status": 4}
