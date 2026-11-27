@@ -1,6 +1,6 @@
 # 玩具小车导航仿真（2.5 m/s 候选）
 
-本分支用于玩具小车的贴边行驶实验。2.5 m/s 是候选的速度上限，0.80 m/s 是待验证的贴边平均速度目标。
+本分支保存 2.5 m/s 玩具小车贴边仿真。15 场均到点停稳，接触 0 次，贴边均速 0.5884 m/s，0.80 m/s 目标本轮未通过。[仿真入口与逐场记录](scripts/rmul2027/candidates/cart-edge080-250/README.md)。
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Build and Test](https://github.com/SMBU-PolarBear-Robotics-Team/pb2025_sentry_nav/actions/workflows/build_and_test.yml/badge.svg)](https://github.com/SMBU-PolarBear-Robotics-Team/pb2025_sentry_nav/actions/workflows/build_and_test.yml)
